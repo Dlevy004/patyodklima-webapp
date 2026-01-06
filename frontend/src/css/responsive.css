@@ -1,9 +1,3 @@
-@media (min-width: 1024px) {
-    .hero-description {
-        font-size: calc(var(--fs-p) * 1.1);
-    }
-}
-
 @media (max-width: 1024px) {
     /*Reference section*/
     .card-wrapper .swiper-slide-button {
@@ -12,11 +6,6 @@
 }
 
 @media (max-width: 768px) {
-    /*Hero section*/
-    .hero-main {
-        flex-direction: column;
-    }
-
     /*Footer*/
     .footer-p a, .footer-p p { font-size: calc(var(--fs-p) * 0.8); }
 }
@@ -62,10 +51,4 @@
     .contacts { align-items: center; }
 
     .content { margin: 0 auto; }
-}
-
-@media (max-width: 376px) {
-    #hero {
-        width: 96%;
-    }
 }
