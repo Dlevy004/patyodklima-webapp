@@ -1,0 +1,204 @@
+@media (min-width: 1024px) {
+    .hero-description {
+        font-size: calc(var(--fs-p) * 1.1);
+    }
+}
+
+@media (max-width: 1024px) {
+    /*Navbar*/
+    .nav-menu, .navbar-right { display: none; }
+    
+    .hamburger {
+        display: block;
+        border: none;
+        
+        width: clamp(2.5rem, 2vw, 5rem);
+        height: clamp(2.5rem, 2vw, 5rem);
+        margin-right: 0.3rem;
+        cursor: pointer;
+        
+        background-color: var(--bg-color-ternary);
+        border-radius: 50%;
+    }
+
+    .hamburger img {
+        height: auto;
+        width: 70%;
+    }
+
+    .nav-mobile {
+        position: fixed;
+        width: min(65%, 350px);
+        height: 100dvh;
+        
+        display: flex;
+        flex-direction: column;
+        align-items: space-between;
+        justify-content: flex-start;
+        gap: 3rem;
+        padding-bottom: 2rem;
+        
+        right: -100%;
+        top: 0px;
+        z-index: 100;
+        
+        background: var(--mobile-bg-color);
+        box-shadow: -5px 0 20px rgba(0,0,0,0.1);
+        border-left: none;
+        
+        transition: right 0.4s ease-out;
+    }
+    
+    .nav-mobile.show { right: 0px; }
+    
+    .nav-mobile .close-btn {
+        display: flex;
+        align-items: center;
+        position: absolute;
+        
+        width: 2rem;
+        height: 2rem;
+        
+        cursor: pointer;
+        border: none;
+        padding: 0;
+        background: transparent;
+        
+        top: clamp(25px, 3vw, 35px);
+        right: clamp(25px, 3vw, 35px);
+    }
+    
+    .nav-mobile .close-btn img {
+        height: 100%;
+        width: 100%;
+    }
+    
+    .mobile-nav-menu {
+        display: flex;
+        flex-direction: column;
+        align-items: end;
+        gap: 1.5rem;
+        
+        width: 100%;
+        box-sizing: border-box;
+        
+        font-size: var(--fs-h3);
+        margin: clamp(20%, 15vh, 40%) 0 0 0;
+        padding-right: clamp(25px, 3vw, 35px);
+    }
+    
+    .mobile-nav-menu .mobile-nav-link {
+        color: var(--text-color1);
+        text-decoration: none;
+    }
+    
+    .mobile-navbar-right {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: space-between;
+        width: 100%;
+        flex: 1;
+        height: auto;
+        box-sizing: border-box;
+        gap: 2rem;
+        padding-right: clamp(25px, 3vw, 35px);
+    }
+    
+    .mobile-btn-contact {
+        height: auto;
+        padding: clamp(0.5em, 1vw, 0.9em) clamp(1em, 2vw, 1.5em);
+        
+        border: 3px solid transparent;
+        border-radius: 50px;
+        
+        background-color: var(--bg-color-ternary);
+        text-decoration: none;
+        color: #f2f2f2;
+        font-size: var(--fs-p);
+        font-weight: bold;
+        white-space: nowrap;
+        
+        transition: all 0.2s ease-in;
+    }
+    
+    .mobile-btn-contact:hover {
+        background-color: #f2f2f2;
+        border: 3px solid var(--primary-color);
+        color: var(--primary-color);
+    }
+    
+    .theme-switch {
+        transform: rotate(0deg);
+        overflow: visible;
+    }
+    
+    .theme-switch img {
+        transform: rotate(0deg);
+        padding: 5%;
+    }
+
+    /*Reference section*/
+    .card-wrapper .swiper-slide-button {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    /*Hero section*/
+    .hero-main {
+        flex-direction: column;
+    }
+
+    /*Footer*/
+    .footer-p a, .footer-p p { font-size: calc(var(--fs-p) * 0.8); }
+}
+
+@media (max-width: 550px) {
+    /*Footer*/
+    .footer-top {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .footer-mid { order: -1; }
+
+    .footer-left { 
+        order: 2; 
+        display: flex; 
+        align-items: center; 
+        justify-content: center; 
+    }
+
+    .footer-right { 
+        order: 1; 
+        display: flex; 
+        align-items: center; 
+        justify-content: center; 
+    }
+
+    .footer-p a, .footer-p p { font-size: var(--fs-p); }
+}
+
+@media (max-width: 426px) {
+    /*Contact section*/
+    #contact {
+        background-image: 
+            linear-gradient(to bottom, hsla(202, 72%, 47%, 0.5), rgba(255, 255, 255, 0)),
+            url(../images/contactBgPhone.avif);
+        background-attachment: scroll;
+    }
+
+    #contact .sub-title { text-align: center; }
+
+    .contacts { align-items: center; }
+
+    .content { margin: 0 auto; }
+}
+
+@media (max-width: 376px) {
+    #hero {
+        width: 96%;
+    }
+}
