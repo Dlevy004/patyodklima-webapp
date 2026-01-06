@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import './Navbar.css'
 import patyodklimaLogo from '../assets/images/logo.avif'
 import lightModeImg from '../assets/icons/light-blue.svg'
 import hamburgerIcon from '../assets/icons/hamburger.svg'
