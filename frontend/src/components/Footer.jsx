@@ -30,7 +30,7 @@ function Footer() {
                         <img src={footerLogo} alt="Pátyod klíma logo - Ugrás a tetejére" loading="lazy"/>
                     </a>
                 </div>
-                <div class="footer-right">
+                <div className="footer-right">
                     <FooterItem
                         iconSrc={callIcon}
                         itemText="06 30 629 0793"
@@ -48,7 +48,7 @@ function Footer() {
             <div className="footer-bottom">
                 <p>Fejlesztette: Daróczi Levente</p>
                 <p>Pátyod Klíma &copy; 2025 | Minden jog fenntartva!</p>
-                <p>Verzió-
+                <p>Verzió:&nbsp;
                     <a href="https://github.com/Dlevy004/patyod-klima-website/blob/main/CHANGELOG.md"
                         target="_blank" rel="noopener noreferrer">
                          v1.2.0
