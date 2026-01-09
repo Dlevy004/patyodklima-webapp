@@ -5,6 +5,7 @@ import Reference from './components/Reference'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 import ScrollUp from './components/ScrollUp'
+import CookiePanel from './components/CookiePanel'
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Contact />
         <Footer />
         <ScrollUp />
+        <CookiePanel />
       </main>
     </>
   )
