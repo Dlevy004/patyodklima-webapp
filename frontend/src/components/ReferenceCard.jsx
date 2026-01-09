@@ -1,0 +1,17 @@
+function ReferenceCard ({ imgSrc, altText, cardTitle }) {
+    return (
+        <li className="card-item swiper-slide">
+            <div className="card-link">
+                <img
+                    src={imgSrc}
+                    alt={altText}
+                    className="card-image" loading="lazy"/>
+                <div className="reference-hover">
+                    <h3 className="card-title">{cardTitle}</h3>
+                </div>
+            </div>
+        </li>
+    )
+}
+
+export default ReferenceCard
