@@ -220,9 +220,10 @@ body.darkmode .theme-switch .my-icon {
         right: clamp(25px, 3vw, 35px);
     }
     
-    .nav-mobile .close-btn img {
+    .nav-mobile .close-btn .close-icon {
         height: 100%;
         width: 100%;
+        color: var(--bg-color-ternary);
     }
     
     .mobile-nav-menu {

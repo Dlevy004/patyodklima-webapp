@@ -7,8 +7,7 @@ import patyodklimaLogo from '@/assets/images/logo.avif'
 import LightModeIcon from '@/components/icons/LightModeIcon'
 import DarkModeIcon from '@/components/icons/DarkModeIcon'
 import HamburgerMenuIcon from '@/components/icons/HamburgerMenuIcon'
-import closeIcon from '@/assets/icons/close.svg'
-
+import CloseMenuIcon from '@/components/icons/CloseMenuIcon'
 
 function Navbar() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -71,7 +70,7 @@ function Navbar() {
                     aria-label="Menü bezárása"
                     onClick = {() => setIsMobileMenuOpen(false)}
                 >
-                    <img src={closeIcon} alt="" aria-hidden="true"/>
+                    <CloseMenuIcon className="close-icon"/>
                 </button>
                 <ul className="mobile-nav-menu">
                     <li><button className="mobile-nav-link" onClick={() => scrollToSection("hero")}>Rólunk</button></li>
