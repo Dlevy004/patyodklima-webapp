@@ -6,7 +6,7 @@ import './Navbar.css'
 import patyodklimaLogo from '@/assets/images/logo.avif'
 import LightModeIcon from '@/components/icons/LightModeIcon'
 import DarkModeIcon from '@/components/icons/DarkModeIcon'
-import hamburgerIcon from '@/assets/icons/hamburger.svg'
+import HamburgerMenuIcon from '@/components/icons/HamburgerMenuIcon'
 import closeIcon from '@/assets/icons/close.svg'
 
 
@@ -61,7 +61,7 @@ function Navbar() {
                         aria-label="Menü megnyitása"
                         onClick = {() => setIsMobileMenuOpen(true)}
                     >
-                        <img src={hamburgerIcon} alt="" aria-hidden="true"/>
+                        <HamburgerMenuIcon className="hamburger-icon"/>
                     </button>
                 </nav>
             </div>
