@@ -51,9 +51,11 @@ ul, ol { list-style: none; }
 
 a { text-decoration: none; }
 
+a, button { cursor: pointer; }
+
 body {
     background-color: var(--bg-color-primary);
-    color: var(--text-color1    );
+    color: var(--text-color1);
     font-family: var(--primary-font-family);
     overflow-x: hidden;
     transition: all 0.3s ease;

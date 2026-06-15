@@ -25,7 +25,7 @@ function Footer() {
                     />
                 </div>
                 <div className="footer-mid">
-                    <a href="#hero">
+                    <a href="/#hero">
                         <img src={footerLogo} alt="Pátyod klíma logo - Ugrás a tetejére" loading="lazy"/>
                     </a>
                 </div>

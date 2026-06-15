@@ -39,12 +39,18 @@
 
 .mobile-navbar { display: none; }
 
-.nav-menu li a {
-    font-size: var(--fs-p);
-    font-weight: 500;
+.nav-menu li button {
     color: var(--text-color1);
     white-space: nowrap;
     position: relative;
+}
+
+.nav-menu li button, .mobile-nav-link {
+    background: none;
+    border: none;
+    font-family: var(--primary-font-family);
+    font-weight: 500;
+    font-size: var(--fs-p);
 }
 
 .nav-link::before {
@@ -86,6 +92,7 @@
     font-size: var(--fs-p);
     font-weight: bold;
     white-space: nowrap;
+    font-family: var(--primary-font-family);
 
     transition: all 0.2s ease-in;
 }
@@ -260,6 +267,7 @@ body.darkmode .theme-switch {
         font-size: var(--fs-p);
         font-weight: bold;
         white-space: nowrap;
+        font-family: var(--primary-font-family);
         
         transition: all 0.2s ease-in;
     }
