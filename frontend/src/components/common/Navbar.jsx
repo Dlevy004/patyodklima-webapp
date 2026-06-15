@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import './Navbar.css'
 
 import patyodklimaLogo from '@/assets/images/logo.avif'
-import lightModeImg from '@/assets/icons/light-blue.svg'
+import LightModeIcon from '@/components/icons/LightModeIcon'
 import DarkModeIcon from '@/components/icons/DarkModeIcon'
 import hamburgerIcon from '@/assets/icons/hamburger.svg'
 import closeIcon from '@/assets/icons/close.svg'
@@ -50,10 +50,9 @@ function Navbar() {
                             className="theme-switch" 
                             aria-label="Témaváltás (sötét/világos)"
                             onClick={() => setIsDarkModeEnabled(prev => !prev)}>
-                            {
-                                isDarkModeEnabled 
-                                    ? (<DarkModeIcon className="my-icon"/>)
-                                    : (<img className="darkmode-img" src={lightModeImg} alt="" aria-hidden="true" />)
+                            { isDarkModeEnabled 
+                                ? (<DarkModeIcon className="my-icon"/>)
+                                : (<LightModeIcon className="my-icon"/>)
                             }
                         </button>
                     </div>
@@ -85,10 +84,9 @@ function Navbar() {
                         className="theme-switch" 
                         aria-label="Témaváltás (sötét/világos)"
                         onClick={() => setIsDarkModeEnabled(prev => !prev)}>
-                        {
-                            isDarkModeEnabled 
-                                ? (<DarkModeIcon className="my-icon"/>)
-                                : (<img className="darkmode-img" src={lightModeImg} alt="" aria-hidden="true" />)
+                        { isDarkModeEnabled 
+                            ? (<DarkModeIcon className="my-icon"/>)
+                            : (<LightModeIcon className="my-icon"/>)
                         }
                     </button>
                 </div>

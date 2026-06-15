@@ -138,32 +138,14 @@
     transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-body.darkmode .theme-switch img,
-body.darkmode .theme-switch .my-icon {
-    left: calc(100% - clamp(1rem, 1.5vw, 1.5rem) - clamp(2px, 0.4vw, 4px));
-    transform: rotate(270deg);
-}
-
-.theme-switch img {
-    position: absolute;
-    height: 80%;
-    width: auto;
-    left: 5%;
-
-    transform: rotate(270deg);
-    background: white;
-    padding: 0.2rem;
-    border-radius: 50%;
-    transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-body.darkmode .theme-switch img {
-    left: calc(100% - clamp(1rem, 1.5vw, 1.5rem) - clamp(2px, 0.4vw, 4px));
-}
-
 body.darkmode .theme-switch {
     background-color: var(--bg-color-ternary);
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 2px -2px inset, rgba(0, 0, 0, 0.3) 0px 2px 2px -2px inset;
+}
+
+body.darkmode .theme-switch .my-icon {
+    left: calc(100% - clamp(1rem, 1.5vw, 1.5rem) - clamp(2px, 0.4vw, 4px));
+    transform: rotate(270deg);
 }
 
 .hamburger { display: none; }
@@ -303,14 +285,9 @@ body.darkmode .theme-switch {
         transform: rotate(0deg);
         overflow: visible;
     }
-    
-    .theme-switch img {
-        transform: rotate(0deg);
-        padding: 5%;
-    }
 
-    body.darkmode .theme-switch img,
     body.darkmode .theme-switch .my-icon {
         transform: rotate(0deg);
+        padding: 5%;
     }
 }
