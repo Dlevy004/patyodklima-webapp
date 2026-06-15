@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types'
+
 function ContactItem ({ defaultIconSrc, hoverIconSrc, contactText, contactHref }) {
     return (
         <div className="contact">
@@ -10,6 +12,13 @@ function ContactItem ({ defaultIconSrc, hoverIconSrc, contactText, contactHref }
             <a href={contactHref} target="_blank" rel="noopener noreferrer">{contactText}</a>
         </div>
     )
+}
+
+ContactItem.propTypes = {
+    defaultIconSrc: PropTypes.string.isRequired,
+    hoverIconSrc: PropTypes.string.isRequired,
+    contactText: PropTypes.string.isRequired,
+    contactHref: PropTypes.string.isRequired
 }
 
 export default ContactItem

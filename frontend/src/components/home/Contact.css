@@ -3,7 +3,7 @@
 
     background-image: 
         linear-gradient(to bottom, hsla(202, 72%, 47%, 0.5), rgba(255, 255, 255, 0)),
-        url(../assets/images/contactBg.avif);
+        url(@/assets/images/contactBg.avif);
     background-size: cover;
     background-position: right bottom;
     background-attachment: fixed;
@@ -37,6 +37,7 @@
     text-align: left;
     width: 100%;
     color: black;
+    padding-top: 10%;
 }
 
 .contacts {
@@ -104,7 +105,7 @@
     #contact {
         background-image: 
             linear-gradient(to bottom, hsla(202, 72%, 47%, 0.5), rgba(255, 255, 255, 0)),
-            url(../assets/images/contactBgPhone.avif);
+            url(@/assets/images/contactBgPhone.avif);
         background-attachment: scroll;
     }
 

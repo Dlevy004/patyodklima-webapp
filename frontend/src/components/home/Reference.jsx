@@ -6,14 +6,14 @@ import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import './Reference.css'
 
-import ref4 from '../assets/images/reference4.avif';
-import ref1 from '../assets/images/reference1.avif';
-import ref11 from '../assets/images/reference1-1.avif';
-import ref2 from '../assets/images/reference2.avif';
-import aux from '../assets/images/556650737_122141655062915768_857871931182055680_n.avif';
-import ande from '../assets/images/585059918_122150208692915768_3381541991961443822_n.avif';
-import ande2 from '../assets/images/585495273_122150208740915768_5983887693530440261_n.avif';
-import ce from '../assets/images/585175757_122150209760915768_8231168429410044420_n.avif';
+import ref4 from '@/assets/images/reference4.avif';
+import ref1 from '@/assets/images/reference1.avif';
+import ref11 from '@/assets/images/reference1-1.avif';
+import ref2 from '@/assets/images/reference2.avif';
+import aux from '@/assets/images/556650737_122141655062915768_857871931182055680_n.avif';
+import ande from '@/assets/images/585059918_122150208692915768_3381541991961443822_n.avif';
+import ande2 from '@/assets/images/585495273_122150208740915768_5983887693530440261_n.avif';
+import ce from '@/assets/images/585175757_122150209760915768_8231168429410044420_n.avif';
 
 function Reference() {
     const referencesData = [
@@ -21,19 +21,19 @@ function Reference() {
             id : 1,
             imgSrc : ref4,
             altText : 'Ande klíma készülék telepítése',
-            cardTitle : 'ANDE Klíma telepítése &mdash; Pátyod, 2025'
+            cardTitle : 'ANDE Klíma telepítése Pátyod'
         },
         {
             id : 2,
             imgSrc : ref1,
             altText : 'Pátyod, vegyesbolt klimatizálása',
-            cardTitle : 'Pátyod, vegyesbolt klimatizálása &mdash; AUX beltéri készülék'
+            cardTitle : 'Vegyesbolt klimatizálása, AUX beltéri készülék'
         },
         {
             id : 3,
             imgSrc : ref11,
             altText : 'Pátyod, vegyesbolt klimatizálása',
-            cardTitle : 'Pátyod, vegyesbolt klimatizálása &mdash; AUX kültéri készülék'
+            cardTitle : 'Vegyesbolt klimatizálása, AUX kültéri készülék'
         },
         {
             id : 4,

@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react'
 import './ScrollUp.css'
-
-import defaultIcon from "../assets/icons/up.svg"
-import hoverIcon from "../assets/icons/up-blue.svg"
+import defaultIcon from "@/assets/icons/up.svg"
+import hoverIcon from "@/assets/icons/up-blue.svg"
 
 function ScrollUp() {
     const [isVisible, setIsVisible] = useState(false);
@@ -29,17 +28,17 @@ function ScrollUp() {
     };
 
     return (
-    <button 
-        id="scroll-up" 
-        aria-label="Ugrás az oldal tetejére"
-        onClick={scrollToTop}
-        style={{
-            display: isVisible ? 'flex' : 'none'
-        }}
-    >
-        <img src={defaultIcon} alt="" aria-hidden="true"/>
-        <img src={hoverIcon} alt="" aria-hidden="true"/>
-    </button>
+        <button 
+            id="scroll-up" 
+            aria-label="Ugrás az oldal tetejére"
+            onClick={scrollToTop}
+            style={{
+                display: isVisible ? 'flex' : 'none'
+            }}
+        >
+            <img src={defaultIcon} alt="" aria-hidden="true"/>
+            <img src={hoverIcon} alt="" aria-hidden="true"/>
+        </button>
     )
 }
 

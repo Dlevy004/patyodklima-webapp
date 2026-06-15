@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types'
+
 function ReferenceCard ({ imgSrc, altText, cardTitle }) {
     return (
         <li className="card-item swiper-slide">
@@ -12,6 +14,12 @@ function ReferenceCard ({ imgSrc, altText, cardTitle }) {
             </div>
         </li>
     )
+}
+
+ReferenceCard.propTypes = {
+    imgSrc: PropTypes.string.isRequired,
+    altText: PropTypes.string.isRequired,
+    cardTitle: PropTypes.string.isRequired
 }
 
 export default ReferenceCard

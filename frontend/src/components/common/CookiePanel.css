@@ -35,7 +35,7 @@
     gap: 0.5rem;
 
     white-space: nowrap;
-    color: var(--primary-color);
+    color: var(--bg-color-ternary);
 }
 
 .cookie-panel header img {
@@ -55,7 +55,7 @@
 }
 
 .cookie-panel .data a {
-    color: var(--primary-color);
+    color: var(--bg-color-ternary);
     text-decoration: none;
 }
 
@@ -81,15 +81,15 @@
 }
 
 .cookie-panel #acceptBtn {
-    background: var(--primary-color);
+    background: var(--bg-color-ternary);
     border: 3px solid transparent;
     color: #f2f2f2;
 }
 
 .cookie-panel #rejectBtn {
     background: transparent;
-    border: 3px solid var(--primary-color);
-    color: var(--primary-color);
+    border: 3px solid var(--bg-color-ternary);
+    color: var(--bg-color-ternary);
 }
 
 .cookie-panel #acceptBtn:hover,

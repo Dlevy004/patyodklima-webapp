@@ -1,6 +1,7 @@
 import { useState } from 'react'
-import upIcon from '../assets/icons/up.svg'
-import upBlueIcon from '../assets/icons/up-blue.svg'
+import PropTypes from 'prop-types'
+import upIcon from '@/assets/icons/up.svg'
+import upBlueIcon from '@/assets/icons/up-blue.svg'
 
 function ServiceCard({ imgSrc, title, bgIcon, desc, altText }) {
     const [isFlipped, setIsFlipped] = useState(false);
@@ -13,7 +14,7 @@ function ServiceCard({ imgSrc, title, bgIcon, desc, altText }) {
                     <div className="overlay">
                         <h3>{title}</h3>
                         <button className="btn-more">
-                            Bővebben
+                            Bővebben{' '}
                             <img src={upIcon} alt="" aria-hidden="true"/>
                             <img src={upBlueIcon} alt="" aria-hidden="true"/>
                         </button>
@@ -33,6 +34,14 @@ function ServiceCard({ imgSrc, title, bgIcon, desc, altText }) {
             </div>
         </div>
     )
+}
+
+ServiceCard.propTypes = {
+    imgSrc: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    bgIcon: PropTypes.string.isRequired,
+    desc: PropTypes.string.isRequired,
+    altText: PropTypes.string.isRequired
 }
 
 export default ServiceCard

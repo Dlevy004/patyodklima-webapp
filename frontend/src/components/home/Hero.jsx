@@ -1,4 +1,4 @@
-import heroImg from '../assets/images/heroImg.avif'
+import heroImg from '@/assets/images/heroImg.avif'
 import './Hero.css'
 
 function Hero() {
@@ -9,7 +9,7 @@ function Hero() {
                 <div className="hero-left">
                     <div className="hero-text">
                         <p className="hero-description">
-                            Teljeskörű klímaszolgáltatás Pátyodon és 30 km-es körzetében.
+                            Teljeskörű klímaszolgáltatás Pátyodon és 30 km-es körzetében.{' '}
                             <span>Telepítés</span>, <span>karbantartás</span>, <span>tisztítás</span> &mdash;
                             <mark>rövid határidővel</mark>, <mark>megbízhatóan</mark>, <mark>garanciával</mark>.
                         </p>

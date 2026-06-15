@@ -1,6 +1,5 @@
 import { useState } from "react"
-import cookieIcon from "../assets/icons/cookie.svg"
-import pdfSrc from "../assets/patyodklima-adatkezelesi-tajekoztato.pdf"
+import cookieIcon from "@/assets/icons/cookie.svg"
 
 import './CookiePanel.css'
 
@@ -20,9 +19,9 @@ function CookiePanel() {
         if (gaScript && !gaScript.src) {
             gaScript.src = gaScript.dataset.src;
             gaScript.onload = () => {
-                if (window.gtag) {
-                    window.gtag('js', new Date());
-                    window.gtag('config', 'G-8ME9DQ3SZK');
+                if (globalThis.gtag) {
+                    globalThis.gtag('js', new Date());
+                    globalThis.gtag('config', 'G-8ME9DQ3SZK');
                 }
             }
         }
@@ -42,9 +41,9 @@ function CookiePanel() {
             <div className="data">
                 <p>
                     Az oldal a jobb felhasználói élmény érdekében sütiket használ.
-                    További tudnivalók:&nbsp;
+                    További tudnivalók:&nbsp;{' '}
                         <a rel="noopener noreferrer"
-                            href={pdfSrc}
+                            href={'/privacypolicy'}
                             target="_blank">Adatkezelési tájékoztató</a>
                 </p>
             </div>

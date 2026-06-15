@@ -1,13 +1,20 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './Navbar.css'
-import patyodklimaLogo from '../assets/images/logo.avif'
-import lightModeImg from '../assets/icons/light-blue.svg'
-import hamburgerIcon from '../assets/icons/hamburger.svg'
-import closeIcon from '../assets/icons/close.svg'
+import patyodklimaLogo from '@/assets/images/logo.avif'
+import lightModeImg from '@/assets/icons/light-blue.svg'
+import darkModeImg from '@/assets/icons/dark-blue.svg'
+import hamburgerIcon from '@/assets/icons/hamburger.svg'
+import closeIcon from '@/assets/icons/close.svg'
 
 
 function Navbar() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [isDarkModeEnabled, setIsDarkModeEnabled] = useState(false);
+
+    useEffect(() => {
+        document.body.classList.toggle('darkmode', isDarkModeEnabled)
+        localStorage.setItem('darkmode', isDarkModeEnabled ? 'active' : null)
+    }, [isDarkModeEnabled])
 
     return (
         <header>
@@ -23,8 +30,14 @@ function Navbar() {
                     </ul>
                     <div className="navbar-right">
                         <a className="btn-contact" href="#contact">Kapcsolat</a>
-                        <button className="theme-switch" aria-label="Témaváltás (sötét/világos)">
-                            <img className="darkmode-img" src={lightModeImg} alt="" aria-hidden="true"/>
+                        <button 
+                            className="theme-switch" 
+                            aria-label="Témaváltás (sötét/világos)"
+                            onClick={() => setIsDarkModeEnabled(prev => !prev)}>
+                            <img 
+                                className="darkmode-img" 
+                                src={isDarkModeEnabled ? darkModeImg : lightModeImg} 
+                                alt="" aria-hidden="true" />
                         </button>
                     </div>
                     <button 
@@ -51,8 +64,14 @@ function Navbar() {
                 </ul>
                 <div className="mobile-navbar-right">
                     <a className="mobile-btn-contact" href="#contact">Kapcsolat</a>
-                    <button className="theme-switch" aria-label="Témaváltás (sötét/világos)">
-                        <img className="darkmode-img" src={lightModeImg} alt="" aria-hidden="true"/>
+                    <button 
+                        className="theme-switch" 
+                        aria-label="Témaváltás (sötét/világos)"
+                        onClick={() => setIsDarkModeEnabled(prev => !prev)}>
+                        <img 
+                            className="darkmode-img" 
+                            src={isDarkModeEnabled ? darkModeImg : lightModeImg} 
+                            alt="" aria-hidden="true" />
                     </button>
                 </div>
             </div>

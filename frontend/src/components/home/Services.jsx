@@ -1,11 +1,11 @@
 import ServiceCard from './ServiceCard.jsx'
 import './Services.css'
-import assignmentImg from '../assets/images/felmeres.avif'
-import assignmentIcon from '../assets/icons/assignment.svg'
-import installationImg from '../assets/images/telepites.avif'
-import installationIcon from '../assets/icons/handyman.svg'
-import maintenanceImg from '../assets/images/karbantartas.avif'
-import maintenanceIcon from '../assets/icons/cleaning.svg'
+import assignmentImg from '@/assets/images/felmeres.avif'
+import assignmentIcon from '@/assets/icons/assignment.svg'
+import installationImg from '@/assets/images/telepites.avif'
+import installationIcon from '@/assets/icons/handyman.svg'
+import maintenanceImg from '@/assets/images/karbantartas.avif'
+import maintenanceIcon from '@/assets/icons/cleaning.svg'
 
 function Services() {
     return (

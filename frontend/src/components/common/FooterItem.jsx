@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types'
+
 function FooterItem({ iconSrc, itemText, linkHref }) {
     return (
         <div className="footer-p">
@@ -9,6 +11,12 @@ function FooterItem({ iconSrc, itemText, linkHref }) {
             </a>
         </div>
     )
+}
+
+FooterItem.propTypes = {
+    iconSrc: PropTypes.string.isRequired,
+    itemText: PropTypes.string.isRequired,
+    linkHref: PropTypes.string.isRequired
 }
 
 export default FooterItem;

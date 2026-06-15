@@ -1,12 +1,11 @@
 import FooterItem from "./FooterItem";
 import './Footer.css'
 
-import facebookIcon from "../assets/icons/like.svg"
-import shieldIcon from "../assets/icons/admin_panel.svg"
-import footerLogo from "../assets/images/footerLogo.avif"
-import callIcon from "../assets/icons/call.svg"
-import mailIcon from "../assets/icons/mail.svg"
-import pdf from "../assets/patyodklima-adatkezelesi-tajekoztato.pdf"
+import facebookIcon from "@/assets/icons/like.svg"
+import shieldIcon from "@/assets/icons/admin_panel.svg"
+import footerLogo from "@/assets/images/footerLogo.avif"
+import callIcon from "@/assets/icons/call.svg"
+import mailIcon from "@/assets/icons/mail.svg"
 
 function Footer() {
     return (
@@ -22,7 +21,7 @@ function Footer() {
                     <FooterItem
                         iconSrc={shieldIcon}
                         itemText="Adatkezelési tájékoztató"
-                        linkHref={pdf}
+                        linkHref={'/privacypolicy'}
                     />
                 </div>
                 <div className="footer-mid">
@@ -48,7 +47,7 @@ function Footer() {
             <div className="footer-bottom">
                 <p>Fejlesztette: Daróczi Levente</p>
                 <p>Pátyod Klíma &copy; 2025 | Minden jog fenntartva!</p>
-                <p>Verzió:&nbsp;
+                <p>Verzió:&nbsp;{' '}
                     <a href="https://github.com/Dlevy004/patyod-klima-website/blob/main/CHANGELOG.md"
                         target="_blank" rel="noopener noreferrer">
                          v1.2.0
