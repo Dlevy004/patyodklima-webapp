@@ -1,5 +1,5 @@
 import './PrivacyContent.css'
-import PrivacyImg from '@/assets/images/heroImg.avif'
+import PrivacyImg from '@/assets/images/20250715_130101.avif'
 import PrivacyDoc from '@/assets/patyodklima-adatkezelesi-tajekoztato.pdf'
 import PrivacySection from './PrivacySection'
 import Wave from '@/components/common/Wave'
@@ -7,7 +7,7 @@ import Wave from '@/components/common/Wave'
 function PrivacyContent() {
    return(
         <section id='content'>
-            <img src={PrivacyImg} alt="Beltéri egység telepítése, karbantartása"/>
+            <img src={PrivacyImg} alt="Kültéri egység karbantartása"/>
             <div className='background' />
 
             <div className='text'>
