@@ -1,0 +1,135 @@
+.footer-container {
+    width: 100%;
+    height: auto;
+
+    background-color: var(--bg-color-ternary);
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 0 clamp(0.5rem, 2vw, 1rem);
+}
+
+.footer-top {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(2%, 4vw, 10%);
+
+    width: min(95%, 1600px);
+    height: 100%;
+}
+
+.footer-left, .footer-right {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.footer-left {
+    align-items: flex-end;
+    text-align: right;
+}
+
+.footer-right {
+    align-items: flex-start;
+    text-align: left;
+}
+
+.footer-mid {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer-mid img {
+    background-color: #f2f2f2;
+    padding: clamp(10px, 1.5vw, 20px);
+    border-radius: 20px;
+    aspect-ratio: 1/1;
+    object-fit: contain;
+    position: relative;
+    z-index: 10;
+
+    width: clamp(120px, 12vw, 180px);
+    height: auto;
+    
+    transition: all 0.3s ease;
+}
+
+.footer-p {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    margin: clamp(0.5rem, 1vw, 1rem) 0;
+    color: var(--pg-color);
+    white-space: nowrap;
+    font-size: calc(var(--fs-h3) * 0.9);
+    transition: all 0.3s ease;
+}
+
+.footer-mid img:is(:hover, :focus, :active),
+.footer-p:is(:hover, :focus, :active) { transform: translateY(-5px); }
+
+.footer-p img {
+    width: 1.5em; 
+    height: auto;
+}
+
+.footer-container a {
+    text-decoration: none;
+    color: var(--pg-color);
+    transition: opacity 0.2s ease;
+}
+
+.footer-container a:hover {
+    text-decoration: underline;
+}
+
+.footer-bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+
+    margin-top: clamp(1rem, 2vw, 3rem);
+    text-align: center;
+}
+
+.footer-bottom p {
+    font-size: calc(var(--fs-p) * 0.85);
+    color: var(--pg-color);
+    opacity: 0.9;
+}
+
+
+@media (max-width: 768px) {
+    .footer-p a, .footer-p p { font-size: calc(var(--fs-p) * 0.8); }
+}
+
+@media (max-width: 550px) {
+    .footer-top {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .footer-mid { order: -1; }
+
+    .footer-left { 
+        order: 2; 
+        display: flex; 
+        align-items: center; 
+        justify-content: center; 
+    }
+
+    .footer-right { 
+        order: 1; 
+        display: flex; 
+        align-items: center; 
+        justify-content: center; 
+    }
+
+    .footer-p a, .footer-p p { font-size: var(--fs-p); }
+}

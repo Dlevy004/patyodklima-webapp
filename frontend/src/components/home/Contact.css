@@ -1,0 +1,117 @@
+#contact {
+    position: relative;
+
+    background-image: 
+        linear-gradient(to bottom, hsla(202, 72%, 47%, 0.5), rgba(255, 255, 255, 0)),
+        url(@/assets/images/contactBg.avif);
+    background-size: cover;
+    background-position: right bottom;
+    background-attachment: fixed;
+    
+    min-height: 100vh;
+    width: 100%;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    scroll-margin-top: clamp(3rem, 5vw, 8rem);
+
+    padding-bottom: clamp(250px, 20vw, 280px);
+}
+
+.content {
+    margin-left: clamp(2rem, 10vw, 15%);
+    width: min(90%, 600px);
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: clamp(2rem, 4vw, 3rem);
+    z-index: 3;
+}
+
+#contact .sub-title {
+    text-align: left;
+    width: 100%;
+    color: black;
+    padding-top: 10%;
+}
+
+.contacts {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+    width: 100%;
+}
+
+.contact {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    gap: 1.5rem;
+    color: var(--pg-color);
+    width: max-content;
+    transition: all 0.3s ease;
+}
+
+.contact:hover { transform: translateX(10px); }
+
+.contact p {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    line-height: 1.2;
+}
+
+.contact a {
+    color: black;
+    font-size: calc(var(--fs-p) * 1.2);
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.contact img { scale: 1.5; }
+
+.black-icon { display: block; }
+
+.contact:hover .black-icon { display: none; }
+
+.blue-icon { display: none; }
+
+.contact:hover .blue-icon { display: block; }
+
+/*Footer wave*/
+.footer-wave {
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 100%;
+
+    overflow: hidden;
+    line-height: 0;
+    fill: var(--bg-color-ternary);
+}
+
+.footer-wave svg {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+@media (max-width: 426px) {
+    #contact {
+        background-image: 
+            linear-gradient(to bottom, hsla(202, 72%, 47%, 0.5), rgba(255, 255, 255, 0)),
+            url(@/assets/images/contactBgPhone.avif);
+        background-attachment: scroll;
+    }
+
+    #contact .sub-title { text-align: center; }
+
+    .contacts { align-items: center; }
+
+    .content { margin: 0 auto; }
+}
