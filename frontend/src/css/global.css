@@ -53,7 +53,7 @@ a { text-decoration: none; }
 
 body {
     background-color: var(--bg-color-primary);
-    color: var(--text-color2);
+    color: var(--text-color1    );
     font-family: var(--primary-font-family);
     overflow-x: hidden;
     transition: all 0.3s ease;

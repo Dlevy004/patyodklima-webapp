@@ -1,40 +1,11 @@
-ul, ol { 
-    padding-left: 2rem;
-}
-
-ul li {
-    gap: 0.5rem;
-}
-
-ul li a {
-    color: var(--text-color1);
-}
-
-.information a:hover {
-    text-decoration: underline;
-    color: var(--primary-color);
-}
-
-ul li span {
-    color: var(--bg-color-ternary);
-}
-
-ul li, .information > p {
-    margin-bottom: 2%;
-
-    display: flex;
-    align-items: center;
-}
-
 #content {
     position: relative;
     padding-bottom: 15%;
 }
 
 #content img {
-    width: 100%;
+    width: clamp(90%, 10vw, 100%);
     max-width: 1200px;
-    height: 100%;
 
     aspect-ratio: 16/9;
     object-fit: cover;
@@ -42,15 +13,15 @@ ul li, .information > p {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 10% auto;
+    margin: clamp(5rem, 8vw, 7rem) auto;
 
-    border-radius: 50px;
+    border-radius: 20px;
     box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.252);
 }
 
 .background {
     width: 100%;
-    height: 90%;
+    height: 95%;
     position: absolute;
     bottom: 0;
     left: 0;
@@ -60,16 +31,16 @@ ul li, .information > p {
 }
 
 .text {
-    width: 100%;
+    width: clamp(85%, 10vw, 100%);
     max-width: 1050px;
-    margin: 0 auto;
-    margin-top: -300px;
+    margin: clamp(-13rem, -20vw, -7rem) auto 0;
     position: relative;
     z-index: 3;
 
-    padding: 2% 5%;
+    padding: clamp(1.5rem, 5vw, 4rem);
     border-radius: 20px;
-    text-align: justify;
+    text-align: left;
+    line-height: 1.5;
 
     color: var(--text-color1);
     background-color: var(--bg-color-primary);
@@ -77,26 +48,54 @@ ul li, .information > p {
 
 .text h1 {
     text-align: center;
-    padding: 5% 0;
+    padding: clamp(1.5rem, 4vw, 3rem) 0;
     font-size: var(--fs-h1);
-}
-
-.text h2 {
-    text-align: left;
-    padding: 5% 0;
-    font-size: var(--fs-h2);
-}
-
-h2 span {
-    color: var(--bg-color-ternary);
 }
 
 .text p {
     margin-bottom: 2%;
 }
 
-.text p, ul li {
+.text p, .information ul li {
     font-size: var(--fs-p);
+}
+
+.information .subtitle {
+    text-align: left;
+    padding: clamp(1.5rem, 4vw, 3rem) 0;
+    font-size: var(--fs-h2);
+}
+
+.subtitle span {
+    color: var(--bg-color-ternary);
+}
+
+.information ul li, .information p {
+    margin-bottom: 2%;
+
+    display: flex;
+    align-items: center;
+}
+
+.information ul { 
+    padding-left: clamp(0.3rem, 2.5vw, 2.5rem);
+}
+
+.information ul li {
+    gap: 0.5rem;
+}
+
+.information ul li span {
+    color: var(--bg-color-ternary);
+}
+
+.information a {
+    color: var(--text-color1);
+}
+
+.information a:hover {
+    text-decoration: underline;
+    color: var(--primary-color);
 }
 
 .download-btn {
@@ -104,7 +103,7 @@ h2 span {
     text-align: center;
     text-decoration: underline;
     color: var(--primary-color);
-    padding: 5% 0;
+    padding: clamp(1.5rem, 4vw, 3rem) 0;
     font-size: var(--fs-p);
 }
 
@@ -125,4 +124,10 @@ h2 span {
     height: auto;
     position: relative;
     z-index: -1;
+}
+
+@media (max-width: 500px) {
+    #content img {
+        aspect-ratio: 16/11;
+    }
 }
