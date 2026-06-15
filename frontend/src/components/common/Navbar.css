@@ -123,6 +123,27 @@
     cursor: pointer;
 }
 
+.my-icon {
+    position: absolute;
+    height: 80%;
+    width: auto;
+    aspect-ratio: 1 / 1;
+    left: 5%;
+
+    background: white;
+    color: var(--bg-color-ternary);
+    
+    padding: 0.2rem;
+    border-radius: 50%;
+    transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body.darkmode .theme-switch img,
+body.darkmode .theme-switch .my-icon {
+    left: calc(100% - clamp(1rem, 1.5vw, 1.5rem) - clamp(2px, 0.4vw, 4px));
+    transform: rotate(270deg);
+}
+
 .theme-switch img {
     position: absolute;
     height: 80%;
@@ -286,5 +307,10 @@ body.darkmode .theme-switch {
     .theme-switch img {
         transform: rotate(0deg);
         padding: 5%;
+    }
+
+    body.darkmode .theme-switch img,
+    body.darkmode .theme-switch .my-icon {
+        transform: rotate(0deg);
     }
 }
