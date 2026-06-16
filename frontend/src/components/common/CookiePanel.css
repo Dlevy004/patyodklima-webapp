@@ -38,7 +38,7 @@
     color: var(--bg-color-ternary);
 }
 
-.cookie-panel header img {
+.cookie-panel header .cookie-icon {
     width: clamp(2.5rem, 3vw, 3rem);
     height: auto;
 }
