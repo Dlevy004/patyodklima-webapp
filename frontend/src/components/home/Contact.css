@@ -73,15 +73,12 @@
     text-decoration: none;
 }
 
-.contact img { scale: 1.5; }
+.contact .contact-icon { 
+    scale: 1.5;
+    color: black;
+}
 
-.black-icon { display: block; }
-
-.contact:hover .black-icon { display: none; }
-
-.blue-icon { display: none; }
-
-.contact:hover .blue-icon { display: block; }
+.contact:is(:hover, :focus, :active) .contact-icon { color: var(--bg-color-ternary); }
 
 /*Footer wave*/
 .footer-wave {
