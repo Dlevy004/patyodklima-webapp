@@ -1,0 +1,174 @@
+Enum user_role {
+  admin
+  developer
+}
+
+table users {
+  id uuid [primary key]
+
+  full_name varchar
+  email varchar [unique, not null]
+  password_hash varchar [not null] 
+  profile_pic_url varchar
+
+  role user_role [not null, default: 'admin']
+
+  created_at timestamp [default: `now()`]
+}
+
+Enum client_type {
+  individual
+  company
+}
+
+table clients {
+  id uuid [primary key]
+  full_name varchar [not null]
+  phone varchar
+  email varchar
+
+  zip_code varchar
+  city varchar
+  street_address varchar
+
+  type client_type [not null, default:'individual']
+  notes text
+
+  created_at timestamp [default: `now()`]
+}
+
+table company {
+  id uuid [primary key]
+
+  name varchar [not null]
+  headquarters varchar [not null]
+
+  registration_number varchar [not null]
+  tax_number varchar [not null]
+  f_gas_number varchar [not null]
+  phone_number varchar [not null]
+  email varchar [not null]
+
+  created_at timestamp [default: `now()`]
+}
+
+Enum job_type {
+  survey
+  installation
+  maintenance
+  cleaning
+}
+
+table jobs {
+  id uuid [primary key]
+  client_id uuid [ref: > clients.id]
+
+  category job_type
+  job_date date [not null]
+
+  internal_notes text
+  general_notes text
+
+  labor_fee integer [default: 0]
+  total_amount integer [not null]
+
+  created_at timestamp [default: `now()`]
+}
+
+table ac_units {
+  id uuid [primary key]
+  job_id uuid [ref: > jobs.id]
+
+  transparent_image_url varchar
+  brand varchar
+  model_name varchar
+
+  unit_price integer [not null]
+
+  created_at timestamp [default: `now()`]
+}
+
+Enum ad_template_type {
+  summer_offer
+  winter_offer
+  autumn_offer
+  spring_offer
+  on_sale_offer
+}
+
+table ad_templates {
+  id uuid [primary key]
+  category ad_template_type [not null]
+  name varchar [not null]
+
+  background_image_url varchar [not null]
+
+  created_at timestamp [default: `now()`]
+}
+
+table generated_ads {
+  id uuid [primary key]
+  user_id uuid [ref: > users.id]
+  template_id uuid [ref: > ad_templates.id]
+
+  headline varchar
+  ac_unit_name varchar [not null]
+  details text
+  full_price integer [not null]
+
+  show_logo boolean [default: true]
+  show_phone boolean [default: true]
+  
+  generated_image_url varchar [not null]
+  is_visible boolean [not null, default: true]
+
+  created_at timestamp [default: `now()`]
+}
+
+table reference_image {
+  id uuid [primary key]
+  job_id uuid [ref: > jobs.id]
+
+  image_url varchar [not null]
+  description varchar
+  is_visible boolean [not null, default: true]
+
+  created_at timestamp [default: `now()`]
+}
+
+Enum unit_placement_type {
+  indoor
+  outdoor
+}
+
+Enum ai_generation_status {
+  pending
+  completed
+  failed
+}
+
+table ai_visual_designs {
+  id uuid [primary key]
+  user_id uuid [ref: > users.id]
+
+  original_image_url varchar [not null]
+  generated_image_url varchar
+
+  placement_type unit_placement_type [not null]
+  status ai_generation_status [not null, default: 'pending']
+  
+  created_at timestamp [default: `now()`]
+}
+
+table bug_reports {
+  id uuid [primary key]
+  reporter_name varchar
+  reporter_email varchar
+  phone_number varchar
+  
+  description text [not null]
+  image_url varchar
+  is_handled boolean [default: false]
+
+  created_at timestamp [default: `now()`]
+}
