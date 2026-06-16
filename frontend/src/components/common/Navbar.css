@@ -63,7 +63,7 @@
     width: 0;
     height: 3px;
     
-    background-color: var(--primary-color);
+    background-color: var(--bg-color-ternary);
     
     transition: 0.3s;
 }
@@ -100,7 +100,7 @@
 .btn-contact:is(:hover, :focus, :active) {
     background-color: #f2f2f2;
     border: 3px solid var(--bg-color-ternary);
-    color: var(--primary-color);
+    color: var(--bg-color-ternary);
 }
 
 .theme-switch {
