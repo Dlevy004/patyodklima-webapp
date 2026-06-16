@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import './Navbar.css'
-import patyodklimaLogo from '@/assets/images/logo.avif'
-import lightModeImg from '@/assets/icons/light-blue.svg'
-import darkModeImg from '@/assets/icons/dark-blue.svg'
-import hamburgerIcon from '@/assets/icons/hamburger.svg'
-import closeIcon from '@/assets/icons/close.svg'
 
+import patyodklimaLogo from '@/assets/images/logo.avif'
+import LightModeIcon from '@/components/icons/LightModeIcon'
+import DarkModeIcon from '@/components/icons/DarkModeIcon'
+import HamburgerMenuIcon from '@/components/icons/HamburgerMenuIcon'
+import CloseMenuIcon from '@/components/icons/CloseMenuIcon'
 
 function Navbar() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -49,10 +49,10 @@ function Navbar() {
                             className="theme-switch" 
                             aria-label="Témaváltás (sötét/világos)"
                             onClick={() => setIsDarkModeEnabled(prev => !prev)}>
-                            <img 
-                                className="darkmode-img" 
-                                src={isDarkModeEnabled ? darkModeImg : lightModeImg} 
-                                alt="" aria-hidden="true" />
+                            { isDarkModeEnabled 
+                                ? (<DarkModeIcon className="my-icon"/>)
+                                : (<LightModeIcon className="my-icon"/>)
+                            }
                         </button>
                     </div>
                     <button 
@@ -60,7 +60,7 @@ function Navbar() {
                         aria-label="Menü megnyitása"
                         onClick = {() => setIsMobileMenuOpen(true)}
                     >
-                        <img src={hamburgerIcon} alt="" aria-hidden="true"/>
+                        <HamburgerMenuIcon className="hamburger-icon"/>
                     </button>
                 </nav>
             </div>
@@ -70,7 +70,7 @@ function Navbar() {
                     aria-label="Menü bezárása"
                     onClick = {() => setIsMobileMenuOpen(false)}
                 >
-                    <img src={closeIcon} alt="" aria-hidden="true"/>
+                    <CloseMenuIcon className="close-icon"/>
                 </button>
                 <ul className="mobile-nav-menu">
                     <li><button className="mobile-nav-link" onClick={() => scrollToSection("hero")}>Rólunk</button></li>
@@ -83,10 +83,10 @@ function Navbar() {
                         className="theme-switch" 
                         aria-label="Témaváltás (sötét/világos)"
                         onClick={() => setIsDarkModeEnabled(prev => !prev)}>
-                        <img 
-                            className="darkmode-img" 
-                            src={isDarkModeEnabled ? darkModeImg : lightModeImg} 
-                            alt="" aria-hidden="true" />
+                        { isDarkModeEnabled 
+                            ? (<DarkModeIcon className="my-icon"/>)
+                            : (<LightModeIcon className="my-icon"/>)
+                        }
                     </button>
                 </div>
             </div>

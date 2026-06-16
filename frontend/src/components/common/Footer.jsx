@@ -1,11 +1,11 @@
 import FooterItem from "./FooterItem";
 import './Footer.css'
 
-import facebookIcon from "@/assets/icons/like.svg"
-import shieldIcon from "@/assets/icons/admin_panel.svg"
+import FacebookIcon from "../icons/FacebookIcon";
+import PrivacyPolicyIcon from "../icons/PrivacyPolicyIcon";
 import footerLogo from "@/assets/images/footerLogo.avif"
-import callIcon from "@/assets/icons/call.svg"
-import mailIcon from "@/assets/icons/mail.svg"
+import PhoneIcon from "../icons/PhoneIcon";
+import MailIcon from "../icons/MailIcon";
 
 function Footer() {
     return (
@@ -13,13 +13,13 @@ function Footer() {
             <div className="footer-top">
                 <div className="footer-left">
                     <FooterItem
-                        iconSrc={facebookIcon}
+                        IconComponent={FacebookIcon}
                         itemText="Facebook oldalunk"
                         linkHref="https://www.facebook.com/profile.php?id=61577473041862"
                     />
 
                     <FooterItem
-                        iconSrc={shieldIcon}
+                        IconComponent={PrivacyPolicyIcon}
                         itemText="Adatkezelési tájékoztató"
                         linkHref={'/privacypolicy'}
                     />
@@ -31,13 +31,13 @@ function Footer() {
                 </div>
                 <div className="footer-right">
                     <FooterItem
-                        iconSrc={callIcon}
+                        IconComponent={PhoneIcon}
                         itemText="06 30 629 0793"
                         linkHref="tel:+36306290793"
                     />
 
                     <FooterItem
-                        iconSrc={mailIcon}
+                        IconComponent={MailIcon}
                         itemText="klima.patyod@gmail.com"
                         linkHref="mailto:klima.patyod@gmail.com?subject=Contact%20Request"
                     />

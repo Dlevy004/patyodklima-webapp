@@ -1,9 +1,7 @@
 import ReferenceCard from "./ReferenceCard";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
-import 'swiper/css'
-import 'swiper/css/navigation'
-import 'swiper/css/pagination'
+import 'swiper/css/bundle'
 import './Reference.css'
 
 import ref4 from '@/assets/images/reference4.avif';

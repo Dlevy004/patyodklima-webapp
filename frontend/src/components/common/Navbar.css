@@ -63,7 +63,7 @@
     width: 0;
     height: 3px;
     
-    background-color: var(--primary-color);
+    background-color: var(--bg-color-ternary);
     
     transition: 0.3s;
 }
@@ -100,7 +100,7 @@
 .btn-contact:is(:hover, :focus, :active) {
     background-color: #f2f2f2;
     border: 3px solid var(--bg-color-ternary);
-    color: var(--primary-color);
+    color: var(--bg-color-ternary);
 }
 
 .theme-switch {
@@ -123,21 +123,19 @@
     cursor: pointer;
 }
 
-.theme-switch img {
+.my-icon {
     position: absolute;
     height: 80%;
     width: auto;
+    aspect-ratio: 1 / 1;
     left: 5%;
 
-    transform: rotate(270deg);
     background: white;
+    color: var(--bg-color-ternary);
+    
     padding: 0.2rem;
     border-radius: 50%;
     transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-body.darkmode .theme-switch img {
-    left: calc(100% - clamp(1rem, 1.5vw, 1.5rem) - clamp(2px, 0.4vw, 4px));
 }
 
 body.darkmode .theme-switch {
@@ -145,9 +143,14 @@ body.darkmode .theme-switch {
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 2px -2px inset, rgba(0, 0, 0, 0.3) 0px 2px 2px -2px inset;
 }
 
+body.darkmode .theme-switch .my-icon {
+    left: calc(100% - clamp(1rem, 1.5vw, 1.5rem) - clamp(2px, 0.4vw, 4px));
+    transform: rotate(270deg);
+}
+
 .hamburger { display: none; }
 
-.hamburger img {
+.hamburger .hamburger-icon {
     width: clamp(2rem, 5vw, 3rem);
     height: auto;
 }
@@ -170,7 +173,7 @@ body.darkmode .theme-switch {
         border-radius: 50%;
     }
 
-    .hamburger img {
+    .hamburger .hamburger-icon {
         height: auto;
         width: 70%;
     }
@@ -217,9 +220,10 @@ body.darkmode .theme-switch {
         right: clamp(25px, 3vw, 35px);
     }
     
-    .nav-mobile .close-btn img {
+    .nav-mobile .close-btn .close-icon {
         height: 100%;
         width: 100%;
+        color: var(--bg-color-ternary);
     }
     
     .mobile-nav-menu {
@@ -282,8 +286,8 @@ body.darkmode .theme-switch {
         transform: rotate(0deg);
         overflow: visible;
     }
-    
-    .theme-switch img {
+
+    body.darkmode .theme-switch .my-icon {
         transform: rotate(0deg);
         padding: 5%;
     }

@@ -1,11 +1,9 @@
 import PropTypes from 'prop-types'
 
-function FooterItem({ iconSrc, itemText, linkHref }) {
+function FooterItem({ IconComponent, itemText, linkHref }) {
     return (
         <div className="footer-p">
-            <img
-                src={iconSrc}
-                alt="" aria-hidden="true" loading="lazy"/>
+            <IconComponent/>
             <a href={linkHref} target="_blank" rel="noopener noreferrer">
                 {itemText}
             </a>
@@ -14,7 +12,7 @@ function FooterItem({ iconSrc, itemText, linkHref }) {
 }
 
 FooterItem.propTypes = {
-    iconSrc: PropTypes.string.isRequired,
+    IconComponent: PropTypes.elementType.isRequired,
     itemText: PropTypes.string.isRequired,
     linkHref: PropTypes.string.isRequired
 }

@@ -1,5 +1,5 @@
 import { useState } from "react"
-import cookieIcon from "@/assets/icons/cookie.svg"
+import CookieIcon from "../icons/CookieIcon";
 
 import './CookiePanel.css'
 
@@ -34,7 +34,7 @@ function CookiePanel() {
     return (
         <dialog className={`cookie-panel ${isVisible ? 'show' : ''}`} aria-labelledby="CookieTitle" open={isVisible}>
             <header>
-                <img src={cookieIcon} alt="Süti ikon"/>
+                <CookieIcon className={"cookie-icon"}/>
                 <h2 id="CookieTitle">Cookie tájékoztató</h2>
             </header>
 

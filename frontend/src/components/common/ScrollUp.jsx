@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import './ScrollUp.css'
-import defaultIcon from "@/assets/icons/up.svg"
-import hoverIcon from "@/assets/icons/up-blue.svg"
+import BackToTopIcon from '../icons/BackToTopIcon';
 
 function ScrollUp() {
     const [isVisible, setIsVisible] = useState(false);
@@ -36,8 +35,7 @@ function ScrollUp() {
                 display: isVisible ? 'flex' : 'none'
             }}
         >
-            <img src={defaultIcon} alt="" aria-hidden="true"/>
-            <img src={hoverIcon} alt="" aria-hidden="true"/>
+            <BackToTopIcon />
         </button>
     )
 }

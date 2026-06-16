@@ -1,9 +1,8 @@
 import { useState } from 'react'
 import PropTypes from 'prop-types'
-import upIcon from '@/assets/icons/up.svg'
-import upBlueIcon from '@/assets/icons/up-blue.svg'
+import BackToTopIcon from '@/components/icons/BackToTopIcon'
 
-function ServiceCard({ imgSrc, title, bgIcon, desc, altText }) {
+function ServiceCard({ imgSrc, title, IconComponent, desc, altText }) {
     const [isFlipped, setIsFlipped] = useState(false);
 
     return (
@@ -15,15 +14,14 @@ function ServiceCard({ imgSrc, title, bgIcon, desc, altText }) {
                         <h3>{title}</h3>
                         <button className="btn-more">
                             Bővebben{' '}
-                            <img src={upIcon} alt="" aria-hidden="true"/>
-                            <img src={upBlueIcon} alt="" aria-hidden="true"/>
+                            <BackToTopIcon />
                         </button>
                     </div>
                 </div>
                 <div className="card__face card__face--back">
                     <div className="card__content">
                         <div className="card__header">
-                            <img src={bgIcon} alt="" className="back-icon"/>
+                            <IconComponent className="back-icon"/>
                             <h3>{title}</h3>
                         </div>
                         <div className="card__body">
@@ -39,7 +37,7 @@ function ServiceCard({ imgSrc, title, bgIcon, desc, altText }) {
 ServiceCard.propTypes = {
     imgSrc: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
-    bgIcon: PropTypes.string.isRequired,
+    IconComponent: PropTypes.elementType.isRequired,
     desc: PropTypes.string.isRequired,
     altText: PropTypes.string.isRequired
 }

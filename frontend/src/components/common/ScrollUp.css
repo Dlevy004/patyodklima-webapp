@@ -26,15 +26,13 @@
     transform: scale(1.1);
 }
 
-#scroll-up img {
-    width: 75%;
+#scroll-up svg {
+    width: 100%;
+    height: 60%;
     transition: scale 0.3s ease;
+    color: #f2f2f2;
 }
 
-#scroll-up img:first-of-type { display: block; }
-
-#scroll-up img:last-of-type { display: none; }
-
-#scroll-up:is(:hover, :focus, :active) img:first-of-type { display: none; }
-
-#scroll-up:is(:hover, :focus, :active) img:last-of-type { display: block; }
+#scroll-up:is(:hover, :focus, :active) svg { 
+    color: var(--bg-color-ternary); 
+}
