@@ -72,7 +72,7 @@
 .footer-mid img:is(:hover, :focus, :active),
 .footer-p:is(:hover, :focus, :active) { transform: translateY(-5px); }
 
-.footer-p img {
+.footer-p svg {
     width: 1.5em; 
     height: auto;
 }
