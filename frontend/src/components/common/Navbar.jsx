@@ -11,7 +11,9 @@ import CloseMenuIcon from '@/components/icons/CloseMenuIcon'
 
 function Navbar() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-    const [isDarkModeEnabled, setIsDarkModeEnabled] = useState(false);
+    const [isDarkModeEnabled, setIsDarkModeEnabled] = useState(
+        () => localStorage.getItem('darkmode') === 'active'
+    );
     const navigate = useNavigate();
 
     useEffect(() => {
