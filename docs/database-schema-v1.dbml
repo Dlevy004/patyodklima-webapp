@@ -165,6 +165,10 @@ table bug_reports {
   reporter_name varchar
   reporter_email varchar
   phone_number varchar
+
+  zip_code varchar
+  city varchar
+  street_address varchar
   
   description text [not null]
   image_url varchar
