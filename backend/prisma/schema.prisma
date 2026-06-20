@@ -1,0 +1,172 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+/// This model has constraints using non-default deferring rules and requires additional setup for migrations. Visit https://pris.ly/d/constraint-deferring for more info.
+model ac_units {
+  id                    String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  job_id                String?   @db.Uuid
+  transparent_image_url String?   @db.VarChar
+  brand                 String?   @db.VarChar
+  model_name            String?   @db.VarChar
+  unit_price            Int
+  created_at            DateTime? @default(now()) @db.Timestamp(6)
+  jobs                  jobs?     @relation(fields: [job_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model ad_templates {
+  id                   String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  category             ad_template_type
+  name                 String           @db.VarChar
+  background_image_url String           @db.VarChar
+  created_at           DateTime?        @default(now()) @db.Timestamp(6)
+  generated_ads        generated_ads[]
+}
+
+/// This model has constraints using non-default deferring rules and requires additional setup for migrations. Visit https://pris.ly/d/constraint-deferring for more info.
+model ai_visual_designs {
+  id                  String               @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  user_id             String?              @db.Uuid
+  original_image_url  String               @db.VarChar
+  generated_image_url String?              @db.VarChar
+  placement_type      unit_placement_type
+  status              ai_generation_status @default(pending)
+  created_at          DateTime?            @default(now()) @db.Timestamp(6)
+  users               users?               @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model bug_reports {
+  id             String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  reporter_name  String?   @db.VarChar
+  reporter_email String?   @db.VarChar
+  phone_number   String?   @db.VarChar
+  zip_code       String?   @db.VarChar
+  city           String?   @db.VarChar
+  street_address String?   @db.VarChar
+  description    String
+  image_url      String?   @db.VarChar
+  is_handled     Boolean?  @default(false)
+  created_at     DateTime? @default(now()) @db.Timestamp(6)
+}
+
+model clients {
+  id             String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  full_name      String      @db.VarChar
+  phone          String?     @db.VarChar
+  email          String?     @db.VarChar
+  zip_code       String?     @db.VarChar
+  city           String?     @db.VarChar
+  street_address String?     @db.VarChar
+  type           client_type @default(individual)
+  notes          String?
+  created_at     DateTime?   @default(now()) @db.Timestamp(6)
+  jobs           jobs[]
+}
+
+model company {
+  id                  String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name                String    @db.VarChar
+  headquarters        String    @db.VarChar
+  registration_number String    @db.VarChar
+  tax_number          String    @db.VarChar
+  f_gas_number        String    @db.VarChar
+  phone_number        String    @db.VarChar
+  email               String    @db.VarChar
+  created_at          DateTime? @default(now()) @db.Timestamp(6)
+}
+
+/// This model has constraints using non-default deferring rules and requires additional setup for migrations. Visit https://pris.ly/d/constraint-deferring for more info.
+model generated_ads {
+  id                  String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  user_id             String?       @db.Uuid
+  template_id         String?       @db.Uuid
+  headline            String?       @db.VarChar
+  ac_unit_name        String        @db.VarChar
+  details             String?
+  full_price          Int
+  show_logo           Boolean?      @default(true)
+  show_phone          Boolean?      @default(true)
+  generated_image_url String        @db.VarChar
+  created_at          DateTime?     @default(now()) @db.Timestamp(6)
+  ad_templates        ad_templates? @relation(fields: [template_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  users               users?        @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+/// This model has constraints using non-default deferring rules and requires additional setup for migrations. Visit https://pris.ly/d/constraint-deferring for more info.
+model jobs {
+  id              String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  client_id       String?           @db.Uuid
+  category        job_type?
+  job_date        DateTime          @db.Date
+  internal_notes  String?
+  general_notes   String?
+  labor_fee       Int?              @default(0)
+  total_amount    Int
+  created_at      DateTime?         @default(now()) @db.Timestamp(6)
+  ac_units        ac_units[]
+  clients         clients?          @relation(fields: [client_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  reference_image reference_image[]
+}
+
+/// This model has constraints using non-default deferring rules and requires additional setup for migrations. Visit https://pris.ly/d/constraint-deferring for more info.
+model reference_image {
+  id          String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  job_id      String?   @db.Uuid
+  image_url   String    @db.VarChar
+  description String?   @db.VarChar
+  is_visible  Boolean   @default(true)
+  created_at  DateTime? @default(now()) @db.Timestamp(6)
+  jobs        jobs?     @relation(fields: [job_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model users {
+  id                String              @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  full_name         String?             @db.VarChar
+  email             String              @unique @db.VarChar
+  password_hash     String              @db.VarChar
+  profile_pic_url   String?             @db.VarChar
+  role              user_role           @default(admin)
+  created_at        DateTime?           @default(now()) @db.Timestamp(6)
+  ai_visual_designs ai_visual_designs[]
+  generated_ads     generated_ads[]
+}
+
+enum ad_template_type {
+  summer_offer
+  winter_offer
+  autumn_offer
+  spring_offer
+  on_sale_offer
+}
+
+enum ai_generation_status {
+  pending
+  completed
+  failed
+}
+
+enum client_type {
+  individual
+  company
+}
+
+enum job_type {
+  survey
+  installation
+  maintenance
+  cleaning
+}
+
+enum unit_placement_type {
+  indoor
+  outdoor
+}
+
+enum user_role {
+  admin
+  developer
+}
