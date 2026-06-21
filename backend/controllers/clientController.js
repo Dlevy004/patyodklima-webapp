@@ -11,6 +11,19 @@ const getAllClients = async (req, res) => {
     }
 }
 
+const getClientById = async (req, res) => {
+    try {
+        const clientId = req.params.id;
+        const client = await clientService.getClientById(clientId);
+        res.status(200).json(client);
+    }
+    catch (error) {
+        console.error('Error while getting client by ID:', error);
+        res.status(500).json({ error: 'An error occurred while getting client.' })
+    }
+}
+
 module.exports = {
-    getAllClients
+    getAllClients,
+    getClientById
 };
