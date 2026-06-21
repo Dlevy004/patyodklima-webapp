@@ -43,7 +43,7 @@ const updateClient = async (req, res) => {
         res.status(200).json(updatedClient);
     }
     catch (error) {
-        console.error(`Error while updating client with ID ${clientId}:`, error.message);
+        console.error('Error while updating client:', error.message);
         res.status(400).json({ message: 'An error occurred while updating client.' });
     }
 }
@@ -55,7 +55,7 @@ const deleteClient = async (req, res) => {
         res.status(200).json(deletedClient);
     }
     catch (error) {
-        console.error(`Error while deleting client with ID ${clientId}:`, error.message);
+        console.error('Error while deleting client:', error.message);
         res.status(400).json({ message: 'An error occurred while deleting client.' });
     }
 }
