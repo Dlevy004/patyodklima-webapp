@@ -27,8 +27,27 @@ const getClientById = async (id) => {
     });
 }
 
+const updateClient = async (id, updatedClient) => {
+    return await prisma.clients.update({
+        where: {
+            id: id
+        },
+        data: {
+            full_name: updatedClient.full_name,
+            phone: updatedClient.phone,
+            email: updatedClient.email,
+            zip_code: updatedClient.zip_code,
+            city: updatedClient.city,
+            street_address: updatedClient.street_address,
+            type: updatedClient.type,
+            notes: updatedClient.notes
+        }
+    })
+}
+
 module.exports = {
     createClient,
     getAllClients,
-    getClientById
+    getClientById,
+    updateClient
 };
