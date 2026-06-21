@@ -51,12 +51,12 @@ const updateClient = async (req, res) => {
 const deleteClient = async (req, res) => {
     try {
         const clientId = req.params.id;
-        const deletedClient = clientService.deleteClient(clientId);
+        const deletedClient = await clientService.deleteClient(clientId);
         res.status(200).json(deletedClient);
     }
     catch (error) {
         console.error(`Error while deleting client with ID ${clientId}:`, error.message);
-        res.status(400).json({ message: 'Ann error occurred while deleting client.' });
+        res.status(400).json({ message: 'An error occurred while deleting client.' });
     }
 }
 
