@@ -50,6 +50,40 @@ describe('createClient', () => {
             }
         });
     });
+
+    it('should create a new client with default type', async () => {
+        // Arrange
+        const newClient = {
+            full_name: 'Teszt Elek',
+            phone: '06201234567',
+            email: 'teszt.elek@mail.com',
+            zip_code: '1234',
+            city: 'Budapest',
+            street_address: 'Fő utca 1.',
+            notes: 'Teszt ügyfél'
+        };
+        const createdClient = { id: '1', ...newClient, type: 'individual' };
+        prisma.clients.create.mockResolvedValue(createdClient);
+
+        // Act
+        const result = await clientService.createClient(newClient);
+
+        // Assert
+        expect(result).toEqual(createdClient);
+        expect(prisma.clients.create).toHaveBeenCalledTimes(1);
+        expect(prisma.clients.create).toHaveBeenCalledWith({
+            data: {
+                full_name: newClient.full_name,
+                phone: newClient.phone,
+                email: newClient.email,
+                zip_code: newClient.zip_code,
+                city: newClient.city,
+                street_address: newClient.street_address,
+                type: "individual",
+                notes: newClient.notes
+            }
+        });
+    });
 });
 
 describe('getAllClients', () => {
