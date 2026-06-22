@@ -13,15 +13,29 @@ jest.mock('../database/prisma', () => ({
 
 describe('getAllClients', () => {
     it('should return all clients', async () => {
+        // Arrange
         const mockClients = [
             { id: '1', full_name: 'Teszt Elek', phone: '06201234567' },
             { id: '2', full_name: 'Minta Máté', phone: '06207654321' },
         ];
         prisma.clients.findMany.mockResolvedValue(mockClients);
 
+        // Act
         const result = await clientService.getAllClients();
 
+        // Assert
         expect(result).toEqual(mockClients);
         expect(prisma.clients.findMany).toHaveBeenCalledTimes(1);
-    })
-})
+    });
+
+    it('should return an empty array if no clients exists', async () => {
+        // Arrange
+        const mockClients = [];
+
+        // Act
+        const result = await clientService.getAllClients();
+
+        // Assert
+        expect(result).toEqual(mockClients);
+    });
+});
