@@ -1,16 +1,86 @@
 const clientService = require('../services/clientService');
 
+const createClient = async (req, res) => {
+    try {
+        const newClient = req.body;
+        const createdClient = await clientService.createClient(newClient);
+        res.status(201).json(createdClient);
+    }
+    catch (error) {
+        console.error('Error while creating client:', error.message);
+        res.status(400).json({ message: 'An error occurred while creating client.' });
+    }
+}
+
 const getAllClients = async (req, res) => {
     try {
         const clients = await clientService.getAllClients();
         res.status(200).json(clients);
     }
     catch (error) {
-        console.error('Error while getting all clients:', error);
-        res.status(500).json({ error: 'An error occurred while getting clients.' });
+        console.error('Error while getting all clients:', error.message);
+        res.status(500).json({ message: 'An error occurred while getting clients.' });
+    }
+}
+
+const getClientById = async (req, res) => {
+    try {
+        const clientId = req.params.id;
+        const client = await clientService.getClientById(clientId);
+
+        if (!client) {
+            return res.status(404).json({ message: 'Client not found.' });
+        }
+        res.status(200).json(client);
+    }
+    catch (error) {
+        console.error('Error while getting client by ID:', error.message);
+        res.status(500).json({ message: 'An error occurred while getting client.' });
+    }
+}
+
+const updateClient = async (req, res) => {
+    try {
+        const clientId = req.params.id;
+        const clientToUpdate = req.body;
+
+        const existingClient = await clientService.getClientById(clientId);
+        if (!existingClient) {
+            return res.status(404).json({ message: 'Client not found.' });
+        }
+
+        const updatedClient = await clientService.updateClient(clientId, clientToUpdate);
+
+        res.status(200).json(updatedClient);
+    }
+    catch (error) {
+        console.error('Error while updating client:', error.message);
+        res.status(400).json({ message: 'An error occurred while updating client.' });
+    }
+}
+
+const deleteClient = async (req, res) => {
+    try {
+        const clientId = req.params.id;
+
+        const existingClient = await clientService.getClientById(clientId);
+        if (!existingClient) {
+            return res.status(404).json({ message: 'Client not found.' });
+        }
+
+        const deletedClient = await clientService.deleteClient(clientId);
+        res.status(200).json(deletedClient);
+    }
+    catch (error) {
+        console.error('Error while deleting client:', error.message);
+        res.status(400).json({ message: 'An error occurred while deleting client.' });
     }
 }
 
 module.exports = {
-    getAllClients
+    createClient,
+    getAllClients,
+    getClientById,
+    updateClient,
+    deleteClient
 };
