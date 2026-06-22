@@ -186,6 +186,33 @@ describe('updateClient', () => {
             data: updatedClient
         });
     });
+
+    it('should throw an error if the client does not exist', async () => {
+        // Arrange
+        const updatedClient = {
+            full_name: 'Minta Máté',
+            phone: '06207654321',
+            email: 'minta.mate@mail.com',
+            zip_code: '5678',
+            city: 'Debrecen',
+            street_address: 'Kossuth utca 2.',
+            type: 'individual',
+            notes: 'Frissített ügyfél'
+        };
+        const mockClient = null;
+        prisma.clients.update.mockResolvedValue(mockClient);
+
+        // Act
+        const result = await clientService.updateClient('1', updatedClient);
+
+        // Assert
+        expect(result).toEqual(mockClient);
+        expect(prisma.clients.update).toHaveBeenCalledTimes(1);
+        expect(prisma.clients.update).toHaveBeenCalledWith({
+            where: { id: '1' },
+            data: updatedClient
+        });
+    });
 });
 
 describe('deleteClient', () => {
