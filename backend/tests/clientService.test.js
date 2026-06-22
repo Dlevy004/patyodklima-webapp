@@ -153,3 +153,23 @@ describe('updateClient', () => {
         });
     });
 });
+
+describe('deleteClient', () => {
+    beforeEach(() => {
+        jest.clearAllMocks();
+    });
+
+    it('should delete a client if it exists', async () => {
+        // Arrange
+        const mockClient = { id: '1', full_name: 'Minta Máté' };
+        prisma.clients.delete.mockResolvedValue(mockClient);
+
+        // Act
+        const result = await clientService.deleteClient('1');
+
+        // Assert
+        expect(result).toEqual(mockClient);
+        expect(prisma.clients.delete).toHaveBeenCalledTimes(1);
+        expect(prisma.clients.delete).toHaveBeenCalledWith({ where: { id: '1' } });
+    });
+});
