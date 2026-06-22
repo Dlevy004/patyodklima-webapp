@@ -64,4 +64,18 @@ describe('getClientById', () => {
         expect(prisma.clients.findUnique).toHaveBeenCalledTimes(1);
         expect(prisma.clients.findUnique).toHaveBeenCalledWith({ where: { id: '1' } });
     });
+
+    it('should return null if the client does not exist', async () => {
+        // Arrange
+        const mockClient = null;
+        prisma.clients.findUnique.mockResolvedValue(mockClient);
+
+        // Act
+        const result = await clientService.getClientById('1');
+
+        // Assert
+        expect(result).toEqual(mockClient);
+        expect(prisma.clients.findUnique).toHaveBeenCalledTimes(1);
+        expect(prisma.clients.findUnique).toHaveBeenCalledWith({ where: { id: '1' } });
+    });
 });
