@@ -120,3 +120,36 @@ describe('getClientById', () => {
         expect(prisma.clients.findUnique).toHaveBeenCalledWith({ where: { id: '1' } });
     });
 });
+
+describe('updateClient', () => {
+    beforeEach(() => {
+        jest.clearAllMocks();
+    });
+
+    it('should update a client if it exists', async () => {
+        // Arrange
+        const updatedClient = {
+            full_name: 'Minta Máté',
+            phone: '06207654321',
+            email: 'minta.mate@mail.com',
+            zip_code: '5678',
+            city: 'Debrecen',
+            street_address: 'Kossuth utca 2.',
+            type: 'individual',
+            notes: 'Frissített ügyfél'
+        };
+        const mockClient = { id: '1', ...updatedClient };
+        prisma.clients.update.mockResolvedValue(mockClient);
+
+        // Act
+        const result = await clientService.updateClient('1', updatedClient);
+
+        // Assert
+        expect(result).toEqual(mockClient);
+        expect(prisma.clients.update).toHaveBeenCalledTimes(1);
+        expect(prisma.clients.update).toHaveBeenCalledWith({
+            where: { id: '1' },
+            data: updatedClient
+        });
+    });
+});
