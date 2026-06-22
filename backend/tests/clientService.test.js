@@ -233,4 +233,18 @@ describe('deleteClient', () => {
         expect(prisma.clients.delete).toHaveBeenCalledTimes(1);
         expect(prisma.clients.delete).toHaveBeenCalledWith({ where: { id: '1' } });
     });
+
+    it('should throw an error if the client does not exist', async () => {
+        // Arrange
+        const mockClient = null;
+        prisma.clients.delete.mockResolvedValue(mockClient);
+
+        // Act
+        const result = await clientService.deleteClient('1');
+
+        // Assert
+        expect(result).toEqual(mockClient);
+        expect(prisma.clients.delete).toHaveBeenCalledTimes(1);
+        expect(prisma.clients.delete).toHaveBeenCalledWith({ where: { id: '1' } });
+    });
 });
