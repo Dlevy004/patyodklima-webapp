@@ -1,4 +1,4 @@
-import SideNavbar from '../../components/admin/SideNavbar'
+import SideNavbar from '../../components/admin/common/SideNavbar'
 import ScrollUp from '../../components/common/ScrollUp'
 
 function Jobs() {
