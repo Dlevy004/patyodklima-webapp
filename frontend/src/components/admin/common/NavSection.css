@@ -1,0 +1,23 @@
+.nav-section {
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+}
+
+.nav-section-title { font-size: var(--fs-p)-2px; }
+
+.nav-section-buttons {
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.nav-section-button {
+    width: 100%;
+    padding: 0.4rem 0;
+    display: flex;
+    justify-content: center;
+}
