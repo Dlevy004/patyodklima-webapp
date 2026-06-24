@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
 import PrivacyPolicy from './pages/PrivacyPolicy'
+import AdminLayout from './components/admin/common/AdminLayout'
 import Dashboard from './pages/admin/Dashboard'
 import Clients from './pages/admin/Clients'
 import Jobs from './pages/admin/Jobs'
@@ -15,13 +16,17 @@ function App() {
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/privacypolicy' element={<PrivacyPolicy />} />
-        <Route path='/admin' element={<Dashboard />} />
-        <Route path='/admin/clients' element={<Clients />} />
-        <Route path='/admin/jobs' element={<Jobs />} />
-        <Route path='/admin/errors' element={<Errors />} />
-        <Route path='/admin/visualdesigns' element={<VisualDesign />} />
-        <Route path='/admin/ads' element={<Ads />} />
-        <Route path='/admin/references' element={<References />} />
+
+        <Route path='/admin' element={<AdminLayout/>}>
+          <Route index element={<Dashboard />} />
+
+          <Route path='clients' element={<Clients />} />
+          <Route path='jobs' element={<Jobs />} />
+          <Route path='errors' element={<Errors />} />
+          <Route path='visualdesigns' element={<VisualDesign />} />
+          <Route path='ads' element={<Ads />} />
+          <Route path='references' element={<References />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   )
