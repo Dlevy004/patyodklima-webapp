@@ -1,6 +1,6 @@
-.sidenav-container { width: 15%; }
+.sidenav-container { width: 200px; }
 
-.sidenav-collapsed { width: 6%; }
+.sidenav-collapsed { width: 85px; }
 
 .sidenav-container, .sidenav-collapsed {
     background-color: var(--bg-color-primary);
