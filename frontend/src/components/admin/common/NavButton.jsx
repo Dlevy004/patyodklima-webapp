@@ -3,8 +3,6 @@ import './NavButton.css'
 import { NavLink } from 'react-router-dom'
 
 function NavButton({ IconComponent, title, url }) {
-    const isActive = globalThis.location.pathname === url;
-
     return (
         <NavLink to={url} end className={({ isActive }) => `nav-button ${isActive ? 'active' : ''}`}>
             <IconComponent />
