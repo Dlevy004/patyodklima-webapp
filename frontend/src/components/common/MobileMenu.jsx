@@ -36,7 +36,7 @@ MobileMenu.propTypes = {
     isOpen: PropTypes.bool.isRequired,
     onClose: PropTypes.func.isRequired,
     children: PropTypes.node.isRequired,
-    className: PropTypes.string.isRequired
+    className: PropTypes.string
 }
 
 export default MobileMenu
