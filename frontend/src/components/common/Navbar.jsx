@@ -1,13 +1,11 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-
 import './Navbar.css'
-
 import patyodklimaLogo from '@/assets/images/logo.avif'
 import LightModeIcon from '@/components/icons/LightModeIcon'
 import DarkModeIcon from '@/components/icons/DarkModeIcon'
-import HamburgerMenuIcon from '@/components/icons/HamburgerMenuIcon'
-import CloseMenuIcon from '@/components/icons/CloseMenuIcon'
+import HamburgerMenu from './HamburgerMenu'
+import MobileMenu from './MobileMenu'
 
 function Navbar() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -31,6 +29,7 @@ function Navbar() {
         else {
             document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' })
         }
+        setIsMobileMenuOpen(false);
     }
 
     return (
@@ -47,33 +46,24 @@ function Navbar() {
                     </ul>
                     <div className="navbar-right">
                         <button className="btn-contact" onClick={() => scrollToSection("contact")}>Kapcsolat</button>
-                        <button 
-                            className="theme-switch" 
+                        <button
+                            className="theme-switch"
                             aria-label="Témaváltás (sötét/világos)"
                             onClick={() => setIsDarkModeEnabled(prev => !prev)}>
-                            { isDarkModeEnabled 
-                                ? (<DarkModeIcon className="my-icon"/>)
-                                : (<LightModeIcon className="my-icon"/>)
+                            { isDarkModeEnabled
+                                ? (<LightModeIcon className="my-icon"/>)
+                                : (<DarkModeIcon className="my-icon"/>)
                             }
                         </button>
                     </div>
-                    <button 
-                        className="hamburger" 
-                        aria-label="Menü megnyitása"
-                        onClick = {() => setIsMobileMenuOpen(true)}
-                    >
-                        <HamburgerMenuIcon className="hamburger-icon"/>
-                    </button>
+                    <HamburgerMenu onClick={() => setIsMobileMenuOpen(true)}/>
                 </nav>
             </div>
-            <div className={`nav-mobile ${isMobileMenuOpen ? 'show' : ''}`}>
-                <button 
-                    className="close-btn" 
-                    aria-label="Menü bezárása"
-                    onClick = {() => setIsMobileMenuOpen(false)}
-                >
-                    <CloseMenuIcon className="close-icon"/>
-                </button>
+
+            <MobileMenu
+                isOpen={isMobileMenuOpen}
+                onClose={() => setIsMobileMenuOpen(false)}
+            >
                 <ul className="mobile-nav-menu">
                     <li><button className="mobile-nav-link" onClick={() => scrollToSection("hero")}>Rólunk</button></li>
                     <li><button className="mobile-nav-link" onClick={() => scrollToSection("services")}>Szolgáltatásaink</button></li>
@@ -81,17 +71,17 @@ function Navbar() {
                 </ul>
                 <div className="mobile-navbar-right">
                     <button className="mobile-btn-contact" onClick={() => scrollToSection("contact")}>Kapcsolat</button>
-                    <button 
-                        className="theme-switch" 
+                    <button
+                        className="theme-switch"
                         aria-label="Témaváltás (sötét/világos)"
                         onClick={() => setIsDarkModeEnabled(prev => !prev)}>
-                        { isDarkModeEnabled 
-                            ? (<DarkModeIcon className="my-icon"/>)
-                            : (<LightModeIcon className="my-icon"/>)
+                        { isDarkModeEnabled
+                            ? (<LightModeIcon className="my-icon"/>)
+                            : (<DarkModeIcon className="my-icon"/>)
                         }
                     </button>
                 </div>
-            </div>
+            </MobileMenu>
         </header>
     )
 }

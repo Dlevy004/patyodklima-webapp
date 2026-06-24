@@ -1,0 +1,26 @@
+.hamburger { display: none; }
+
+.hamburger .hamburger-icon {
+    width: clamp(2rem, 5vw, 3rem);
+    height: auto;
+}
+
+@media (max-width: 1024px) {
+    .hamburger {
+        display: block;
+        border: none;
+
+        width: clamp(2.5rem, 2vw, 5rem);
+        height: clamp(2.5rem, 2vw, 5rem);
+        margin-right: 0.3rem;
+        cursor: pointer;
+
+        background-color: var(--bg-color-ternary);
+        border-radius: 50%;
+    }
+
+    .hamburger .hamburger-icon {
+        height: auto;
+        width: 70%;
+    }
+}

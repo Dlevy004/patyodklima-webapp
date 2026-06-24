@@ -36,7 +36,7 @@
     height: 45px;
 }
 
-.logo, .sidenav-collapsed .logo {
+.pkLogo, .sidenav-collapsed .pkLogo {
     margin: 0 auto;
     max-width: 100%;
     max-height: 45px;
@@ -78,10 +78,10 @@
     transition: all 0.8s ease;
 }
 
-/*NavSection's rules*/
+/*NavSection*/
 .sidenav-collapsed .nav-section-title { display: none; }
 
-/*Navbutton's rules*/
+/*NavButton*/
 .sidenav-collapsed .nav-button { gap: 0; }
 
 .sidenav-container .btn-title {
