@@ -44,6 +44,9 @@
         border-left: none;
 
         transition: right 0.4s ease-out;
+
+        overflow-y: auto;
+        overscroll-behavior: contain;
     }
 
     .nav-mobile.show { right: 0px; }
