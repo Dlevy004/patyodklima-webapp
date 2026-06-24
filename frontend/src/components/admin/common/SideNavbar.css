@@ -23,7 +23,8 @@
     padding: 1rem;
     width: 100%;
     justify-content: start;
-    overflow: scroll;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .sidenav-top::-webkit-scrollbar { display: none; }
@@ -111,7 +112,8 @@
         padding-right: clamp(25px, 3vw, 35px);
         gap: 1rem;
         margin-top: 5rem;
-        overflow: scroll;
+        overflow-y: auto;
+        overflow-x: hidden;
     }
 
     .mobile-menu-content .nav-section-button {
