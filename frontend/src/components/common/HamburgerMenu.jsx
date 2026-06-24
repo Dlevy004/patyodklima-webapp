@@ -1,5 +1,6 @@
 import './HamburgerMenu.css'
 import HamburgerMenuIcon from '@/components/icons/HamburgerMenuIcon'
+import PropTypes from 'prop-types'
 
 function HamburgerMenu({ onClick }) {
     return(
@@ -11,6 +12,10 @@ function HamburgerMenu({ onClick }) {
             <HamburgerMenuIcon className="hamburger-icon"/>
         </button>
     )
+}
+
+HamburgerMenu.propTypes = {
+    onClick: PropTypes.func.isRequired
 }
 
 export default HamburgerMenu
