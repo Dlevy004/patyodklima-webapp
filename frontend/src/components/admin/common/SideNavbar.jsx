@@ -29,7 +29,7 @@ function SideNavbar() {
         <div className={isCollapsed ? 'sidenav-collapsed' : 'sidenav-container' }>
             <div className='sidenav-top'>
                 <a href='/admin'>
-                    <img src={isCollapsed ? verticalLogo : horizontalLogo} className='logo' alt='Pátyod Klíma logo'/>
+                    <img src={isCollapsed ? verticalLogo : horizontalLogo} className='pkLogo' alt='Pátyod Klíma logo'/>
                 </a>
                 <NavButton IconComponent={HomeIcon} title='Főoldal' className='sidebar-btn' url='/admin' />
                 <NavSection title='Adminisztráció' ButtonComponents={[
