@@ -6,7 +6,7 @@ function NavButton({ IconComponent, title, url }) {
     const isActive = globalThis.location.pathname === url;
 
     return (
-        <NavLink to={url} className={({ isActive }) => `nav-button ${isActive ? 'active' : ''}`}>
+        <NavLink to={url} end className={({ isActive }) => `nav-button ${isActive ? 'active' : ''}`}>
             <IconComponent />
             <p className="btn-title">{title}</p>
         </NavLink>
