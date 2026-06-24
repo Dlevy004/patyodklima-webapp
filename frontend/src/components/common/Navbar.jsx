@@ -31,6 +31,7 @@ function Navbar() {
         else {
             document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' })
         }
+        setIsMobileMenuOpen(false);
     }
 
     return (
