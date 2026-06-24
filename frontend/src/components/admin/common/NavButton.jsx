@@ -1,14 +1,15 @@
 import PropTypes from "prop-types"
 import './NavButton.css'
+import { NavLink } from 'react-router-dom'
 
 function NavButton({ IconComponent, title, url }) {
     const isActive = globalThis.location.pathname === url;
 
     return (
-        <a href={url} className={`nav-button ${isActive ? 'active' : ''}`}>
+        <NavLink to={url} className={({ isActive }) => `nav-button ${isActive ? 'active' : ''}`}>
             <IconComponent />
             <p className="btn-title">{title}</p>
-        </a>
+        </NavLink>
     )
 }
 
