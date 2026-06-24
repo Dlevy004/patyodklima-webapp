@@ -89,3 +89,45 @@
     transition: all 0.8s ease;
     overflow: hidden;
 }
+
+@media screen and (max-width: 1024px) {
+    .sidenav-container, .sidenav-collapsed { display: none; }
+
+    .admin-mobile-header {
+        display: block;
+        position: absolute;
+        top: clamp(25px, 3vw, 35px);
+        right: clamp(25px, 3vw, 35px);
+    }
+
+    .admin-mobile-links, .nav-section {
+        display: flex;
+        flex-direction: column;
+        justify-content: end;
+        align-items: end;
+    }
+
+    .admin-mobile-links {
+        padding-right: clamp(25px, 3vw, 35px);
+        gap: 1rem;
+        margin-top: 5rem;
+        overflow: scroll;
+    }
+
+    .mobile-menu-content .nav-section-button {
+        display: flex;
+        align-items: flex-end;
+        justify-content: flex-end;
+    }
+
+    .admin-mobile-links::-webkit-scrollbar { display: none; }
+
+    .admin-mobile-links .nav-button {
+        width: 75%;
+        max-width: 160px;
+    }
+
+    .admin-mobile-menu {
+        width: min(75%, 250px);
+    }
+}
