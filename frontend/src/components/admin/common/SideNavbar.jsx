@@ -45,10 +45,6 @@ function SideNavbar() {
                     <NavButton key='ads-page' IconComponent={HvacIcon} title='Hirdetések' url='/admin/ads' />
                 ]} />
             </div>
-            <div className='sidenav-bottom'>
-                <p>Fejlesztette: Daróczi Levente</p>
-                <p>Verzió: v2.0.0</p>
-            </div>
             <button className='hide-btn'
                 onClick={() => setIsCollapsed(prev => !prev)}>
                 <HideIcon />

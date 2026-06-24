@@ -45,15 +45,6 @@
     object-fit: contain;
 }
 
-.sidenav-container .sidenav-bottom {
-    padding-bottom: 1rem;
-    display: block;
-}
-
-.sidenav-collapsed .sidenav-bottom { display: none; }
-
-.sidenav-bottom p { font-size: 12px; }
-
 .hide-btn {
     border: 2px solid var(--bg-color-ternary);
     border-radius: 50%;
