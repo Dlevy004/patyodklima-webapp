@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
 import PrivacyPolicy from './pages/PrivacyPolicy'
-import AdminLayout from './components/admin/common/AdminLayout'
+import AdminLayout from './pages/admin/AdminLayout'
 import Dashboard from './pages/admin/Dashboard'
 import Clients from './pages/admin/Clients'
 import Jobs from './pages/admin/Jobs'
