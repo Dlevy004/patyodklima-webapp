@@ -46,7 +46,9 @@
     border-radius: 50%;
     width: clamp(2.5rem, 2vw, 5rem);
     height: clamp(2.5rem, 2vw, 5rem);
-    border: 2px solid black;
+    border: 2px solid var(--text-color1);
+    overflow: hidden;
+    padding: 0;
 }
 
 .profile-pic {
@@ -54,8 +56,8 @@
     vertical-align: middle;
     object-fit: cover;
     aspect-ratio: 1/1;
-    width: clamp(2.5rem, 2vw, 5rem);
-    height: clamp(2.5rem, 2vw, 5rem);
+    width: 100%;
+    height: auto;
 }
 
 @media (max-width: 1024px) {
