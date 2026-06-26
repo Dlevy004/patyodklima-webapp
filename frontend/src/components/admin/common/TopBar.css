@@ -19,7 +19,7 @@
 
 .top-bar-middle {
     margin: 0 auto;
-    min-width: 80%;
+    width: 80%;
 }
 
 .top-bar-middle h1 {
@@ -28,9 +28,13 @@
 }
 
 .profile-section {
-    margin: 0 auto;
-    max-width: 20%;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    justify-content: flex-end;
 }
+
+.mobile-menu-wrapper { display: none; }
 
 .top-bar .profile-section .profile-btn .profile-pic {
     width: 100%;
@@ -40,8 +44,8 @@
 
 .profile-btn {
     border-radius: 50%;
-    width: 50px;
-    height: 50px;
+    width: clamp(2.5rem, 2vw, 5rem);
+    height: clamp(2.5rem, 2vw, 5rem);
     border: 2px solid black;
 }
 
@@ -50,6 +54,17 @@
     vertical-align: middle;
     object-fit: cover;
     aspect-ratio: 1/1;
-    width: 100%;
-    height: auto;
+    width: clamp(2.5rem, 2vw, 5rem);
+    height: clamp(2.5rem, 2vw, 5rem);
+}
+
+@media (max-width: 1024px) {
+    .top-bar {
+        width: 90%;
+        padding: 0 1rem;
+    }
+
+    .mobile-menu-wrapper { display: block; }
+
+    .top-bar-middle h1 { font-size: var(--fs-h3); }
 }
