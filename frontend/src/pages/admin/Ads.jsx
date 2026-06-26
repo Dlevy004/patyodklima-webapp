@@ -1,11 +1,8 @@
 import ScrollUp from '../../components/common/ScrollUp'
-import { useContext, useEffect } from 'react'
-import { TitleContext } from '../../components/TitleContext'
+import usePageTitle from '../../hooks/usePageTitle';
 
 function Ads() {
-    const { setTitle } = useContext(TitleContext);
-
-    useEffect(() => { setTitle('Hirdetések') }, [setTitle]);
+    usePageTitle('Hirdetések');
 
     return (
         <main style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '100vh' }}>

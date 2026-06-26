@@ -1,11 +1,8 @@
 import ScrollUp from '../../components/common/ScrollUp'
-import { TitleContext } from '../../components/TitleContext'
-import { useEffect, useContext } from 'react'
+import usePageTitle from '../../hooks/usePageTitle';
 
 function Dashboard() {
-    const { setTitle } = useContext(TitleContext);
-
-    useEffect(() => { setTitle('Főoldal') }, [setTitle]);
+    usePageTitle('Főoldal');
 
     return (
         <main style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '100vh' }}>

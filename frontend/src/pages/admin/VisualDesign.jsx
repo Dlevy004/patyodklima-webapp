@@ -1,11 +1,8 @@
 import ScrollUp from '../../components/common/ScrollUp'
-import { useContext, useEffect } from 'react'
-import { TitleContext } from '../../components/TitleContext'
+import usePageTitle from '../../hooks/usePageTitle';
 
 function VisualDesign() {
-    const { setTitle } = useContext(TitleContext);
-
-    useEffect(() => { setTitle('Látványterv') }, [setTitle]);
+    usePageTitle('Látványterv');
 
     return (
         <main style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '100vh' }}>

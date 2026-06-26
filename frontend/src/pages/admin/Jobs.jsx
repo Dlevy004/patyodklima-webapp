@@ -1,11 +1,8 @@
 import ScrollUp from '../../components/common/ScrollUp'
-import { useContext, useEffect } from 'react'
-import { TitleContext } from '../../components/TitleContext'
+import usePageTitle from '../../hooks/usePageTitle';
 
 function Jobs() {
-    const { setTitle } = useContext(TitleContext);
-
-    useEffect(() => { setTitle('Munkanapló') }, [setTitle]);
+    usePageTitle('Munkanapló');
 
     return (
         <main style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '100vh' }}>
