@@ -1,6 +1,9 @@
 import ScrollUp from '../../components/common/ScrollUp'
+import usePageTitle from '../../hooks/usePageTitle';
 
 function Jobs() {
+    usePageTitle('Munkanapló');
+
     return (
         <main style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '100vh' }}>
             <h1>Jobs</h1>

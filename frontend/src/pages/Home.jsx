@@ -6,8 +6,11 @@ import Contact from '../components/home/Contact'
 import Footer from '../components/common/Footer'
 import ScrollUp from '../components/common/ScrollUp'
 import CookiePanel from '../components/common/CookiePanel'
+import useDocumentTitle from '../hooks/useDocumentTitle'
 
 function Home() {
+    useDocumentTitle('Pátyod Klíma | Klímaszerelés, karbantartás és ingyenes felmérés');
+
     return(
         <>
             <Navbar />

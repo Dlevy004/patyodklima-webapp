@@ -94,13 +94,6 @@
 @media screen and (max-width: 1024px) {
     .sidenav-container, .sidenav-collapsed { display: none; }
 
-    .admin-mobile-header {
-        display: block;
-        position: absolute;
-        top: clamp(25px, 3vw, 35px);
-        right: clamp(25px, 3vw, 35px);
-    }
-
     .admin-mobile-links, .nav-section {
         display: flex;
         flex-direction: column;
