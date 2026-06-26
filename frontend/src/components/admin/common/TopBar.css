@@ -15,8 +15,6 @@
 
     box-shadow: 0px 0px 33px 10px rgba(0,0,0,0.2);
     background-color: var(--bg-color-primary);
-
-    font-size: var(--fs-p);
 }
 
 .top-bar-middle {
@@ -26,6 +24,7 @@
 
 .top-bar-middle h1 {
     text-align: center;
+    font-size: var(--fs-h2);
 }
 
 .profile-section {
