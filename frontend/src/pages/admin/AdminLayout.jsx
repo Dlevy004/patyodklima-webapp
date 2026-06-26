@@ -1,4 +1,4 @@
-import { Outlet, useLocation } from 'react-router-dom'
+import { Outlet, useAsyncError } from 'react-router-dom'
 import { useState, useEffect, useContext } from 'react'
 import { TitleContext, TitleProvider } from '../../components/TitleContext'
 import SideNavbar from '../../components/admin/common/SideNavbar'
@@ -7,11 +7,12 @@ import ScrollUp from '../../components/common/ScrollUp'
 
 function AdminLayoutInner() {
     const { title } = useContext(TitleContext);
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     return (
         <div className="admin-layout-container">
-            <TopBar title={title}/>
-            <SideNavbar />
+            <TopBar title={title} onMenuClick={() => setIsMobileMenuOpen(true)}/>
+            <SideNavbar isMobileMenuOpen={isMobileMenuOpen} closeMobileMenu={() => setIsMobileMenuOpen(false)} />
             <div className="admin-content">
                 <Outlet />
                 <ScrollUp />

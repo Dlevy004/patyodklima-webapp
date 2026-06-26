@@ -12,11 +12,10 @@ import HvacIcon from '../../icons/HvacIcon'
 import HideIcon from '../../icons/BackToTopIcon'
 import horizontalLogo from '../../../assets/images/logo.avif'
 import verticalLogo from '../../../assets/images/tr-logo-icon.avif'
-import HamburgerMenu from '../../common/HamburgerMenu'
 import MobileMenu from '../../common/MobileMenu'
+import PropTypes from 'prop-types'
 
-function SideNavbar() {
-    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+function SideNavbar({ isMobileMenuOpen, closeMobileMenu }) {
     const [isCollapsed, setIsCollapsed] = useState(() => {
         const savedState = localStorage.getItem('isSidebarCollapsed');
         return savedState === 'true';
@@ -46,10 +45,6 @@ function SideNavbar() {
 
     return (
         <>
-            <div className='admin-mobile-header'>
-                <HamburgerMenu onClick={() => setIsMobileMenuOpen(true)} />
-            </div>
-
             <div className={isCollapsed ? 'sidenav-collapsed' : 'sidenav-container' }>
                 <div className='sidenav-top'>
                     <a href='/admin'>
@@ -63,13 +58,18 @@ function SideNavbar() {
                 </button>
             </div>
 
-            <MobileMenu isOpen={isMobileMenuOpen} onClose={() => setIsMobileMenuOpen(false)} className='admin-mobile-menu' >
-                <div className='admin-mobile-links' >
+            <MobileMenu isOpen={isMobileMenuOpen} onClose={closeMobileMenu} className='admin-mobile-menu' >
+                <div className='admin-mobile-links' onClick={closeMobileMenu}>
                     {adminNavLinks}
                 </div>
             </MobileMenu>
         </>
     )
+}
+
+SideNavbar.propTypes = {
+    isMobileMenuOpen: PropTypes.bool.isRequired,
+    closeMobileMenu: PropTypes.func.isRequired
 }
 
 export default SideNavbar
