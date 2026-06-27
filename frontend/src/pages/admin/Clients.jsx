@@ -2,6 +2,7 @@ import ScrollUp from '../../components/common/ScrollUp'
 import usePageTitle from '../../hooks/usePageTitle';
 import TableHeader from '../../components/admin/common/TableHeader';
 import './Clients.css'
+import ClientItem from '../../components/admin/clients/ClientItem';
 
 function Clients() {
     usePageTitle('Ügyfélnapló');
@@ -10,6 +11,13 @@ function Clients() {
         <>
             <TableHeader />
             <div className='table-content'>
+                <ClientItem name='Kis Pista' city='Település neve' phone='06 20 1234 567'/>
+                <ClientItem name='Kis Pista' city='Település neve' phone='06 20 1234 567'/>
+                <ClientItem name='Kis Pista' city='Település neve' phone='06 20 1234 567'/>
+                <ClientItem name='Kis Pista' city='Település neve' phone='06 20 1234 567'/>
+                <ClientItem name='Kis Pista' city='Település neve' phone='06 20 1234 567'/>
+                <ClientItem name='Kis Pista' city='Település neve' phone='06 20 1234 567'/>
+                <ClientItem name='Kis Pista' city='Település neve' phone='06 20 1234 567'/>
             </div>
             <ScrollUp />
         </>
