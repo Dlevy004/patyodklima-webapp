@@ -1,0 +1,87 @@
+.client-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    border-radius: 1rem;
+    border: 2px solid var(--bg-color-ternary);
+    padding: 1rem 2rem;
+    gap: 1rem;
+    transition: all 0.3s ease;
+}
+
+.client-item:hover {
+    box-shadow: 0px 0px 30px 1px rgba(0, 0, 0, 0.1);
+    transform: scale(1.01);
+}
+
+.client-details {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: clamp(1rem, 3vw, 3rem);
+    flex: 1;
+}
+
+.client-details p {
+    font-size: var(--fs-p);
+}
+
+.client-details .client-name {
+    font-weight: 800;
+    font-size: var(--fs-h3);
+    min-width: 150px;
+}
+
+.client-details .client-city {
+    color: rgb(101, 101, 101);
+}
+
+.actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.actions button {
+    border: none;
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    transition: all 0.3s ease;
+}
+
+.actions .edit-btn {
+    background-color: #d3e9f5;
+    color: #0284c7;
+}
+.actions .delete-btn {
+    background-color: #fee2e2;
+    color: #ff0000;
+}
+
+.actions button:hover { transform: scale(1.1); }
+
+@media screen and (max-width: 768px) {
+    .client-item {
+        width: max(50%, 280px);
+    }
+
+    .client-details {
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+
+    .actions {
+        justify-content: flex-end;
+        flex-direction: column;
+    }
+}
