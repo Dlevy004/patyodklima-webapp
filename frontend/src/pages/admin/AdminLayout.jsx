@@ -4,6 +4,7 @@ import { TitleContext, TitleProvider } from '../../components/TitleContext'
 import SideNavbar from '../../components/admin/common/SideNavbar'
 import TopBar from '../../components/admin/common/TopBar'
 import ScrollUp from '../../components/common/ScrollUp'
+import './AdminLayout.css'
 
 function AdminLayoutInner() {
     const { title } = useContext(TitleContext);
