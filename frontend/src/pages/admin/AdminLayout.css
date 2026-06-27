@@ -1,12 +1,12 @@
 .admin-content {
     width: max(60%, 260px);
     margin: 0 auto;
-    padding-top: calc(max(10%, 60px) + 2rem);
+    padding-top: clamp(4.5rem, 15vh, 12rem);
     padding-bottom: 2rem;
 
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: stretch;
     min-height: 100vh;
 }
