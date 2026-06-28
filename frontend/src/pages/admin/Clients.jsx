@@ -11,7 +11,7 @@ function Clients() {
         <>
             <TableHeader />
             <div className='table-content'>
-                <ClientItem name='Kis Pista' city='Település neve' phone='06 20 1234 567'/>
+                <ClientItem name='Kis PistaPistaPistaPista' city='Település nevePistaPistaPista' phone='06 20 1234 567'/>
                 <ClientItem name='Kis Pista' city='Település neve' phone='06 20 1234 567'/>
                 <ClientItem name='Kis Pista' city='Település neve' phone='06 20 1234 567'/>
                 <ClientItem name='Kis Pista' city='Település neve' phone='06 20 1234 567'/>
