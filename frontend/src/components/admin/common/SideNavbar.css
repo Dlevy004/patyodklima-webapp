@@ -1,4 +1,6 @@
-.sidenav-container { width: 200px; }
+.sidenav-container {
+    width: 185px;
+}
 
 .sidenav-collapsed { width: 85px; }
 
