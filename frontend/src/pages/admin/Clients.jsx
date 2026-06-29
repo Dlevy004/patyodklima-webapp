@@ -1,15 +1,39 @@
 import ScrollUp from '../../components/common/ScrollUp'
-import usePageTitle from '../../hooks/usePageTitle';
+import usePageTitle from '../../hooks/usePageTitle'
+import TableHeader from '../../components/admin/common/TableHeader'
+import './Clients.css'
+import ClientItem from '../../components/admin/clients/ClientItem'
+import useFetch from '../../hooks/useFetch'
+import DataStateFeedback from '../../components/admin/common/DataStateFeedback'
 
 function Clients() {
     usePageTitle('Ügyfélnapló');
+    const { data: clients = [], isLoading, error } = useFetch('http://localhost:3000/api/clients');
+
+    const isEmpty = !isLoading && !error && clients?.length === 0;
 
     return (
-        <main style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '100vh' }}>
-            <h1>Clients</h1>
-            <p>Welcome to the clients page!</p>
+        <>
+            <TableHeader />
+            <div className='table-content'>
+                <DataStateFeedback
+                    isLoading={isLoading}
+                    error={error}
+                    isEmpty={isEmpty}
+                    emptyMessage={'Még nincsenek rögzített ügyfelek az adatbázisban.'}
+                >
+                    {clients?.map((client) => (
+                        <ClientItem
+                            key={client.id}
+                            name={client.full_name}
+                            city={client.city}
+                            phone={client.phone}
+                        />
+                    ))}
+                </DataStateFeedback>
+            </div>
             <ScrollUp />
-        </main>
+        </>
     )
 }
 

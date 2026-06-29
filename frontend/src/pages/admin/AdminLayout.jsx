@@ -1,9 +1,10 @@
 import { Outlet } from 'react-router-dom'
 import { useState, useContext } from 'react'
-import { TitleContext, TitleProvider } from '../../components/TitleContext'
+import { TitleContext, TitleProvider } from '../../context/TitleContext'
 import SideNavbar from '../../components/admin/common/SideNavbar'
 import TopBar from '../../components/admin/common/TopBar'
 import ScrollUp from '../../components/common/ScrollUp'
+import './AdminLayout.css'
 
 function AdminLayoutInner() {
     const { title } = useContext(TitleContext);
