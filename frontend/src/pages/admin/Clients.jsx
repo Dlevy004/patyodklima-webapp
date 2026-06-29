@@ -3,35 +3,11 @@ import usePageTitle from '../../hooks/usePageTitle';
 import TableHeader from '../../components/admin/common/TableHeader';
 import './Clients.css'
 import ClientItem from '../../components/admin/clients/ClientItem';
-import { useState, useEffect } from 'react';
+import useFetch from '../../hooks/useFetch';
 
 function Clients() {
     usePageTitle('Ügyfélnapló');
-
-    const [clients, setClients] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState(null);
-
-    useEffect(() => {
-        const fetchClients = async () => {
-            try {
-                const response = await fetch('http://localhost:3000/api/clients');
-
-                if (!response.ok) {
-                    throw new Error('Failed to retrieve data from the server.');
-                }
-
-                const data = await response.json();
-                setClients(data);
-            } catch (error) {
-                setError(error.message)
-            } finally {
-                setIsLoading(false);
-            }
-        };
-
-        fetchClients();
-    }, []);
+    const { data: clients, isLoading, error } = useFetch('http://localhost:3000/api/clients');
 
     return (
         <>
