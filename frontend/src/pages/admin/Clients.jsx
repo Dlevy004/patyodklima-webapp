@@ -46,7 +46,7 @@ function Clients() {
                     isLoading={isLoading}
                     error={error}
                     isEmpty={isEmpty}
-                    emptyMessage={'Még nincsenek rögzített ügyfelek az adatbázisban.'}
+                    emptyMessage={'Nincsenek rögzített ügyfelek az adatbázisban.'}
                 >
                     {clients?.map((client) => (
                         <ClientItem
