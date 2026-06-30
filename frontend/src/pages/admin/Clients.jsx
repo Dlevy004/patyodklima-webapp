@@ -5,6 +5,8 @@ import './Clients.css'
 import ClientItem from '../../components/admin/clients/ClientItem'
 import useFetch from '../../hooks/useFetch'
 import DataStateFeedback from '../../components/admin/common/DataStateFeedback'
+import ModalBackdrop from '../../components/admin/common/ModalBackdrop'
+import { useState } from 'react'
 
 function Clients() {
     usePageTitle('Ügyfélnapló');
@@ -12,9 +14,18 @@ function Clients() {
 
     const isEmpty = !isLoading && !error && clients?.length === 0;
 
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+    const [clientToDelete, setClientToDelete] = useState(null);
+
+    const handleDeleteClick = (client) => {
+        setClientToDelete(client);
+        setIsDeleteModalOpen(true);
+    }
+
     return (
         <>
             <TableHeader />
+
             <div className='table-content'>
                 <DataStateFeedback
                     isLoading={isLoading}
@@ -28,10 +39,20 @@ function Clients() {
                             name={client.full_name}
                             city={client.city}
                             phone={client.phone}
+
+                            onDelete={() => handleDeleteClick(client)}
                         />
                     ))}
                 </DataStateFeedback>
             </div>
+
+            <ModalBackdrop
+                isOpen={isDeleteModalOpen}
+                onClose={() => setIsDeleteModalOpen(false)}
+            >
+                <p>Testing text</p>
+            </ModalBackdrop>
+
             <ScrollUp />
         </>
     )
