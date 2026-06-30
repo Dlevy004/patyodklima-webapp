@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import EditIcon from '../../icons/EditIcon'
 import DeleteIcon from '../../icons/DeleteIcon'
 
-function ClientItem({ name, city, phone }) {
+function ClientItem({ name, city, phone, onDelete }) {
     return (
         <div className='client-item'>
             <div className='client-details'>
@@ -15,7 +15,7 @@ function ClientItem({ name, city, phone }) {
                 <button className='edit-btn'>
                     <EditIcon/>
                 </button>
-                <button className='delete-btn'>
+                <button className='delete-btn' onClick={onDelete}>
                     <DeleteIcon/>
                 </button>
             </div>
@@ -26,7 +26,8 @@ function ClientItem({ name, city, phone }) {
 ClientItem.propTypes = {
     name: PropTypes.string.isRequired,
     city: PropTypes.string.isRequired,
-    phone: PropTypes.string.isRequired
+    phone: PropTypes.string.isRequired,
+    onDelete: PropTypes.func.isRequired
 }
 
 export default ClientItem
