@@ -7,6 +7,7 @@ import useFetch from '../../hooks/useFetch'
 import DataStateFeedback from '../../components/admin/common/DataStateFeedback'
 import ModalBackdrop from '../../components/admin/common/ModalBackdrop'
 import { useState } from 'react'
+import DeleteDataModal from '../../components/admin/common/DeleteDataModal'
 
 function Clients() {
     usePageTitle('Ügyfélnapló');
@@ -20,6 +21,27 @@ function Clients() {
     const handleDeleteClick = (client) => {
         setClientToDelete(client);
         setIsDeleteModalOpen(true);
+    }
+
+    const handleConfirmDelete = async () => {
+        if (!clientToDelete) return;
+
+        try {
+            const response = await fetch(`http://localhost:3000/api/clients/${clientToDelete.id}`, {
+                method: 'DELETE'
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to delete data from the server.')
+            }
+
+            setIsDeleteModalOpen(false);
+            setClientToDelete(null);
+            globalThis.location.reload();
+        }
+        catch (error) {
+            console.error("Error while delete data: ", {error})
+        }
     }
 
     return (
@@ -50,7 +72,12 @@ function Clients() {
                 isOpen={isDeleteModalOpen}
                 onClose={() => setIsDeleteModalOpen(false)}
             >
-                <p>Testing text</p>
+                <DeleteDataModal
+                    titleData={'Ügyfél'}
+                    descriptionData={'ügyfelet'}
+                    onClose={() => setIsDeleteModalOpen(false)}
+                    onDelete={handleConfirmDelete}
+                />
             </ModalBackdrop>
 
             <ScrollUp />
