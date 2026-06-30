@@ -8,6 +8,7 @@ import DataStateFeedback from '../../components/admin/common/DataStateFeedback'
 import ModalBackdrop from '../../components/admin/common/ModalBackdrop'
 import { useState } from 'react'
 import DeleteDataModal from '../../components/admin/common/DeleteDataModal'
+import useDeleteData from '../../hooks/useDeleteData'
 
 function Clients() {
     usePageTitle('Ügyfélnapló');
@@ -18,6 +19,7 @@ function Clients() {
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [clientToDelete, setClientToDelete] = useState(null);
 
+    const { deleteData } = useDeleteData();
     const handleDeleteClick = (client) => {
         setClientToDelete(client);
         setIsDeleteModalOpen(true);
@@ -26,21 +28,12 @@ function Clients() {
     const handleConfirmDelete = async () => {
         if (!clientToDelete) return;
 
-        try {
-            const response = await fetch(`http://localhost:3000/api/clients/${clientToDelete.id}`, {
-                method: 'DELETE'
-            });
+        const success = await deleteData(`http://localhost:3000/api/clients/${clientToDelete.id}`);
 
-            if (!response.ok) {
-                throw new Error('Failed to delete data from the server.')
-            }
-
+        if (success) {
             setIsDeleteModalOpen(false);
             setClientToDelete(null);
             globalThis.location.reload();
-        }
-        catch (error) {
-            console.error("Error while delete data: ", {error})
         }
     }
 
