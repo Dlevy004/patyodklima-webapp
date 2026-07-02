@@ -1,15 +1,21 @@
-import ScrollUp from '../../components/common/ScrollUp'
-import usePageTitle from '../../hooks/usePageTitle'
-import TableHeader from '../../components/admin/common/TableHeader'
-import './Clients.css'
-import ClientItem from '../../components/admin/clients/ClientItem'
-import useFetch from '../../hooks/useFetch'
-import DataStateFeedback from '../../components/admin/common/DataStateFeedback'
-import ModalBackdrop from '../../components/admin/common/ModalBackdrop'
 import { useState } from 'react'
+
+import './Clients.css'
+
+import ScrollUp from '../../components/common/ScrollUp'
+
+import TableHeader from '../../components/admin/common/TableHeader'
+import ModalBackdrop from '../../components/admin/common/ModalBackdrop'
+import DataStateFeedback from '../../components/admin/common/DataStateFeedback'
 import DeleteDataModal from '../../components/admin/common/DeleteDataModal'
-import useDeleteData from '../../hooks/useDeleteData'
+
+import ClientItem from '../../components/admin/clients/ClientItem'
 import AddEditClientModal from '../../components/admin/clients/AddEditClientModal'
+
+import useFetch from '../../hooks/useFetch'
+import useDeleteData from '../../hooks/useDeleteData'
+import usePageTitle from '../../hooks/usePageTitle'
+
 
 function Clients() {
     usePageTitle('Ügyfélnapló');

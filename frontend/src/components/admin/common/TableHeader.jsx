@@ -1,6 +1,9 @@
-import './TableHeader.css'
-import AddIcon from '../../icons/AddIcon'
 import PropTypes from 'prop-types'
+
+import './TableHeader.css'
+
+import AddIcon from '../../icons/AddIcon'
+
 
 function TableHeader({ onAddClick }) {
     return (

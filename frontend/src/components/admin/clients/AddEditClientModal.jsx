@@ -1,8 +1,12 @@
-import './AddEditClientModal.css';
+import { useState, useEffect } from 'react';
+
 import PropTypes from 'prop-types';
+
+import './AddEditClientModal.css';
+
 import InputField from '../common/InputField';
 import Slider from '../common/Slider';
-import { useState, useEffect } from 'react';
+
 
 const ClientType = {
     INDIVIDUAL: 'individual',

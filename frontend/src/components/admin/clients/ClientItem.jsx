@@ -1,7 +1,10 @@
-import './ClientItem.css'
 import PropTypes from 'prop-types'
+
+import './ClientItem.css'
+
 import EditIcon from '../../icons/EditIcon'
 import DeleteIcon from '../../icons/DeleteIcon'
+
 
 function ClientItem({ name, city, phone, onDelete, onEdit }) {
     return (

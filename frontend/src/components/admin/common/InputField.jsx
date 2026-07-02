@@ -1,5 +1,7 @@
-import './InputField.css'
 import PropTypes from 'prop-types';
+
+import './InputField.css'
+
 
 function InputField({ label, type, value, onChange, placeholder, pattern }) {
     return (

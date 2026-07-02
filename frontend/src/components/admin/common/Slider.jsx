@@ -1,5 +1,7 @@
 import PropTypes from "prop-types";
+
 import './Slider.css'
+
 
 function Slider({ title, condition, button1ClassName, onButton1Click, button1Title, button2ClassName, onButton2Click, button2Title }) {
     return (
