@@ -12,7 +12,7 @@ import useDeleteData from '../../hooks/useDeleteData'
 
 function Clients() {
     usePageTitle('Ügyfélnapló');
-    const { data: clients = [], isLoading, error } = useFetch('http://localhost:3000/api/clients');
+    const { data: clients = [], isLoading, error, refetch } = useFetch('http://localhost:3000/api/clients');
 
     const isEmpty = !isLoading && !error && clients?.length === 0;
 
@@ -33,7 +33,7 @@ function Clients() {
         if (success) {
             setIsDeleteModalOpen(false);
             setClientToDelete(null);
-            globalThis.location.reload();
+            refetch();
         }
     }
 
