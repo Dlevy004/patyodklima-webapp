@@ -4,6 +4,11 @@ function useFetch(url) {
     const [data, setData] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [refreshKey, setRefreshKey] = useState(0);
+
+    const refetch = () => {
+        setRefreshKey(prevKey => prevKey + 1);
+    };
 
     useEffect(() => {
         const controller = new AbortController();
@@ -35,9 +40,9 @@ function useFetch(url) {
         fetchData();
 
         return () => controller.abort();
-    }, [url]);
+    }, [url, refreshKey]);
 
-    return { data, isLoading, error };
+    return { data, isLoading, error, refetch };
 }
 
 export default useFetch;

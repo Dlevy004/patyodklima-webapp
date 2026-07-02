@@ -1,0 +1,74 @@
+.delete-modal {
+    width: 90%;
+    max-width: 450px;
+    margin: 0 auto;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 1rem;
+
+    border-radius: 1rem;
+    gap: 2rem;
+
+    background-color: var(--bg-color-primary);
+}
+
+.delete-title-bg {
+    width: 100%;
+    height: auto;
+    text-align: center;
+    border-radius: 1rem 1rem 3rem 0;
+    background-color: var(--bg-color-ternary);
+}
+
+.delete-title-bg h1 {
+    padding: clamp(1.5rem, 4vw, 2rem);
+    font-size: var(--fs-h2);
+    color: var(--text-color2);
+    font-weight: bold;
+}
+
+.description {
+    padding: 0 clamp(1rem, 5vw, 2rem);
+    color: var(--text-color1);
+    font-size: var(--fs-p);
+    text-align: center;
+}
+
+.delete-buttons {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 2rem;
+    gap: clamp(1rem, 4vw, 2rem);
+}
+
+.delete-buttons button {
+    flex: 1;
+    width: 50%;
+    height: auto;
+    max-width: 150px;
+    padding: 0.5rem;
+    border-radius: 5px;
+    font-size: var(--fs-p);
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.delete-buttons button:hover { transform: translateY(-3px); }
+
+.modal-close-btn {
+    border: 2px solid var(--bg-color-ternary);
+    background-color: var(--bg-color-primary);
+    color: var(--text-color1);
+}
+
+.modal-delete-btn {
+    border: 2px solid #ff0000;
+    background-color: #ff0000;
+    color: var(--text-color2);
+}
