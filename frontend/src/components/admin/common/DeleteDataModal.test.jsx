@@ -1,10 +1,14 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import DeleteDataModal from './DeleteDataModal';
 
 describe('DeleteDataModal', () => {
-    const mockOnClose = vi.fn();
-    const mockOnDelete = vi.fn();
+    let mockOnClose, mockOnDelete;
+
+    beforeEach(() => {
+        mockOnClose = vi.fn();
+        mockOnDelete = vi.fn();
+    });
 
     it('should render title and description correctly', () => {
         render(
