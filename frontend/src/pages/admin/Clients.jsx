@@ -9,6 +9,7 @@ import ModalBackdrop from '../../components/admin/common/ModalBackdrop'
 import { useState } from 'react'
 import DeleteDataModal from '../../components/admin/common/DeleteDataModal'
 import useDeleteData from '../../hooks/useDeleteData'
+import AddEditClientModal from '../../components/admin/clients/AddEditClientModal'
 
 function Clients() {
     usePageTitle('Ügyfélnapló');
@@ -25,6 +26,24 @@ function Clients() {
         setIsDeleteModalOpen(true);
     }
 
+    const [isClientDatasModalOpen, setIsClientDatasModalOpen] = useState(false);
+    const [clientToEdit, setClientToEdit] = useState(null);
+
+    const handleModalVisibility = (client) => {
+        setClientToEdit(client);
+        setIsClientDatasModalOpen(false);
+    }
+
+    const handleAddClick = () => {
+        setClientToEdit(null);
+        setIsClientDatasModalOpen(true);
+    }
+
+    const handleEditClick = (client) => {
+        setClientToEdit(client);
+        setIsClientDatasModalOpen(true);
+    }
+
     const handleConfirmDelete = async () => {
         if (!clientToDelete) return;
 
@@ -39,7 +58,7 @@ function Clients() {
 
     return (
         <>
-            <TableHeader />
+            <TableHeader onAddClick={handleAddClick}/>
 
             <div className='table-content'>
                 <DataStateFeedback
@@ -56,6 +75,7 @@ function Clients() {
                             phone={client.phone}
 
                             onDelete={() => handleDeleteClick(client)}
+                            onEdit={() => handleEditClick(client)}
                         />
                     ))}
                 </DataStateFeedback>
@@ -71,6 +91,17 @@ function Clients() {
                     onClose={() => setIsDeleteModalOpen(false)}
                     onDelete={handleConfirmDelete}
                 />
+            </ModalBackdrop>
+
+            <ModalBackdrop
+                isOpen={isClientDatasModalOpen}
+                onClose={() => setIsClientDatasModalOpen(false)}
+            >
+                <AddEditClientModal
+                    onClose={() => setIsClientDatasModalOpen(false)}
+                    onSave={() => {}}
+                    clientData={clientToEdit}
+                    />
             </ModalBackdrop>
 
             <ScrollUp />
