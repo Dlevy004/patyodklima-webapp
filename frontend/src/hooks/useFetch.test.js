@@ -52,4 +52,15 @@ describe('useFetch', () => {
         rerender({ url: '/api/jobs' });
         expect(result.current.isLoading).toBe(true);
     });
+
+    it('should not set error on AbortError', async () => {
+        fetch.mockRejectedValue({ name: 'AbortError' });
+
+        const { result } = renderHook(() => useFetch('/api/clients'));
+
+        await waitFor(() => {
+            expect(result.current.error).toBeNull();
+            expect(result.current.isLoading).toBe(false);
+        });
+    });
 });
