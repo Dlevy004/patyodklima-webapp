@@ -12,7 +12,7 @@
 }
 
 .input-field input, .input-field textarea {
-    width: 300px;
+    width: 100%;
     border: none;
     box-sizing: border-box;
     border-radius: 11px;

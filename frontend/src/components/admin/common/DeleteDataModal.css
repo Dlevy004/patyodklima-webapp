@@ -15,7 +15,7 @@
     background-color: var(--bg-color-primary);
 }
 
-.title-bg {
+.delete-modal .title-bg {
     width: 100%;
     height: auto;
     text-align: center;
@@ -23,7 +23,7 @@
     background-color: var(--bg-color-ternary);
 }
 
-.title-bg h1 {
+.delete-modal .title-bg h1 {
     padding: clamp(1.5rem, 4vw, 2rem);
     font-size: var(--fs-h2);
     color: var(--text-color2);
@@ -31,14 +31,14 @@
     white-space: nowrap;
 }
 
-.description {
+.delete-modal .description {
     padding: 0 clamp(1rem, 5vw, 2rem);
     color: var(--text-color1);
     font-size: var(--fs-p);
     text-align: center;
 }
 
-.modal-buttons {
+.delete-modal .modal-buttons {
     width: 100%;
     height: auto;
     display: flex;
@@ -48,7 +48,7 @@
     gap: clamp(1rem, 4vw, 2rem);
 }
 
-.modal-buttons button {
+.delete-modal .modal-buttons button {
     flex: 1;
     width: 50%;
     height: auto;
@@ -60,15 +60,15 @@
     transition: all 0.3s ease;
 }
 
-.modal-buttons button:hover { transform: translateY(-3px); }
+.delete-modal .modal-buttons button:hover { transform: translateY(-3px); }
 
-.modal-close-btn {
+.delete-modal .modal-close-btn {
     border: 2px solid var(--bg-color-ternary);
     background-color: var(--bg-color-primary);
     color: var(--text-color1);
 }
 
-.modal-delete-btn {
+.delete-modal .modal-delete-btn {
     border: 2px solid #ff0000;
     background-color: #ff0000;
     color: var(--text-color2);
