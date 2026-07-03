@@ -15,6 +15,7 @@ import AddEditClientModal from '../../components/admin/clients/AddEditClientModa
 import useFetch from '../../hooks/useFetch'
 import useDeleteData from '../../hooks/useDeleteData'
 import usePageTitle from '../../hooks/usePageTitle'
+import useSaveData from '../../hooks/useSaveData'
 
 
 function Clients() {
@@ -62,6 +63,26 @@ function Clients() {
         }
     }
 
+    const { saveData, isSaving } = useSaveData();
+
+    const handleSaveClient = async (formData) => {
+        const isEditing = Boolean(clientToEdit);
+
+        const url = isEditing
+            ? `http://localhost:3000/api/clients/${clientToEdit.id}`
+            : `http://localhost:3000/api/clients`;
+
+        const method = isEditing ? 'PUT' : 'POST';
+
+        const success = await saveData(url, method, formData);
+
+        if (success) {
+            setIsClientDatasModalOpen(false);
+            setClientToEdit(null);
+            refetch();
+        }
+    }
+
     return (
         <>
             <TableHeader onAddClick={handleAddClick}/>
@@ -105,9 +126,9 @@ function Clients() {
             >
                 <AddEditClientModal
                     onClose={() => setIsClientDatasModalOpen(false)}
-                    onSave={() => {}}
+                    onSave={handleSaveClient}
                     clientData={clientToEdit}
-                    />
+                />
             </ModalBackdrop>
 
             <ScrollUp />

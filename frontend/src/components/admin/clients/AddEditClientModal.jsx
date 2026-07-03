@@ -119,7 +119,7 @@ function AddEditClientModal({ onClose, onSave, clientData }) {
             </div>
             <div className='modal-buttons'>
                 <button className='modal-close-btn' onClick={onClose}>Mégse</button>
-                <button className='modal-save-btn' onClick={onSave}>Mentés</button>
+                <button className='modal-save-btn' onClick={() => onSave({ ...formData, type: clientType })}>Mentés</button>
             </div>
         </div>
     )
