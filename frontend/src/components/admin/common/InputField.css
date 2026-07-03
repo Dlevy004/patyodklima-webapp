@@ -26,3 +26,16 @@
     resize: none;
     height: 100%;
 }
+
+.input-field input.input-error,
+.input-field textarea.input-error {
+    border: 2px solid #ff4d4d;
+    box-shadow: inset 0px 0px 5px 0px rgba(255, 77, 77, 0.2);
+}
+
+.error-text {
+    color: #ff4d4d;
+    font-size: 0.75rem;
+    font-weight: bold;
+    margin-top: -2px;
+}

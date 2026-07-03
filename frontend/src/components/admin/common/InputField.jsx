@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import './InputField.css'
 
 
-function InputField({ label, type, value, onChange, placeholder, pattern }) {
+function InputField({ label, type, value, onChange, placeholder, pattern, required, error }) {
+    const inputClassName = error ? 'input-error' : '';
+
     return (
         <div className='input-field'>
             {label && <label>{label}</label>}
@@ -12,6 +14,7 @@ function InputField({ label, type, value, onChange, placeholder, pattern }) {
                     value={value}
                     onChange={onChange}
                     placeholder={placeholder}
+                    required={required}
                 />
             ) : (
                 <input
@@ -20,8 +23,10 @@ function InputField({ label, type, value, onChange, placeholder, pattern }) {
                     onChange={onChange}
                     placeholder={placeholder}
                     pattern={pattern}
+                    required={required}
                 />
             )}
+            {error && <span className='error-text'>{error}</span>}
         </div>
     )
 }
@@ -32,7 +37,9 @@ InputField.propTypes = {
     value: PropTypes.string,
     onChange: PropTypes.func.isRequired,
     placeholder: PropTypes.string,
-    pattern: PropTypes.string
+    pattern: PropTypes.string,
+    required: PropTypes.bool,
+    error: PropTypes.string
 }
 
 export default InputField;

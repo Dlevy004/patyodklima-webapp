@@ -43,14 +43,57 @@ function AddEditClientModal({ onClose, onSave, clientData }) {
                 street_address: '', email: '', notes: ''
             });
         }
+        setFormErrors({});
     }, [clientData]);
 
     const handleInputChange = (field, event) => {
         setFormData(prev => ({ ...prev, [field]: event.target.value }));
+
+        if (formErrors[field]) {
+            setFormErrors(prev => ({ ...prev, [field]: null }));
+        }
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        if (validateForm()) {
+            onSave({ ...formData, type: clientType });
+        }
+    };
+
+    const [formErrors, setFormErrors] = useState({});
+    const validateForm = () => {
+        const errors = {};
+
+        if (!formData.full_name.trim()) {
+            errors.full_name = 'Az ügyfél nevének megadása kötelező!';
+        }
+
+        const phoneRegex = /^(\+36|06)\s?\d{2}\s?\d{3}\s?\d{4}$/;
+        if (!formData.phone.trim()) {
+            errors.phone = 'A telefonszám megadása kötelező!';
+        } else if (!phoneRegex.test(formData.phone)) {
+            errors.phone = 'Helytelen formátum (pl: +36 30 123 4567)';
+        }
+
+        const zipRegex = /^[0-9]{4}$/;
+        if (formData.zip_code && !zipRegex.test(formData.zip_code)) {
+            errors.zip_code = 'Az irányítószám 4 számjegyből állhat!';
+        }
+
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if (formData.email && !emailRegex.test(formData.email)) {
+            errors.email = 'Helytelen email formátum!';
+        }
+
+        setFormErrors(errors);
+
+        return Object.keys(errors).length === 0;
     };
 
     return (
-        <div className='client-data-modal'>
+        <form className='client-data-modal' onSubmit={handleSubmit}>
             <div className='title-bg'>
                 <h1>{clientData ? 'Ügyfél adatainak módosítása' : 'Új ügyfél bejegyzése'}</h1>
             </div>
@@ -61,6 +104,7 @@ function AddEditClientModal({ onClose, onSave, clientData }) {
                         type={'text'}
                         value={formData?.full_name}
                         onChange={(event) => handleInputChange('full_name', event)}
+                        error={formErrors.full_name}
                     />
                     <InputField
                         label={'Ügyfél telefonszáma'}
@@ -68,6 +112,7 @@ function AddEditClientModal({ onClose, onSave, clientData }) {
                         value={formData?.phone}
                         onChange={(event) => handleInputChange('phone', event)}
                         pattern={'^(\\+36|06)\\s?\\d{2}\\s?\\d{3}\\s?\\d{4}$'}
+                        error={formErrors.phone}
                     />
                     <InputField
                         label={'Ügyfél címe'}
@@ -76,6 +121,7 @@ function AddEditClientModal({ onClose, onSave, clientData }) {
                         onChange={(event) => handleInputChange('zip_code', event)}
                         placeholder={'Irányítószám'}
                         pattern={'[0-9]{4}'}
+                        error={formErrors.zip_code}
                     />
                     <InputField
                         type={'text'}
@@ -83,12 +129,14 @@ function AddEditClientModal({ onClose, onSave, clientData }) {
                         onChange={(event) => handleInputChange('city', event)}
                         placeholder={'Város'}
                         pattern={'[a-zA-Z]{2,}'}
+                        error={formErrors.city}
                     />
                     <InputField
                         type={'text'}
                         value={formData?.street_address}
                         onChange={(event) => handleInputChange('street_address', event)}
                         placeholder={'Utca, házszám'}
+                        error={formErrors.street_address}
                     />
                 </div>
                 <div className='wrapper-right'>
@@ -108,6 +156,7 @@ function AddEditClientModal({ onClose, onSave, clientData }) {
                         value={formData?.email}
                         onChange={(event) => handleInputChange('email', event)}
                         pattern={'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$'}
+                        error={formErrors.email}
                     />
                     <InputField
                         label={'Megjegyzés (opcionális)'}
@@ -118,10 +167,10 @@ function AddEditClientModal({ onClose, onSave, clientData }) {
                 </div>
             </div>
             <div className='modal-buttons'>
-                <button className='modal-close-btn' onClick={onClose}>Mégse</button>
-                <button className='modal-save-btn' onClick={() => onSave({ ...formData, type: clientType })}>Mentés</button>
+                <button type='button' className='modal-close-btn' onClick={onClose}>Mégse</button>
+                <button type='submit' className='modal-save-btn'>Mentés</button>
             </div>
-        </div>
+        </form>
     )
 }
 
