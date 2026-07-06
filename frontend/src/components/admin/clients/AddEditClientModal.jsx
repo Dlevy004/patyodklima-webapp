@@ -128,7 +128,6 @@ function AddEditClientModal({ onClose, onSave, clientData }) {
                         value={formData?.city}
                         onChange={(event) => handleInputChange('city', event)}
                         placeholder={'Város'}
-                        pattern={'[a-zA-Z]{2,}'}
                         error={formErrors.city}
                     />
                     <InputField
