@@ -111,7 +111,6 @@ function AddEditClientModal({ onClose, onSave, clientData }) {
                         type={'tel'}
                         value={formData?.phone}
                         onChange={(event) => handleInputChange('phone', event)}
-                        pattern={'^(\\+36|06)\\s?\\d{2}\\s?\\d{3}\\s?\\d{4}$'}
                         error={formErrors.phone}
                     />
                     <InputField
@@ -154,7 +153,6 @@ function AddEditClientModal({ onClose, onSave, clientData }) {
                         type={'email'}
                         value={formData?.email}
                         onChange={(event) => handleInputChange('email', event)}
-                        pattern={'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$'}
                         error={formErrors.email}
                     />
                     <InputField
