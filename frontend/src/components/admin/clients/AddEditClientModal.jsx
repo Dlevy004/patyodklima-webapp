@@ -93,7 +93,7 @@ function AddEditClientModal({ onClose, onSave, clientData }) {
     };
 
     return (
-        <form className='client-data-modal' onSubmit={handleSubmit}>
+        <form className='client-data-modal' onSubmit={handleSubmit} noValidate>
             <div className='title-bg'>
                 <h1>{clientData ? 'Ügyfél adatainak módosítása' : 'Új ügyfél bejegyzése'}</h1>
             </div>
