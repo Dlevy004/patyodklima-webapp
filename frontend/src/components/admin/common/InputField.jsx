@@ -1,3 +1,4 @@
+import { useId } from 'react';
 import PropTypes from 'prop-types';
 
 import './InputField.css'
@@ -5,25 +6,30 @@ import './InputField.css'
 
 function InputField({ label, type, value, onChange, placeholder, pattern, required, error }) {
     const inputClassName = error ? 'input-error' : '';
+    const inputId = useId();
 
     return (
         <div className='input-field'>
-            {label && <label>{label}</label>}
+            {label && <label htmlFor={inputId}>{label}</label>}
             {type === 'textarea' ? (
                 <textarea
+                    id={inputId}
                     value={value}
                     onChange={onChange}
                     placeholder={placeholder}
                     required={required}
+                    className={inputClassName}
                 />
             ) : (
                 <input
+                    id={inputId}
                     type={type}
                     value={value}
                     onChange={onChange}
                     placeholder={placeholder}
                     pattern={pattern}
                     required={required}
+                    className={inputClassName}
                 />
             )}
             {error && <span className='error-text'>{error}</span>}
