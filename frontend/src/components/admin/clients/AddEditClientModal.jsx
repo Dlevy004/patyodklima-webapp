@@ -82,6 +82,10 @@ function AddEditClientModal({ onClose, onSave, clientData }) {
             errors.zip_code = 'Az irányítószám 4 számjegyből állhat!';
         }
 
+        if (!formData.city.trim()) {
+            errors.city = 'Az város nevének megadása kötelező!';
+        }
+
         const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         if (formData.email && !emailRegex.test(formData.email)) {
             errors.email = 'Helytelen email formátum!';

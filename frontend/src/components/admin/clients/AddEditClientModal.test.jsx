@@ -114,6 +114,15 @@ describe('AddEditClientModal', () => {
         expect(mockOnSave).not.toHaveBeenCalled();
     });
 
+    it('should render the error message when the city field is empty', () => {
+        render(<AddEditClientModal onClose={mockOnClose} onSave={mockOnSave} clientData={null} />);
+
+        fireEvent.click(screen.getByRole('button', { name: 'Mentés' }));
+
+        expect(screen.getByText('Az város nevének megadása kötelező!')).toBeInTheDocument();
+        expect(mockOnSave).not.toHaveBeenCalled();
+    });
+
     it('should render the error message when the phone number field is empty', () => {
         render(<AddEditClientModal onClose={mockOnClose} onSave={mockOnSave} clientData={null} />);
 
