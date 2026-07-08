@@ -1,9 +1,12 @@
-import './ClientItem.css'
 import PropTypes from 'prop-types'
+
+import './ClientItem.css'
+
 import EditIcon from '../../icons/EditIcon'
 import DeleteIcon from '../../icons/DeleteIcon'
 
-function ClientItem({ name, city, phone, onDelete }) {
+
+function ClientItem({ name, city, phone, onDelete, onEdit }) {
     return (
         <div className='client-item'>
             <div className='client-details'>
@@ -12,7 +15,7 @@ function ClientItem({ name, city, phone, onDelete }) {
                 <p className='client-phone'>{phone}</p>
             </div>
             <div className='actions'>
-                <button className='edit-btn'>
+                <button className='edit-btn' onClick={onEdit}>
                     <EditIcon/>
                 </button>
                 <button className='delete-btn' onClick={onDelete}>
@@ -27,7 +30,8 @@ ClientItem.propTypes = {
     name: PropTypes.string.isRequired,
     city: PropTypes.string.isRequired,
     phone: PropTypes.string.isRequired,
-    onDelete: PropTypes.func.isRequired
+    onDelete: PropTypes.func.isRequired,
+    onEdit: PropTypes.func.isRequired,
 }
 
 export default ClientItem

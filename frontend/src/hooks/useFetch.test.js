@@ -1,4 +1,4 @@
-import { renderHook, waitFor } from '@testing-library/react'
+import { act, renderHook, waitFor } from '@testing-library/react'
 import useFetch from './useFetch'
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 
@@ -61,6 +61,33 @@ describe('useFetch', () => {
         await waitFor(() => {
             expect(result.current.error).toBeNull();
             expect(result.current.isLoading).toBe(false);
+        });
+    });
+
+    it('should refetch data when refetch is called', async () => {
+        fetch
+            .mockResolvedValueOnce({
+                ok: true,
+                json: () => Promise.resolve([{ id: '1', full_name: 'Minta Máté' }])
+            })
+            .mockResolvedValueOnce({
+                ok: true,
+                json: () => Promise.resolve([{ id: '2', full_name: 'Új Máté' }])
+            });
+
+        const { result } = renderHook(() => useFetch('/api/clients'));
+
+        await waitFor(() => {
+            expect(result.current.data).toEqual([{ id: '1', full_name: 'Minta Máté' }]);
+        });
+
+        act(() => {
+            result.current.refetch();
+        });
+
+        await waitFor(() => {
+            expect(fetch).toHaveBeenCalledTimes(2);
+            expect(result.current.data).toEqual([{ id: '2', full_name: 'Új Máté' }]);
         });
     });
 });

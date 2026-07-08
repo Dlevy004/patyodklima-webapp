@@ -1,6 +1,8 @@
 import { render, screen } from '@testing-library/react'
 import { describe, it, expect } from 'vitest'
+
 import ClientItem from './ClientItem'
+
 
 describe('ClientItem', () => {
     const mockClient  = {
