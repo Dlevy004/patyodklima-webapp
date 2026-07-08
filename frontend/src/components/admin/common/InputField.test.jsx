@@ -30,7 +30,7 @@ describe('InputField', () => {
         expect(screen.queryByText('Test Error')).toBeInTheDocument();
     });
 
-    it('should\'nt add any class or render element when error is not exist', () => {
+    it('shouldn\'t add any class or render element when error is not exist', () => {
         const mockClientData = {
             label: 'Test Label', type: 'text',
             value: 'Test Value', onChange: mockOnChange,
