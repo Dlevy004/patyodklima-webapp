@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 import './Clients.css'
 
 import ScrollUp from '../../components/common/ScrollUp'
@@ -16,76 +14,49 @@ import useFetch from '../../hooks/useFetch'
 import useDeleteData from '../../hooks/useDeleteData'
 import usePageTitle from '../../hooks/usePageTitle'
 import useSaveData from '../../hooks/useSaveData'
+import useModal from '../../hooks/useModal'
 
+
+const API_URL = 'http://localhost:3000/api/clients';
 
 function Clients() {
     usePageTitle('Ügyfélnapló');
-    const { data: clients = [], isLoading, error, refetch } = useFetch('http://localhost:3000/api/clients');
-
+    const { data: clients = [], isLoading, error, refetch } = useFetch(API_URL);
     const isEmpty = !isLoading && !error && clients?.length === 0;
 
-    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-    const [clientToDelete, setClientToDelete] = useState(null);
+    const deleteModal = useModal();
+    const editModal = useModal();
 
     const { deleteData } = useDeleteData();
-    const handleDeleteClick = (client) => {
-        setClientToDelete(client);
-        setIsDeleteModalOpen(true);
-    }
-
-    const [isClientDatasModalOpen, setIsClientDatasModalOpen] = useState(false);
-    const [clientToEdit, setClientToEdit] = useState(null);
-
-    const handleModalVisibility = (client) => {
-        setClientToEdit(client);
-        setIsClientDatasModalOpen(false);
-    }
-
-    const handleAddClick = () => {
-        setClientToEdit(null);
-        setIsClientDatasModalOpen(true);
-    }
-
-    const handleEditClick = (client) => {
-        setClientToEdit(client);
-        setIsClientDatasModalOpen(true);
-    }
+    const { saveData } = useSaveData();
 
     const handleConfirmDelete = async () => {
-        if (!clientToDelete) return;
+        if (!deleteModal.selectedItem) return;
 
-        const success = await deleteData(`http://localhost:3000/api/clients/${clientToDelete.id}`);
+        const success = await deleteData(`${API_URL}/${deleteModal.selectedItem.id}`);
 
         if (success) {
-            setIsDeleteModalOpen(false);
-            setClientToDelete(null);
+            deleteModal.close();
             refetch();
         }
-    }
-
-    const { saveData, isSaving } = useSaveData();
+    };
 
     const handleSaveClient = async (formData) => {
-        const isEditing = Boolean(clientToEdit);
-
-        const url = isEditing
-            ? `http://localhost:3000/api/clients/${clientToEdit.id}`
-            : `http://localhost:3000/api/clients`;
-
+        const isEditing = Boolean(editModal.selectedItem);
+        const url = isEditing ? `${API_URL}/${editModal.selectedItem.id}` : API_URL;
         const method = isEditing ? 'PUT' : 'POST';
 
         const success = await saveData(url, method, formData);
 
         if (success) {
-            setIsClientDatasModalOpen(false);
-            setClientToEdit(null);
+            editModal.close();
             refetch();
         }
-    }
+    };
 
     return (
         <>
-            <TableHeader onAddClick={handleAddClick}/>
+            <TableHeader onAddClick={() => editModal.open()} />
 
             <div className='table-content'>
                 <DataStateFeedback
@@ -100,34 +71,27 @@ function Clients() {
                             name={client.full_name}
                             city={client.city}
                             phone={client.phone}
-
-                            onDelete={() => handleDeleteClick(client)}
-                            onEdit={() => handleEditClick(client)}
+                            onDelete={() => deleteModal.open(client)}
+                            onEdit={() => editModal.open(client)}
                         />
                     ))}
                 </DataStateFeedback>
             </div>
 
-            <ModalBackdrop
-                isOpen={isDeleteModalOpen}
-                onClose={() => setIsDeleteModalOpen(false)}
-            >
+            <ModalBackdrop isOpen={deleteModal.isOpen} onClose={deleteModal.close}>
                 <DeleteDataModal
                     titleData={'Ügyfél'}
                     descriptionData={'ügyfelet'}
-                    onClose={() => setIsDeleteModalOpen(false)}
+                    onClose={deleteModal.close}
                     onDelete={handleConfirmDelete}
                 />
             </ModalBackdrop>
 
-            <ModalBackdrop
-                isOpen={isClientDatasModalOpen}
-                onClose={() => setIsClientDatasModalOpen(false)}
-            >
+            <ModalBackdrop isOpen={editModal.isOpen} onClose={editModal.close}>
                 <AddEditClientModal
-                    onClose={() => setIsClientDatasModalOpen(false)}
+                    onClose={editModal.close}
                     onSave={handleSaveClient}
-                    clientData={clientToEdit}
+                    clientData={editModal.selectedItem}
                 />
             </ModalBackdrop>
 
