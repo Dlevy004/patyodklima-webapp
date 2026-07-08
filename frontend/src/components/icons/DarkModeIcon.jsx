@@ -2,8 +2,8 @@ import PropTypes from 'prop-types'
 
 function DarkModeIcon({ className }) {
     return (
-        <svg 
-            xmlns="http://www.w3.org/2000/svg" 
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
             height="24px" width="24px"
             viewBox="0 -960 960 960"
             fill="currentColor"
