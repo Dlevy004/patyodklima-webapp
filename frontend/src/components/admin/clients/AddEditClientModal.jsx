@@ -83,7 +83,7 @@ function AddEditClientModal({ onClose, onSave, clientData }) {
         }
 
         if (!formData.city.trim()) {
-            errors.city = 'Az város nevének megadása kötelező!';
+            errors.city = 'A város nevének megadása kötelező!';
         }
 
         const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;

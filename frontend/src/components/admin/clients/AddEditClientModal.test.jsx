@@ -119,7 +119,7 @@ describe('AddEditClientModal', () => {
 
         fireEvent.click(screen.getByRole('button', { name: 'Mentés' }));
 
-        expect(screen.getByText('Az város nevének megadása kötelező!')).toBeInTheDocument();
+        expect(screen.getByText('A város nevének megadása kötelező!')).toBeInTheDocument();
         expect(mockOnSave).not.toHaveBeenCalled();
     });
 
