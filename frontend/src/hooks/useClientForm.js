@@ -56,7 +56,7 @@ function useClientForm(clientData) {
             errors.phone = 'Helytelen formátum (pl: +36 30 123 4567)';
         }
 
-        const zipRegex = /\D{4}$/;
+        const zipRegex = /^[0-9]{4}$/;
         if (formData.zip_code && !zipRegex.test(formData.zip_code)) {
             errors.zip_code = 'Az irányítószám 4 számjegyből állhat!';
         }
