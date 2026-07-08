@@ -119,7 +119,7 @@ function AddEditClientModal({ onClose, onSave, clientData }) {
                     />
                     <InputField
                         label={'Ügyfél címe'}
-                        type={'pattern'}
+                        type={'text'}
                         value={formData?.zip_code}
                         onChange={(event) => handleInputChange('zip_code', event)}
                         placeholder={'Irányítószám'}
