@@ -1,6 +1,9 @@
-import PropTypes from "prop-types"
-import './NavButton.css'
 import { NavLink } from 'react-router-dom'
+
+import PropTypes from "prop-types"
+
+import './NavButton.css'
+
 
 function NavButton({ IconComponent, title, url }) {
     return (

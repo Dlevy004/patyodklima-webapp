@@ -1,6 +1,9 @@
 import { useState } from 'react'
+
 import PropTypes from 'prop-types'
+
 import BackToTopIcon from '@/components/icons/BackToTopIcon'
+
 
 function ServiceCard({ imgSrc, title, IconComponent, desc, altText }) {
     const [isFlipped, setIsFlipped] = useState(false);

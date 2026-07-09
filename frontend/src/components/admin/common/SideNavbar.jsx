@@ -1,7 +1,12 @@
 import { useState, useEffect } from 'react'
+
+import PropTypes from 'prop-types'
+
 import './SideNavbar.css'
+
 import NavButton from './NavButton'
 import NavSection from './NavSection'
+
 import HomeIcon from '../../icons/HomeIcon'
 import ClientPageIcon from '../../icons/ClientPageIcon'
 import JobPageIcon from '../../icons/JobPageIcon'
@@ -10,10 +15,12 @@ import VisualDesignIcon from '../../icons/VisualDesignIcon'
 import PhotoGalleryIcon from '../../icons/PhotoGalleryIcon'
 import HvacIcon from '../../icons/HvacIcon'
 import HideIcon from '../../icons/BackToTopIcon'
+
 import horizontalLogo from '../../../assets/images/logo.avif'
 import verticalLogo from '../../../assets/images/tr-logo-icon.avif'
+
 import MobileMenu from '../../common/MobileMenu'
-import PropTypes from 'prop-types'
+
 
 function SideNavbar({ isMobileMenuOpen, closeMobileMenu }) {
     const [isCollapsed, setIsCollapsed] = useState(() => {

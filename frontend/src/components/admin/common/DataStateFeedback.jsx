@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 
+
 function DataStateFeedback({ isLoading, error, isEmpty, emptyMessage, children }) {
     if (isLoading) {
         return <p className='info-text'>Betöltés folyamatban...</p>

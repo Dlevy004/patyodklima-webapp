@@ -1,7 +1,11 @@
-import './MobileMenu.css'
-import PropTypes from 'prop-types'
-import CloseMenuIcon from '@/components/icons/CloseMenuIcon'
 import { useEffect } from 'react'
+
+import PropTypes from 'prop-types'
+
+import './MobileMenu.css'
+
+import CloseMenuIcon from '@/components/icons/CloseMenuIcon'
+
 
 function MobileMenu({ isOpen, onClose, children, className = '' }) {
     useEffect(() => {

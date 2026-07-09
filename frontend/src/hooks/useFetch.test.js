@@ -1,6 +1,8 @@
 import { act, renderHook, waitFor } from '@testing-library/react'
-import useFetch from './useFetch'
 import { describe, it, expect, vi, beforeEach } from 'vitest'
+
+import useFetch from './useFetch'
+
 
 globalThis.fetch = vi.fn();
 

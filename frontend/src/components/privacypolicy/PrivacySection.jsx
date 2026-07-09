@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 
+
 function PrivacySection({number, title, desc, items = []}) {
     return (
         <div className='information'>

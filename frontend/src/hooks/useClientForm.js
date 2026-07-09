@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 
+
 const ClientType = {
     INDIVIDUAL: 'individual',
     COMPANY: 'company'

@@ -1,10 +1,13 @@
 import './Contact.css'
+
 import ContactItem from './ContactItem.jsx'
 
 import Wave from '@/components/common/Wave'
+
 import PhoneIcon from '@/components/icons/PhoneIcon'
 import FacebookIcon from '@/components/icons/FacebookIcon'
 import MailIcon from '@/components/icons/MailIcon'
+
 
 function Contact() {
     return (

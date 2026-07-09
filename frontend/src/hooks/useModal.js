@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+
 function useModal() {
     const [isOpen, setIsOpen] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);

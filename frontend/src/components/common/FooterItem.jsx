@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 
+
 function FooterItem({ IconComponent, itemText, linkHref }) {
     return (
         <div className="footer-p">

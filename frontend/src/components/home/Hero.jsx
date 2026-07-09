@@ -1,5 +1,7 @@
-import heroImg from '@/assets/images/heroImg.avif'
 import './Hero.css'
+
+import heroImg from '@/assets/images/heroImg.avif'
+
 
 function Hero() {
     return (

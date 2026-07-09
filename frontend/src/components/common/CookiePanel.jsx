@@ -1,7 +1,9 @@
 import { useState } from "react"
-import CookieIcon from "../icons/CookieIcon";
 
 import './CookiePanel.css'
+
+import CookieIcon from "../icons/CookieIcon";
+
 
 function CookiePanel() {
     const [isVisible, setIsVisible] = useState(() => {

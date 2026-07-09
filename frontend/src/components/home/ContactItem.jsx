@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 
+
 function ContactItem ({ IconComponent, isColorChange = false, contactText, contactHref }) {
     return (
         <div className="contact">

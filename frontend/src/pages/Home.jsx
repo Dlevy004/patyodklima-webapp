@@ -1,12 +1,15 @@
-import Navbar from '../components/common/Navbar'
 import Hero from '../components/home/Hero'
 import Services from '../components/home/Services'
 import Reference from '../components/home/Reference'
 import Contact from '../components/home/Contact'
+
+import Navbar from '../components/common/Navbar'
 import Footer from '../components/common/Footer'
 import ScrollUp from '../components/common/ScrollUp'
 import CookiePanel from '../components/common/CookiePanel'
+
 import useDocumentTitle from '../hooks/useDocumentTitle'
+
 
 function Home() {
     useDocumentTitle('Pátyod Klíma | Klímaszerelés, karbantartás és ingyenes felmérés');

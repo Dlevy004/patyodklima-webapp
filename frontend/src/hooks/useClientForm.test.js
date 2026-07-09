@@ -1,8 +1,10 @@
+import { act } from 'react';
+
 import {  renderHook } from '@testing-library/react'
 import { describe, it, expect } from 'vitest'
 
 import useClientForm from './useClientForm'
-import { act } from 'react';
+
 
 describe('useClientForm', () => {
     it('should set error when the full name field is empty', () => {

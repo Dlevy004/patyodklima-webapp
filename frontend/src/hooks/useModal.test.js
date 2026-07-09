@@ -3,6 +3,7 @@ import { describe, it, expect } from 'vitest';
 
 import useModal from './useModal';
 
+
 describe('useModal', () => {
     it('should initialize with isOpen false and selectedItem null', () => {
         const { result } = renderHook(() => useModal());
