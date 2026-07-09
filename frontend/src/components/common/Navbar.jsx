@@ -1,23 +1,18 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+
 import './Navbar.css'
+
 import patyodklimaLogo from '@/assets/images/logo.avif'
-import LightModeIcon from '@/components/icons/LightModeIcon'
-import DarkModeIcon from '@/components/icons/DarkModeIcon'
+
 import HamburgerMenu from './HamburgerMenu'
 import MobileMenu from './MobileMenu'
+import ThemeSwitcher from './ThemeSwitcher'
+
 
 function Navbar() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-    const [isDarkModeEnabled, setIsDarkModeEnabled] = useState(
-        () => localStorage.getItem('darkmode') === 'active'
-    );
     const navigate = useNavigate();
-
-    useEffect(() => {
-        document.body.classList.toggle('darkmode', isDarkModeEnabled)
-        localStorage.setItem('darkmode', isDarkModeEnabled ? 'active' : null)
-    }, [isDarkModeEnabled])
 
     const scrollToSection = (sectionId) => {
         if (window.location.pathname !== '/') {
@@ -46,15 +41,7 @@ function Navbar() {
                     </ul>
                     <div className="navbar-right">
                         <button className="btn-contact" onClick={() => scrollToSection("contact")}>Kapcsolat</button>
-                        <button
-                            className="theme-switch"
-                            aria-label="Témaváltás (sötét/világos)"
-                            onClick={() => setIsDarkModeEnabled(prev => !prev)}>
-                            { isDarkModeEnabled
-                                ? (<LightModeIcon className="my-icon"/>)
-                                : (<DarkModeIcon className="my-icon"/>)
-                            }
-                        </button>
+                        <ThemeSwitcher />
                     </div>
                     <HamburgerMenu onClick={() => setIsMobileMenuOpen(true)}/>
                 </nav>
@@ -71,15 +58,7 @@ function Navbar() {
                 </ul>
                 <div className="mobile-navbar-right">
                     <button className="mobile-btn-contact" onClick={() => scrollToSection("contact")}>Kapcsolat</button>
-                    <button
-                        className="theme-switch"
-                        aria-label="Témaváltás (sötét/világos)"
-                        onClick={() => setIsDarkModeEnabled(prev => !prev)}>
-                        { isDarkModeEnabled
-                            ? (<LightModeIcon className="my-icon"/>)
-                            : (<DarkModeIcon className="my-icon"/>)
-                        }
-                    </button>
+                    <ThemeSwitcher />
                 </div>
             </MobileMenu>
         </header>

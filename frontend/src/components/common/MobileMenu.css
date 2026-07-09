@@ -6,21 +6,6 @@
     font-size: var(--fs-h3);
 }
 
-.my-icon {
-    position: relative;
-    height: 80%;
-    width: auto;
-    aspect-ratio: 1 / 1;
-    left: 5%;
-
-    background: white;
-    color: var(--bg-color-ternary);
-
-    padding: 0.2rem;
-    border-radius: 50%;
-    transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
 .nav-mobile { display: none; }
 
 @media (max-width: 1024px) {
@@ -129,16 +114,6 @@
         background-color: #f2f2f2;
         border: 3px solid var(--primary-color);
         color: var(--primary-color);
-    }
-
-    .theme-switch {
-        transform: rotate(0deg);
-        overflow: visible;
-    }
-
-    body.darkmode .theme-switch .my-icon {
-        transform: rotate(0deg);
-        padding: 5%;
     }
 
     .mobile-menu-content {
