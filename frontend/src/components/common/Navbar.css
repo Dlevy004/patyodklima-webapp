@@ -98,54 +98,6 @@
     color: var(--bg-color-ternary);
 }
 
-.theme-switch {
-    height: clamp(1.2rem, 2vw, 1.8rem);
-    width: clamp(2.5rem, 4vw, 3.5rem);
-    margin-right: clamp(0.7rem, 2vw, 1.25rem);
-    border-radius: 50px;
-    border: none;
-    background-color: #ddd;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 2px -2px inset, rgba(0, 0, 0, 0.3) 0px 2px 2px -2px inset;
-
-    display: flex;
-    align-items: center;
-    justify-content: start;
-
-    transition: all 0.2s ease-in;
-    position: relative;
-    transform: rotate(90deg);
-    overflow: hidden;
-    cursor: pointer;
-}
-
-.my-icon {
-    position: absolute;
-    height: 80%;
-    width: auto;
-    aspect-ratio: 1 / 1;
-    left: 5%;
-
-    background: white;
-    color: var(--bg-color-ternary);
-
-    padding: 0.2rem;
-    border-radius: 50%;
-    transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    transform: rotate(270deg);
-}
-
-body.darkmode .theme-switch {
-    background-color: var(--bg-color-ternary);
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 2px -2px inset, rgba(0, 0, 0, 0.3) 0px 2px 2px -2px inset;
-}
-
-body.darkmode .theme-switch .my-icon {
-    left: calc(100% - clamp(1rem, 1.5vw, 1.5rem) - clamp(2px, 0.4vw, 4px));
-    transform: rotate(270deg);
-}
-
 @media (max-width: 1024px) {
     .nav-menu, .navbar-right { display: none; }
-
-    .my-icon { transform: rotate(0deg); }
 }
