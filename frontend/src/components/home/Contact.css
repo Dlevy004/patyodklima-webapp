@@ -1,13 +1,13 @@
 #contact {
     position: relative;
 
-    background-image: 
+    background-image:
         linear-gradient(to bottom, hsla(202, 72%, 47%, 0.5), rgba(255, 255, 255, 0)),
         url(@/assets/images/contactBg.avif);
     background-size: cover;
     background-position: right bottom;
     background-attachment: fixed;
-    
+
     min-height: 100vh;
     width: 100%;
     overflow: hidden;
@@ -73,7 +73,7 @@
     text-decoration: none;
 }
 
-.contact .contact-icon { 
+.contact .contact-icon {
     scale: 1.5;
     color: black;
 }
@@ -100,7 +100,7 @@
 
 @media (max-width: 426px) {
     #contact {
-        background-image: 
+        background-image:
             linear-gradient(to bottom, hsla(202, 72%, 47%, 0.5), rgba(255, 255, 255, 0)),
             url(@/assets/images/contactBgPhone.avif);
         background-attachment: scroll;
