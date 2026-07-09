@@ -12,31 +12,46 @@ import CleaningIcon from '@/components/icons/CleaningIcon'
 
 
 function Services() {
+    const serviceCards = [
+        {
+            imgSrc: assignmentImg,
+            title: "Díjmentes felmérés",
+            IconComponent: AssignmentIcon,
+            desc: "Az előzetes egyeztetést követően személyesen mérjük fel a helyszínt, hogy pontos ajánlatot adhassunk.",
+            altText: "Díjmentes felmérés"
+        },
+        {
+            imgSrc: installationImg,
+            title: "Teljeskörű telepítés",
+            IconComponent: HandymanIcon,
+            desc: "Vállaljuk klímaberendezések szakszerű telepítését. A készüléket precízen, az Ön igényeihez igazodva helyezzük üzembe, hogy hosszú távon megbízhatóan működjön.",
+            altText: "Teljeskörű telepítés"
+        },
+        {
+            imgSrc: maintenanceImg,
+            title: "Karbantartás",
+            IconComponent: CleaningIcon,
+            desc: "Szakemberünk gondoskodik klímája rendszeres karbantartásáról és tisztításáról &mdash; így nemcsak hatékonyabban működik, hanem a levegő is tisztább marad.",
+            altText: "Karbantartás"
+        }
+    ];
+
     return (
         <section id="services">
             <h2 className="sub-title">Szolgáltatásaink</h2>
             <div className="cards">
-                <ServiceCard 
-                    imgSrc = {assignmentImg}
-                    title = "Díjmentes felmérés"
-                    IconComponent = {AssignmentIcon}
-                    desc = "Az előzetes egyeztetést követően személyesen mérjük fel a helyszínt, hogy pontos ajánlatot adhassunk."
-                    altText = "Díjmentes felmérés"
-                />
-                <ServiceCard
-                    imgSrc = {installationImg}
-                    title = "Teljeskörű telepítés"
-                    IconComponent = {HandymanIcon}
-                    desc = "Vállaljuk klímaberendezések szakszerű telepítését. A készüléket precízen, az Ön igényeihez igazodva helyezzük üzembe, hogy hosszú távon megbízhatóan működjön."
-                    altText = "Teljeskörű telepítés"
-                />
-                <ServiceCard
-                    imgSrc = {maintenanceImg}
-                    title = "Karbantartás"
-                    IconComponent = {CleaningIcon}
-                    desc = "Szakemberünk gondoskodik klímája rendszeres karbantartásáról és tisztításáról &mdash; így nemcsak hatékonyabban működik, hanem a levegő is tisztább marad."
-                    altText = "Karbantartás"
-                />
+                {
+                    serviceCards.map((card, key) => (
+                        <ServiceCard
+                            key = {key}
+                            imgSrc = {card.imgSrc}
+                            title = {card.title}
+                            IconComponent = {card.IconComponent}
+                            desc = {card.desc}
+                            altText = {card.altText}
+                        />
+                    ))
+                }
             </div>
         </section>
     )
