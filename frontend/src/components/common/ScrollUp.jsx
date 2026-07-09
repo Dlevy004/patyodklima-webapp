@@ -1,10 +1,13 @@
 import { useState, useEffect } from 'react'
+
 import './ScrollUp.css'
+
 import BackToTopIcon from '../icons/BackToTopIcon';
+
 
 function ScrollUp() {
     const [isVisible, setIsVisible] = useState(false);
-    
+
     useEffect(() => {
         const toggleVisibility = () => {
             if (window.scrollY > 500) {
@@ -27,8 +30,8 @@ function ScrollUp() {
     };
 
     return (
-        <button 
-            id="scroll-up" 
+        <button
+            id="scroll-up"
             aria-label="Ugrás az oldal tetejére"
             onClick={scrollToTop}
             style={{

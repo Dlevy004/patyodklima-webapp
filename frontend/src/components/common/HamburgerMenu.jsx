@@ -1,6 +1,9 @@
-import './HamburgerMenu.css'
-import HamburgerMenuIcon from '@/components/icons/HamburgerMenuIcon'
 import PropTypes from 'prop-types'
+
+import './HamburgerMenu.css'
+
+import HamburgerMenuIcon from '@/components/icons/HamburgerMenuIcon'
+
 
 function HamburgerMenu({ onClick }) {
     return(

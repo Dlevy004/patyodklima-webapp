@@ -1,6 +1,8 @@
 import { render, fireEvent } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
+
 import ModalBackdrop from './ModalBackdrop';
+
 
 describe('ModalBackdrop', () => {
     beforeEach(() => {

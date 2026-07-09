@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 
 import './DeleteDataModal.css'
 
+
 function DeleteDataModal({ titleData, descriptionData, onClose, onDelete }) {
     return (
         <div className='delete-modal'>

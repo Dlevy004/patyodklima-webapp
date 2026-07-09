@@ -1,5 +1,7 @@
 import ScrollUp from '../../components/common/ScrollUp'
+
 import usePageTitle from '../../hooks/usePageTitle';
+
 
 function Errors() {
     usePageTitle('Bejelentések');

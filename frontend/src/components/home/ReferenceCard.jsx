@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 
+
 function ReferenceCard ({ imgSrc, altText, cardTitle }) {
     return (
         <li className="card-item swiper-slide">

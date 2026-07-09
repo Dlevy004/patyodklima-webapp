@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 
+
 function PhotoGalleryIcon({ className }) {
     return (
         <svg

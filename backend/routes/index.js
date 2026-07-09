@@ -1,6 +1,8 @@
 const express = require('express');
-const router = express.Router();
 const clientRoutes = require('./clientRoutes');
+
+
+const router = express.Router();
 
 router.use(clientRoutes);
 

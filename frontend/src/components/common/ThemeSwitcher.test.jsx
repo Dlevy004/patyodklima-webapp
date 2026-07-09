@@ -3,6 +3,7 @@ import { describe, it, expect, beforeEach, vi } from 'vitest';
 
 import ThemeSwitcher from './ThemeSwitcher';
 
+
 describe('ThemeSwitcher', () => {
     let mockStorage = {};
     Object.defineProperty(window, 'localStorage', {

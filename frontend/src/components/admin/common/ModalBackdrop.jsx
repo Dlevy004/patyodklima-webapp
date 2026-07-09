@@ -1,5 +1,7 @@
-import './ModalBackdrop.css'
 import PropTypes from "prop-types"
+
+import './ModalBackdrop.css'
+
 
 function ModalBackdrop({ isOpen, onClose, children }) {
     if (!isOpen) return null;

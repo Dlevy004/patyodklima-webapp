@@ -1,7 +1,11 @@
-import './TopBar.css'
 import PropTypes from 'prop-types'
+
+import './TopBar.css'
+
 import ProfilPic from '@/assets/images/profile-placeholder.avif'
+
 import HamburgerMenu from '../../common/HamburgerMenu'
+
 
 function TopBar({ title, onMenuClick }) {
     return (

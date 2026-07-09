@@ -1,8 +1,10 @@
-import ReferenceCard from "./ReferenceCard";
+import 'swiper/css/bundle'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
-import 'swiper/css/bundle'
+
 import './Reference.css'
+
+import ReferenceCard from "./ReferenceCard";
 
 import ref4 from '@/assets/images/reference4.avif';
 import ref1 from '@/assets/images/reference1.avif';
@@ -12,6 +14,7 @@ import aux from '@/assets/images/556650737_122141655062915768_857871931182055680
 import ande from '@/assets/images/585059918_122150208692915768_3381541991961443822_n.avif';
 import ande2 from '@/assets/images/585495273_122150208740915768_5983887693530440261_n.avif';
 import ce from '@/assets/images/585175757_122150209760915768_8231168429410044420_n.avif';
+
 
 function Reference() {
     const referencesData = [

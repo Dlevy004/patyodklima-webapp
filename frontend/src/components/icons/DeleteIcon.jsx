@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 
+
 function DeleteIcon({ className }) {
     return (
         <svg

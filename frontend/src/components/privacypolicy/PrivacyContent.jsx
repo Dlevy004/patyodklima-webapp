@@ -1,8 +1,13 @@
 import './PrivacyContent.css'
+
 import PrivacyImg from '@/assets/images/20250715_130101.avif'
+
 import PrivacyDoc from '@/assets/patyodklima-adatkezelesi-tajekoztato.pdf'
+
 import PrivacySection from './PrivacySection'
+
 import Wave from '@/components/common/Wave'
+
 
 function PrivacyContent() {
    return(

@@ -1,6 +1,7 @@
 const prisma = require('../database/prisma');
 const clientService = require('../services/clientService');
 
+
 jest.mock('../database/prisma', () => ({
     clients: {
         create: jest.fn(),

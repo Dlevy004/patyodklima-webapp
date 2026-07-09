@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 
+
 function Wave({ fill = 'var(--bg-color-ternary)' }) {
     return (
         <div className="footer-wave">

@@ -1,11 +1,14 @@
-import FooterItem from "./FooterItem";
 import './Footer.css'
+
+import FooterItem from "./FooterItem";
+
+import footerLogo from "@/assets/images/footerLogo.avif"
 
 import FacebookIcon from "../icons/FacebookIcon";
 import PrivacyPolicyIcon from "../icons/PrivacyPolicyIcon";
-import footerLogo from "@/assets/images/footerLogo.avif"
 import PhoneIcon from "../icons/PhoneIcon";
 import MailIcon from "../icons/MailIcon";
+
 
 function Footer() {
     return (
