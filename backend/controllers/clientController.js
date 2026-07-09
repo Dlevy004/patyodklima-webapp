@@ -1,5 +1,6 @@
 const clientService = require('../services/clientService');
 
+
 const createClient = async (req, res) => {
     try {
         const newClient = req.body;

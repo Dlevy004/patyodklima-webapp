@@ -1,5 +1,6 @@
 const prisma = require('../database/prisma');
 
+
 const createClient = async (newClient) => {
     return await prisma.clients.create({
         data: {
