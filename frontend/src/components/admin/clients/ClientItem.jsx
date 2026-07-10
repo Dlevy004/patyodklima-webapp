@@ -1,9 +1,8 @@
 import PropTypes from 'prop-types'
 
-import './ClientItem.css'
+import { SquarePen, Trash2 } from 'lucide-react'
 
-import EditIcon from '../../icons/EditIcon'
-import DeleteIcon from '../../icons/DeleteIcon'
+import './ClientItem.css'
 
 
 function ClientItem({ name, city, phone, onDelete, onEdit }) {
@@ -16,10 +15,10 @@ function ClientItem({ name, city, phone, onDelete, onEdit }) {
             </div>
             <div className='actions'>
                 <button className='edit-btn' onClick={onEdit}>
-                    <EditIcon/>
+                    <SquarePen strokeWidth={2}/>
                 </button>
                 <button className='delete-btn' onClick={onDelete}>
-                    <DeleteIcon/>
+                    <Trash2 strokeWidth={2}/>
                 </button>
             </div>
         </div>

@@ -1,8 +1,8 @@
 import { useState } from "react"
 
-import './CookiePanel.css'
+import { Cookie } from 'lucide-react'
 
-import CookieIcon from "../icons/CookieIcon";
+import './CookiePanel.css'
 
 
 function CookiePanel() {
@@ -36,7 +36,7 @@ function CookiePanel() {
     return (
         <dialog className={`cookie-panel ${isVisible ? 'show' : ''}`} aria-labelledby="CookieTitle" open={isVisible}>
             <header>
-                <CookieIcon className={"cookie-icon"}/>
+                <Cookie className={"cookie-icon"}/>
                 <h2 id="CookieTitle">Cookie tájékoztató</h2>
             </header>
 

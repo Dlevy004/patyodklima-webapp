@@ -1,10 +1,9 @@
 import { useEffect } from 'react'
 
 import PropTypes from 'prop-types'
+import { X } from 'lucide-react'
 
 import './MobileMenu.css'
-
-import CloseMenuIcon from '@/components/icons/CloseMenuIcon'
 
 
 function MobileMenu({ isOpen, onClose, children, className = '' }) {
@@ -27,7 +26,7 @@ function MobileMenu({ isOpen, onClose, children, className = '' }) {
                 aria-label="Menü bezárása"
                 onClick={onClose}
             >
-                <CloseMenuIcon className="close-icon"/>
+                <X className="close-icon"/>
             </button>
             <div className="mobile-menu-content">
                 {children}

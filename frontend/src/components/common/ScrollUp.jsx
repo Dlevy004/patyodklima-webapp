@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 
-import './ScrollUp.css'
+import { ArrowBigUp } from 'lucide-react'
 
-import BackToTopIcon from '../icons/BackToTopIcon';
+import './ScrollUp.css'
 
 
 function ScrollUp() {
@@ -38,7 +38,7 @@ function ScrollUp() {
                 display: isVisible ? 'flex' : 'none'
             }}
         >
-            <BackToTopIcon />
+            <ArrowBigUp />
         </button>
     )
 }

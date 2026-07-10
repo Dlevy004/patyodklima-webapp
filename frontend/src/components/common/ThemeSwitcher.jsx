@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
 
-import './ThemeSwitcher.css'
+import { Sun, Moon } from 'lucide-react'
 
-import LightModeIcon from '@/components/icons/LightModeIcon'
-import DarkModeIcon from '@/components/icons/DarkModeIcon'
+import './ThemeSwitcher.css'
 
 
 function ThemeSwitcher() {
@@ -22,7 +21,7 @@ function ThemeSwitcher() {
             aria-label="Témaváltás (sötét/világos)"
             onClick={() => setIsDarkModeEnabled(prev => !prev)}>
             <div className="my-icon">
-                { isDarkModeEnabled ? <LightModeIcon /> : <DarkModeIcon /> }
+                { isDarkModeEnabled ? <Sun data-testid='light-icon' /> : <Moon data-testid='dark-icon' /> }
             </div>
         </button>
     )

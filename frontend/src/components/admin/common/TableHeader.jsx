@@ -1,15 +1,15 @@
 import PropTypes from 'prop-types'
 
-import './TableHeader.css'
+import { Plus } from 'lucide-react'
 
-import AddIcon from '../../icons/AddIcon'
+import './TableHeader.css'
 
 
 function TableHeader({ onAddClick }) {
     return (
         <div className='table-header'>
             <button className='add-btn' onClick={onAddClick}>
-                <AddIcon />
+                <Plus />
             </button>
         </div>
     )

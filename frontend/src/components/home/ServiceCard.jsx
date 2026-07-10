@@ -1,8 +1,7 @@
 import { useState } from 'react'
 
 import PropTypes from 'prop-types'
-
-import BackToTopIcon from '@/components/icons/BackToTopIcon'
+import { ArrowBigUp } from 'lucide-react'
 
 
 function ServiceCard({ imgSrc, title, IconComponent, desc, altText }) {
@@ -17,7 +16,7 @@ function ServiceCard({ imgSrc, title, IconComponent, desc, altText }) {
                         <h3>{title}</h3>
                         <button className="btn-more">
                             Bővebben{' '}
-                            <BackToTopIcon />
+                            <ArrowBigUp />
                         </button>
                     </div>
                 </div>
