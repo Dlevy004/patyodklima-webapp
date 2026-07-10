@@ -1,30 +1,28 @@
 import './Contact.css'
 
+import { ThumbsUp, PhoneCall, Mail } from 'lucide-react'
+
 import ContactItem from './ContactItem.jsx'
 
 import Wave from '@/components/common/Wave'
-
-import PhoneIcon from '@/components/icons/PhoneIcon'
-import FacebookIcon from '@/components/icons/FacebookIcon'
-import MailIcon from '@/components/icons/MailIcon'
 
 
 function Contact() {
     const contactItems = [
         {
-            IconComponent: PhoneIcon,
+            IconComponent: PhoneCall,
             isColorChange: true,
             contactText: '06 30 629 0793',
             contactHref: 'tel:+36306290793'
         },
         {
-            IconComponent: FacebookIcon,
+            IconComponent: ThumbsUp,
             isColorChange: true,
             contactText: 'Kövess Facebookon!',
             contactHref: 'https://www.facebook.com/profile.php?id=61577473041862'
         },
         {
-            IconComponent: MailIcon,
+            IconComponent: Mail,
             isColorChange: true,
             contactText: 'Írj nekünk e-mailt!',
             contactHref: 'mailto:klima.patyod@gmail.com'

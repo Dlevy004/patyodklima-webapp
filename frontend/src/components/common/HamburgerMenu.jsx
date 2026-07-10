@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types'
 
-import './HamburgerMenu.css'
+import { Menu } from 'lucide-react'
 
-import HamburgerMenuIcon from '@/components/icons/HamburgerMenuIcon'
+import './HamburgerMenu.css'
 
 
 function HamburgerMenu({ onClick }) {
@@ -12,7 +12,7 @@ function HamburgerMenu({ onClick }) {
             aria-label="Menü megnyitása"
             onClick = {onClick}
         >
-            <HamburgerMenuIcon className="hamburger-icon"/>
+            <Menu className="hamburger-icon" strokeWidth={2.5}/>
         </button>
     )
 }

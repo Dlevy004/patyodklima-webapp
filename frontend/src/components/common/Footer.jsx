@@ -1,13 +1,10 @@
 import './Footer.css'
 
+import { ThumbsUp, PhoneCall, Shield, Mail } from 'lucide-react'
+
 import FooterItem from "./FooterItem";
 
 import footerLogo from "@/assets/images/footerLogo.avif"
-
-import FacebookIcon from "../icons/FacebookIcon";
-import PrivacyPolicyIcon from "../icons/PrivacyPolicyIcon";
-import PhoneIcon from "../icons/PhoneIcon";
-import MailIcon from "../icons/MailIcon";
 
 
 function Footer() {
@@ -16,13 +13,13 @@ function Footer() {
             <div className="footer-top">
                 <div className="footer-left">
                     <FooterItem
-                        IconComponent={FacebookIcon}
+                        IconComponent={ThumbsUp}
                         itemText="Facebook oldalunk"
                         linkHref="https://www.facebook.com/profile.php?id=61577473041862"
                     />
 
                     <FooterItem
-                        IconComponent={PrivacyPolicyIcon}
+                        IconComponent={Shield}
                         itemText="Adatkezelési tájékoztató"
                         linkHref={'/privacypolicy'}
                     />
@@ -34,13 +31,13 @@ function Footer() {
                 </div>
                 <div className="footer-right">
                     <FooterItem
-                        IconComponent={PhoneIcon}
+                        IconComponent={PhoneCall}
                         itemText="06 30 629 0793"
                         linkHref="tel:+36306290793"
                     />
 
                     <FooterItem
-                        IconComponent={MailIcon}
+                        IconComponent={Mail}
                         itemText="klima.patyod@gmail.com"
                         linkHref="mailto:klima.patyod@gmail.com?subject=Contact%20Request"
                     />
