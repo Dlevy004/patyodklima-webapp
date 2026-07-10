@@ -3,12 +3,17 @@
 .hamburger .hamburger-icon {
     width: clamp(2rem, 5vw, 3rem);
     height: auto;
+    color: white;
 }
 
 @media (max-width: 1024px) {
     .hamburger {
         display: block;
         border: none;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
         width: clamp(2.5rem, 2vw, 5rem);
         height: clamp(2.5rem, 2vw, 5rem);
