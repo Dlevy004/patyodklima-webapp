@@ -1,6 +1,8 @@
 import { renderHook, act } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
+import toast from 'react-hot-toast';
+
 import useSaveData from './useSaveData';
 
 
@@ -10,6 +12,8 @@ describe('useSaveData', () => {
     beforeEach(() => {
         vi.clearAllMocks();
     });
+
+    vi.mock('react-hot-toast');
 
     it('should initialize with correct default states', () => {
         const { result } = renderHook(() => useSaveData());
@@ -54,6 +58,34 @@ describe('useSaveData', () => {
         });
     });
 
+    it('should render hot toast message on successful put request', async () => {
+        fetch.mockResolvedValueOnce({ ok: true });
+
+        const { result } = renderHook(() => useSaveData());
+
+        const payload = { name: 'Máté', age: 30 };
+
+        await act(async () => {
+            await result.current.saveData('/api/test', 'PUT', payload);
+        });
+
+        expect(toast.success).toHaveBeenCalledWith('Sikeresen frissítve!');
+    });
+
+    it('should render hot toast message on successful post request', async () => {
+        fetch.mockResolvedValueOnce({ ok: true });
+
+        const { result } = renderHook(() => useSaveData());
+
+        const payload = { name: 'Máté', age: 30 };
+
+        await act(async () => {
+            await result.current.saveData('/api/test', 'POST', payload);
+        });
+
+        expect(toast.success).toHaveBeenCalledWith('Sikeresen létrehozva!');
+    });
+
     it('should return false and set specific error message when response is not ok', async () => {
         fetch.mockResolvedValueOnce({ ok: false });
 
@@ -83,5 +115,19 @@ describe('useSaveData', () => {
         expect(success).toBe(false);
         expect(result.current.isSaving).toBe(false);
         expect(result.current.error).toBe(errorMessage);
+    });
+
+    it('should render hot toast message on failure', async () => {
+        fetch.mockResolvedValueOnce({ ok: false });
+
+        const { result } = renderHook(() => useSaveData());
+
+        const payload = { name: 'Máté', age: 30 };
+
+        await act(async () => {
+            await result.current.saveData('/api/test', 'POST', payload);
+        });
+
+        expect(toast.error).toHaveBeenCalledWith('Hiba történt a mentés során!');
     });
 });
