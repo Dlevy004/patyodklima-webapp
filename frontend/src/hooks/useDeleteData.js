@@ -20,7 +20,7 @@ function useDeleteData() {
                 throw new Error('Failed to delete data from the server.')
             }
 
-            toast.success('Az ügyfél sikeresen törölve!')
+            toast.success('Sikeresen törölve!')
             return true;
         }
         catch (error) {
