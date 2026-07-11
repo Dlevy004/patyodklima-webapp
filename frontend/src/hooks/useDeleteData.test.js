@@ -7,13 +7,13 @@ import useDeleteData from './useDeleteData';
 
 
 globalThis.fetch = vi.fn();
+vi.mock('react-hot-toast');
 
 describe('useDeleteData', () => {
     beforeEach(() => {
         vi.clearAllMocks();
     });
 
-    vi.mock('react-hot-toast');
 
     it('should return true on successful deletion', async () => {
         fetch.mockResolvedValue({ ok: true });

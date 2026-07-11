@@ -7,13 +7,13 @@ import useSaveData from './useSaveData';
 
 
 globalThis.fetch = vi.fn();
+vi.mock('react-hot-toast');
 
 describe('useSaveData', () => {
     beforeEach(() => {
         vi.clearAllMocks();
     });
 
-    vi.mock('react-hot-toast');
 
     it('should initialize with correct default states', () => {
         const { result } = renderHook(() => useSaveData());
