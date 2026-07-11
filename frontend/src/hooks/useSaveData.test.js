@@ -72,6 +72,18 @@ describe('useSaveData', () => {
         expect(toast.success).toHaveBeenCalledWith('Sikeresen frissítve!');
     });
 
+    it('should render hot toast message on successful patch request', async () => {
+        fetch.mockResolvedValueOnce({ ok: true });
+
+        const { result } = renderHook(() => useSaveData());
+
+        await act(async () => {
+            await result.current.saveData('/api/test', 'PATCH', {});
+        });
+
+        expect(toast.success).toHaveBeenCalledWith('Sikeresen frissítve!');
+    });
+
     it('should render hot toast message on successful post request', async () => {
         fetch.mockResolvedValueOnce({ ok: true });
 
