@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import toast from 'react-hot-toast'
+
 
 function useDeleteData() {
     const [isDeleting, setIsDeleting] = useState(false);
@@ -18,11 +20,12 @@ function useDeleteData() {
                 throw new Error('Failed to delete data from the server.')
             }
 
+            toast.success('Az ügyfél sikeresen törölve!')
             return true;
         }
         catch (error) {
             setError(error.message);
-
+            toast.error('Hiba történt a törlés során!')
             return false;
         }
         finally {

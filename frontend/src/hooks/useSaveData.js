@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import toast from "react-hot-toast";
+
 
 function useSaveData() {
     const [isSaving, setIsSaving] = useState(false);
@@ -22,10 +24,16 @@ function useSaveData() {
                 throw new Error('Error occurred while saving data.');
             }
 
+            toast.success(
+                method === 'PUT' || method === 'PATCH'
+                ? 'Sikeresen frissítve!'
+                : 'Sikeresen létrehozva!'
+            )
             return true;
         }
         catch (error) {
             setError(error.message);
+            toast.error('Hiba történt a mentés során!')
             return false;
         }
         finally {
