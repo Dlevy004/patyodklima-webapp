@@ -15,7 +15,7 @@ describe('useDeleteData', () => {
     });
 
 
-    it('should return true on successful deletion', async () => {
+    it('should return true and show success toast message on successful deletion', async () => {
         fetch.mockResolvedValue({ ok: true });
 
         const { result } = renderHook(() => useDeleteData());
@@ -28,19 +28,6 @@ describe('useDeleteData', () => {
         expect(success).toBe(true);
         expect(result.current.isDeleting).toBe(false);
         expect(result.current.error).toBeNull();
-    });
-
-    it('should render hot toast message on successful deletion', async () => {
-        fetch.mockResolvedValue({ ok: true });
-
-        const { result } = renderHook(() => useDeleteData());
-
-        let success;
-        await act(async () => {
-            success = await result.current.deleteData('/api/clients/1');
-        });
-
-        expect(success).toBe(true);
         expect(toast.success).toHaveBeenCalledWith('Sikeresen törölve!');
     });
 
