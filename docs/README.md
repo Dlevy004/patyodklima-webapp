@@ -32,15 +32,18 @@ My primary goal with this was to reinforce my fundamental knowledge of web devel
 ### Tools
 - 💻 **VS Code** is my primary code editor
 - 📑 **Jira** for agile task management
+- 🤖 **Claude / Gemini** for code optimization and learning
+- 📄 **Notion** for documentation and note-taking
+- :octocat: **Git & Github** for source control and PR handling
+
 - 🎨 **Figma** for for UI/UX designing and prototyping
 - 📰 **Google Fonts** for typography
-- 📈 **dbdiagram.io** for visualize DBML schemas
-- 📄 **Notion** for documentation and note-taking
-- 🚀 **Postman** for API endpoint testing
-- 📊 **Chrome DevTools** for responsive testing and debugging
 - 📷 **Unsplash / Pexels** for stock photos
-- :octocat: **Git & Github** for source control and PR handling
-- 🤖 **Claude / Gemini** for code optimization and learning
+- 📨 **React Hot Toast** library for user feedbacks
+
+- 📈 **dbdiagram.io** for visualize DBML schemas
+- 📊 **Chrome DevTools** for responsive testing and debugging
+- 🚀 **Postman** for API endpoint testing
 
 
 ## ✅ Current Progress

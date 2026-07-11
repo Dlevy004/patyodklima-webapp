@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 import Home from './pages/Home'
 import PrivacyPolicy from './pages/PrivacyPolicy'
+import { Toaster } from 'react-hot-toast'
 
 import AdminLayout from './pages/admin/AdminLayout'
 import Dashboard from './pages/admin/Dashboard'
@@ -30,6 +31,8 @@ function App() {
           <Route path='references' element={<References />} />
         </Route>
       </Routes>
+
+      <Toaster position='bottom-right'/>
     </BrowserRouter>
   )
 }
