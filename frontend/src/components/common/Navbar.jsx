@@ -43,7 +43,7 @@ function Navbar() {
                         <button className="btn-contact" onClick={() => scrollToSection("contact")}>Kapcsolat</button>
                         <ThemeSwitcher />
                     </div>
-                    <HamburgerMenu onClick={() => setIsMobileMenuOpen(true)}/>
+                    <HamburgerMenu onClick={() => setIsMobileMenuOpen(prev => !prev)}/>
                 </nav>
             </div>
 
