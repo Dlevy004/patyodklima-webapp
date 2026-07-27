@@ -20,7 +20,7 @@
         margin-right: 0.3rem;
         cursor: pointer;
 
-        background-color: var(--bg-color-ternary);
+        background-color: var(--secondary-color);
         border-radius: 50%;
     }
 
