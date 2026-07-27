@@ -42,9 +42,9 @@ function Hero() {
                 </div>
                 <div className='hero-achievements'>
                     {
-                        achievements.map((item, key) => (
+                        achievements.map((item) => (
                             <Achievement
-                                key={key}
+                                key={item.title}
                                 number={item.number}
                                 title={item.title}
                             />
