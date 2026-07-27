@@ -100,4 +100,9 @@
 
 @media (max-width: 1024px) {
     .nav-menu, .navbar-right { display: none; }
+
+    #navbar {
+        width: max-content;
+        gap: 1rem;
+    }
 }
