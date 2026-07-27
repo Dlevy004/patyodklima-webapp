@@ -19,6 +19,8 @@
     --fs-p: clamp(1rem, 0.9642857142857143rem + 0.17857142857142858vw, 1.25rem);
 
     --primary-font-family: 'Josefin sans', 'sans-serif';
+
+    --hero-overlay-gradient: linear-gradient(to bottom, rgba(34, 143, 206, 0.95) 0%, rgba(34, 143, 206, 0.5) 65%, rgba(255, 255, 255, 0.5) 100%);
 }
 
 .darkmode {
@@ -34,6 +36,8 @@
 
     --text-color1: #f2f2f2;
     --text-color2: black;
+
+    --hero-overlay-gradient: linear-gradient(to bottom, rgba(31, 80, 141, 0.95) 0%, rgba(31, 80, 141, 0.5) 65%, #12121280 100%);
 }
 
 html {
