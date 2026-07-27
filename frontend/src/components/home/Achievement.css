@@ -1,0 +1,14 @@
+.achie-wrapper {
+    color: var(--text-color1);
+    text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+
+.achie-number p {
+    font-size: var(--fs-h2);
+    font-weight: 800;
+}
+
+.achie-title p {
+    font-size: var(--fs-p);
+    letter-spacing: 1px;
+}
