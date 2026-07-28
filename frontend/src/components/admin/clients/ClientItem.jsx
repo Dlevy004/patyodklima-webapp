@@ -14,11 +14,21 @@ function ClientItem({ name, city, phone, onDelete, onEdit }) {
                 <p className='client-phone'>{phone}</p>
             </div>
             <div className='actions'>
-                <button className='edit-btn' onClick={onEdit}>
-                    <SquarePen strokeWidth={2}/>
+                <button
+                    className='edit-btn'
+                    onClick={onEdit}
+                    aria-label={`${name} adatainak szerkesztése`}
+                    title='Szerkesztés'
+                >
+                    <SquarePen strokeWidth={2} aria-hidden='true'/>
                 </button>
-                <button className='delete-btn' onClick={onDelete}>
-                    <Trash2 strokeWidth={2}/>
+                <button
+                    className='delete-btn'
+                    onClick={onDelete}
+                    aria-label={`${name} törlése`}
+                    title='Törlés'
+                >
+                    <Trash2 strokeWidth={2} aria-hidden='true'/>
                 </button>
             </div>
         </div>
