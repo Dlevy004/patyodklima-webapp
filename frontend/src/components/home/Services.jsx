@@ -1,13 +1,31 @@
 import { ClipboardList, Wrench, SprayCan } from 'lucide-react'
+import { motion } from "motion/react"
 
 import './Services.css'
 
 import ServiceCard from './ServiceCard.jsx'
-
 import assignmentImg from '@/assets/images/felmeres.avif'
 import installationImg from '@/assets/images/telepites.avif'
 import maintenanceImg from '@/assets/images/karbantartas.avif'
 
+const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.2
+        }
+    }
+};
+
+const cardVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.6, ease: "easeOut" }
+    }
+};
 
 function Services() {
     const serviceCards = [
@@ -37,20 +55,27 @@ function Services() {
     return (
         <section id="services">
             <h2 className="sub-title">Szolgáltatásaink</h2>
-            <div className="cards">
+            <motion.div
+                className="cards"
+                variants={containerVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.3 }}
+            >
                 {
-                    serviceCards.map((card, key) => (
+                    serviceCards.map((card) => (
                         <ServiceCard
-                            key = {key}
-                            imgSrc = {card.imgSrc}
-                            title = {card.title}
-                            IconComponent = {card.IconComponent}
-                            desc = {card.desc}
-                            altText = {card.altText}
+                            key={card.title}
+                            imgSrc={card.imgSrc}
+                            title={card.title}
+                            IconComponent={card.IconComponent}
+                            desc={card.desc}
+                            altText={card.altText}
+                            variants={cardVariants}
                         />
                     ))
                 }
-            </div>
+            </motion.div>
         </section>
     )
 }
