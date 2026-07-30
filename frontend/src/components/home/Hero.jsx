@@ -4,26 +4,10 @@ import './Hero.css'
 
 import heroImg from '@/assets/images/heroImg.avif'
 import Achievement from './Achievement';
+import { fadeInContainer, fadeInUp } from '../../animations/variants';
 
-const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-        opacity: 1,
-        transition: {
-            delayChildren: 0.2,
-            staggerChildren: 0.2
-        }
-    }
-};
-
-const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-        opacity: 1,
-        y: 0,
-        transition: { duration: 0.8, ease: "easeOut" }
-    }
-};
+const containerVariants = fadeInContainer();
+const itemVariants = fadeInUp();
 
 
 function Hero() {

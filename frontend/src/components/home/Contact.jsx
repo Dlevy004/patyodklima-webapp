@@ -5,28 +5,10 @@ import './Contact.css'
 
 import ContactItem from './ContactItem.jsx'
 import Wave from '@/components/common/Wave'
+import { fadeInContainer, fadeInLeft } from '@/animations/variants.js'
 
-const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-        opacity: 1,
-        transition: {
-            staggerChildren: 0.3
-        }
-    }
-};
-
-const itemVariants = {
-    hidden: { opacity: 0, x: -50 },
-    visible: {
-        opacity: 1,
-        x: 0,
-        transition: {
-            duration: 0.5,
-            ease: 'easeOut'
-        }
-    }
-};
+const containerVariants = fadeInContainer();
+const itemVariants = fadeInLeft();
 
 
 function Contact() {

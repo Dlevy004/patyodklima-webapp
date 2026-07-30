@@ -101,6 +101,7 @@
 @media (max-width: 1024px) {
     .nav-menu, .navbar-right { display: none; }
 
+    /*!important is necessary because Framer Motion overrides the width as an inline style*/
     #navbar {
         width: max-content !important;
         gap: 1rem;
