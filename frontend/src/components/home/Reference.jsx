@@ -1,11 +1,11 @@
 import 'swiper/css/bundle'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
+import { motion } from 'motion/react'
 
 import './Reference.css'
 
 import ReferenceCard from "./ReferenceCard";
-
 import ref4 from '@/assets/images/reference4.avif';
 import ref1 from '@/assets/images/reference1.avif';
 import ref11 from '@/assets/images/reference1-1.avif';
@@ -14,6 +14,9 @@ import aux from '@/assets/images/556650737_122141655062915768_857871931182055680
 import ande from '@/assets/images/585059918_122150208692915768_3381541991961443822_n.avif';
 import ande2 from '@/assets/images/585495273_122150208740915768_5983887693530440261_n.avif';
 import ce from '@/assets/images/585175757_122150209760915768_8231168429410044420_n.avif';
+import { fadeInUp } from '@/animations/variants';
+
+const sliderVariants = fadeInUp(0.8);
 
 
 function Reference() {
@@ -71,7 +74,13 @@ function Reference() {
     return (
         <section id="reference">
             <h2 className="sub-title">Referencia</h2>
-            <div className="reference-container">
+            <motion.div
+                className="reference-container"
+                variants={sliderVariants}
+                initial='hidden'
+                whileInView='visible'
+                viewport={{ once: true, amount: 0.3 }}
+            >
                 <div className="ref-bg"></div>
                 <div className="container">
                     <Swiper
@@ -102,7 +111,7 @@ function Reference() {
                         ))}
                     </Swiper>
                 </div>
-            </div>
+            </motion.div>
         </section>
     )
 }

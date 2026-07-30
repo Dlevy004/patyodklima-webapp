@@ -1,13 +1,16 @@
 import { ClipboardList, Wrench, SprayCan } from 'lucide-react'
+import { motion } from "motion/react"
 
 import './Services.css'
 
 import ServiceCard from './ServiceCard.jsx'
-
 import assignmentImg from '@/assets/images/felmeres.avif'
 import installationImg from '@/assets/images/telepites.avif'
 import maintenanceImg from '@/assets/images/karbantartas.avif'
+import { fadeInContainer, fadeInUp } from '@/animations/variants.js'
 
+const containerVariants = fadeInContainer(0.2);
+const cardVariants = fadeInUp(0.6);
 
 function Services() {
     const serviceCards = [
@@ -37,20 +40,27 @@ function Services() {
     return (
         <section id="services">
             <h2 className="sub-title">Szolgáltatásaink</h2>
-            <div className="cards">
+            <motion.div
+                className="cards"
+                variants={containerVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.3 }}
+            >
                 {
-                    serviceCards.map((card, key) => (
+                    serviceCards.map((card) => (
                         <ServiceCard
-                            key = {key}
-                            imgSrc = {card.imgSrc}
-                            title = {card.title}
-                            IconComponent = {card.IconComponent}
-                            desc = {card.desc}
-                            altText = {card.altText}
+                            key={card.title}
+                            imgSrc={card.imgSrc}
+                            title={card.title}
+                            IconComponent={card.IconComponent}
+                            desc={card.desc}
+                            altText={card.altText}
+                            variants={cardVariants}
                         />
                     ))
                 }
-            </div>
+            </motion.div>
         </section>
     )
 }

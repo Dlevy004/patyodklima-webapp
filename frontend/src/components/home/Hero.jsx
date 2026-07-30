@@ -1,8 +1,13 @@
+import { motion } from 'motion/react'
+
 import './Hero.css'
 
 import heroImg from '@/assets/images/heroImg.avif'
-
 import Achievement from './Achievement';
+import { fadeInContainer, fadeInUp } from '../../animations/variants';
+
+const containerVariants = fadeInContainer();
+const itemVariants = fadeInUp();
 
 
 function Hero() {
@@ -23,24 +28,34 @@ function Hero() {
 
     return (
         <section id="hero">
-            <div className="hero-bg-container">
+        <motion.div
+                className="hero-bg-container"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 1.5 }}
+            >
                 <img className="hero-image" src={heroImg} alt="Klíma szerelés és karbantartás" />
                 <div className="hero-overlay"></div>
-            </div>
-            <div className="hero-main">
+            </motion.div>
+            <motion.div
+                className="hero-main"
+                variants={containerVariants}
+                initial="hidden"
+                animate="visible"
+            >
                 <div className='hero-up'>
-                    <h1 className="hero-title">Téli melegség, nyári frissesség!</h1>
+                    <motion.h1 className="hero-title" variants={itemVariants}>Téli melegség, nyári frissesség!</motion.h1>
                     <div className="hero-text">
-                        <p className="hero-description">
+                        <motion.p className="hero-description" variants={itemVariants}>
                             Teljeskörű klímaszolgáltatás Pátyodon és 30 km-es körzetében.{' '}
                             <span>Telepítés</span>, <span>karbantartás</span>, <span>tisztítás</span> &mdash;
                             rövid határidővel, megbízhatóan, garanciával. <br/> Többféle típusú készüléket kínálunk különböző 
                             igényekhez és árkategóriákhoz.
-                        </p>
-                        <a className="hero-btn" href="#contact">Foglalj időpontot most!</a>
+                        </motion.p>
+                        <motion.a className="hero-btn" href="#contact" variants={itemVariants}>Foglalj időpontot most!</motion.a>
                     </div>
                 </div>
-                <div className='hero-achievements'>
+                <motion.div className='hero-achievements' variants={itemVariants}>
                     {
                         achievements.map((item) => (
                             <Achievement
@@ -50,8 +65,8 @@ function Hero() {
                             />
                         ))
                     }
-                </div>
-            </div>
+                </motion.div>
+            </motion.div>
         </section>
     )
 }

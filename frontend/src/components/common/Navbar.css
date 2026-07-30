@@ -20,7 +20,7 @@
     border-radius: 30px;
     box-shadow: 0 4px 20px rgba(0,0,0,0.2);
 
-    transition: all 0.3s ease;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .logo {
@@ -101,8 +101,9 @@
 @media (max-width: 1024px) {
     .nav-menu, .navbar-right { display: none; }
 
+    /*!important is necessary because Framer Motion overrides the width as an inline style*/
     #navbar {
-        width: max-content;
+        width: max-content !important;
         gap: 1rem;
     }
 }

@@ -19,31 +19,33 @@ My primary goal with this was to reinforce my fundamental knowledge of web devel
 ## 🛠️ Tech Stack
 
 ### Frontend
-- ⚛️ **React** (Vite)
-- 🎨 Vanilla CSS
-- 🧪 **Vitest** and **React Testing Library** for unit testing
+- **React** (Vite)
+- Vanilla CSS
+- **Vitest** and **React Testing Library** for unit testing
 
 ### Backend
-- 🟢 **Node.js** + **Express**
-- 🗄️ **Prisma ORM**
-- 🐘 **PostgreSQL** via **Supabase**
-- 🧪 **Jest** for unit testing
+- **Node.js** + **Express**
+- **Prisma ORM**
+- **PostgreSQL** via **Supabase**
+- **Jest** for unit testing
 
 ### Tools
-- 💻 **VS Code** is my primary code editor
-- 📑 **Jira** for agile task management
-- 🤖 **Claude / Gemini** for code optimization and learning
-- 📄 **Notion** for documentation and note-taking
-- :octocat: **Git & Github** for source control and PR handling
+- **VS Code** is my primary code editor
+- **Jira** for agile task management
+- **Claude / Gemini** for code optimization and learning
+- **Notion** for documentation and note-taking
+- **Git & Github** for source control and PR handling
+- **npm** package manager
 
-- 🎨 **Figma** for for UI/UX designing and prototyping
-- 📰 **Google Fonts** for typography
-- 📷 **Unsplash / Pexels** for stock photos
-- 📨 **React Hot Toast** library for user feedbacks
+- **Figma** for for UI/UX designing and prototyping
+- **Google Fonts** for typography
+- **Unsplash / Pexels** for stock photos
+- **React Hot Toast** library for user feedbacks
+- **Framer Motion** for website animations
 
-- 📈 **dbdiagram.io** for visualize DBML schemas
-- 📊 **Chrome DevTools** for responsive testing and debugging
-- 🚀 **Postman** for API endpoint testing
+- **dbdiagram.io** for visualize DBML schemas
+- **Chrome DevTools** for responsive testing and debugging
+- **Postman** for API endpoint testing
 
 
 ## ✅ Current Progress

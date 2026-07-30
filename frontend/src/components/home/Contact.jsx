@@ -1,10 +1,14 @@
+import { ThumbsUp, PhoneCall, Mail } from 'lucide-react'
+import { motion } from 'motion/react'
+
 import './Contact.css'
 
-import { ThumbsUp, PhoneCall, Mail } from 'lucide-react'
-
 import ContactItem from './ContactItem.jsx'
-
 import Wave from '@/components/common/Wave'
+import { fadeInContainer, fadeInLeft } from '@/animations/variants.js'
+
+const containerVariants = fadeInContainer();
+const itemVariants = fadeInLeft();
 
 
 function Contact() {
@@ -34,19 +38,26 @@ function Contact() {
             {/*Photo by Irvin Zheng on Unsplash*/}
             <div className="content">
                 <h2 className="sub-title">Elérhetőségeink</h2>
-                <div className="contacts">
+                <motion.div
+                    className="contacts"
+                    variants={containerVariants}
+                    initial='hidden'
+                    whileInView='visible'
+                    viewport={{ once: true, amount: 0.3 }}
+                >
                     {
-                        contactItems.map((item, key) => (
+                        contactItems.map((item) => (
                             <ContactItem
-                                key = {key}
+                                key = {item.contactText}
                                 IconComponent = {item.IconComponent}
                                 isColorChange = {item.isColorChange}
                                 contactText = {item.contactText}
                                 contactHref = {item.contactHref}
+                                variants={itemVariants}
                             />
                         ))
                     }
-                </div>
+                </motion.div>
                 <Wave />
             </div>
         </section>

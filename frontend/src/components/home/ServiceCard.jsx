@@ -2,13 +2,14 @@ import { useState } from 'react'
 
 import PropTypes from 'prop-types'
 import { ArrowBigUp } from 'lucide-react'
+import { motion } from "motion/react"
 
 
-function ServiceCard({ imgSrc, title, IconComponent, desc, altText }) {
+function ServiceCard({ imgSrc, title, IconComponent, desc, altText, variants }) {
     const [isFlipped, setIsFlipped] = useState(false);
 
     return (
-        <div className="card">
+        <motion.div className="card" variants={variants}>
             <div onClick={() => setIsFlipped(!isFlipped)} className={`card__inner ${isFlipped ? 'is-flipped' : ''}`}>
                 <div className="card__face card__face--front">
                     <img src={imgSrc} alt={altText} loading="lazy"/>
@@ -32,7 +33,7 @@ function ServiceCard({ imgSrc, title, IconComponent, desc, altText }) {
                     </div>
                 </div>
             </div>
-        </div>
+        </motion.div>
     )
 }
 
@@ -41,7 +42,8 @@ ServiceCard.propTypes = {
     title: PropTypes.string.isRequired,
     IconComponent: PropTypes.elementType.isRequired,
     desc: PropTypes.string.isRequired,
-    altText: PropTypes.string.isRequired
+    altText: PropTypes.string.isRequired,
+    variants: PropTypes.object
 }
 
 export default ServiceCard
