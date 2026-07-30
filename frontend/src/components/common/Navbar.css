@@ -102,7 +102,7 @@
     .nav-menu, .navbar-right { display: none; }
 
     #navbar {
-        width: max-content;
+        width: max-content !important;
         gap: 1rem;
     }
 }
