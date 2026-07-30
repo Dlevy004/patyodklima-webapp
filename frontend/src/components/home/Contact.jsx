@@ -1,10 +1,32 @@
+import { ThumbsUp, PhoneCall, Mail } from 'lucide-react'
+import { motion } from 'motion/react'
+
 import './Contact.css'
 
-import { ThumbsUp, PhoneCall, Mail } from 'lucide-react'
-
 import ContactItem from './ContactItem.jsx'
-
 import Wave from '@/components/common/Wave'
+
+const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.3
+        }
+    }
+};
+
+const itemVariants = {
+    hidden: { opacity: 0, x: -50 },
+    visible: {
+        opacity: 1,
+        x: 0,
+        transition: {
+            duration: 0.5,
+            ease: 'easeOut'
+        }
+    }
+};
 
 
 function Contact() {
@@ -34,19 +56,26 @@ function Contact() {
             {/*Photo by Irvin Zheng on Unsplash*/}
             <div className="content">
                 <h2 className="sub-title">Elérhetőségeink</h2>
-                <div className="contacts">
+                <motion.div
+                    className="contacts"
+                    variants={containerVariants}
+                    initial='hidden'
+                    whileInView='visible'
+                    viewport={{ once: true, amount: 0.3 }}
+                >
                     {
-                        contactItems.map((item, key) => (
+                        contactItems.map((item) => (
                             <ContactItem
-                                key = {key}
+                                key = {item.contactText}
                                 IconComponent = {item.IconComponent}
                                 isColorChange = {item.isColorChange}
                                 contactText = {item.contactText}
                                 contactHref = {item.contactHref}
+                                variants={itemVariants}
                             />
                         ))
                     }
-                </div>
+                </motion.div>
                 <Wave />
             </div>
         </section>
