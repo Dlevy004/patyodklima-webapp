@@ -3,12 +3,12 @@
     text-shadow: 0 2px 8px rgba(0,0,0,0.4);
 }
 
-.achie-number p {
+.achie-number {
     font-size: var(--fs-h2);
     font-weight: 800;
 }
 
-.achie-title p {
+.achie-title {
     font-size: var(--fs-p);
     letter-spacing: 1px;
 }

@@ -6,12 +6,8 @@ import './Achievement.css'
 function Achievement({number, title}) {
     return (
         <div className="achie-wrapper">
-            <div className="achie-number">
-                <p>{number}</p>
-            </div>
-            <div className="achie-title">
-                <p>{title}</p>
-            </div>
+            <p className="achie-number">{number}</p>
+            <p className="achie-title">{title}</p>
         </div>
     )
 }
