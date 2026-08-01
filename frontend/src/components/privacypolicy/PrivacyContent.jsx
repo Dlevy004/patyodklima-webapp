@@ -1,9 +1,15 @@
+import { motion } from 'motion/react'
+
 import './PrivacyContent.css'
 
 import PrivacyImg from '@/assets/images/20250715_130101.avif'
 import PrivacyDoc from '@/assets/patyodklima-adatkezelesi-tajekoztato.pdf'
 import PrivacySection from './PrivacySection'
 import Wave from '@/components/common/Wave'
+import { fadeInContainer, fadeInUp } from '@/animations/variants'
+
+const containerVariants = fadeInContainer();
+const itemVariants = fadeInUp();
 
 const privacySections = [
     {
@@ -74,7 +80,13 @@ function PrivacyContent() {
                     milyen adatokat gyűjtünk, miért és hogyan kezeljük azokat.
                 </p>
                 <hr />
-                <div className='informations'>
+                <motion.div
+                    className='informations'
+                    variants={containerVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.2 }}
+                >
                     {
                         privacySections.map((section) => (
                             <PrivacySection
@@ -86,14 +98,21 @@ function PrivacyContent() {
                             />
                         ))
                     }
-                </div>
-                <a
+                </motion.div>
+                <motion.a
                     target='_blank'
                     rel='noopener noreferrer'
                     href={PrivacyDoc}
-                    className='download-btn'>
+                    className='download-btn'
+
+                    variants={itemVariants}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.3, duration: 0.4 }}
+                    viewport={{ once: true }}
+                >
                     Teljes adatkezelési tájékoztató letöltése (PDF)
-                </a>
+                </motion.a>
             </article>
 
             <Wave />

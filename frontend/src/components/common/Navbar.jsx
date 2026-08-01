@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { motion, useScroll, useTransform } from 'motion/react'
 
 import './Navbar.css'
 
 import patyodklimaLogo from '@/assets/images/logo.avif'
-
 import HamburgerMenu from './HamburgerMenu'
 import MobileMenu from './MobileMenu'
 import ThemeSwitcher from './ThemeSwitcher'
@@ -13,6 +13,9 @@ import ThemeSwitcher from './ThemeSwitcher'
 function Navbar() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const navigate = useNavigate();
+
+    const { scrollY } = useScroll();
+    const navWidth = useTransform(scrollY, [0, 1000], ['90%', '75%']);
 
     const scrollToSection = (sectionId) => {
         if (window.location.pathname !== '/') {
@@ -30,7 +33,13 @@ function Navbar() {
     return (
         <header>
             <div className="nav-container">
-                <nav id="navbar">
+                <motion.nav
+                    id="navbar"
+                    style={{
+                        width: navWidth,
+                        marginInline: 'auto'
+                    }}
+                >
                     <a href="/#hero">
                         <img src={patyodklimaLogo} className="logo" alt="Pátyod Klíma - Főoldal"/>
                     </a>
@@ -44,7 +53,7 @@ function Navbar() {
                         <ThemeSwitcher />
                     </div>
                     <HamburgerMenu onClick={() => setIsMobileMenuOpen(prev => !prev)}/>
-                </nav>
+                </motion.nav>
             </div>
 
             <MobileMenu

@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types'
+import { motion } from 'motion/react'
 import { CircleCheck } from 'lucide-react'
 
 
-function PrivacySection({number, title, desc, items = []}) {
+function PrivacySection({number, title, desc, items = [], variants }) {
     return (
-        <section className='information'>
+        <motion.section className='information' variants={variants}>
             <h2 className='subtitle'>
                 <span>{number} </span>
                 {title}{' '}
@@ -19,7 +20,7 @@ function PrivacySection({number, title, desc, items = []}) {
                 ))}
             </ul>
             <hr />
-        </section>
+        </motion.section>
     )
 }
 
@@ -27,7 +28,8 @@ PrivacySection.propTypes = {
     number: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     desc: PropTypes.string.isRequired,
-    items: PropTypes.arrayOf(PropTypes.node)
+    items: PropTypes.arrayOf(PropTypes.node),
+    variants: PropTypes.object
 }
 
 export default PrivacySection
