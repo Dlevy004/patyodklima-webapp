@@ -65,9 +65,9 @@ function PrivacyContent() {
    return(
         <section id='content'>
             <img src={PrivacyImg} alt="Kültéri egység karbantartása"/>
-            <div className='background' />
+            <div className='background' aria-hidden='true'/>
 
-            <div className='text'>
+            <article className='text'>
                 <h1 className='title'>Adatkezelési tájékoztató</h1>
                 <p>
                     Fontos számunkra személyes adatainak védelme. Az alábbiakban röviden összefoglaljuk,
@@ -94,7 +94,7 @@ function PrivacyContent() {
                     className='download-btn'>
                     Teljes adatkezelési tájékoztató letöltése (PDF)
                 </a>
-            </div>
+            </article>
 
             <Wave />
         </section>

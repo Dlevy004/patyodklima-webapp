@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 function PrivacySection({number, title, desc, items = []}) {
     return (
-        <div className='information'>
+        <section className='information'>
             <h2 className='subtitle'>
                 <span>{number} </span>
                 {title}{' '}
@@ -18,7 +18,7 @@ function PrivacySection({number, title, desc, items = []}) {
                 ))}
             </ul>
             <hr />
-        </div>
+        </section>
     )
 }
 
