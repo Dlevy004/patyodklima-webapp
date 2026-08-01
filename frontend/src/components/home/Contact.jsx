@@ -1,9 +1,8 @@
-import './Contact.css'
-
 import { ThumbsUp, PhoneCall, Mail } from 'lucide-react'
 
-import ContactItem from './ContactItem.jsx'
+import './Contact.css'
 
+import ContactItem from './ContactItem.jsx'
 import Wave from '@/components/common/Wave'
 
 
@@ -30,15 +29,14 @@ function Contact() {
     ];
 
     return (
-        <section id="contact">
-            {/*Photo by Irvin Zheng on Unsplash*/}
+        <section id="contact" aria-labelledby="contact-heading">
             <div className="content">
                 <h2 className="sub-title">Elérhetőségeink</h2>
-                <div className="contacts">
+                <ul className="contacts">
                     {
-                        contactItems.map((item, key) => (
+                        contactItems.map((item) => (
                             <ContactItem
-                                key = {key}
+                                key = {item.contactText}
                                 IconComponent = {item.IconComponent}
                                 isColorChange = {item.isColorChange}
                                 contactText = {item.contactText}
@@ -46,7 +44,7 @@ function Contact() {
                             />
                         ))
                     }
-                </div>
+                </ul>
                 <Wave />
             </div>
         </section>
