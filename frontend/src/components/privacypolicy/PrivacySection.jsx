@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import { CircleCheck } from 'lucide-react'
 
 
 function PrivacySection({number, title, desc, items = []}) {
@@ -10,10 +11,10 @@ function PrivacySection({number, title, desc, items = []}) {
             </h2>
             <p>{desc}</p>
             <ul>
-                {items.map((item, index) => (
-                    <li key={index}>
-                        <span className="material-symbols-outlined">check_circle</span>
-                        {item}{' '}
+                {items.map((item) => (
+                    <li key={item}>
+                        <CircleCheck color='#228fce' aria-hidden='true'/>
+                        {item}
                     </li>
                 ))}
             </ul>
