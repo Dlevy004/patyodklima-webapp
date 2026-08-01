@@ -64,7 +64,7 @@ const privacySections = [
 function PrivacyContent() {
    return(
         <section id='content'>
-            <img src={PrivacyImg} alt="Kültéri egység karbantartása"/>
+            <img src={PrivacyImg} alt="Kültéri egység karbantartása" loading='lazy'/>
             <div className='background' aria-hidden='true'/>
 
             <article className='text'>

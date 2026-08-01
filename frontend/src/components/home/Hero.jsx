@@ -1,35 +1,33 @@
 import './Hero.css'
 
 import heroImg from '@/assets/images/heroImg.avif'
-
 import Milestone from './Milestone';
 
+const achievements = [
+    {
+        number: '5.0',
+        title: 'Google értékelés'
+    },
+    {
+        number: '50+',
+        title: 'Elégedett ügyfél'
+    },
+    {
+        number: '36',
+        title: 'Hónap garancia'
+    }
+];
 
 function Hero() {
-    const achievements = [
-        {
-            number: '5.0',
-            title: 'Google értékelés'
-        },
-        {
-            number: '50+',
-            title: 'Elégedett ügyfél'
-        },
-        {
-            number: '36',
-            title: 'Hónap garancia'
-        }
-    ];
-
     return (
-        <section id="hero">
-            <div className="hero-bg-container">
-                <img className="hero-image" src={heroImg} alt="Klíma szerelés és karbantartás" />
+        <section id="hero" aria-labelledby='hero-title'>
+            <div className="hero-bg-container" aria-hidden='true'>
+                <img className="hero-image" src={heroImg} alt="Klíma szerelés és karbantartás" loading='lazy'/>
                 <div className="hero-overlay"></div>
             </div>
             <div className="hero-main">
                 <div className='hero-up'>
-                    <h1 className="hero-title">Téli melegség, nyári frissesség!</h1>
+                    <h1 id='hero-title' className="hero-title">Téli melegség, nyári frissesség!</h1>
                     <div className="hero-text">
                         <p className="hero-description">
                             Teljeskörű klímaszolgáltatás Pátyodon és 30 km-es körzetében.{' '}
