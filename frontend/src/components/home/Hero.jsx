@@ -2,7 +2,7 @@ import './Hero.css'
 
 import heroImg from '@/assets/images/heroImg.avif'
 
-import Achievement from './Achievement';
+import Milestone from './Milestone';
 
 
 function Hero() {
@@ -43,7 +43,7 @@ function Hero() {
                 <div className='hero-achievements'>
                     {
                         achievements.map((item) => (
-                            <Achievement
+                            <Milestone
                                 key={item.title}
                                 number={item.number}
                                 title={item.title}
