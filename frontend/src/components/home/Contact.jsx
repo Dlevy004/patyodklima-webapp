@@ -31,7 +31,7 @@ function Contact() {
     return (
         <section id="contact" aria-labelledby="contact-heading">
             <div className="content">
-                <h2 className="sub-title">Elérhetőségeink</h2>
+                <h2 id='contact-heading' className="sub-title">Elérhetőségeink</h2>
                 <ul className="contacts">
                     {
                         contactItems.map((item) => (
