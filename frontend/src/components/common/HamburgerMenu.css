@@ -8,7 +8,6 @@
 
 @media (max-width: 1024px) {
     .hamburger {
-        display: block;
         border: none;
 
         display: flex;
