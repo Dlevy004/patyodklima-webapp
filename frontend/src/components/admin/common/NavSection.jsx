@@ -1,19 +1,23 @@
+import { useId } from 'react'
+
 import PropTypes from "prop-types"
 
 import './NavSection.css'
 
 
 function NavSection({ title, ButtonComponents = [] }) {
+    const titleId = useId();
+
     return (
         <div className='nav-section'>
-            <p className='nav-section-title'>{title}</p>
-            <div className='nav-section-buttons'>
-                {ButtonComponents.map((Button, index) => (
-                    <div key={index} className='nav-section-button'>
-                        {Button}
-                    </div>
+            <p id={titleId} className='nav-section-title'>{title}</p>
+            <ul aria-labelledby={titleId} className='nav-section-buttons'>
+                {ButtonComponents.map((button) => (
+                    <li key={button} className='nav-section-button'>
+                        {button}
+                    </li>
                 ))}
-            </div>
+            </ul>
         </div>
     )
 }

@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-
 import { SquarePen, Trash2 } from 'lucide-react'
 
 import './ClientItem.css'
@@ -7,7 +6,7 @@ import './ClientItem.css'
 
 function ClientItem({ name, city, phone, onDelete, onEdit }) {
     return (
-        <div className='client-item'>
+        <li className='client-item'>
             <div className='client-details'>
                 <p className='client-name'>{name}</p>
                 <p className='client-city'>{city}</p>
@@ -31,7 +30,7 @@ function ClientItem({ name, city, phone, onDelete, onEdit }) {
                     <Trash2 strokeWidth={2} aria-hidden='true'/>
                 </button>
             </div>
-        </div>
+        </li>
     )
 }
 

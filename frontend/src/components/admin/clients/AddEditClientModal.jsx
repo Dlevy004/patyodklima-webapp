@@ -4,9 +4,7 @@ import './AddEditClientModal.css';
 
 import InputField from '../common/InputField';
 import Slider from '../common/Slider';
-
 import useClientForm from '../../../hooks/useClientForm';
-
 
 const leftFields = [
     { name: 'full_name', label: 'Ügyfél neve', type: 'text' },
@@ -16,7 +14,19 @@ const leftFields = [
     { name: 'street_address', type: 'text', placeholder: 'Utca, házszám' }
 ];
 
+
 function AddEditClientModal({ onClose, onSave, clientData }) {
+    const sliderCondition = clientType === ClientType.COMPANY ? 'slide-right' : '';
+    const individualCondition = clientType === ClientType.INDIVIDUAL ? 'active' : '';
+    const companyCondition = clientType === ClientType.COMPANY ? 'active' : '';
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (validateForm()) {
+            onSave({ ...formData, type: clientType });
+        }
+    };
+
     const {
         clientType, setClientType,
         formData, formErrors,
@@ -24,22 +34,15 @@ function AddEditClientModal({ onClose, onSave, clientData }) {
         ClientType
     } = useClientForm(clientData);
 
-    const sliderCondition = clientType === ClientType.COMPANY ? 'slide-right' : '';
-    const individualCondition = clientType === ClientType.INDIVIDUAL ? 'active' : '';
-    const companyCondition = clientType === ClientType.COMPANY ? 'active' : '';
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-
-        if (validateForm()) {
-            onSave({ ...formData, type: clientType });
-        }
-    };
-
     return (
-        <form className='client-data-modal' onSubmit={handleSubmit} noValidate>
+        <form
+            className='client-data-modal'
+            onSubmit={handleSubmit}
+            noValidate
+            aria-labelledby="modal-title"
+        >
             <div className='title-bg'>
-                <h1>{clientData ? 'Ügyfél adatainak módosítása' : 'Új ügyfél bejegyzése'}</h1>
+                <h1 id="modal-title">{clientData ? 'Ügyfél adatainak módosítása' : 'Új ügyfél bejegyzése'}</h1>
             </div>
             <div className='client-datas-wrapper'>
                 <div className='wrapper-left'>
