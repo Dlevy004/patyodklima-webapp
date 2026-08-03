@@ -19,7 +19,9 @@ function ThemeSwitcher() {
         <button
             className="theme-switch"
             aria-label="Témaváltás (sötét/világos)"
-            onClick={() => setIsDarkModeEnabled(prev => !prev)}>
+            onClick={() => setIsDarkModeEnabled(prev => !prev)}
+            aria-pressed={isDarkModeEnabled}
+        >
             <div className="my-icon">
                 {
                     isDarkModeEnabled
