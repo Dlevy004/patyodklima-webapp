@@ -16,10 +16,6 @@ const leftFields = [
 
 
 function AddEditClientModal({ onClose, onSave, clientData }) {
-    const sliderCondition = clientType === ClientType.COMPANY ? 'slide-right' : '';
-    const individualCondition = clientType === ClientType.INDIVIDUAL ? 'active' : '';
-    const companyCondition = clientType === ClientType.COMPANY ? 'active' : '';
-
     const handleSubmit = (e) => {
         e.preventDefault();
         if (validateForm()) {
@@ -33,6 +29,10 @@ function AddEditClientModal({ onClose, onSave, clientData }) {
         handleInputChange, validateForm,
         ClientType
     } = useClientForm(clientData);
+
+    const sliderCondition = clientType === ClientType.COMPANY ? 'slide-right' : '';
+    const individualCondition = clientType === ClientType.INDIVIDUAL ? 'active' : '';
+    const companyCondition = clientType === ClientType.COMPANY ? 'active' : '';
 
     return (
         <form

@@ -5,7 +5,7 @@ import './DeleteDataModal.css'
 
 function DeleteDataModal({ titleData, descriptionData, onClose, onDelete }) {
     return (
-        <dialog className='delete-modal' aria-modal='true' aria-labelledby="delete-modal-title">
+        <div className='delete-modal' aria-modal='true' aria-labelledby="delete-modal-title">
             <div className='title-bg'>
                 <h1 id="delete-modal-title">{titleData} törlése</h1>
             </div>
@@ -16,7 +16,7 @@ function DeleteDataModal({ titleData, descriptionData, onClose, onDelete }) {
                 <button className='modal-close-btn' onClick={onClose}>Mégse</button>
                 <button className='modal-delete-btn' onClick={onDelete}>Törlés</button>
             </div>
-        </dialog>
+        </div>
     )
 }
 

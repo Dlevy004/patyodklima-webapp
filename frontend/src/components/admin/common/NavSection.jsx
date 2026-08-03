@@ -12,8 +12,8 @@ function NavSection({ title, ButtonComponents = [] }) {
         <div className='nav-section'>
             <p id={titleId} className='nav-section-title'>{title}</p>
             <ul aria-labelledby={titleId} className='nav-section-buttons'>
-                {ButtonComponents.map((button) => (
-                    <li key={button} className='nav-section-button'>
+                {ButtonComponents.map((button, index) => (
+                    <li key={index} className='nav-section-button'>
                         {button}
                     </li>
                 ))}
