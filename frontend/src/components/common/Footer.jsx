@@ -1,9 +1,8 @@
-import './Footer.css'
-
 import { ThumbsUp, PhoneCall, Shield, Mail } from 'lucide-react'
 
-import FooterItem from "./FooterItem";
+import './Footer.css'
 
+import FooterItem from "./FooterItem";
 import footerLogo from "@/assets/images/footerLogo.avif"
 
 
@@ -25,8 +24,8 @@ function Footer() {
                     />
                 </div>
                 <div className="footer-mid">
-                    <a href="/#hero">
-                        <img src={footerLogo} alt="Pátyod klíma logo - Ugrás a tetejére" loading="lazy"/>
+                    <a href="/#hero" aria-label='Ugrás az oldal tetejére'>
+                        <img src={footerLogo} alt="Pátyod klíma logo" loading="lazy"/>
                     </a>
                 </div>
                 <div className="footer-right">
@@ -46,7 +45,7 @@ function Footer() {
 
             <div className="footer-bottom">
                 <p>Fejlesztette: Daróczi Levente</p>
-                <p>Pátyod Klíma &copy; 2025 | Minden jog fenntartva!</p>
+                <p>Pátyod Klíma &copy; { new Date().getFullYear() } | Minden jog fenntartva!</p>
                 <p>Verzió:&nbsp;{' '}
                     <a href="https://github.com/Dlevy004/patyod-klima-website/blob/main/CHANGELOG.md"
                         target="_blank" rel="noopener noreferrer">
