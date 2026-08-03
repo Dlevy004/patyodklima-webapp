@@ -4,12 +4,13 @@ import { Menu } from 'lucide-react'
 import './HamburgerMenu.css'
 
 
-function HamburgerMenu({ onClick }) {
+function HamburgerMenu({ onClick, isOpen}) {
     return(
         <button
             className="hamburger"
             aria-label="Menü megnyitása"
             onClick = {onClick}
+            aria-expanded={isOpen}
         >
             <Menu className="hamburger-icon" strokeWidth={2.5} aria-hidden='true'/>
         </button>
