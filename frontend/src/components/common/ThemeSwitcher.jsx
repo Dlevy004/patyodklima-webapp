@@ -21,7 +21,11 @@ function ThemeSwitcher() {
             aria-label="Témaváltás (sötét/világos)"
             onClick={() => setIsDarkModeEnabled(prev => !prev)}>
             <div className="my-icon">
-                { isDarkModeEnabled ? <Sun data-testid='light-icon' /> : <Moon data-testid='dark-icon' /> }
+                {
+                    isDarkModeEnabled
+                    ? <Sun data-testid='light-icon' aria-hidden='true'/>
+                    : <Moon data-testid='dark-icon' aria-hidden='true'/>
+                }
             </div>
         </button>
     )

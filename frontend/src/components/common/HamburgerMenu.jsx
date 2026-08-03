@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-
 import { Menu } from 'lucide-react'
 
 import './HamburgerMenu.css'
@@ -12,7 +11,7 @@ function HamburgerMenu({ onClick }) {
             aria-label="Menü megnyitása"
             onClick = {onClick}
         >
-            <Menu className="hamburger-icon" strokeWidth={2.5}/>
+            <Menu className="hamburger-icon" strokeWidth={2.5} aria-hidden='true'/>
         </button>
     )
 }

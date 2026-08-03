@@ -20,18 +20,18 @@ function MobileMenu({ isOpen, onClose, children, className = '' }) {
     }, [isOpen]);
 
     return (
-        <div className={`nav-mobile ${isOpen ? 'show' : ''} ${className}`}>
+        <nav className={`nav-mobile ${isOpen ? 'show' : ''} ${className}`} aria-hidden={!isOpen} aria-label='Mobil navigáció'>
             <button
                 className="close-btn"
                 aria-label="Menü bezárása"
                 onClick={onClose}
             >
-                <X className="close-icon"/>
+                <X className="close-icon" aria-hidden='true'/>
             </button>
             <div className="mobile-menu-content">
                 {children}
             </div>
-        </div>
+        </nav>
     )
 }
 
