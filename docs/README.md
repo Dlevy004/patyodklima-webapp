@@ -46,6 +46,7 @@ My primary goal with this was to reinforce my fundamental knowledge of web devel
 - **dbdiagram.io** for visualize DBML schemas
 - **Chrome DevTools** for responsive testing and debugging
 - **Postman** for API endpoint testing
+- **Google Analytics** for tracks and reports website's traffic
 
 
 ## ✅ Current Progress

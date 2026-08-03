@@ -1,25 +1,26 @@
 import PropTypes from 'prop-types'
 import { motion } from 'motion/react'
+import { CircleCheck } from 'lucide-react'
 
 
 function PrivacySection({number, title, desc, items = [], variants }) {
     return (
-        <motion.div className='information' variants={variants}>
+        <motion.section className='information' variants={variants}>
             <h2 className='subtitle'>
                 <span>{number} </span>
                 {title}{' '}
             </h2>
             <p>{desc}</p>
             <ul>
-                {items.map((item, index) => (
-                    <li key={index}>
-                        <span className="material-symbols-outlined">check_circle</span>
-                        {item}{' '}
+                {items.map((item) => (
+                    <li key={item}>
+                        <CircleCheck color='#228fce' aria-hidden='true'/>
+                        {item}
                     </li>
                 ))}
             </ul>
             <hr />
-        </motion.div>
+        </motion.section>
     )
 }
 

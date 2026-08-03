@@ -9,16 +9,16 @@ function ServiceCard({ imgSrc, title, IconComponent, desc, altText, variants }) 
     const [isFlipped, setIsFlipped] = useState(false);
 
     return (
-        <motion.div className="card" variants={variants}>
-            <div onClick={() => setIsFlipped(!isFlipped)} className={`card__inner ${isFlipped ? 'is-flipped' : ''}`}>
+        <motion.li className="card" variants={variants}>
+            <div onClick={() => setIsFlipped(!isFlipped)} className={`card__inner ${isFlipped ? 'is-flipped' : ''}`} role='button'>
                 <div className="card__face card__face--front">
                     <img src={imgSrc} alt={altText} loading="lazy"/>
                     <div className="overlay">
                         <h3>{title}</h3>
-                        <button className="btn-more">
+                        <span className="btn-more">
                             Bővebben{' '}
-                            <ArrowBigUp />
-                        </button>
+                            <ArrowBigUp aria-hidden='true' />
+                        </span>
                     </div>
                 </div>
                 <div className="card__face card__face--back">
@@ -33,7 +33,7 @@ function ServiceCard({ imgSrc, title, IconComponent, desc, altText, variants }) 
                     </div>
                 </div>
             </div>
-        </motion.div>
+        </motion.li>
     )
 }
 

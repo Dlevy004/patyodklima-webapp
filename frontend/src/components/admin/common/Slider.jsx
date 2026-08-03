@@ -1,14 +1,18 @@
+import { useId } from 'react'
+
 import PropTypes from "prop-types";
 
 import './Slider.css'
 
 
 function Slider({ title, condition, button1ClassName, onButton1Click, button1Title, button2ClassName, onButton2Click, button2Title }) {
+    const titleId = useId();
+
     return (
-        <div className='slider'>
-            <label>{title}</label>
+        <div className='slider' aria-labelledby={titleId}>
+            <p id={titleId}>{title}</p>
             <div className="slider-container">
-                <div className={`slider-bg ${condition}`}></div>
+                <div className={`slider-bg ${condition}`} aria-hidden="true"></div>
                 <button
                     className={button1ClassName}
                     onClick={onButton1Click}

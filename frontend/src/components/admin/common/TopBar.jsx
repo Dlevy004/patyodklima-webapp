@@ -3,32 +3,32 @@ import PropTypes from 'prop-types'
 import './TopBar.css'
 
 import ProfilPic from '@/assets/images/profile-placeholder.avif'
-
 import HamburgerMenu from '../../common/HamburgerMenu'
 
 
-function TopBar({ title, onMenuClick }) {
+function TopBar({ title, onMenuClick, isMobileMenuOpen }) {
     return (
-        <div className='top-bar'>
-            <section className='top-bar-middle'>
+        <header className='top-bar'>
+            <div className='top-bar-middle'>
                 <h1>{title}</h1>
-            </section>
-            <section className='profile-section'>
-                <button className='profile-btn'>
+            </div>
+            <div className='profile-section'>
+                <button className='profile-btn' aria-label="Profil beállítások">
                     <img src={ProfilPic} alt='Profilkép' className='profile-pic'/>
                 </button>
 
                 <div className='mobile-menu-wrapper'>
-                    <HamburgerMenu onClick={onMenuClick}/>
+                    <HamburgerMenu onClick={onMenuClick} isOpen={isMobileMenuOpen}/>
                 </div>
-            </section>
-        </div>
+            </div>
+        </header>
     )
 }
 
 TopBar.propTypes = {
     title: PropTypes.string.isRequired,
-    onMenuClick: PropTypes.func.isRequired
+    onMenuClick: PropTypes.func.isRequired,
+    isMobileMenuOpen: PropTypes.bool.isRequired
 }
 
 export default TopBar

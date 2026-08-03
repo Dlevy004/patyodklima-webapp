@@ -8,6 +8,7 @@ import './InputField.css'
 function InputField({ label, type, value, onChange, placeholder, pattern, required, error }) {
     const inputClassName = error ? 'input-error' : '';
     const inputId = useId();
+    const errorId = `${inputId}-error`;
 
     return (
         <div className='input-field'>
@@ -20,6 +21,8 @@ function InputField({ label, type, value, onChange, placeholder, pattern, requir
                     placeholder={placeholder}
                     required={required}
                     className={inputClassName}
+                    aria-invalid={!!error}
+                    aria-describedby={error ? errorId : undefined}
                 />
             ) : (
                 <input
@@ -31,9 +34,11 @@ function InputField({ label, type, value, onChange, placeholder, pattern, requir
                     pattern={pattern}
                     required={required}
                     className={inputClassName}
+                    aria-invalid={!!error}
+                    aria-describedby={error ? errorId : undefined}
                 />
             )}
-            {error && <span className='error-text'>{error}</span>}
+            {error && <span id={errorId} className='error-text'>{error}</span>}
         </div>
     )
 }

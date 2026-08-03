@@ -38,7 +38,7 @@ function ScrollUp() {
                 display: isVisible ? 'flex' : 'none'
             }}
         >
-            <ArrowBigUp />
+            <ArrowBigUp aria-hidden='true'/>
         </button>
     )
 }

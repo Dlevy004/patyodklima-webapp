@@ -18,62 +18,62 @@ import { fadeInUp } from '@/animations/variants';
 
 const sliderVariants = fadeInUp(0.8);
 
+const referencesData = [
+    {
+        id : 1,
+        imgSrc : ref4,
+        altText : 'Ande klíma készülék telepítése',
+        cardTitle : 'ANDE Klíma telepítése Pátyod'
+    },
+    {
+        id : 2,
+        imgSrc : ref1,
+        altText : 'Pátyod, vegyesbolt klimatizálása',
+        cardTitle : 'Vegyesbolt klimatizálása, AUX beltéri készülék'
+    },
+    {
+        id : 3,
+        imgSrc : ref11,
+        altText : 'Pátyod, vegyesbolt klimatizálása',
+        cardTitle : 'Vegyesbolt klimatizálása, AUX kültéri készülék'
+    },
+    {
+        id : 4,
+        imgSrc : ref2,
+        altText : 'Tisztítás',
+        cardTitle : 'Tisztítás'
+    },
+    {
+        id : 5,
+        imgSrc : aux,
+        altText : 'Hálószoba hűtése és fűtése AUX készülékkel',
+        cardTitle : 'Hálószoba hűtése és fűtése AUX készülékkel'
+    },
+    {
+        id : 6,
+        imgSrc : ande,
+        altText : 'ANDE beltéri készülék',
+        cardTitle : 'Családi ház klimatizálása, ANDE készülékkel'
+    },
+    {
+        id : 7,
+        imgSrc : ande2,
+        altText : 'ANDE kültéri készülék',
+        cardTitle : 'Családi ház klimatizálása, ANDE készülékkel'
+    },
+    {
+        id : 8,
+        imgSrc : ce,
+        altText : 'CEKLIMA kültéri készülék',
+        cardTitle : 'Hálószoba hűtése és fűtése CEKLIMA készülékkel'
+    }
+]
+
 
 function Reference() {
-    const referencesData = [
-        {
-            id : 1,
-            imgSrc : ref4,
-            altText : 'Ande klíma készülék telepítése',
-            cardTitle : 'ANDE Klíma telepítése Pátyod'
-        },
-        {
-            id : 2,
-            imgSrc : ref1,
-            altText : 'Pátyod, vegyesbolt klimatizálása',
-            cardTitle : 'Vegyesbolt klimatizálása, AUX beltéri készülék'
-        },
-        {
-            id : 3,
-            imgSrc : ref11,
-            altText : 'Pátyod, vegyesbolt klimatizálása',
-            cardTitle : 'Vegyesbolt klimatizálása, AUX kültéri készülék'
-        },
-        {
-            id : 4,
-            imgSrc : ref2,
-            altText : 'Tisztítás',
-            cardTitle : 'Tisztítás'
-        },
-        {
-            id : 5,
-            imgSrc : aux,
-            altText : 'Hálószoba hűtése és fűtése AUX készülékkel',
-            cardTitle : 'Hálószoba hűtése és fűtése AUX készülékkel'
-        },
-        {
-            id : 6,
-            imgSrc : ande,
-            altText : 'ANDE beltéri készülék',
-            cardTitle : 'Családi ház klimatizálása, ANDE készülékkel'
-        },
-        {
-            id : 7,
-            imgSrc : ande2,
-            altText : 'ANDE kültéri készülék',
-            cardTitle : 'Családi ház klimatizálása, ANDE készülékkel'
-        },
-        {
-            id : 8,
-            imgSrc : ce,
-            altText : 'CEKLIMA kültéri készülék',
-            cardTitle : 'Hálószoba hűtése és fűtése CEKLIMA készülékkel'
-        }
-    ]
-
     return (
-        <section id="reference">
-            <h2 className="sub-title">Referencia</h2>
+        <section id="reference" aria-labelledby='reference-section'>
+            <h2 id='reference-section' className="sub-title">Referencia</h2>
             <motion.div
                 className="reference-container"
                 variants={sliderVariants}
@@ -81,7 +81,7 @@ function Reference() {
                 whileInView='visible'
                 viewport={{ once: true, amount: 0.3 }}
             >
-                <div className="ref-bg"></div>
+                <div className="ref-bg" aria-hidden='true'></div>
                 <div className="container">
                     <Swiper
                         modules={[Navigation, Pagination]}

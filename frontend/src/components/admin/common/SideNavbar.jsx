@@ -48,23 +48,27 @@ function SideNavbar({ isMobileMenuOpen, closeMobileMenu }) {
 
     return (
         <>
-            <div className={isCollapsed ? 'sidenav-collapsed' : 'sidenav-container' }>
+            <nav className={isCollapsed ? 'sidenav-collapsed' : 'sidenav-container' } aria-label="Adminisztrációs menü">
                 <div className='sidenav-top'>
-                    <a href='/admin'>
+                    <a href='/admin' aria-label="Ugrás az admin főoldalra">
                         <img src={isCollapsed ? verticalLogo : horizontalLogo} className='pkLogo' alt='Pátyod Klíma logo'/>
                     </a>
                     {adminNavLinks}
                 </div>
-                <button className='hide-btn'
-                    onClick={() => setIsCollapsed(prev => !prev)}>
-                    <ChevronUp />
+                <button
+                    className='hide-btn'
+                    onClick={() => setIsCollapsed(prev => !prev)}
+                    aria-label={isCollapsed ? "Menü kinyitása" : "Menü összecsukása"}
+                    aria-expanded={!isCollapsed}
+                >
+                    <ChevronUp aria-hidden="true"/>
                 </button>
-            </div>
+            </nav>
 
             <MobileMenu isOpen={isMobileMenuOpen} onClose={closeMobileMenu} className='admin-mobile-menu' >
-                <div className='admin-mobile-links' onClick={closeMobileMenu}>
+                <nav className='admin-mobile-links' onClick={closeMobileMenu} aria-label="Adminisztrációs mobil menü">
                     {adminNavLinks}
-                </div>
+                </nav>
             </MobileMenu>
         </>
     )

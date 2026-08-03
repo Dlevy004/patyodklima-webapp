@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 function FooterItem({ IconComponent, itemText, linkHref }) {
     return (
         <div className="footer-p">
-            <IconComponent/>
+            <IconComponent aria-hidden='true'/>
             <a href={linkHref} target="_blank" rel="noopener noreferrer">
                 {itemText}
             </a>

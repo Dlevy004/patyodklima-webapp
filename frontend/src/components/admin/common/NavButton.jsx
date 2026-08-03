@@ -8,7 +8,7 @@ import './NavButton.css'
 function NavButton({ IconComponent, title, url }) {
     return (
         <NavLink to={url} end className={({ isActive }) => `nav-button ${isActive ? 'active' : ''}`}>
-            <IconComponent />
+            <IconComponent aria-hidden="true"/>
             <p className="btn-title">{title}</p>
         </NavLink>
     )

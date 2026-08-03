@@ -8,8 +8,13 @@ import './TableHeader.css'
 function TableHeader({ onAddClick }) {
     return (
         <div className='table-header'>
-            <button className='add-btn' onClick={onAddClick}>
-                <Plus />
+            <button
+                className='add-btn'
+                onClick={onAddClick}
+                aria-label="Új elem hozzáadása"
+                title="Új elem hozzáadása"
+            >
+                <Plus aria-hidden="true"/>
             </button>
         </div>
     )
