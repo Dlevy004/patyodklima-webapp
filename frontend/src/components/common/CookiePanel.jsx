@@ -36,7 +36,7 @@ function CookiePanel() {
     return (
         <dialog className={`cookie-panel ${isVisible ? 'show' : ''}`} aria-labelledby="CookieTitle" open={isVisible}>
             <header>
-                <Cookie className={"cookie-icon"}/>
+                <Cookie className={"cookie-icon"} aria-hidden='true'/>
                 <h2 id="CookieTitle">Cookie tájékoztató</h2>
             </header>
 
