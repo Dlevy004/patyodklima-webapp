@@ -35,13 +35,14 @@ function Navbar() {
             <div className="nav-container">
                 <motion.nav
                     id="navbar"
+                    aria-label='Fő navigáció'
                     style={{
                         width: navWidth,
                         marginInline: 'auto'
                     }}
                 >
-                    <a href="/#hero">
-                        <img src={patyodklimaLogo} className="logo" alt="Pátyod Klíma - Főoldal"/>
+                    <a href="/#hero" aria-label="Ugrás a főoldalra">
+                        <img src={patyodklimaLogo} className="logo" alt="Pátyod Klíma logó" loading='lazy'/>
                     </a>
                     <ul className="nav-menu">
                         <li><button className="nav-link" onClick={() => scrollToSection("hero")}>Rólunk</button></li>
