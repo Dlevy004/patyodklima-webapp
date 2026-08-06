@@ -6,10 +6,10 @@ import heroImg from '@/assets/images/heroImg.avif'
 import Milestone from './Milestone';
 import { fadeInContainer, fadeInUp } from '@/animations/variants';
 
-const achievements = [
-    { number: '5.0', title: 'Google értékelés' },
-    { number: '50+', title: 'Elégedett ügyfél' },
-    { number: '36', title: 'Hónap garancia' }
+const milestones = [
+    { toNumber: 5, title: 'Google értékelés', decimals: 1, suffix: '' },
+    { toNumber: 50, title: 'Elégedett ügyfél', decimals: 0, suffix: '+' },
+    { toNumber: 36, title: 'Hónap garancia', decimals: 0, suffix: '' }
 ];
 
 const containerVariants = fadeInContainer();
@@ -49,11 +49,13 @@ function Hero() {
                 </div>
                 <motion.div className='hero-achievements' variants={itemVariants}>
                     {
-                        achievements.map((item) => (
+                        milestones.map((item) => (
                             <Milestone
                                 key={item.title}
-                                number={item.number}
+                                toNumber={item.toNumber}
                                 title={item.title}
+                                decimals={item.decimals}
+                                suffix={item.suffix}
                             />
                         ))
                     }
