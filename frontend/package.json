@@ -5,12 +5,19 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && react-snap",
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest",
     "test:watch": "vitest --watch",
     "coverage": "vitest run --coverage"
+  },
+  "reactSnap": {
+    "source": "dist",
+    "include": [
+      "/",
+      "/privacypolicy"
+    ]
   },
   "dependencies": {
     "lucide-react": "^1.24.0",
@@ -36,6 +43,7 @@
     "eslint-plugin-react-refresh": "^0.4.24",
     "globals": "^16.5.0",
     "jsdom": "^29.1.1",
+    "react-snap": "^1.23.0",
     "vite": "^7.2.4",
     "vitest": "^4.1.9"
   }
