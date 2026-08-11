@@ -2,15 +2,18 @@ import Navbar from '@/components/common/Navbar'
 import Footer from '@/components/common/Footer'
 import ScrollUp from '@/components/common/ScrollUp'
 import CookiePanel from '@/components/common/CookiePanel'
+import Seo from '@/components/common/Seo'
 import PrivacyContent from '@/components/privacypolicy/PrivacyContent'
-import useDocumentTitle from '../hooks/useDocumentTitle'
 
 
 function PrivacyPolicy() {
-    useDocumentTitle('Pátyod Klíma | Adatkezelési tájékoztató')
-
     return(
         <>
+            <Seo
+                title={'Pátyod Klíma | Adatkezelési tájékoztató'}
+                description={'A Pátyod Klíma hivatalos adatkezelési tájékoztatója. Ismerje meg, hogyan kezeljük és védjük a személyes adatait az oldal használata során.'}
+            />
+
             <Navbar />
             <main>
                 <PrivacyContent />
