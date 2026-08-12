@@ -9,6 +9,10 @@ const __dirname = path.dirname(__filename)
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
+  build: {
+    target: 'es2015',
+    emptyOutDir: true
+  },
   test: {
     environment: 'jsdom',
     globals: true,
