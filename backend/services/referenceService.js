@@ -4,9 +4,9 @@ const createReference = async (newReference) => {
     return await prisma.reference_image.create({
         data: {
             //TODO: job_id placeholder
-            "image_url": newReference.image_url,
-            "description": newReference.description,
-            "is_visible": newReference.is_visible
+            image_url: newReference.image_url,
+            description: newReference.description,
+            is_visible: newReference.is_visible
         }
     });
 }
