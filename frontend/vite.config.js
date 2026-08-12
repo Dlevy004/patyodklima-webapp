@@ -10,7 +10,8 @@ const __dirname = path.dirname(__filename)
 export default defineConfig({
   plugins: [react()],
   build: {
-    target: 'es2015'
+    target: 'es2015',
+    emptyOutDir: true
   },
   test: {
     environment: 'jsdom',
