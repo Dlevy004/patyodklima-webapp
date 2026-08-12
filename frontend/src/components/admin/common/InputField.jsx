@@ -22,7 +22,6 @@ function InputField({ label, type, value, onChange, placeholder, pattern, requir
                     required={required}
                     className={inputClassName}
                     aria-invalid={!!error}
-                    aria-describedby={error ? errorId : undefined}
                 />
             ) : (
                 <input
