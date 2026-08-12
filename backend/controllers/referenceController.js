@@ -1,9 +1,24 @@
 const referenceService = require('../services/referenceService');
+const supabaseService = require('../services/supabaseService')
 
 
 const createReference = async (req, res) => {
     try {
-        const newReference = req.body;
+        const file = req.file;
+        const { description, is_visible } = req.body;
+
+        if (!file) {
+            return res.status(400).json({ message: 'There is no file attached to the request.' });
+        }
+
+        const imageUrl = await storageService.uploadImage(file);
+
+        const newReference = {
+            image_url: imageUrl,
+            description: description,
+            is_visible: is_visible === 'true'
+        };
+
         const createdReference = await referenceService.createReference(newReference);
         res.status(201).json(createdReference);
     }
@@ -70,6 +85,8 @@ const deleteReference = async (req, res) => {
         }
 
         const deletedReference = await referenceService.deleteReference(referenceId);
+        await storageService.deleteImage(existingReference.image_url);
+
         res.status(200).json(deletedReference);
     }
     catch (error) {
