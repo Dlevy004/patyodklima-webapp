@@ -11,7 +11,7 @@ const createReference = async (req, res) => {
             return res.status(400).json({ message: 'There is no file attached to the request.' });
         }
 
-        const imageUrl = await storageService.uploadImage(file);
+        const imageUrl = await supabaseService.uploadImage(file);
 
         const newReference = {
             image_url: imageUrl,
@@ -85,7 +85,7 @@ const deleteReference = async (req, res) => {
         }
 
         const deletedReference = await referenceService.deleteReference(referenceId);
-        await storageService.deleteImage(existingReference.image_url);
+        await supabaseService.deleteImage(existingReference.image_url);
 
         res.status(200).json(deletedReference);
     }
