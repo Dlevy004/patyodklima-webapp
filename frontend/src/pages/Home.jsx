@@ -16,6 +16,7 @@ function Home() {
             <Seo
                 title={'Pátyod Klíma | Klímaszerelés, karbantartás és ingyenes felmérés'}
                 description={'Klímaszolgáltatás Pátyodon és 30 km-es körzetében. Ingyenes felmérés! Telepítés, karbantartás, tisztítás - gyorsan, garanciával, rövid határidővel'}
+                url="/"
             />
             <BusinessSchema/>
 

@@ -12,6 +12,7 @@ function PrivacyPolicy() {
             <Seo
                 title={'Pátyod Klíma | Adatkezelési tájékoztató'}
                 description={'A Pátyod Klíma hivatalos adatkezelési tájékoztatója. Ismerje meg, hogyan kezeljük és védjük a személyes adatait az oldal használata során.'}
+                url="/privacypolicy"
             />
 
             <Navbar />
