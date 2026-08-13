@@ -9,7 +9,11 @@ const uploadImage = async (file) => {
         .toBuffer();
 
     const originalNameWithoutExt = file.originalname.split('.').slice(0, -1).join('.');
-    const safeName = originalNameWithoutExt.replace(/\s/g, '_');
+    const safeName = originalNameWithoutExt
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/\s+/g, '_')
+        .replace(/[^a-zA-Z0-9_-]/g, '');
     const fileName = `${Date.now()}-${safeName}.webp`;
 
     const { data, error } = await supabase.storage
