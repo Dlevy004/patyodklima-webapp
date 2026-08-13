@@ -11,6 +11,14 @@ jest.mock('../config/supabase', () => ({
     }
 }));
 
+jest.mock('sharp', () => {
+    return jest.fn().mockImplementation(() => ({
+        resize: jest.fn().mockReturnThis(),
+        webp: jest.fn().mockReturnThis(),
+        toBuffer: jest.fn().mockResolvedValue(Buffer.from('optimized fake image data'))
+    }));
+});
+
 describe('Supabase Service', () => {
 
     beforeEach(() => {
@@ -32,7 +40,7 @@ describe('Supabase Service', () => {
             };
 
             const currentTime = Date.now();
-            const expectedFileName = `${currentTime}-teszt_kep.jpg`;
+            const expectedFileName = `${currentTime}-teszt_kep.webp`;
 
             const expectedUrl = `https://supabase.co/storage/v1/object/public/References/${expectedFileName}`;
             supabase.storage.upload.mockResolvedValue({ data: {}, error: null });
@@ -48,8 +56,8 @@ describe('Supabase Service', () => {
             expect(supabase.storage.from).toHaveBeenCalledWith('References');
             expect(supabase.storage.upload).toHaveBeenCalledWith(
                 expectedFileName,
-                mockFile.buffer,
-                { contentType: mockFile.mimetype }
+                Buffer.from('optimized fake image data'),
+                { contentType: 'image/webp' }
             );
         });
 
