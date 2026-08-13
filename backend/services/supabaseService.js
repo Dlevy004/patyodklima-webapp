@@ -1,13 +1,21 @@
 const supabase = require('../config/supabase');
+const sharp = require('sharp');
 
 
 const uploadImage = async (file) => {
-    const fileName = `${Date.now()}-${file.originalname.replace(/\s/g, '_')}`;
+    const optimizedBuffer = await sharp(file.buffer)
+        .resize({ width: 1920, withoutEnlargement: true })
+        .webp({ quality: 80 })
+        .toBuffer();
+
+    const originalNameWithoutExt = file.originalname.split('.').slice(0, -1).join('.');
+    const safeName = originalNameWithoutExt.replace(/\s/g, '_');
+    const fileName = `${Date.now()}-${safeName}.webp`;
 
     const { data, error } = await supabase.storage
         .from('References')
-        .upload(fileName, file.buffer, {
-            contentType: file.mimetype,
+        .upload(fileName, optimizedBuffer, {
+            contentType: 'image/webp',
         });
 
     if (error) {
