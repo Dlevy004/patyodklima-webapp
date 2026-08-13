@@ -1,0 +1,31 @@
+.drag-and-drop-container {
+    flex: 1;
+    aspect-ratio: 1 / 1;
+    height: auto;
+    padding: 1rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+
+    background-color: rgba(75, 189, 242, 0.32);
+    border-radius: 1rem;
+    border: 2px solid black;
+    border-style: dashed;
+    cursor: pointer;
+}
+
+.drag-and-drop-input {
+    display: none;
+    width: 100%;
+    height: 100%;
+}
+
+.drag-and-drop-label {
+    width: 100%;
+    height: auto;
+    text-align: center;
+    font-size: var(--fs-p);
+}
