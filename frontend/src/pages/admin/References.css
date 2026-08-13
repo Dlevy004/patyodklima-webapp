@@ -1,0 +1,27 @@
+.references-container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 2rem;
+    width: 100%;
+    max-width: 900px;
+}
+
+.image-description-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.submit-btn {
+    border-radius: 10px;
+    background-color: var(--bg-color-ternary);
+    color: var(--pg-color);
+    font-weight: bold;
+    width: fit-content;
+    padding: 0.5rem 1.5rem;
+    border: none;
+    font-size: var(--fs-p);
+}
