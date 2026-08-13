@@ -17,6 +17,13 @@
     cursor: pointer;
 }
 
+.drag-and-drop-preview {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: inherit;
+}
+
 .drag-and-drop-input {
     display: none;
     width: 100%;
