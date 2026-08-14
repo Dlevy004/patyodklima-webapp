@@ -1,23 +1,20 @@
 import './Clients.css'
 
-import ScrollUp from '../../components/common/ScrollUp'
-
-import TableHeader from '../../components/admin/common/TableHeader'
-import ModalBackdrop from '../../components/admin/common/ModalBackdrop'
-import DataStateFeedback from '../../components/admin/common/DataStateFeedback'
-import DeleteDataModal from '../../components/admin/common/DeleteDataModal'
-
-import ClientItem from '../../components/admin/clients/ClientItem'
-import AddEditClientModal from '../../components/admin/clients/AddEditClientModal'
-
-import useFetch from '../../hooks/useFetch'
-import useDeleteData from '../../hooks/useDeleteData'
-import usePageTitle from '../../hooks/usePageTitle'
-import useSaveData from '../../hooks/useSaveData'
-import useModal from '../../hooks/useModal'
-
+import ScrollUp from '@/components/common/ScrollUp'
+import TableHeader from '@/components/admin/common/TableHeader'
+import ModalBackdrop from '@/components/admin/common/ModalBackdrop'
+import DataStateFeedback from '@/components/admin/common/DataStateFeedback'
+import DeleteDataModal from '@/components/admin/common/DeleteDataModal'
+import ClientItem from '@/components/admin/clients/ClientItem'
+import AddEditClientModal from '@/components/admin/clients/AddEditClientModal'
+import useFetch from '@/hooks/useFetch'
+import useDeleteData from '@/hooks/useDeleteData'
+import usePageTitle from '@/hooks/usePageTitle'
+import useSaveData from '@/hooks/useSaveData'
+import useModal from '@/hooks/useModal'
 
 const API_URL = 'http://localhost:3000/api/clients';
+
 
 function Clients() {
     usePageTitle('Ügyfélnapló');
