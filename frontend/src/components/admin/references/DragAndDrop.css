@@ -1,6 +1,7 @@
 .drag-and-drop-container {
     flex: 1;
     aspect-ratio: 1 / 1;
+    max-width: 350px;
     height: auto;
     padding: 1rem;
 
@@ -51,5 +52,6 @@
 @media (max-width: 600px) {
     .drag-and-drop-container {
         aspect-ratio: 16/9;
+        max-width: 100%;
     }
 }
