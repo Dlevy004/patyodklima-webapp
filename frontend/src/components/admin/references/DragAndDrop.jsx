@@ -28,10 +28,10 @@ function DragAndDrop({ onFileSelect, previewUrl }) {
                 className="drag-and-drop-input"
             />
                 {previewUrl ? (
-                    <img src={previewUrl} alt="Előnézet" className="drag-and-drop-preview" />
+                    <img src={previewUrl} alt="A feltöltött referenciakép előnézete" className="drag-and-drop-preview" />
                 ) : (
                     <>
-                        <Plus size={80} aria-hidden='true'/>
+                        <Plus className='drag-and-drop-plus' aria-hidden='true'/>
                         <span className="drag-and-drop-label">
                             Húzd ide a képet vagy kattints ide a feltöltéshez
                         </span>

@@ -24,6 +24,7 @@ function References() {
         <>
             <form className='references-container' onSubmit={handleSubmit} noValidate>
                 <DragAndDrop onFileSelect={handleFileSelect} previewUrl={previewUrl} />
+
                 <div className='image-description-container'>
                     <InputField
                         label='Leírás hozzáadása'
@@ -33,8 +34,9 @@ function References() {
                         value={description}
                         error={errors.description}
                     />
-                    {errors.file && <span className="error-text" style={{ color: 'var(--error-color, red)' }}>{errors.file}</span>}
-                    <button className='submit-btn' type='submit' aria-label='Feltöltés' disabled={isUploading}>Feltöltés</button>
+
+                    {errors.file && <span className="error-text" role='alert' style={{ color: 'red)' }}>{errors.file}</span>}
+                    <button className='submit-btn' type='submit' disabled={isUploading}>Feltöltés</button>
                 </div>
             </form>
 
