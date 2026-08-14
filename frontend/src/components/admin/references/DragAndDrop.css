@@ -51,7 +51,6 @@
 
 @media (max-width: 600px) {
     .drag-and-drop-container {
-        aspect-ratio: 16/9;
         max-width: 100%;
     }
 }
