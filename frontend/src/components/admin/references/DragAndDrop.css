@@ -42,3 +42,14 @@
     text-align: center;
     font-size: var(--fs-p);
 }
+
+.drag-and-drop-plus {
+    width: clamp(50px, 10vw, 80px);
+    height: clamp(50px, 10vw, 80px);
+}
+
+@media (max-width: 600px) {
+    .drag-and-drop-container {
+        aspect-ratio: 16/9;
+    }
+}
