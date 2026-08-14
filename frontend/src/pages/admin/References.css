@@ -25,3 +25,12 @@
     border: none;
     font-size: var(--fs-p);
 }
+
+@media (max-width: 600px) {
+    .references-container {
+        flex-direction: column;
+        align-items: stretch;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+}
