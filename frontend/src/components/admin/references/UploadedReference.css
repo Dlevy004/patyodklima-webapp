@@ -48,8 +48,8 @@
 
 .reference-actions {
     position: absolute;
-    transform: translateY(-50%);
-    top: 50%;
+    transform: translateY(-25%);
+    bottom: 0%;
     z-index: 10;
     opacity: 0;
 
@@ -58,10 +58,12 @@
     align-items: center;
     justify-content: space-evenly;
     transition: opacity 0.3s ease;
+    pointer-events: none;
 }
 
-.uploaded-reference:is(:hover, :focus-visible, :active) .reference-actions {
+.uploaded-reference:is(:hover, :focus-visible) .reference-actions {
     opacity: 1;
+    pointer-events: auto;
 }
 
 .reference-actions button {
