@@ -1,0 +1,66 @@
+.uploaded-reference {
+    position: relative;
+    width: 100%;
+    max-width: 250px;
+    aspect-ratio: 1 / 1;
+    border-radius: 15px;
+    cursor: pointer;
+
+    transition: transform 0.3s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.uploaded-reference::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--secondary-color);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 15px;
+    pointer-events: none;
+}
+
+.uploaded-reference:is(:hover, :focus-visible, :active) {
+    transform: translateY(-5px);
+}
+
+.uploaded-reference:is(:hover, :focus-visible, :active)::after {
+    opacity: 0.5;
+}
+
+.single-reference-img {
+    width: 100%;
+    max-width: 250px;
+    height: auto;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    border-radius: 15px;
+    display: block;
+}
+
+.reference-actions {
+    position: absolute;
+    transform: translateY(-50%);
+    top: 50%;
+    z-index: 10;
+    opacity: 0;
+
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-evenly;
+    transition: opacity 0.3s ease;
+}
+
+.uploaded-reference:is(:hover, :focus-visible, :active) .reference-actions {
+    opacity: 1;
+}
+
+.reference-actions button {
+    width: 50px;
+    height: 50px;
+}
