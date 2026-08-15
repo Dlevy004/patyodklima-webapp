@@ -32,6 +32,10 @@
     opacity: 0.5;
 }
 
+.uploaded-reference.is-hidden .single-reference-img {
+    filter: grayscale(100%) opacity(60%);
+}
+
 .single-reference-img {
     width: 100%;
     max-width: 250px;
