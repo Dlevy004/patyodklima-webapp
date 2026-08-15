@@ -25,3 +25,8 @@
     background-color: #fee2e2;
     color: #ff0000;
 }
+
+.action-btn.visible, .action-btn.invisible {
+    background-color: #ececec;
+    color: #000000;
+}
