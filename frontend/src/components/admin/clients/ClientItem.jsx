@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types'
-import { SquarePen, Trash2 } from 'lucide-react'
 
 import './ClientItem.css'
+
+import EditBtn from '../common/EditBtn';
+import DeleteBtn from '../common/DeleteBtn';
 
 
 function ClientItem({ name, city, phone, onDelete, onEdit }) {
@@ -13,22 +15,8 @@ function ClientItem({ name, city, phone, onDelete, onEdit }) {
                 <p className='client-phone'>{phone}</p>
             </div>
             <div className='actions'>
-                <button
-                    className='edit-btn'
-                    onClick={onEdit}
-                    aria-label={`${name} adatainak szerkesztése`}
-                    title='Szerkesztés'
-                >
-                    <SquarePen strokeWidth={2} aria-hidden='true'/>
-                </button>
-                <button
-                    className='delete-btn'
-                    onClick={onDelete}
-                    aria-label={`${name} törlése`}
-                    title='Törlés'
-                >
-                    <Trash2 strokeWidth={2} aria-hidden='true'/>
-                </button>
+                <EditBtn onClick={onEdit} ariaLabel={`${name} szerkesztése`} />
+                <DeleteBtn onClick={onDelete} ariaLabel={`${name} törlése`} />
             </div>
         </li>
     )
