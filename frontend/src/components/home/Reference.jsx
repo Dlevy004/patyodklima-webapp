@@ -15,10 +15,11 @@ import ande from '@/assets/images/585059918_122150208692915768_33815419919614438
 import ande2 from '@/assets/images/585495273_122150208740915768_5983887693530440261_n.avif';
 import ce from '@/assets/images/585175757_122150209760915768_8231168429410044420_n.avif';
 import { fadeInUp } from '@/animations/variants';
+import useFetch from '@/hooks/useFetch';
 
 const sliderVariants = fadeInUp(0.8);
-
-const referencesData = [
+const API_URL = 'http://localhost:3000/api/references';
+const fallbackData = [
     {
         id : 1,
         imgSrc : ref4,
@@ -71,6 +72,19 @@ const referencesData = [
 
 
 function Reference() {
+    const { data: references = [], isLoading, error } = useFetch(API_URL);
+    const visibleReferences = references?.filter(ref => ref.is_visible);
+
+    const hasAdminData = !isLoading && !error && visibleReferences.length >= 3;
+    const swiperData = hasAdminData
+        ? visibleReferences?.map(ref => ({
+            id: ref.id,
+            imgSrc: ref.image_url,
+            altText: ref.description,
+            cardTitle: ref.description
+        }))
+        : fallbackData;
+
     return (
         <section id="reference" aria-labelledby='reference-section'>
             <h2 id='reference-section' className="sub-title">Referencia</h2>
@@ -99,7 +113,7 @@ function Reference() {
                         }}
                         className="card-wrapper"
                     >
-                        { referencesData.map((data) => (
+                        { swiperData?.map((data) => (
                             <SwiperSlide key={data.id}>
                                 <ReferenceCard
                                     imgSrc={data.imgSrc}
