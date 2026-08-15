@@ -1,0 +1,13 @@
+.reference-history-title {
+    padding-bottom: 2rem;
+    font-size: var(--fs-h3);
+}
+
+.reference-history-container {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    flex-wrap: wrap;
+    gap: 1rem;
+    flex: 1;
+}
