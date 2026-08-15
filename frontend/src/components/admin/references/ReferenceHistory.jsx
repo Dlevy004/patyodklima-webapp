@@ -18,7 +18,8 @@ function ReferenceHistory() {
         const url = `${API_URL}/${reference.id}`;
 
         const success = await saveData(url, 'PUT', {
-            ...reference,
+            image_url: reference.image_url,
+            description: reference.description,
             is_visible: !reference.is_visible
         });
 
