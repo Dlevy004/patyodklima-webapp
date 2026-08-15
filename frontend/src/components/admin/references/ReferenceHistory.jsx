@@ -1,44 +1,45 @@
-import { useId } from 'react';
-
 import './ReferenceHistory.css'
 
 import DataStateFeedback from '../common/DataStateFeedback';
 import UploadedReference from './UploadedReference';
 import useFetch from '@/hooks/useFetch';
+import useDeleteData from '@/hooks/useDeleteData';
+import useSaveData from '@/hooks/useSaveData';
 
 const API_URL = 'http://localhost:3000/api/references';
-const IMG_BASE_URL = 'https://cgrciqcvvvudoywggogj.supabase.co/storage/v1/object/public/References/';
-const uploadedReferences = [
-    {
-        title: 'Referencia próbakép',
-        imageUrl: '1786704966248-nessAj.webp'
-    },
-    {
-        title: 'Referencia próbakép',
-        imageUrl: '1786704966248-nessAj.webp'
-    },
-    {
-        title: 'Referencia próbakép',
-        imageUrl: '1786704966248-nessAj.webp'
-    },
-    {
-        title: 'Referencia próbakép',
-        imageUrl: '1786704966248-nessAj.webp'
-    },
-    {
-        title: 'Referencia próbakép',
-        imageUrl: '1786704966248-nessAj.webp'
-    },
-    {
-        title: 'Referencia próbakép',
-        imageUrl: '1786704966248-nessAj.webp'
-    }
-];
 
 
 function ReferenceHistory() {
     const { data: references = [], isLoading, error, refetch } = useFetch(API_URL);
-    const uniqueId = useId();
+    const { deleteData } = useDeleteData();
+    const { saveData} = useSaveData();
+
+    const handleToggleVisibility = async (reference) => {
+        const url = `${API_URL}/${reference.id}`;
+
+        const success = await saveData(url, 'PUT', {
+            ...reference,
+            is_visible: !reference.is_visible
+        });
+
+        if (success) {
+            refetch();
+        }
+    };
+
+    const handleDeleteClick = async (id) => {
+        // TODO: Modal opening logic
+
+        const success = await deleteData(`${API_URL}/${id}`);
+        if (success) {
+            refetch();
+        }
+    };
+
+    const handleEditClick = (reference) => {
+        // TODO: Modal opening logic
+        console.log("Clicked the following reference:", reference);
+    };
 
     return (
         <div className='reference-history'>
@@ -51,11 +52,16 @@ function ReferenceHistory() {
                     emptyMessage={'Nincsenek feltöltött referenciák.'}
                 >
                     {
-                        uploadedReferences.map((reference) => (
+                        references?.map((reference) => (
                             <UploadedReference
-                                key={uniqueId}
-                                title={reference.title}
-                                imageUrl={`${IMG_BASE_URL}${reference.imageUrl}`}
+                                key={reference.id}
+                                title={reference.description}
+                                imageUrl={reference.image_url}
+                                isVisible={reference.is_visible}
+
+                                onDelete={() => handleDeleteClick(reference.id)}
+                                onEdit={() => handleEditClick(reference)}
+                                onToggleVisibility={() => handleToggleVisibility(reference)}
                             />
                         ))
                     }
