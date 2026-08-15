@@ -1,0 +1,27 @@
+.action-btn {
+    border: none;
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.action-btn:is(:hover, :focus-visible) {
+    transform: scale(1.1);
+}
+
+.action-btn.edit {
+    background-color: #d3e9f5;
+    color: #0284c7;
+}
+
+.action-btn.delete {
+    background-color: #fee2e2;
+    color: #ff0000;
+}
