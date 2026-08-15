@@ -58,33 +58,6 @@
     flex-shrink: 0;
 }
 
-.actions button {
-    border: none;
-    border-radius: 50%;
-    width: 42px;
-    height: 42px;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    transition: all 0.3s ease;
-}
-
-.actions .edit-btn {
-    background-color: #d3e9f5;
-    color: #0284c7;
-}
-
-.actions .delete-btn {
-    background-color: #fee2e2;
-    color: #ff0000;
-}
-
-.actions button:is(:hover, :focus-visible) {
-    transform: scale(1.1);
-}
-
 @media screen and (max-width: 1024px) {
     .client-item {
         flex: 1 1 calc(50% - 0.5rem);

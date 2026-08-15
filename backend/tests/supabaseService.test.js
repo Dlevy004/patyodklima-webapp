@@ -13,6 +13,7 @@ jest.mock('../config/supabase', () => ({
 
 jest.mock('sharp', () => {
     return jest.fn().mockImplementation(() => ({
+        rotate: jest.fn().mockReturnThis(),
         resize: jest.fn().mockReturnThis(),
         webp: jest.fn().mockReturnThis(),
         toBuffer: jest.fn().mockResolvedValue(Buffer.from('optimized fake image data'))

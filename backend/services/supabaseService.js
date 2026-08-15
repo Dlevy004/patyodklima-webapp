@@ -4,6 +4,7 @@ const sharp = require('sharp');
 
 const uploadImage = async (file) => {
     const optimizedBuffer = await sharp(file.buffer)
+        .rotate()
         .resize({ width: 1920, withoutEnlargement: true })
         .webp({ quality: 80 })
         .toBuffer();

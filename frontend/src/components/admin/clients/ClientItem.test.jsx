@@ -19,10 +19,10 @@ describe('ClientItem', () => {
         expect(screen.getByText('06 20 1234 567')).toBeInTheDocument();
     });
 
-    it('should render edit and delete button', () => {
+    it('should render action buttons', () => {
         const { container } = render(<ClientItem {...mockClient} />);
 
-        expect(container.querySelector('.edit-btn')).toBeInTheDocument();
-        expect(container.querySelector('.delete-btn')).toBeInTheDocument();
+        expect(container.querySelector('.action-btn.edit')).toBeInTheDocument();
+        expect(container.querySelector('.action-btn.delete')).toBeInTheDocument();
     });
 });
