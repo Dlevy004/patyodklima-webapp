@@ -1,6 +1,6 @@
 .uploaded-reference {
     position: relative;
-    width: 100%;
+    width: clamp(300px, 40vw, 450px);
     max-width: 250px;
     aspect-ratio: 1 / 1;
     border-radius: 15px;

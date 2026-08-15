@@ -8,6 +8,6 @@
     flex-direction: row;
     align-items: stretch;
     flex-wrap: wrap;
-    gap: 1rem;
+    gap: clamp(0.5rem, 2vw, 1rem);
     flex: 1;
 }
