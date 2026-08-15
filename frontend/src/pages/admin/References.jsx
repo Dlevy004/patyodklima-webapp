@@ -37,7 +37,7 @@ function References() {
                         error={errors.description}
                     />
 
-                    {errors.file && <span className="error-text" role='alert' style={{ color: 'red)' }}>{errors.file}</span>}
+                    {errors.file && <span className="error-text" role='alert'>{errors.file}</span>}
                     <button className='submit-btn' type='submit' disabled={isUploading}>Feltöltés</button>
                 </div>
             </form>
