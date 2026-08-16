@@ -18,16 +18,27 @@ My primary goal with this was to reinforce my fundamental knowledge of web devel
 
 ## 🛠️ Tech Stack
 
+### Designing and Styling
+- **Figma** for for UI/UX designing and prototyping
+- **dbdiagram.io** for visualize DBML schemas
+- **Google Fonts** for typography
+- **Unsplash / Pexels** for stock photos
+
 ### Frontend
 - **React** (Vite)
 - Vanilla CSS
-- **Vitest** and **React Testing Library** for unit testing
 
 ### Backend
-- **Node.js** + **Express**
+- **Node.js**
+- **Express**
 - **Prisma ORM**
 - **PostgreSQL** via **Supabase**
-- **Jest** for unit testing
+
+### Testing
+- **Vitest** and **React Testing Library** for frontend unit testing
+- **Jest** for backend unit testing
+- **Chrome DevTools** for responsive testing and debugging
+- **Postman** for API endpoint testing
 
 ### Tools
 - **VS Code** is my primary code editor
@@ -35,18 +46,28 @@ My primary goal with this was to reinforce my fundamental knowledge of web devel
 - **Claude / Gemini** for code optimization and learning
 - **Notion** for documentation and note-taking
 - **Git & Github** for source control and PR handling
+- **Google Analytics** for tracks and reports website's traffic
+
+### Package manager & dependencies
 - **npm** package manager
 
-- **Figma** for for UI/UX designing and prototyping
-- **Google Fonts** for typography
-- **Unsplash / Pexels** for stock photos
-- **React Hot Toast** library for user feedbacks
-- **Framer Motion** for website animations
+    #### Backend dependencies:
+    - **Supabase JS** for managing file storage
+    - **Multer** for handling and processing incoming file uploads
+    - **Sharp** for image processing, resizing, and WebP optimization
+    - **CORS** for enabling secure cross-origin requests between the frontend and the backend
+    - **pg** as the PostgreSQL client for the database connection
+    - **dotenv** for secure environment variable and configuration management
 
-- **dbdiagram.io** for visualize DBML schemas
-- **Chrome DevTools** for responsive testing and debugging
-- **Postman** for API endpoint testing
-- **Google Analytics** for tracks and reports website's traffic
+    #### Frontend dependencies:
+    - **React Hot Toast** library for user feedback notifications
+    - **Framer Motion** for website animations
+    - **Lucide React** for customizable SVG icons
+    - **Swiper** for touch-friendly sliders
+    - **React Helmet Async** for managing document head metadata dynamically for better SEO
+    - **React-Snap** for pre-rendering of the app to improve load times and SEO rankings
+    - **ESLint** for maintaining code quality and catching syntax errors
+    - **Prop-types** for runtime type checking of component props
 
 
 ## ✅ Current Progress
