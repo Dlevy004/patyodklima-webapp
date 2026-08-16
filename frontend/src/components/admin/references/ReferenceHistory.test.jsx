@@ -141,6 +141,9 @@ describe('ReferenceHistory', () => {
 
         fireEvent.click(screen.getByLabelText('Törlés gomb'));
 
+        const confirmDeleteBtn = document.querySelector('.modal-delete-btn');
+        fireEvent.click(confirmDeleteBtn);
+
         await waitFor(() => {
             expect(mockDeleteData).toHaveBeenCalledWith('http://localhost:3000/api/references/1');
             expect(mockRefetch).toHaveBeenCalledTimes(1);
@@ -160,13 +163,39 @@ describe('ReferenceHistory', () => {
 
         fireEvent.click(screen.getByLabelText('Törlés gomb'));
 
+        const confirmDeleteBtn = document.querySelector('.modal-delete-btn');
+        fireEvent.click(confirmDeleteBtn);
+
         await waitFor(() => {
             expect(mockDeleteData).toHaveBeenCalledTimes(1);
         });
         expect(mockRefetch).not.toHaveBeenCalled();
     });
 
-    it('should log the clicked reference when the edit button is clicked', () => {
+    it('should open edit modal, save changes and refetch', async () => {
+        useFetch.mockReturnValue({
+            data: [mockReference],
+            isLoading: false,
+            error: null,
+            refetch: mockRefetch
+        });
+        mockSaveData.mockResolvedValue(true);
+
+        render(<ReferenceHistory />);
+
+        fireEvent.click(screen.getByLabelText('Szerkesztés gomb'));
+
+        const saveBtn = await screen.findByText('Mentés');
+
+        fireEvent.click(saveBtn);
+
+        await waitFor(() => {
+            expect(mockSaveData).toHaveBeenCalledWith('http://localhost:3000/api/references/1', 'PUT', mockReference);
+            expect(mockRefetch).toHaveBeenCalledTimes(1);
+        });
+    });
+
+    it('should not close modal or call refetch if saving edited reference fails', async () => {
         useFetch.mockReturnValue({
             data: [mockReference],
             isLoading: false,
@@ -174,14 +203,21 @@ describe('ReferenceHistory', () => {
             refetch: mockRefetch
         });
 
-        const consoleSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
+        mockSaveData.mockResolvedValue(false);
 
         render(<ReferenceHistory />);
 
         fireEvent.click(screen.getByLabelText('Szerkesztés gomb'));
 
-        expect(consoleSpy).toHaveBeenCalledWith('Clicked the following reference:', mockReference);
+        const saveBtn = await screen.findByText('Mentés');
+        fireEvent.click(saveBtn);
 
-        consoleSpy.mockRestore();
+        await waitFor(() => {
+            expect(mockSaveData).toHaveBeenCalledTimes(1);
+        });
+
+        expect(mockRefetch).not.toHaveBeenCalled();
+
+        expect(screen.getByText('Referenciakép szerkesztése')).toBeInTheDocument();
     });
 });

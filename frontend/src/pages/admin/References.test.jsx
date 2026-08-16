@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { vi, describe, it, expect } from 'vitest';
 
-import { useReferenceUpload } from '@/hooks/useReferenceUpload';
+import useReferenceUpload from '@/hooks/useReferenceUpload';
 import References from './References';
 
 vi.mock('@/hooks/useReferenceUpload');

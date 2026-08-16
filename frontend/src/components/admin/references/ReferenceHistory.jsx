@@ -5,12 +5,20 @@ import UploadedReference from './UploadedReference';
 import useFetch from '@/hooks/useFetch';
 import useDeleteData from '@/hooks/useDeleteData';
 import useSaveData from '@/hooks/useSaveData';
+import useModal from '@/hooks/useModal';
+import ModalBackdrop from '@/components/admin/common/ModalBackdrop';
+import DeleteDataModal from '@/components/admin/common/DeleteDataModal';
+import EditReferenceModal from './EditReferenceModal';
 
 const API_URL = 'http://localhost:3000/api/references';
 
 
 function ReferenceHistory() {
     const { data: references = [], isLoading, error, refetch } = useFetch(API_URL);
+
+    const deleteModal = useModal();
+    const editModal = useModal();
+
     const { deleteData } = useDeleteData();
     const { saveData} = useSaveData();
 
@@ -28,18 +36,24 @@ function ReferenceHistory() {
         }
     };
 
-    const handleDeleteClick = async (id) => {
-        // TODO: Modal opening logic
+    const handleDeleteClick = async () => {
+        const success = await deleteData(`${API_URL}/${deleteModal.selectedItem.id}`);
 
-        const success = await deleteData(`${API_URL}/${id}`);
         if (success) {
+            deleteModal.close();
             refetch();
         }
     };
 
-    const handleEditClick = (reference) => {
-        // TODO: Modal opening logic
-        console.log("Clicked the following reference:", reference);
+    const handleSaveClick = async (reference) => {
+        const url = `${API_URL}/${editModal.selectedItem.id}`;
+
+        const success = await saveData(url, 'PUT', reference);
+
+        if (success) {
+            editModal.close();
+            refetch();
+        }
     };
 
     return (
@@ -60,14 +74,31 @@ function ReferenceHistory() {
                                 imageUrl={reference.image_url}
                                 isVisible={reference.is_visible}
 
-                                onDelete={() => handleDeleteClick(reference.id)}
-                                onEdit={() => handleEditClick(reference)}
+                                onDelete={() => deleteModal.open(reference)}
+                                onEdit={() => editModal.open(reference)}
                                 onToggleVisibility={() => handleToggleVisibility(reference)}
                             />
                         ))
                     }
                 </DataStateFeedback>
             </ul>
+
+            <ModalBackdrop isOpen={deleteModal.isOpen} onClose={deleteModal.close}>
+                <DeleteDataModal
+                    titleData={'Referenciakép'}
+                    descriptionData={'referenciát'}
+                    onClose={deleteModal.close}
+                    onDelete={handleDeleteClick}
+                />
+            </ModalBackdrop>
+
+            <ModalBackdrop isOpen={editModal.isOpen} onClose={editModal.close}>
+                <EditReferenceModal
+                    onClose={editModal.close}
+                    onSave={handleSaveClick}
+                    referenceData={editModal.selectedItem}
+                />
+            </ModalBackdrop>
         </div>
     )
 }

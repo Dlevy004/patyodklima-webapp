@@ -13,8 +13,8 @@ function DeleteDataModal({ titleData, descriptionData, onClose, onDelete }) {
                 Biztos vagy benne, hogy törlöd a(z) {descriptionData}?
             </p>
             <div className='modal-buttons'>
-                <button className='modal-close-btn' onClick={onClose}>Mégse</button>
-                <button className='modal-delete-btn' onClick={onDelete}>Törlés</button>
+                <button type='button' className='modal-close-btn' onClick={onClose}>Mégse</button>
+                <button type='button' className='modal-delete-btn' onClick={onDelete}>Törlés</button>
             </div>
         </div>
     )

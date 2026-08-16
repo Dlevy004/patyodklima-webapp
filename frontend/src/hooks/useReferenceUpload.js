@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
 
 
-export function useReferenceUpload() {
+export default function useReferenceUpload() {
     const [file, setFile] = useState(null);
     const [previewUrl, setPreviewUrl] = useState(null);
     const [description, setDescription] = useState('');
@@ -24,8 +24,9 @@ export function useReferenceUpload() {
         }
     };
 
-    const handleDescriptionChange = (e) => {
-        setDescription(e.target.value);
+    const handleDescriptionChange = (event) => {
+        setDescription(event.target.value);
+
         if (errors.description) {
             setErrors((prev) => ({ ...prev, description: null }));
         }

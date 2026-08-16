@@ -2,7 +2,7 @@ import { renderHook, act } from '@testing-library/react';
 import { vi, describe, it, expect, beforeEach } from 'vitest';
 import toast from 'react-hot-toast';
 
-import { useReferenceUpload } from './useReferenceUpload';
+import useReferenceUpload from './useReferenceUpload';
 
 
 vi.mock('react-hot-toast', () => ({

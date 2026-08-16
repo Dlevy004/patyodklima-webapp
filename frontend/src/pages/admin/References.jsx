@@ -2,7 +2,7 @@ import './References.css'
 
 import ScrollUp from '@/components/common/ScrollUp'
 import usePageTitle from '@/hooks/usePageTitle';
-import { useReferenceUpload } from '@/hooks/useReferenceUpload';
+import useReferenceUpload from '@/hooks/useReferenceUpload';
 import DragAndDrop from '@/components/admin/references/DragAndDrop';
 import ReferenceHistory from '@/components/admin/references/ReferenceHistory';
 import InputField from '@/components/admin/common/InputField';
