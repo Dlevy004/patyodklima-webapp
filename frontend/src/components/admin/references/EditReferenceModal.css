@@ -1,0 +1,83 @@
+.edit-modal {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 1rem;
+
+    border-radius: 1rem;
+    gap: 2rem;
+
+    background-color: var(--bg-color-primary);
+}
+
+.edit-modal .title-bg {
+    width: 100%;
+    height: auto;
+    text-align: center;
+    border-radius: 1rem 1rem 3rem 0;
+    background-color: var(--bg-color-ternary);
+}
+
+.edit-modal .title-bg h1 {
+    padding: clamp(1.5rem, 4vw, 2rem);
+    font-size: var(--fs-h2);
+    color: var(--text-color2);
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.edit-reference-content {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    max-width: 250px;
+    gap: 1rem;
+}
+
+.edit-reference-content img {
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    border-radius: 15px;
+}
+
+.edit-modal .modal-buttons {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 2rem;
+    gap: clamp(1rem, 4vw, 2rem);
+}
+
+.edit-modal .modal-buttons button {
+    flex: 1;
+    width: 50%;
+    height: auto;
+    max-width: 150px;
+    padding: 0.5rem;
+    border-radius: 5px;
+    font-size: var(--fs-p);
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.edit-modal .modal-buttons button:hover { transform: translateY(-3px); }
+
+.edit-modal .modal-close-btn {
+    border: 2px solid var(--bg-color-ternary);
+    background-color: var(--bg-color-primary);
+    color: var(--text-color1);
+}
+
+.edit-modal .modal-save-btn {
+    border: 2px solid var(--primary-bg-color);
+    background-color: var(--bg-color-ternary);
+    color: var(--text-color2);
+}
