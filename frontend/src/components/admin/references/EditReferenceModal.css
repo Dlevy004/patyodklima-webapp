@@ -1,5 +1,5 @@
 .edit-modal {
-    width: 100%;
+    width: calc(100% - 2rem);
     max-width: 500px;
     margin: 0 auto;
 
@@ -10,7 +10,8 @@
     padding-bottom: 1rem;
 
     border-radius: 1rem;
-    gap: 2rem;
+    gap: clamp(1rem, 4vw, 2rem);
+    overflow: hidden;
 
     background-color: var(--bg-color-primary);
 }
@@ -28,7 +29,6 @@
     font-size: var(--fs-h2);
     color: var(--text-color2);
     font-weight: bold;
-    white-space: nowrap;
 }
 
 .edit-reference-content {
@@ -37,11 +37,14 @@
     align-items: stretch;
     justify-content: center;
     max-width: 250px;
+    width: 100%;
+    padding: 0 1rem;
     gap: 1rem;
 }
 
 .edit-reference-content img {
     aspect-ratio: 1/1;
+    width: 100%;
     object-fit: cover;
     border-radius: 15px;
 }
@@ -52,20 +55,20 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0 2rem;
-    gap: clamp(1rem, 4vw, 2rem);
+    padding: 0 clamp(1rem, 5vw, 2rem);
+    gap: clamp(0.5rem, 3vw, 2rem);
 }
 
 .edit-modal .modal-buttons button {
     flex: 1;
-    width: 50%;
     height: auto;
     max-width: 150px;
-    padding: 0.5rem;
     border-radius: 5px;
     font-size: var(--fs-p);
     font-weight: bold;
+    padding: 0.8rem 0.5rem;
     transition: all 0.3s ease;
+    box-sizing: border-box;
 }
 
 .edit-modal .modal-buttons button:hover { transform: translateY(-3px); }
