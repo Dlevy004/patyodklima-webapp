@@ -141,6 +141,9 @@ describe('ReferenceHistory', () => {
 
         fireEvent.click(screen.getByLabelText('Törlés gomb'));
 
+        const confirmDeleteBtn = document.querySelector('.modal-delete-btn');
+        fireEvent.click(confirmDeleteBtn);
+
         await waitFor(() => {
             expect(mockDeleteData).toHaveBeenCalledWith('http://localhost:3000/api/references/1');
             expect(mockRefetch).toHaveBeenCalledTimes(1);
@@ -159,6 +162,9 @@ describe('ReferenceHistory', () => {
         render(<ReferenceHistory />);
 
         fireEvent.click(screen.getByLabelText('Törlés gomb'));
+
+        const confirmDeleteBtn = document.querySelector('.modal-delete-btn');
+        fireEvent.click(confirmDeleteBtn);
 
         await waitFor(() => {
             expect(mockDeleteData).toHaveBeenCalledTimes(1);
