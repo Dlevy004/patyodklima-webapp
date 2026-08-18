@@ -4,6 +4,7 @@ import './ProtectedRoute.css'
 
 import { useAuth } from '../../../context/AuthContext';
 import ChangePasswordModal from './ChangePasswordModal';
+import ModalBackdrop from '../common/ModalBackdrop';
 
 
 function ProtectedRoute() {
@@ -24,7 +25,14 @@ function ProtectedRoute() {
 
     return (
         <>
-            {user?.mustChangePassword && <ChangePasswordModal />}
+            {
+                user?.mustChangePassword &&
+                <ModalBackdrop
+                    isOpen={true}
+                >
+                    <ChangePasswordModal />
+                </ModalBackdrop>
+            }
             <Outlet />
         </>
     );
