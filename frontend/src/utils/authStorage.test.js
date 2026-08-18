@@ -2,6 +2,7 @@ import { describe, expect, it, beforeEach } from 'vitest';
 
 import { clearToken, getToken, isRememberMeEnabled, setToken } from './authStorage';
 
+
 describe('authStorage', () => {
     beforeEach(() => {
         clearToken();

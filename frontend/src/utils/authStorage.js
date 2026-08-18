@@ -1,6 +1,7 @@
 const TOKEN_KEY = 'patyodklima_auth_token';
 const REMEMBER_KEY = 'patyodklima_remember_me';
 
+
 export function getToken() {
     const rememberedToken = localStorage.getItem(TOKEN_KEY);
     if (rememberedToken) {
