@@ -88,14 +88,6 @@ function Login() {
                                 autoComplete="current-password"
                                 required
                             />
-                            <button
-                                type="button"
-                                className="login-password-toggle"
-                                onClick={() => setShowPassword((prev) => !prev)}
-                                aria-label={showPassword ? 'Jelszó elrejtése' : 'Jelszó megjelenítése'}
-                            >
-                                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-                            </button>
                         </div>
 
                         <label className="login-remember">

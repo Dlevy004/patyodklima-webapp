@@ -61,33 +61,14 @@
     color: var(--grey-text);
 }
 
-.login-input-wrapper input {
+.login-input-wrapper .input-field {
     width: 100%;
-    padding: 0.9rem 1rem 0.9rem 2.75rem;
-    border: 1px solid #d1d5db;
-    border-radius: 0.85rem;
-    background: #ffffff;
     font: inherit;
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.login-input-wrapper input:focus {
-    outline: none;
-    border-color: #228fce;
-    box-shadow: 0 0 0 3px rgba(34, 143, 206, 0.15);
-}
-
-.login-password-toggle {
-    position: absolute;
-    top: 50%;
-    right: 0.85rem;
-    transform: translateY(-50%);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border: none;
-    background: transparent;
-    color: #6b7280;
+.login-input-wrapper .input-field input {
+    padding-left: 3rem;
 }
 
 .login-remember {
