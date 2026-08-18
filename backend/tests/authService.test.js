@@ -202,4 +202,109 @@ describe('authService.verifyToken', () => {
         expect(decoded).toEqual({ sub: 'user-1', role: 'admin' });
         expect(jwt.verify).toHaveBeenCalledWith('valid-token', 'test-secret');
     });
+
+    describe('authService.login - additional branches', () => {
+        beforeEach(() => {
+            jest.clearAllMocks();
+            process.env.JWT_SECRET = 'test-secret';
+        });
+
+        it('should reject when the password does not match', async () => {
+            prisma.users.findUnique.mockResolvedValue({
+                id: 'user-1',
+                email: 'admin@patyodklima.hu',
+                password_hash: 'hashed-password',
+                role: 'admin',
+            });
+            bcrypt.compare.mockResolvedValue(false);
+
+            const result = await authService.login({
+                email: 'admin@patyodklima.hu',
+                password: 'wrong-password',
+            });
+
+            expect(result.success).toBe(false);
+            expect(result.error).toBe('INVALID_CREDENTIALS');
+        });
+    });
+
+    describe('authService.getUserById', () => {
+        beforeEach(() => {
+            jest.clearAllMocks();
+        });
+
+        it('should return null if the user does not exist or has an unsupported role', async () => {
+            prisma.users.findUnique.mockResolvedValue(null);
+
+            const result = await authService.getUserById('missing-id');
+
+            expect(result).toBeNull();
+        });
+
+        it('should return the sanitized user if found', async () => {
+            prisma.users.findUnique.mockResolvedValue({
+                id: 'user-1',
+                email: 'admin@patyodklima.hu',
+                full_name: 'Admin',
+                role: 'admin',
+                must_change_password: false,
+            });
+
+            const result = await authService.getUserById('user-1');
+
+            expect(result).toEqual({
+                id: 'user-1',
+                email: 'admin@patyodklima.hu',
+                fullName: 'Admin',
+                role: 'admin',
+                mustChangePassword: false,
+            });
+        });
+    });
+
+    describe('authService.changePassword - additional branches', () => {
+        beforeEach(() => {
+            jest.clearAllMocks();
+            process.env.JWT_SECRET = 'test-secret';
+        });
+
+        it('should reject if the user does not exist', async () => {
+            prisma.users.findUnique.mockResolvedValue(null);
+
+            const result = await authService.changePassword({
+                userId: 'missing-id',
+                currentPassword: 'old',
+                newPassword: 'new',
+            });
+
+            expect(result.success).toBe(false);
+            expect(result.error).toBe('USER_NOT_FOUND');
+        });
+
+        it('should reject if the new password matches the current password', async () => {
+            prisma.users.findUnique.mockResolvedValue({
+                id: 'user-1',
+                password_hash: 'old-hash',
+                role: 'admin',
+            });
+            bcrypt.compare.mockResolvedValue(true);
+
+            const result = await authService.changePassword({
+                userId: 'user-1',
+                currentPassword: 'same-password',
+                newPassword: 'same-password',
+            });
+
+            expect(result.success).toBe(false);
+            expect(result.error).toBe('SAME_PASSWORD');
+        });
+    });
+
+    describe('authService - missing JWT_SECRET', () => {
+        it('should throw an error when JWT_SECRET is not set', () => {
+            delete process.env.JWT_SECRET;
+
+            expect(() => authService.verifyToken('any-token')).toThrow('JWT_SECRET is not configured.');
+        });
+    });
 });
