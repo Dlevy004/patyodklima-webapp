@@ -66,4 +66,57 @@ describe('ChangePasswordModal', () => {
             });
         });
     });
+
+    it('should show error if new password is too short', async () => {
+        render(<ChangePasswordModal />);
+
+        fireEvent.change(screen.getByLabelText('Jelenlegi jelszó'), {
+            target: { value: 'old-password' },
+        });
+        fireEvent.change(screen.getByLabelText('Új jelszó'), {
+            target: { value: 'short' },
+        });
+        fireEvent.change(screen.getByLabelText('Új jelszó megerősítése'), {
+            target: { value: 'short' },
+        });
+        fireEvent.click(screen.getByRole('button', { name: 'Jelszó frissítése' }));
+
+        expect(await screen.findByText('Az új jelszónak legalább 8 karakter hosszúnak kell lennie.')).toBeInTheDocument();
+        expect(mockChangePassword).not.toHaveBeenCalled();
+    });
+
+    it('should show error message on API failure', async () => {
+        mockChangePassword.mockRejectedValue(new Error('Hibás jelenlegi jelszó.'));
+        render(<ChangePasswordModal />);
+
+        fireEvent.change(screen.getByLabelText('Jelenlegi jelszó'), {
+            target: { value: 'wrong-old-password' },
+        });
+        fireEvent.change(screen.getByLabelText('Új jelszó'), {
+            target: { value: 'valid-new-password' },
+        });
+        fireEvent.change(screen.getByLabelText('Új jelszó megerősítése'), {
+            target: { value: 'valid-new-password' },
+        });
+        fireEvent.click(screen.getByRole('button', { name: 'Jelszó frissítése' }));
+
+        expect(await screen.findByText('Hibás jelenlegi jelszó.')).toBeInTheDocument();
+    });
+
+    it('should toggle visibility for both password fields', () => {
+        render(<ChangePasswordModal />);
+
+        const currentPasswordInput = screen.getByLabelText('Jelenlegi jelszó');
+        const newPasswordInput = screen.getByLabelText('Új jelszó');
+
+        const toggleButtons = screen.getAllByRole('button', { name: 'Jelszó megjelenítése' });
+
+        expect(currentPasswordInput).toHaveAttribute('type', 'password');
+        fireEvent.click(toggleButtons[0]);
+        expect(currentPasswordInput).toHaveAttribute('type', 'text');
+
+        expect(newPasswordInput).toHaveAttribute('type', 'password');
+        fireEvent.click(toggleButtons[1]);
+        expect(newPasswordInput).toHaveAttribute('type', 'text');
+    });
 });
