@@ -66,6 +66,7 @@
     margin-bottom: 1.5rem;
     color: var(--grey-text);
     line-height: 1.6;
+    font-size: var(--fs-p);
 }
 
 .login-lottie-wrapper {
