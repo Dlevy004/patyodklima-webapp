@@ -24,13 +24,16 @@ vi.mock('react-router-dom', async () => {
 });
 
 vi.mock('lottie-react', () => ({
-    default: () => <div data-testid="lottie-animation" />,
+    __esModule: true,
+    default: () => <div data-testid="lottie-mock">Lottie Animation</div>,
+    Lottie: () => <div data-testid="lottie-mock">Lottie Animation</div>,
+    useLottie: () => ({ View: <div data-testid="lottie-mock">Lottie Animation</div> })
 }));
 
 describe('Login', () => {
     beforeEach(() => {
         vi.clearAllMocks();
-        global.fetch = vi.fn().mockResolvedValue({
+        window.fetch = vi.fn().mockResolvedValue({
             ok: true,
             json: async () => ({}),
         });
