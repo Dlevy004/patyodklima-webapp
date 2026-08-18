@@ -2,13 +2,14 @@ import { useState } from 'react';
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 
-import { Eye, EyeOff, KeyRound, Mail } from 'lucide-react';
+import { KeyRound, Mail } from 'lucide-react';
 
 import './Login.css';
 
 import patyodklimaLogo from '@/assets/images/logo.avif';
 import { useAuth } from '@/context/AuthContext';
 import LoginIllustration from '@/components/admin/auth/LoginIllustration';
+import InputField from '@/components/admin/common/InputField';
 
 
 function Login() {
@@ -53,11 +54,7 @@ function Login() {
 
             <section className="login-form-panel">
                 <div className="login-form-inner">
-                    <img
-                        src={patyodklimaLogo}
-                        alt="Pátyod Klíma logó"
-                        className="login-logo"
-                    />
+                    <img src={patyodklimaLogo} alt="Pátyod Klíma logó" className="login-logo" />
 
                     <div className="login-heading">
                         <h1>Bejelentkezés</h1>
@@ -68,7 +65,7 @@ function Login() {
                         <label htmlFor="login-email">E-mail</label>
                         <div className="login-input-wrapper">
                             <Mail size={18} className="login-input-icon" aria-hidden="true" />
-                            <input
+                            <InputField
                                 id="login-email"
                                 type="email"
                                 value={email}
@@ -82,7 +79,7 @@ function Login() {
                         <label htmlFor="login-password">Jelszó</label>
                         <div className="login-input-wrapper">
                             <KeyRound size={18} className="login-input-icon" aria-hidden="true" />
-                            <input
+                            <InputField
                                 id="login-password"
                                 type={showPassword ? 'text' : 'password'}
                                 value={password}
