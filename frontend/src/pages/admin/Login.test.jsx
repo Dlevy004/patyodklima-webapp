@@ -1,6 +1,7 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { describe, expect, it, vi, beforeEach } from 'vitest';
+import { useAuth } from '../../context/AuthContext';
 
 import Login from './Login';
 
@@ -8,11 +9,11 @@ const mockLogin = vi.fn();
 const mockNavigate = vi.fn();
 
 vi.mock('../../context/AuthContext', () => ({
-    useAuth: () => ({
+    useAuth: vi.fn(() => ({
         login: mockLogin,
         isAuthenticated: false,
         isLoading: false,
-    }),
+    })),
 }));
 
 vi.mock('react-router-dom', async () => {
@@ -99,5 +100,47 @@ describe('Login', () => {
         fireEvent.click(screen.getByRole('button', { name: 'Bejelentkezés' }));
 
         expect(await screen.findByText('Invalid email or password.')).toBeInTheDocument();
+    });
+
+it('should redirect if user is already authenticated', () => {
+        useAuth.mockReturnValue({
+            login: mockLogin,
+            isAuthenticated: true,
+            isLoading: false,
+        });
+
+        render(
+            <MemoryRouter>
+                <Login />
+            </MemoryRouter>
+        );
+
+        expect(screen.queryByText('Emlékezz rám')).not.toBeInTheDocument();
+
+        useAuth.mockReturnValue({
+            login: mockLogin,
+            isAuthenticated: false,
+            isLoading: false,
+        });
+    });
+
+    it('should toggle password visibility', () => {
+        render(
+            <MemoryRouter>
+                <Login />
+            </MemoryRouter>
+        );
+
+        const passwordInput = screen.getByLabelText('Jelszó');
+        const toggleBtn = screen.getByRole('button', { name: 'Jelszó megjelenítése' });
+
+        expect(passwordInput).toHaveAttribute('type', 'password');
+
+        fireEvent.click(toggleBtn);
+        expect(passwordInput).toHaveAttribute('type', 'text');
+        expect(screen.getByRole('button', { name: 'Jelszó elrejtése' })).toBeInTheDocument();
+
+        fireEvent.click(screen.getByRole('button', { name: 'Jelszó elrejtése' }));
+        expect(passwordInput).toHaveAttribute('type', 'password');
     });
 });
