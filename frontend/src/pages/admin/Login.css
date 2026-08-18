@@ -28,13 +28,14 @@
 .login-heading h1 {
     margin-bottom: 0.35rem;
     color: #111827;
-    font-size: clamp(1.75rem, 2vw, 2.25rem);
+    font-size: var(--fs-h2);
     text-align: center;
 }
 
 .login-heading p {
-    color: #6b7280;
+    color: var(--grey-text);
     text-align: center;
+    font-size: var(--fs-p);
 }
 
 .login-form {
@@ -45,7 +46,7 @@
 
 .login-form label {
     font-weight: 600;
-    color: #111827;
+    color: var(--text-color1);
 }
 
 .login-input-wrapper {
@@ -57,7 +58,7 @@
     top: 50%;
     left: 1rem;
     transform: translateY(-50%);
-    color: #9ca3af;
+    color: var(--grey-text);
 }
 
 .login-input-wrapper input {
@@ -93,25 +94,25 @@
     display: flex;
     align-items: flex-start;
     gap: 0.75rem;
-    margin-top: 0.25rem;
+    margin-top: 1rem;
     cursor: pointer;
 }
 
 .login-remember input {
     margin-top: 0.2rem;
-    accent-color: #228fce;
+    accent-color: var(--primary-color);
 }
 
 .login-remember span {
     display: flex;
     flex-direction: column;
     gap: 0.15rem;
-    color: #111827;
+    color: var(--text-color1);
     font-weight: 500;
 }
 
 .login-remember small {
-    color: #6b7280;
+    color: var(--grey-text);
     font-weight: 400;
 }
 
@@ -129,7 +130,6 @@
     color: #ffffff;
     font: inherit;
     font-weight: 600;
-    cursor: pointer;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -145,7 +145,7 @@
 
 .login-copyright {
     margin-top: 0.5rem;
-    color: #9ca3af;
+    color: var(--grey-text);
     font-size: 0.85rem;
     text-align: center;
 }
