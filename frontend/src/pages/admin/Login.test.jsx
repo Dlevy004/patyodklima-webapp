@@ -49,8 +49,8 @@ describe('Login', () => {
         );
 
         expect(screen.getByRole('heading', { name: 'Bejelentkezés' })).toBeInTheDocument();
-        expect(screen.getByLabelText('E-mail')).toBeInTheDocument();
-        expect(screen.getByLabelText('Jelszó')).toBeInTheDocument();
+        expect(screen.getByPlaceholderText('pelda@patyodklima.hu')).toBeInTheDocument();
+        expect(screen.getByPlaceholderText('••••••••')).toBeInTheDocument();
         expect(screen.getByRole('checkbox', { name: /Emlékezz rám/i })).toBeInTheDocument();
         expect(screen.getByText('Pátyod Klíma © 2026 | Minden jog fenntartva!')).toBeInTheDocument();
     });
@@ -64,10 +64,10 @@ describe('Login', () => {
             </MemoryRouter>
         );
 
-        fireEvent.change(screen.getByLabelText('E-mail'), {
+        fireEvent.change(screen.getByPlaceholderText('pelda@patyodklima.hu'), {
             target: { value: 'admin@patyodklima.hu' },
         });
-        fireEvent.change(screen.getByLabelText('Jelszó'), {
+        fireEvent.change(screen.getByPlaceholderText('••••••••'), {
             target: { value: 'secret123' },
         });
         fireEvent.click(screen.getByRole('checkbox', { name: /Emlékezz rám/i }));
@@ -92,10 +92,10 @@ describe('Login', () => {
             </MemoryRouter>
         );
 
-        fireEvent.change(screen.getByLabelText('E-mail'), {
+        fireEvent.change(screen.getByPlaceholderText('pelda@patyodklima.hu'), {
             target: { value: 'wrong@patyodklima.hu' },
         });
-        fireEvent.change(screen.getByLabelText('Jelszó'), {
+        fireEvent.change(screen.getByPlaceholderText('••••••••'), {
             target: { value: 'wrong' },
         });
         fireEvent.click(screen.getByRole('button', { name: 'Bejelentkezés' }));
