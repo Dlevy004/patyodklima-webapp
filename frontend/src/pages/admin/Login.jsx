@@ -20,7 +20,6 @@ function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [rememberMe, setRememberMe] = useState(false);
-    const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -81,7 +80,7 @@ function Login() {
                             <KeyRound size={18} className="login-input-icon" aria-hidden="true" />
                             <InputField
                                 id="login-password"
-                                type={showPassword ? 'text' : 'password'}
+                                type='password'
                                 value={password}
                                 onChange={(event) => setPassword(event.target.value)}
                                 placeholder="••••••••"

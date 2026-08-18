@@ -15,8 +15,6 @@ function ChangePasswordModal({ onSuccess }) {
         newPassword: '',
         confirmPassword: '',
     });
-    const [showCurrentPassword, setShowCurrentPassword] = useState(false);
-    const [showNewPassword, setShowNewPassword] = useState(false);
     const [error, setError] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -65,7 +63,7 @@ function ChangePasswordModal({ onSuccess }) {
                 <InputField
                     id="current-password"
                     label='Jelenlegi jelszó'
-                    type={showCurrentPassword ? 'text' : 'password'}
+                    type='password'
                     value={formData.currentPassword}
                     onChange={handleChange('currentPassword')}
                     required
@@ -74,7 +72,7 @@ function ChangePasswordModal({ onSuccess }) {
                 <InputField
                     id="new-password"
                     label='Új jelszó'
-                    type={showNewPassword ? 'text' : 'password'}
+                    type='password'
                     value={formData.newPassword}
                     onChange={handleChange('newPassword')}
                     required

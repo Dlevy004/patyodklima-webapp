@@ -102,21 +102,4 @@ describe('ChangePasswordModal', () => {
 
         expect(await screen.findByText('Hibás jelenlegi jelszó.')).toBeInTheDocument();
     });
-
-    it('should toggle visibility for both password fields', () => {
-        render(<ChangePasswordModal />);
-
-        const currentPasswordInput = screen.getByLabelText('Jelenlegi jelszó');
-        const newPasswordInput = screen.getByLabelText('Új jelszó');
-
-        const toggleButtons = screen.getAllByRole('button', { name: 'Jelszó megjelenítése' });
-
-        expect(currentPasswordInput).toHaveAttribute('type', 'password');
-        fireEvent.click(toggleButtons[0]);
-        expect(currentPasswordInput).toHaveAttribute('type', 'text');
-
-        expect(newPasswordInput).toHaveAttribute('type', 'password');
-        fireEvent.click(toggleButtons[1]);
-        expect(newPasswordInput).toHaveAttribute('type', 'text');
-    });
 });

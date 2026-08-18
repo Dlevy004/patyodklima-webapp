@@ -124,24 +124,4 @@ it('should redirect if user is already authenticated', () => {
             isLoading: false,
         });
     });
-
-    it('should toggle password visibility', () => {
-        render(
-            <MemoryRouter>
-                <Login />
-            </MemoryRouter>
-        );
-
-        const passwordInput = screen.getByLabelText('Jelszó');
-        const toggleBtn = screen.getByRole('button', { name: 'Jelszó megjelenítése' });
-
-        expect(passwordInput).toHaveAttribute('type', 'password');
-
-        fireEvent.click(toggleBtn);
-        expect(passwordInput).toHaveAttribute('type', 'text');
-        expect(screen.getByRole('button', { name: 'Jelszó elrejtése' })).toBeInTheDocument();
-
-        fireEvent.click(screen.getByRole('button', { name: 'Jelszó elrejtése' }));
-        expect(passwordInput).toHaveAttribute('type', 'password');
-    });
 });
