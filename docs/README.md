@@ -58,6 +58,8 @@ My primary goal with this was to reinforce my fundamental knowledge of web devel
     - **CORS** for enabling secure cross-origin requests between the frontend and the backend
     - **pg** as the PostgreSQL client for the database connection
     - **dotenv** for secure environment variable and configuration management
+    - **bcryptjs** for secure password hashing and verification
+    - **express-rate-limit** for prevents brute-force login attacks
 
     #### Frontend dependencies:
     - **React Hot Toast** library for user feedback notifications
@@ -68,6 +70,7 @@ My primary goal with this was to reinforce my fundamental knowledge of web devel
     - **React-Snap** for pre-rendering of the app to improve load times and SEO rankings
     - **ESLint** for maintaining code quality and catching syntax errors
     - **Prop-types** for runtime type checking of component props
+    - **Lottie React** for animated components
 
 
 ## ✅ Current Progress
