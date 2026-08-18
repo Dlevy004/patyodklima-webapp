@@ -1,0 +1,8 @@
+.auth-loading-screen {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #1f508d;
+    font-size: 1.1rem;
+}

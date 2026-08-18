@@ -1,5 +1,7 @@
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 
+import './ProtectedRoute.css'
+
 import { useAuth } from '../../../context/AuthContext';
 import ChangePasswordModal from './ChangePasswordModal';
 
