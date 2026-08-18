@@ -109,9 +109,7 @@ function Login() {
                         </button>
                     </form>
 
-                    <p className="login-copyright">
-                        Pátyod Klíma © 2026 | Minden jog fenntartva!
-                    </p>
+                    <p className='login-copyright'>Pátyod Klíma &copy; { new Date().getFullYear() } | Minden jog fenntartva!</p>
                 </div>
             </section>
 
