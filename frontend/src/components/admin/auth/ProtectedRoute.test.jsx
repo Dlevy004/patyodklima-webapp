@@ -76,4 +76,24 @@ describe('ProtectedRoute', () => {
         expect(screen.getByTestId('change-password-modal')).toBeInTheDocument();
         expect(screen.getByText('Dashboard')).toBeInTheDocument();
     });
+
+    it('should render loading screen when isLoading is true', () => {
+        useAuth.mockReturnValue({
+            user: null,
+            isAuthenticated: false,
+            isLoading: true,
+        });
+
+        render(
+            <MemoryRouter initialEntries={['/admin/clients']}>
+                <Routes>
+                    <Route path="/admin" element={<ProtectedRoute />}>
+                        <Route path="clients" element={<div>Clients page</div>} />
+                    </Route>
+                </Routes>
+            </MemoryRouter>
+        );
+
+        expect(screen.getByText('Betöltés...')).toBeInTheDocument();
+    });
 });
