@@ -4,6 +4,9 @@ import Home from './pages/Home'
 import PrivacyPolicy from './pages/PrivacyPolicy'
 import { Toaster } from 'react-hot-toast'
 
+import { AuthProvider } from './context/AuthContext'
+import ProtectedRoute from './components/admin/auth/ProtectedRoute'
+import Login from './pages/admin/Login'
 import AdminLayout from './pages/admin/AdminLayout'
 import Dashboard from './pages/admin/Dashboard'
 import Clients from './pages/admin/Clients'
@@ -16,24 +19,30 @@ import Ads from './pages/admin/Ads'
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/privacypolicy' element={<PrivacyPolicy />} />
+    <AuthProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/privacypolicy' element={<PrivacyPolicy />} />
 
-        <Route path='/admin' element={<AdminLayout/>}>
-          <Route index element={<Dashboard />} />
-          <Route path='clients' element={<Clients />} />
-          <Route path='jobs' element={<Jobs />} />
-          <Route path='errors' element={<Errors />} />
-          <Route path='visualdesigns' element={<VisualDesign />} />
-          <Route path='ads' element={<Ads />} />
-          <Route path='references' element={<References />} />
-        </Route>
-      </Routes>
+          <Route path='/admin/login' element={<Login />} />
 
-      <Toaster position='bottom-right'/>
-    </BrowserRouter>
+          <Route path='/admin' element={<ProtectedRoute />}>
+            <Route element={<AdminLayout/>}>
+              <Route index element={<Dashboard />} />
+              <Route path='clients' element={<Clients />} />
+              <Route path='jobs' element={<Jobs />} />
+              <Route path='errors' element={<Errors />} />
+              <Route path='visualdesigns' element={<VisualDesign />} />
+              <Route path='ads' element={<Ads />} />
+              <Route path='references' element={<References />} />
+            </Route>
+          </Route>
+        </Routes>
+
+        <Toaster position='bottom-right'/>
+      </BrowserRouter>
+    </AuthProvider>
   )
 }
 
