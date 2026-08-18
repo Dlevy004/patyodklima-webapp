@@ -1,0 +1,85 @@
+.login-illustration-panel {
+    position: relative;
+    display: none;
+    overflow: hidden;
+    background: linear-gradient(145deg, rgba(34, 143, 206, 0.21), rgba(231, 118, 37, 0.135));
+}
+
+.login-illustration-bg {
+    position: absolute;
+    inset: 0;
+}
+
+.login-dot-grid {
+    position: absolute;
+    inset: 12% 10%;
+    background-image: radial-gradient(#94a3b8 1px, transparent 1px);
+    background-size: 18px 18px;
+    opacity: 0.5;
+    border-radius: 1.5rem;
+}
+
+.login-gradient-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(12px);
+}
+
+.login-gradient-orb--one {
+    top: 8%;
+    right: 10%;
+    width: 10rem;
+    height: 10rem;
+    background: radial-gradient(circle, rgba(34, 143, 206, 0.45), transparent 70%);
+}
+
+.login-gradient-orb--two {
+    bottom: 10%;
+    left: 8%;
+    width: 12rem;
+    height: 12rem;
+    background: radial-gradient(circle, rgba(231, 117, 37, 0.35), transparent 70%);
+}
+
+.login-illustration-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: clamp(1rem, 3vh, 4rem);
+    text-align: center;
+}
+
+.login-illustration-content h2 {
+    max-width: 18ch;
+    margin-bottom: 0.75rem;
+    color: var(--text-color1);
+    font-size: var(--fs-h2);
+    line-height: 1.2;
+}
+
+.login-illustration-text {
+    max-width: 34ch;
+    margin-bottom: 1.5rem;
+    color: var(--grey-text);
+    line-height: 1.6;
+}
+
+.login-lottie-wrapper {
+    width: min(100%, 35rem, 70vh);
+    max-height: 45vh;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media (min-width: 900px) {
+    .login-illustration-panel {
+        display: block;
+        height: 100%;
+    }
+}

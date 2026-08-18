@@ -1,39 +1,15 @@
 import { useState } from 'react';
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { Eye, EyeOff, KeyRound, Mail } from 'lucide-react';
-import { Lottie } from "lottie-react";
 
-import patyodklimaLogo from '@/assets/images/logo.avif';
-import { useAuth } from '@/context/AuthContext';
-import lottieAnim from '@/animations/hvac.json';
+import { Eye, EyeOff, KeyRound, Mail } from 'lucide-react';
 
 import './Login.css';
 
+import patyodklimaLogo from '@/assets/images/logo.avif';
+import { useAuth } from '@/context/AuthContext';
+import LoginIllustration from '@/components/admin/auth/LoginIllustration';
 
-function LoginIllustration() {
-    return (
-        <aside className="login-illustration-panel" aria-hidden="true">
-            <div className="login-illustration-bg">
-                <span className="login-dot-grid" />
-                <span className="login-gradient-orb login-gradient-orb--one" />
-                <span className="login-gradient-orb login-gradient-orb--two" />
-            </div>
-
-            <div className="login-illustration-content">
-                <p className="login-illustration-tag">Klímatechnika</p>
-                <h2>Fűts vagy hűts – mi gondoskodunk róla!</h2>
-                <p className="login-illustration-text">
-                    Professzionális klímatelepítés, karbantartás és szerviz Pátyod környékén.
-                </p>
-
-                <div className="login-lottie-wrapper">
-                    <Lottie src={lottieAnim} autoplay loop />
-                </div>
-            </div>
-        </aside>
-    );
-}
 
 function Login() {
     const navigate = useNavigate();

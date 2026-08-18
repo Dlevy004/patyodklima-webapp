@@ -150,118 +150,6 @@
     text-align: center;
 }
 
-.login-illustration-panel {
-    position: relative;
-    display: none;
-    overflow: hidden;
-    background: linear-gradient(145deg, rgba(34, 143, 206, 0.12), rgba(231, 117, 37, 0.08));
-}
-
-.login-illustration-bg {
-    position: absolute;
-    inset: 0;
-}
-
-.login-dot-grid {
-    position: absolute;
-    inset: 12% 10%;
-    background-image: radial-gradient(#94a3b8 1px, transparent 1px);
-    background-size: 18px 18px;
-    opacity: 0.35;
-    border-radius: 1.5rem;
-}
-
-.login-gradient-orb {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(12px);
-}
-
-.login-gradient-orb--one {
-    top: 8%;
-    right: 10%;
-    width: 10rem;
-    height: 10rem;
-    background: radial-gradient(circle, rgba(34, 143, 206, 0.45), transparent 70%);
-}
-
-.login-gradient-orb--two {
-    bottom: 10%;
-    left: 8%;
-    width: 12rem;
-    height: 12rem;
-    background: radial-gradient(circle, rgba(231, 117, 37, 0.35), transparent 70%);
-}
-
-.login-curve-line {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-}
-
-.login-curve-line path {
-    fill: none;
-    stroke: rgba(34, 143, 206, 0.45);
-    stroke-width: 2;
-    stroke-linecap: round;
-}
-
-.login-illustration-content {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    padding: clamp(1rem, 3vh, 4rem);
-    text-align: center;
-}
-
-.login-illustration-tag {
-    margin-bottom: 0.75rem;
-    padding: 0.35rem 0.85rem;
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.65);
-    color: #1f508d;
-    font-size: 0.85rem;
-    font-weight: 600;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-}
-
-.login-illustration-content h2 {
-    max-width: 18ch;
-    margin-bottom: 0.75rem;
-    color: #1f508d;
-    font-size: clamp(1.75rem, 2.5vw, 2.5rem);
-    line-height: 1.2;
-}
-
-.login-illustration-text {
-    max-width: 34ch;
-    margin-bottom: 1.5rem;
-    color: #475569;
-    line-height: 1.6;
-}
-
-.login-lottie-wrapper {
-    width: min(100%, 35rem, 70vh);
-    max-height: 45vh;
-    aspect-ratio: 1 / 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.login-lottie-fallback {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    background: linear-gradient(135deg, rgba(34, 143, 206, 0.25), rgba(231, 117, 37, 0.2));
-}
-
 .auth-loading-screen {
     min-height: 100vh;
     display: flex;
@@ -276,11 +164,6 @@
         height: 100vh;
         overflow: hidden;
         grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    }
-
-    .login-illustration-panel {
-        display: block;
-        height: 100%;
     }
 
     .login-form-panel {
