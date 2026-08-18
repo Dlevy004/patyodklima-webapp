@@ -2,6 +2,8 @@ import { useState } from "react";
 
 import toast from 'react-hot-toast'
 
+import { getAuthHeaders } from '../utils/api';
+
 
 function useDeleteData() {
     const [isDeleting, setIsDeleting] = useState(false);
@@ -13,7 +15,8 @@ function useDeleteData() {
 
         try {
             const response = await fetch(url, {
-                method: 'DELETE'
+                method: 'DELETE',
+                headers: getAuthHeaders(),
             });
 
             if (!response.ok) {

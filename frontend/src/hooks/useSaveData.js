@@ -2,6 +2,8 @@ import { useState } from 'react';
 
 import toast from "react-hot-toast";
 
+import { getAuthHeaders } from '../utils/api';
+
 
 function useSaveData() {
     const [isSaving, setIsSaving] = useState(false);
@@ -14,9 +16,9 @@ function useSaveData() {
         try {
             const response = await fetch(url, {
                 method: method,
-                headers: {
+                headers: getAuthHeaders({
                     'Content-Type': 'application/json',
-                },
+                }),
                 body: JSON.stringify(payload)
             });
 

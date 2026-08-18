@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 
 import toast from 'react-hot-toast';
 
+import { getAuthHeaders } from '../utils/api';
+
 
 export default function useReferenceUpload() {
     const [file, setFile] = useState(null);
@@ -56,6 +58,7 @@ export default function useReferenceUpload() {
         try {
             const response = await fetch('http://localhost:3000/api/references', {
                 method: 'POST',
+                headers: getAuthHeaders(),
                 body: formData,
             });
 
