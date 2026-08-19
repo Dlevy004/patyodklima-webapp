@@ -76,6 +76,23 @@
     transform: scale(0.98);
 }
 
+.profile-panel-install-btn {
+    width: 100%;
+    margin-bottom: 1rem;
+    padding: 0.85rem 1rem;
+    background-color: var(--bg-color-ternary);
+    color: #ffffff;
+    border: none;
+    border-radius: 0.85rem;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.profile-panel-install-btn:hover {
+    transform: translateY(-3px);
+}
+
 @keyframes fadeInDown {
     from {
         opacity: 0;
