@@ -8,7 +8,7 @@ function ModalBackdrop({ isOpen, onClose, children }) {
 
     return (
         <div className='backdrop' onClick={onClose}>
-            <div onClick={(e) => e.stopPropagation()}>
+            <div className="modal-wrapper" onClick={(e) => e.stopPropagation()}>
                 {children}
             </div>
         </div>
