@@ -7,11 +7,14 @@ import './TopBar.css'
 import ProfilPic from '@/assets/images/profile-placeholder.avif'
 import HamburgerMenu from '../../common/HamburgerMenu'
 import ProfilePanel from './ProfilePanel';
+import { usePWAInstall } from '../../../hooks/usePWAInstall';
 
 
 function TopBar({ title, onMenuClick, isMobileMenuOpen }) {
     const [isProfileOpen, setIsProfileOpen] = useState(false);
     const profileRef = useRef(null);
+
+    const { isInstallable, installPWA } = usePWAInstall();
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -42,7 +45,14 @@ function TopBar({ title, onMenuClick, isMobileMenuOpen }) {
                         <img src={ProfilPic} alt='Profilkép' className='profile-pic'/>
                     </button>
 
-                    {isProfileOpen && <ProfilePanel onClose={() => setIsProfileOpen(false)} />}
+                    {
+                        isProfileOpen &&
+                        <ProfilePanel
+                            onClose={() => setIsProfileOpen(false)}
+                            isInstallable={isInstallable}
+                            installPWA={installPWA}
+                        />
+                    }
                 </div>
 
                 <div className='mobile-menu-wrapper'>
