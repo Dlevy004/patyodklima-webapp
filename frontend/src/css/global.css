@@ -12,6 +12,7 @@
     --text-color1: black;
     --text-color2: #f2f2f2;
     --pg-color: #f2f2f2;
+    --grey-text: #475569;
 
     --fs-h1: clamp(2rem, 1.6428571428571428rem + 1.7857142857142856vw, 4.5rem);
     --fs-h2: clamp(1.5rem, 1.3571428571428572rem + 0.7142857142857143vw, 2.5rem);

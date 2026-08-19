@@ -41,6 +41,7 @@ CREATE TABLE "users" (
   "password_hash" varchar NOT NULL,
   "profile_pic_url" varchar,
   "role" user_role NOT NULL DEFAULT 'admin',
+  "must_change_password" boolean NOT NULL DEFAULT true,
   "created_at" timestamp DEFAULT (now())
 );
 

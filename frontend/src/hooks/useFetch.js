@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 
+import { getAuthHeaders } from '../utils/api';
+
 
 function useFetch(url) {
     const [data, setData] = useState(null);
@@ -20,7 +22,8 @@ function useFetch(url) {
         const fetchData = async () => {
             try {
                 const response = await fetch(url, {
-                    signal: controller.signal
+                    signal: controller.signal,
+                    headers: getAuthHeaders(),
                 });
 
                 if (!response.ok) {
