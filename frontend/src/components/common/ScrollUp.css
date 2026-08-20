@@ -1,0 +1,38 @@
+#scroll-up {
+    position: fixed;
+    z-index: 99;
+
+    bottom: clamp(10px, 3vw, 20px);
+    right: clamp(10px, 3vw, 20px);
+
+    width: clamp(3rem, 4.5vw, 5rem);
+    height: clamp(3rem, 4.5vw, 5rem);
+
+    background-color: var(--bg-color-ternary);
+    border-radius: 100%;
+    border: 3px solid transparent;
+    cursor: pointer;
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+
+    transition: all 0.2s ease-in;
+}
+
+#scroll-up:is(:hover, :focus, :active) {
+    background-color: #f2f2f2;
+    border: 3px solid var(--bg-color-ternary);
+    transform: scale(1.1);
+}
+
+#scroll-up svg {
+    width: 100%;
+    height: 60%;
+    transition: scale 0.3s ease;
+    color: #f2f2f2;
+}
+
+#scroll-up:is(:hover, :focus, :active) svg {
+    color: var(--bg-color-ternary);
+}

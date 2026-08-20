@@ -1,0 +1,109 @@
+.nav-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#navbar {
+    width: min(90%, 1700px);
+    height: clamp(3rem, 5vw, 7rem);
+
+    position: fixed;
+    top: clamp(1.2rem, 6vw, 1.6rem);
+    z-index: 10;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background-color: var(--bg-color-primary);
+    border-radius: 30px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.logo {
+    height: auto;
+    width: clamp(5rem, 8vw, 10rem);
+    margin-left: clamp(0.7rem, 2vw, 1.25rem);
+}
+
+.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: clamp(1.5rem, 2vw, 4.5rem);
+}
+
+.nav-menu li { margin: 0; }
+
+.nav-menu li button {
+    color: var(--text-color1);
+    white-space: nowrap;
+    position: relative;
+    background: none;
+    border: none;
+    font-family: var(--primary-font-family);
+    font-weight: 500;
+    font-size: var(--fs-p);
+}
+
+.nav-link::before {
+    content: "";
+
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+
+    width: 0;
+    height: 3px;
+
+    background-color: var(--bg-color-ternary);
+
+    transition: 0.3s;
+}
+
+.nav-link:is(:hover, :focus, :active)::before {
+    width: 100%;
+    left: 0;
+}
+
+.navbar-right {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.btn-contact {
+    height: auto;
+    padding: clamp(0.5em, 1vw, 0.9em) clamp(1em, 2vw, 1.5em);
+
+    border: 3px solid transparent;
+    border-radius: 50px;
+
+    background-color: var(--bg-color-ternary);
+    text-decoration: none;
+    color: #f2f2f2;
+    font-size: var(--fs-p);
+    font-weight: bold;
+    white-space: nowrap;
+    font-family: var(--primary-font-family);
+
+    transition: all 0.2s ease-in;
+}
+
+.btn-contact:is(:hover, :focus, :active) {
+    background-color: #f2f2f2;
+    border: 3px solid var(--bg-color-ternary);
+    color: var(--bg-color-ternary);
+}
+
+@media (max-width: 1024px) {
+    .nav-menu, .navbar-right { display: none; }
+
+    /*!important is necessary because Framer Motion overrides the width as an inline style*/
+    #navbar {
+        width: max-content !important;
+        gap: 1rem;
+    }
+}

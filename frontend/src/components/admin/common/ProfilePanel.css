@@ -1,0 +1,105 @@
+.profile-panel-wrapper {
+    position: absolute;
+    top: calc(100% + 12px);
+    right: -14px;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.12));
+
+    animation: fadeInDown 0.2s ease-out forwards;
+}
+
+.profile-panel-inner {
+    position: relative;
+    background-color: #ffffff;
+    border-radius: 1.25rem;
+    padding: 1.3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 14rem;
+}
+
+.profile-panel-inner::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    right: 24px;
+    width: 20px;
+    height: 20px;
+    background-color: #ffffff;
+    transform: rotate(45deg);
+    border-top-left-radius: 4px;
+}
+
+.profile-panel-img {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid #e5e7eb;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-panel-name {
+    font-size: 1.25rem;
+    color: #111827;
+    margin: 0 0 1.5rem 0;
+    font-weight: 700;
+    font-family: inherit;
+}
+
+.profile-panel-logout-btn {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    background-color: #fc5555;
+    color: #ffffff;
+    border: none;
+    border-radius: 0.85rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.profile-panel-logout-btn:hover {
+    background-color: #e64040;
+}
+
+.profile-panel-logout-btn:active {
+    transform: scale(0.98);
+}
+
+.profile-panel-install-btn {
+    width: 100%;
+    margin-bottom: 1rem;
+    padding: 0.85rem 1rem;
+    background-color: var(--bg-color-ternary);
+    color: #ffffff;
+    border: none;
+    border-radius: 0.85rem;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.profile-panel-install-btn:hover {
+    transform: translateY(-3px);
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

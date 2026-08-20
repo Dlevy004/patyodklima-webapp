@@ -1,0 +1,16 @@
+.admin-content {
+    width: max(60%, 260px);
+    margin: 0 auto;
+    padding-top: clamp(4.5rem, 15vh, 12rem);
+    padding-bottom: 2rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    min-height: 100vh;
+}
+
+@media (max-width: 1024px) {
+    .admin-content { width: 90%; }
+}

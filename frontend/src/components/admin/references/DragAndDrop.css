@@ -1,0 +1,56 @@
+.drag-and-drop-container {
+    flex: 1;
+    aspect-ratio: 1 / 1;
+    max-width: 350px;
+    height: auto;
+    padding: 1rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+
+    background-color: rgba(75, 189, 242, 0.32);
+    border-radius: 1rem;
+    border: 2px solid black;
+    border-style: dashed;
+    cursor: pointer;
+}
+
+.drag-and-drop-preview {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: inherit;
+}
+
+.drag-and-drop-input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.drag-and-drop-label {
+    width: 100%;
+    height: auto;
+    text-align: center;
+    font-size: var(--fs-p);
+}
+
+.drag-and-drop-plus {
+    width: clamp(50px, 10vw, 80px);
+    height: clamp(50px, 10vw, 80px);
+}
+
+@media (max-width: 600px) {
+    .drag-and-drop-container {
+        max-width: 100%;
+    }
+}
