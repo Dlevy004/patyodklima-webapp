@@ -12,7 +12,7 @@ export function usePWAInstall() {
         const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
 
         if (isStandalone) {
-            alert("Az alkalmazás már telepítve van, és jelenleg is abból használod! 🎉");
+            alert("Az alkalmazás már telepítve van, és jelenleg is abból használod!");
             return;
         }
 

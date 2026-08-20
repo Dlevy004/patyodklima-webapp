@@ -56,7 +56,7 @@ export default function useReferenceUpload() {
         formData.append('is_visible', 'true');
 
         try {
-            const response = await fetch('http://localhost:3000/api/references', {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/references`, {
                 method: 'POST',
                 headers: getAuthHeaders(),
                 body: formData,
