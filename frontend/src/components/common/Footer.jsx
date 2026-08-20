@@ -46,12 +46,7 @@ function Footer() {
             <div className="footer-bottom">
                 <p>Fejlesztette: Daróczi Levente</p>
                 <p>Pátyod Klíma &copy; { new Date().getFullYear() } | Minden jog fenntartva!</p>
-                <p>Verzió:&nbsp;{' '}
-                    <a href="https://github.com/Dlevy004/patyod-klima-website/blob/main/CHANGELOG.md"
-                        target="_blank" rel="noopener noreferrer">
-                         v1.2.0
-                    </a>
-                </p>
+                <p style={{ color: '#f2f2f2' }}>Verzió:&nbsp; v2.0.0</p>
             </div>
         </footer>
     )
