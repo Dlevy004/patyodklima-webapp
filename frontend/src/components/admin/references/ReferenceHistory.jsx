@@ -10,7 +10,7 @@ import ModalBackdrop from '@/components/admin/common/ModalBackdrop';
 import DeleteDataModal from '@/components/admin/common/DeleteDataModal';
 import EditReferenceModal from './EditReferenceModal';
 
-const API_URL = 'http://localhost:3000/api/references';
+const API_URL = `${import.meta.env.VITE_API_URL}/api/references`
 
 
 function ReferenceHistory() {

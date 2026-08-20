@@ -20,6 +20,8 @@ export default defineConfig({
         description: 'Pátyod Klíma adminisztrációs és tartalomkezelő rendszer',
         theme_color: '#ffffff',
         background_color: '#ffffff',
+        scope: '/admin/',
+        start_url: '/admin/',
         display: 'standalone',
         icons: [
           {

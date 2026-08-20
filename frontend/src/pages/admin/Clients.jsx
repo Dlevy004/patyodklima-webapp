@@ -13,7 +13,7 @@ import usePageTitle from '@/hooks/usePageTitle'
 import useSaveData from '@/hooks/useSaveData'
 import useModal from '@/hooks/useModal'
 
-const API_URL = 'http://localhost:3000/api/clients';
+const API_URL = `${import.meta.env.VITE_API_URL}/api/clients`
 
 
 function Clients() {

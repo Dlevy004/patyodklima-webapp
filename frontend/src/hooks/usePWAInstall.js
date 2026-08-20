@@ -1,8 +1,10 @@
 let globalDeferredPrompt = null;
 
 window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    globalDeferredPrompt = e;
+    if (window.location.pathname.startsWith('/admin')) {
+        e.preventDefault();
+        globalDeferredPrompt = e;
+    }
 });
 
 export function usePWAInstall() {

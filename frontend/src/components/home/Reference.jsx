@@ -18,7 +18,7 @@ import { fadeInUp } from '@/animations/variants';
 import useFetch from '@/hooks/useFetch';
 
 const sliderVariants = fadeInUp(0.8);
-const API_URL = 'http://localhost:3000/api/references';
+const API_URL = `${import.meta.env.VITE_API_URL}/api/references`
 const fallbackData = [
     {
         id : 1,
