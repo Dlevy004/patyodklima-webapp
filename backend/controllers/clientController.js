@@ -9,7 +9,7 @@ const createClient = async (req, res) => {
     }
     catch (error) {
         console.error('Error while creating client:', error.message);
-        res.status(400).json({ message: 'An error occurred while creating client.' });
+        res.status(400).json({ message: 'Hiba történt az ügyfél létrehozása során.' });
     }
 }
 
@@ -20,7 +20,7 @@ const getAllClients = async (req, res) => {
     }
     catch (error) {
         console.error('Error while getting all clients:', error.message);
-        res.status(500).json({ message: 'An error occurred while getting clients.' });
+        res.status(500).json({ message: 'Hiba történt az ügyfelek lekérése során.' });
     }
 }
 
@@ -30,13 +30,13 @@ const getClientById = async (req, res) => {
         const client = await clientService.getClientById(clientId);
 
         if (!client) {
-            return res.status(404).json({ message: 'Client not found.' });
+            return res.status(404).json({ message: 'Az ügyfél nem található.' });
         }
         res.status(200).json(client);
     }
     catch (error) {
         console.error('Error while getting client by ID:', error.message);
-        res.status(500).json({ message: 'An error occurred while getting client.' });
+        res.status(500).json({ message: 'Hiba történt az ügyfél lekérése közben.' });
     }
 }
 
@@ -47,7 +47,7 @@ const updateClient = async (req, res) => {
 
         const existingClient = await clientService.getClientById(clientId);
         if (!existingClient) {
-            return res.status(404).json({ message: 'Client not found.' });
+            return res.status(404).json({ message: 'Az ügyfél nem található.' });
         }
 
         const updatedClient = await clientService.updateClient(clientId, clientToUpdate);
@@ -56,7 +56,7 @@ const updateClient = async (req, res) => {
     }
     catch (error) {
         console.error('Error while updating client:', error.message);
-        res.status(400).json({ message: 'An error occurred while updating client.' });
+        res.status(400).json({ message: 'Hiba történt az ügyfél módosítása során.' });
     }
 }
 
@@ -66,7 +66,7 @@ const deleteClient = async (req, res) => {
 
         const existingClient = await clientService.getClientById(clientId);
         if (!existingClient) {
-            return res.status(404).json({ message: 'Client not found.' });
+            return res.status(404).json({ message: 'Az ügyfél nem található.' });
         }
 
         const deletedClient = await clientService.deleteClient(clientId);
@@ -74,7 +74,7 @@ const deleteClient = async (req, res) => {
     }
     catch (error) {
         console.error('Error while deleting client:', error.message);
-        res.status(400).json({ message: 'An error occurred while deleting client.' });
+        res.status(400).json({ message: 'Hiba történt az ügyfél törlése során.' });
     }
 }
 

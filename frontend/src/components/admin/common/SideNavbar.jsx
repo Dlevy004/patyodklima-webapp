@@ -30,18 +30,18 @@ function SideNavbar({ isMobileMenuOpen, closeMobileMenu }) {
 
     const adminNavLinks = (
         <>
-            <NavButton IconComponent={House} title='Főoldal' url='/admin' />
+            <NavButton IconComponent={House} title='Főoldal' url='/admin' onClick={closeMobileMenu} />
             <NavSection title='Adminisztráció' ButtonComponents={[
-                <NavButton key='client-page' IconComponent={FileUser} title='Ügyfélnapló' url='/admin/clients' />,
-                <NavButton key='job-page' IconComponent={BookMarked} title='Munkanapló' url='/admin/jobs' />,
-                <NavButton key='error-page' IconComponent={CircleX} title='Bejelentések' url='/admin/errors' />,
+                <NavButton key='client-page' IconComponent={FileUser} title='Ügyfélnapló' url='/admin/clients' onClick={closeMobileMenu} />,
+                <NavButton key='job-page' IconComponent={BookMarked} title='Munkanapló' url='/admin/jobs' onClick={closeMobileMenu} />,
+                <NavButton key='error-page' IconComponent={CircleX} title='Bejelentések' url='/admin/errors' onClick={closeMobileMenu} />,
             ]} />
             <NavSection title='Értékesítés' ButtonComponents={[
-                <NavButton key='ai-page' IconComponent={PencilRuler} title='Látványterv' url='/admin/visualdesigns' />
+                <NavButton key='ai-page' IconComponent={PencilRuler} title='Látványterv' url='/admin/visualdesigns' onClick={closeMobileMenu} />
             ]} />
             <NavSection title='Marketing' ButtonComponents={[
-                <NavButton key='reference-page' IconComponent={Images} title='Referencia' url='/admin/references' />,
-                <NavButton key='ads-page' IconComponent={AirVent} title='Hirdetések' url='/admin/ads' />
+                <NavButton key='reference-page' IconComponent={Images} title='Referencia' url='/admin/references' onClick={closeMobileMenu} />,
+                <NavButton key='ads-page' IconComponent={AirVent} title='Hirdetések' url='/admin/ads' onClick={closeMobileMenu} />
             ]} />
         </>
     )
