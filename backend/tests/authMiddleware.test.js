@@ -25,7 +25,7 @@ describe('authenticate middleware', () => {
         authenticate(req, res, next);
 
         expect(res.status).toHaveBeenCalledWith(401);
-        expect(res.json).toHaveBeenCalledWith({ message: 'Authentication required.' });
+        expect(res.json).toHaveBeenCalledWith({ message: 'Hitelesítés szükséges.' });
         expect(next).not.toHaveBeenCalled();
     });
 
@@ -58,7 +58,7 @@ describe('authenticate middleware', () => {
         authenticate(req, res, next);
 
         expect(res.status).toHaveBeenCalledWith(401);
-        expect(res.json).toHaveBeenCalledWith({ message: 'Invalid or expired token.' });
+        expect(res.json).toHaveBeenCalledWith({ message: 'Érvénytelen vagy lejárt token.' });
         expect(next).not.toHaveBeenCalled();
     });
 
@@ -73,7 +73,7 @@ describe('authenticate middleware', () => {
         authenticate(req, res, next);
 
         expect(res.status).toHaveBeenCalledWith(403);
-        expect(res.json).toHaveBeenCalledWith({ message: 'Access denied.' });
+        expect(res.json).toHaveBeenCalledWith({ message: 'Hozzáférés megtagadva.' });
         expect(next).not.toHaveBeenCalled();
     });
 });
