@@ -32,6 +32,18 @@ vi.mock('lottie-react', () => ({
     useLottie: () => ({ View: <div data-testid="lottie-mock">Lottie Animation</div> })
 }));
 
+vi.mock('@marsidev/react-turnstile', () => ({
+    Turnstile: ({ onSuccess }) => (
+        <button
+            data-testid="mock-turnstile"
+            type="button"
+            onClick={() => onSuccess('sikeres-kamu-token')}
+        >
+            Mock Turnstile
+        </button>
+    )
+}));
+
 describe('Login', () => {
     beforeEach(() => {
         vi.clearAllMocks();
@@ -78,6 +90,7 @@ describe('Login', () => {
                 email: 'admin@patyodklima.hu',
                 password: 'secret123',
                 rememberMe: true,
+                turnstileToken: ''
             });
             expect(mockNavigate).toHaveBeenCalledWith('/admin', { replace: true });
         });
@@ -103,7 +116,7 @@ describe('Login', () => {
         expect(await screen.findByText('Invalid email or password.')).toBeInTheDocument();
     });
 
-it('should redirect if user is already authenticated', () => {
+    it('should redirect if user is already authenticated', () => {
         useAuth.mockReturnValue({
             login: mockLogin,
             isAuthenticated: true,
@@ -122,6 +135,36 @@ it('should redirect if user is already authenticated', () => {
             login: mockLogin,
             isAuthenticated: false,
             isLoading: false,
+        });
+    });
+
+    it('should set the turnstile token on success and send it on submit', async () => {
+        mockLogin.mockResolvedValue({ id: '1', role: 'admin' });
+
+        render(
+            <MemoryRouter>
+                <Login />
+            </MemoryRouter>
+        );
+
+        fireEvent.change(screen.getByPlaceholderText('pelda@patyodklima.hu'), {
+            target: { value: 'admin@patyodklima.hu' },
+        });
+        fireEvent.change(screen.getByPlaceholderText('••••••••'), {
+            target: { value: 'secret123' },
+        });
+
+        fireEvent.click(screen.getByTestId('mock-turnstile'));
+
+        fireEvent.click(screen.getByRole('button', { name: 'Bejelentkezés' }));
+
+        await waitFor(() => {
+            expect(mockLogin).toHaveBeenCalledWith({
+                email: 'admin@patyodklima.hu',
+                password: 'secret123',
+                rememberMe: false,
+                turnstileToken: 'sikeres-kamu-token',
+            });
         });
     });
 });

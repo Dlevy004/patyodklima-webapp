@@ -1,12 +1,29 @@
 const authService = require('../services/authService');
 
 
+const verifyTurnstile = async (token) => {
+    const response = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            secret: process.env.TURNSTILE_SECRET_KEY,
+            response: token,
+        }),
+    });
+    const data = await response.json();
+    return data.success;
+};
+
 const login = async (req, res) => {
     try {
-        const { email, password, rememberMe } = req.body;
+        const { email, password, rememberMe, turnstileToken } = req.body;
 
         if (!email || !password) {
             return res.status(400).json({ message: 'E-mail cím és jelszó megadása szükséges.' });
+        }
+
+        if (!turnstileToken || !(await verifyTurnstile(turnstileToken))) {
+            return res.status(400).json({ message: 'Bot ellenőrzés sikertelen.' });
         }
 
         const result = await authService.login({ email, password, rememberMe });
