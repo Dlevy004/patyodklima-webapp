@@ -8,7 +8,7 @@ const createReference = async (req, res) => {
         const { description, is_visible } = req.body;
 
         if (!file) {
-            return res.status(400).json({ message: 'There is no file attached to the request.' });
+            return res.status(400).json({ message: 'A kéréshez nincs fájl csatolva.' });
         }
 
         const imageUrl = await supabaseService.uploadImage(file);
@@ -24,7 +24,7 @@ const createReference = async (req, res) => {
     }
     catch (error) {
         console.error('Error while creating reference image:', error.message);
-        res.status(400).json({ message: 'An error occurred while creating reference image.' });
+        res.status(400).json({ message: 'Hiba történt a referenciakép létrehozása során.' });
     }
 }
 
@@ -35,7 +35,7 @@ const getAllReferences = async (req, res) => {
     }
     catch (error) {
         console.error('Error while getting all reference images:', error.message);
-        res.status(500).json({ message: 'An error occurred while getting reference images.' });
+        res.status(500).json({ message: 'Hiba történt a referenciaképek lekérése közben.' });
     }
 }
 
@@ -45,13 +45,13 @@ const getReferenceById = async (req, res) => {
         const reference = await referenceService.getReferenceById(referenceId);
 
         if (!reference) {
-            return res.status(404).json({ message: 'Reference not found.' });
+            return res.status(404).json({ message: 'A referenciakép nem található.' });
         }
         res.status(200).json(reference);
     }
     catch (error) {
         console.error('Error while getting reference image by ID:', error.message);
-        res.status(500).json({ message: 'An error occurred while getting reference image.' });
+        res.status(500).json({ message: 'Hiba történt a referenciakép lekérése közben.' });
     }
 }
 
@@ -62,7 +62,7 @@ const updateReference = async (req, res) => {
 
         const existingReference = await referenceService.getReferenceById(referenceId);
         if (!existingReference) {
-            return res.status(404).json({ message: 'Reference image not found.' });
+            return res.status(404).json({ message: 'A referenciakép nem található.' });
         }
 
         const updatedReference = await referenceService.updateReference(referenceId, referenceToUpdate);
@@ -71,7 +71,7 @@ const updateReference = async (req, res) => {
     }
     catch (error) {
         console.error('Error while updating reference image:', error.message);
-        res.status(400).json({ message: 'An error occurred while updating reference image.' });
+        res.status(400).json({ message: 'Hiba történt a referenciakép frissítése közben.' });
     }
 }
 
@@ -81,7 +81,7 @@ const deleteReference = async (req, res) => {
 
         const existingReference = await referenceService.getReferenceById(referenceId);
         if (!existingReference) {
-            return res.status(404).json({ message: 'Reference image not found.' });
+            return res.status(404).json({ message: 'A referenciakép nem található.' });
         }
 
         const deletedReference = await referenceService.deleteReference(referenceId);
@@ -91,7 +91,7 @@ const deleteReference = async (req, res) => {
     }
     catch (error) {
         console.error('Error while deleting reference images:', error.message);
-        res.status(400).json({ message: 'An error occurred while deleting reference images.' });
+        res.status(400).json({ message: 'Hiba történt a referenciakép törlése közben.' });
     }
 }
 

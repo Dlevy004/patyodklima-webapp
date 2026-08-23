@@ -9,7 +9,7 @@
     border-radius: 15px;
     border: none;
     box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-    z-index: 20;
+    z-index: 100;
     color: black;
     font-weight: 500;
 
