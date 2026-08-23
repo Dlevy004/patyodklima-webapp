@@ -5,9 +5,9 @@ import PropTypes from "prop-types"
 import './NavButton.css'
 
 
-function NavButton({ IconComponent, title, url }) {
+function NavButton({ IconComponent, title, url, onClick }) {
     return (
-        <NavLink to={url} end className={({ isActive }) => `nav-button ${isActive ? 'active' : ''}`}>
+        <NavLink onClick={onClick} to={url} end className={({ isActive }) => `nav-button ${isActive ? 'active' : ''}`}>
             <IconComponent aria-hidden="true"/>
             <p className="btn-title">{title}</p>
         </NavLink>
@@ -17,7 +17,8 @@ function NavButton({ IconComponent, title, url }) {
 NavButton.propTypes = {
     IconComponent: PropTypes.elementType.isRequired,
     title: PropTypes.string.isRequired,
-    url: PropTypes.string.isRequired
+    url: PropTypes.string.isRequired,
+    onClick: PropTypes.func
 }
 
 export default NavButton

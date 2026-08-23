@@ -4,7 +4,7 @@ const authenticate = async (req, res, next) => {
     const authHeader = req.headers.authorization;
 
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
-        return res.status(401).json({ message: 'Authentication required.' });
+        return res.status(401).json({ message: 'Hitelesítés szükséges.' });
     }
 
     const token = authHeader.slice(7);
@@ -13,7 +13,7 @@ const authenticate = async (req, res, next) => {
         const decoded = authService.verifyToken(token);
 
         if (!authService.ALLOWED_ROLES.has(decoded.role)) {
-            return res.status(403).json({ message: 'Access denied.' });
+            return res.status(403).json({ message: 'Hozzáférés megtagadva.' });
         }
 
         req.user = {
@@ -25,7 +25,7 @@ const authenticate = async (req, res, next) => {
 
         return next();
     } catch (error) {
-        return res.status(401).json({ message: 'Invalid or expired token.' });
+        return res.status(401).json({ message: 'Érvénytelen vagy lejárt token.' });
     }
 };
 

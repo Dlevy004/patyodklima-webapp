@@ -3,6 +3,7 @@ import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 
 import { KeyRound, Mail } from 'lucide-react';
+import { Turnstile } from '@marsidev/react-turnstile';
 
 import './Login.css';
 
@@ -16,6 +17,8 @@ function Login() {
     const navigate = useNavigate();
     const location = useLocation();
     const { login, isAuthenticated, isLoading } = useAuth();
+
+    const [turnstileToken, setTurnstileToken] = useState('');
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -35,7 +38,7 @@ function Login() {
         setIsSubmitting(true);
 
         try {
-            await login({ email, password, rememberMe });
+            await login({ email, password, rememberMe, turnstileToken });
             navigate(redirectPath, { replace: true });
         } catch (submitError) {
             setError(submitError.message);
@@ -102,6 +105,11 @@ function Login() {
                         </label>
 
                         {error && <p className="login-error">{error}</p>}
+
+                        <Turnstile
+                            siteKey={import.meta.env.VITE_TURNSTILE_SITE_KEY}
+                            onSuccess={(token) => setTurnstileToken(token)}
+                        />
 
                         <button type="submit" className="login-submit-btn" disabled={isSubmitting || isLoading}>
                             {isSubmitting ? 'Bejelentkezés...' : 'Bejelentkezés'}

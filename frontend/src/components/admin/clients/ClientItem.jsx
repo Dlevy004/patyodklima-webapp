@@ -7,7 +7,7 @@ import ActionBtn from '../common/ActionBtn'
 
 function ClientItem({ name, city, phone, onDelete, onEdit }) {
     return (
-        <li className='client-item'>
+        <li className='client-item' onClick={onEdit}>
             <div className='client-details'>
                 <p className='client-name'>{name}</p>
                 <p className='client-city'>{city}</p>

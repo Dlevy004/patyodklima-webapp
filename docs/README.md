@@ -47,6 +47,7 @@ My primary goal with this was to reinforce my fundamental knowledge of web devel
 - **Notion** for documentation and note-taking
 - **Git & Github** for source control and PR handling
 - **Google Analytics** for tracks and reports website's traffic
+- **Render** for deploying the backend and frontend
 
 ### Package manager & dependencies
 - **npm** package manager
@@ -71,31 +72,7 @@ My primary goal with this was to reinforce my fundamental knowledge of web devel
     - **ESLint** for maintaining code quality and catching syntax errors
     - **Prop-types** for runtime type checking of component props
     - **Lottie React** for animated components
-
-
-## ✅ Current Progress
-
-### Public Website
-- Static homepage rebuilt in React (Hero, Services, Reference, Contact, Footer sections)
-- Dark/light mode toggle with `localStorage` persistence
-- Fully responsive Navbar + mobile menu
-- Privacy Policy page with downloadable PDF
-
-### Backend
-- Database schema designed (DBML)
-- Prisma ORM connected to Supabase
-- Full CRUD API for **Clients**
-- Unit tests for the service layer (Jest)
-
-### Admin Portal
-- Responsive collapsible sidebar navigation
-- Dynamic top bar with page title context
-- Clients page:
-    - list view with live data from backend
-    - Add / Edit client modal with form validation
-    - Delete client with confirmation modal
-- Full unit test coverage (Vitest + RTL) for components and hooks
-
+age (Vitest + RTL) for components and hooks
 
 ## 🚧 Planned Features
 
