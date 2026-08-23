@@ -3,7 +3,7 @@ import { motion } from 'motion/react'
 import './PrivacyContent.css'
 
 import PrivacyImg from '@/assets/images/20250715_130101.avif'
-import PrivacyDoc from '@/assets/patyodklima-adatkezelesi-tajekoztato.pdf'
+import PrivacyDoc from '@/assets/patyodklima-adatkezelesi-tajekoztato-v200.pdf'
 import PrivacySection from './PrivacySection'
 import Wave from '@/components/common/Wave'
 import { fadeInContainer, fadeInUp } from '@/animations/variants'
@@ -40,12 +40,14 @@ const privacySections = [
     },
     {
         number: "IV.",
-        title: "Az adatok tárolása",
+        title: "Az adatok tárolása és az adatfeldolgozók köre",
         desc: "Adatait biztonságosan tároljuk:",
         items: [
-            'Tárhelyszolgáltató: DiMa.hu Kft., Debrecen',
+            'Domain szolgáltató: DiMa.hu Kft., Debrecen',
+            'Tárhelyszolgáltató: Render Services, Inc., Frankfurt, EU',
+            'Adatbázis szolgáltató: Supabase, Inc., Paris, EU',
             'E-mailben kapott adatokat 3 év után töröljük',
-            'Visszavonni hozzájárulását bármikor']
+            'Visszavonni hozzájárulását bármikor lehetséges']
     },
     {
         number: "V.",
@@ -70,7 +72,7 @@ const privacySections = [
 function PrivacyContent() {
    return(
         <section id='content'>
-            <img src={PrivacyImg} alt="Kültéri egység karbantartása" loading='lazy'/>
+            <img src={PrivacyImg} alt="Kültéri egység karbantartása" loading='eager'/>
             <div className='background' aria-hidden='true'/>
 
             <article className='text'>
