@@ -11,6 +11,7 @@
     transition: all 0.3s ease;
     min-width: 0;
     max-width: 100%;
+    cursor: pointer;
 }
 
 .client-item:hover {
