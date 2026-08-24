@@ -22,13 +22,13 @@ export function AuthProvider({ children }) {
         setUser(nextUser);
     }, []);
 
-    const login = useCallback(async ({ email, password, rememberMe }) => {
+    const login = useCallback(async ({ email, password, rememberMe, turnstileToken }) => {
         const response = await fetch(`${API_BASE_URL}/auth/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ email, password, rememberMe }),
+            body: JSON.stringify({ email, password, rememberMe, turnstileToken }),
         });
 
         const data = await response.json();

@@ -111,7 +111,7 @@ function Login() {
                             onSuccess={(token) => setTurnstileToken(token)}
                         />
 
-                        <button type="submit" className="login-submit-btn" disabled={isSubmitting || isLoading}>
+                        <button type="submit" className="login-submit-btn" disabled={isSubmitting || isLoading || !turnstileToken}>
                             {isSubmitting ? 'Bejelentkezés...' : 'Bejelentkezés'}
                         </button>
                     </form>
