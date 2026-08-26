@@ -17,6 +17,11 @@ app.get('/', (req, res) => {
   res.json({ message: 'Hello World!' });
 });
 
+// Health
+app.get('/api/health', (req, res) => {
+    res.status(200).send('OK');
+});
+
 app.use('/api', routes);
 
 //server start
