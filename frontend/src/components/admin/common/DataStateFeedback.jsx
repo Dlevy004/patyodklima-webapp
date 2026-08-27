@@ -1,5 +1,7 @@
 import PropTypes from "prop-types";
 
+import './DataStateFeedback.css'
+
 
 function DataStateFeedback({ isLoading, error, isEmpty, emptyMessage, children }) {
     if (isLoading) {
