@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const JobType = {
+export const JobType = {
     SURVEY: 'survey',
     INSTALLATION: 'installation',
     MAINTENANCE: 'maintenance',
