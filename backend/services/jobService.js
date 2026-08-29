@@ -3,6 +3,8 @@ const prisma = require('../database/prisma');
 
 
 const createJob = async (newJob) => {
+    const calculatedUnitPrice = (newJob.total_amount || 0) - (newJob.labor_fee || 0);
+
     return await prisma.jobs.create({
         data: {
             client_id: newJob.client_id,
@@ -11,7 +13,16 @@ const createJob = async (newJob) => {
             internal_notes: newJob.internal_notes,
             general_notes: newJob.general_notes,
             labor_fee: newJob.labor_fee,
-            total_amount: newJob.total_amount
+            total_amount: newJob.total_amount,
+
+            ...(newJob.ac_unit && {
+                ac_units: {
+                    create: {
+                        model_name: newJob.ac_unit,
+                        unit_price: calculatedUnitPrice > 0 ? calculatedUnitPrice : 0
+                    }
+                }
+            })
         }
     });
 }
@@ -21,7 +32,8 @@ const getAllJobs = async () => {
         include: {
             clients: true,
             ac_units: true
-        }
+        },
+        orderBy: { created_at: 'desc' }
     });
 }
 
@@ -37,6 +49,8 @@ const getJobById = async (id) => {
 }
 
 const updateJob = async (id, updatedJob) => {
+    const calculatedUnitPrice = (updatedJob.total_amount || 0) - (updatedJob.labor_fee || 0);
+
     return await prisma.jobs.update({
         where: {
             id: id
@@ -49,7 +63,17 @@ const updateJob = async (id, updatedJob) => {
             general_notes: updatedJob.general_notes,
             labor_fee: updatedJob.labor_fee,
             total_amount: updatedJob.total_amount,
-            is_completed: updateJob.is_completed
+            is_completed: updatedJob.is_completed,
+
+            ...(updatedJob.ac_unit && {
+                ac_units: {
+                    deleteMany: {},
+                    create: {
+                        model_name: updatedJob.ac_unit,
+                        unit_price: calculatedUnitPrice > 0 ? calculatedUnitPrice : 0
+                    }
+                }
+            })
         }
     })
 }
