@@ -47,7 +47,8 @@ const updateJob = async (id, updatedJob) => {
             internal_notes: updatedJob.internal_notes,
             general_notes: updatedJob.general_notes,
             labor_fee: updatedJob.labor_fee,
-            total_amount: updatedJob.total_amount
+            total_amount: updatedJob.total_amount,
+            is_completed: updateJob.is_completed
         }
     })
 }

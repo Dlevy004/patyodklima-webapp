@@ -1,3 +1,5 @@
+import toast from 'react-hot-toast'
+
 import ScrollUp from '@/components/common/ScrollUp';
 import TableHeader from '@/components/admin/common/TableHeader';
 import DataStateFeedback from '@/components/admin/common/DataStateFeedback'
@@ -59,6 +61,25 @@ function Jobs() {
         }
     };
 
+    const handleToggleStatus = async (job) => {
+        const newStatus = !job.is_completed;
+
+        const success = await saveData(`${API_URL}/${job.id}`, 'PUT', {
+            ...job,
+            is_completed: newStatus
+        });
+
+        if (success) {
+            refetch();
+
+            if (newStatus) {
+                toast.success('Munka elvégezve!');
+            } else {
+                toast.success('Munka megjelölve folyamatban lévőként.');
+            }
+        }
+    };
+
     return (
         <>
             <TableHeader onAddClick={() => editModal.open()} />
@@ -76,8 +97,9 @@ function Jobs() {
                             client_name={job.clients?.full_name}
                             category={categoryTranslations[job.category]}
                             date={new Date(job.job_date).toLocaleDateString('hu-HU')}
-                            isCompleted={false}
-                            onToggleStatus={false}
+
+                            isCompleted={job.is_completed}
+                            onToggleStatus={() => handleToggleStatus(job)}
                             onDelete={() => deleteModal.open(job)}
                             onEdit={() => editModal.open(job)}
                         />

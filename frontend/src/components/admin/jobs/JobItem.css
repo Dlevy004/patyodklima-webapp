@@ -12,6 +12,8 @@
     min-width: 0;
     max-width: 100%;
     cursor: pointer;
+
+    transition: all 0.3s ease;
 }
 
 .job-item:hover {
@@ -57,6 +59,15 @@
     align-items: center;
     gap: 0.75rem;
     flex-shrink: 0;
+}
+
+.job-item.completed {
+    border: 2px solid #28a745;
+    background-color: #f0fdf4;
+}
+
+.job-item.completed .job-name {
+    color: #1e7e34;
 }
 
 @media screen and (max-width: 1024px) {

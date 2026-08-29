@@ -13,7 +13,7 @@ function JobItem({ client_name, category, date, isCompleted, onToggleStatus, onD
     };
 
     return (
-        <li className='job-item' onClick={onEdit}>
+        <li className={`job-item ${isCompleted ? 'completed' : ''}`} onClick={onEdit}>
             <div className='job-details'>
                 <p className='job-name'>{client_name}</p>
                 <p className='job-category'>{category}</p>
