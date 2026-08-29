@@ -50,6 +50,9 @@ function useJobForm(jobData) {
         if (!formData.category) errors.category = 'A munka típusának megadása kötelező!';
         if (!formData.job_date) errors.job_date = 'A dátum megadása kötelező!';
 
+        if (!formData.ac_unit || !formData.ac_unit.trim()) {
+            errors.ac_unit = 'A készülék típusának megadása kötelező!';
+        }
         if (formData.labor_fee && Number.isNaN(formData.labor_fee)) {
             errors.labor_fee = 'A munkadíj csak szám lehet!';
         }
