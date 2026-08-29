@@ -24,14 +24,14 @@ function JobItem({ client_name, category, unit, date, isCompleted, onToggleStatu
                 {
                     isCompleted
                     ? <ActionBtn
-                        type='completed'
-                        onClick={(e) => handleActionClick(e, onToggleStatus)}
-                        ariaLabel={`${client_name} munkájának megjelölése folyamatban lévőként`}
-                      />
-                    : <ActionBtn
                         type='pending'
                         onClick={(e) => handleActionClick(e, onToggleStatus)}
                         ariaLabel={`${client_name} munkájának megjelölése teljesítettnek`}
+                      />
+                    : <ActionBtn
+                        type='completed'
+                        onClick={(e) => handleActionClick(e, onToggleStatus)}
+                        ariaLabel={`${client_name} munkájának megjelölése folyamatban lévőként`}
                       />
                 }
                 <ActionBtn
