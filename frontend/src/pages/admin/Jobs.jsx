@@ -39,7 +39,7 @@ function Jobs() {
         }
     };
 
-    const handleSaveClient = async (formData) => {
+    const handleSaveJob = async (formData) => {
         const isEditing = Boolean(editModal.selectedItem);
         const url = isEditing ? `${API_URL}/${editModal.selectedItem.id}` : API_URL;
         const method = isEditing ? 'PUT' : 'POST';
@@ -90,9 +90,9 @@ function Jobs() {
             <ModalBackdrop isOpen={editModal.isOpen} onClose={editModal.close}>
                 <AddEditJobModal
                     onClose={editModal.close}
-                    onSave={handleSaveClient}
+                    onSave={handleSaveJob}
                     jobData={editModal.selectedItem}
-                    clientList={clients}
+                    clientsList={clients}
                 />
             </ModalBackdrop>
 
