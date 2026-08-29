@@ -42,8 +42,7 @@ const getJobById = async (id) => {
         where: { id: id },
         include: {
             clients: true,
-            ac_units: true,
-            reference_image: true
+            ac_units: true
         }
     });
 }
