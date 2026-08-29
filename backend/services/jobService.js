@@ -19,7 +19,8 @@ const createJob = async (newJob) => {
 const getAllJobs = async () => {
     return await prisma.jobs.findMany({
         include: {
-            clients: true
+            clients: true,
+            ac_units: true
         }
     });
 }

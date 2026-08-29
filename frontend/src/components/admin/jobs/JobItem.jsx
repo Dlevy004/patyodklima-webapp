@@ -5,7 +5,7 @@ import './JobItem.css'
 import ActionBtn from '../common/ActionBtn'
 
 
-function JobItem({ client_name, category, date, isCompleted, onToggleStatus, onDelete, onEdit }) {
+function JobItem({ client_name, category, unit, date, isCompleted, onToggleStatus, onDelete, onEdit }) {
 
     const handleActionClick = (e, actionFunction) => {
         e.stopPropagation();
@@ -17,6 +17,7 @@ function JobItem({ client_name, category, date, isCompleted, onToggleStatus, onD
             <div className='job-details'>
                 <p className='job-name'>{client_name}</p>
                 <p className='job-category'>{category}</p>
+                <p className='ac_unit'>{unit}</p>
                 <p className='job-date'>{date}</p>
             </div>
             <div className='actions'>
@@ -51,6 +52,7 @@ function JobItem({ client_name, category, date, isCompleted, onToggleStatus, onD
 JobItem.propTypes = {
     client_name: PropTypes.string.isRequired,
     category: PropTypes.string.isRequired,
+    unit: PropTypes.string.isRequired,
     date: PropTypes.string.isRequired,
     isCompleted: PropTypes.bool.isRequired,
     onToggleStatus: PropTypes.func.isRequired,
