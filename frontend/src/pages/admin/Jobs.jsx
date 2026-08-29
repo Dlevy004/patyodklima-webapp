@@ -68,7 +68,7 @@ function Jobs() {
                             key={job.id}
                             client_name={job.client_id}
                             category={job.category}
-                            date={job.job_date}
+                            date={new Date(job.job_date).toLocaleDateString('hu-HU')}
                             isCompleted={false}
                             onToggleStatus={false}
                             onDelete={() => deleteModal.open(job)}
