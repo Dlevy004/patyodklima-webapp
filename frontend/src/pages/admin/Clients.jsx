@@ -37,9 +37,9 @@ function Clients() {
         if (success) {
             deleteModal.close();
             refetch();
-            toast.success('Ügyfél sikeresen törölve!');
+            toast.success('Ügyfél és a lezárt munkái sikeresen törölve!');
         } else {
-            toast.error('Ehhez az ügyfélhez még tartozik munka, így nem lehet törölni!');
+            toast.error('Folyamatban lévő munka miatt az ügyfél nem törölhető!');
             deleteModal.close();
         }
     };
