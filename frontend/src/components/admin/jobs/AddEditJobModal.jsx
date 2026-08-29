@@ -35,7 +35,12 @@ function AddEditJobModal({ onClose, onSave, jobData, clientsList = [] }) {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (validateForm()) {
-            onSave(formData);
+            const payload = {
+                ...formData,
+                labor_fee: formData.labor_fee ? Number.parseInt(formData.labor_fee, 10) : 0,
+                total_amount: formData.total_amount ? Number.parseInt(formData.total_amount, 10) : 0,
+            };
+            onSave(payload);
         }
     };
 
