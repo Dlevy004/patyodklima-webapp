@@ -14,6 +14,13 @@ import AddEditJobModal from '@/components/admin/jobs/AddEditJobModal';
 const API_URL = `${import.meta.env.VITE_API_URL}/api/jobs`
 const CLIENT_API_URL = `${import.meta.env.VITE_API_URL}/api/clients`
 
+const categoryTranslations = {
+    survey: 'Felmérés',
+    installation: 'Telepítés',
+    maintenance: 'Karbantartás',
+    cleaning: 'Tisztítás'
+};
+
 
 function Jobs() {
     usePageTitle('Munkanapló');
@@ -67,7 +74,7 @@ function Jobs() {
                         <JobItem
                             key={job.id}
                             client_name={job.clients?.full_name}
-                            category={job.category}
+                            category={categoryTranslations[job.category]}
                             date={new Date(job.job_date).toLocaleDateString('hu-HU')}
                             isCompleted={false}
                             onToggleStatus={false}
