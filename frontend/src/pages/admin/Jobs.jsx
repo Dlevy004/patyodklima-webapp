@@ -68,7 +68,7 @@ function Jobs() {
                             key={job.id}
                             client_name={job.client_id}
                             category={job.category}
-                            date={job.date}
+                            date={job.job_date}
                             isCompleted={false}
                             onToggleStatus={false}
                             onDelete={() => deleteModal.open(job)}
