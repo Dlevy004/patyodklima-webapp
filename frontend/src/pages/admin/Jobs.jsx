@@ -66,7 +66,7 @@ function Jobs() {
                     {jobs?.map((job) => (
                         <JobItem
                             key={job.id}
-                            client_name={job.client_id}
+                            client_name={job.clients?.full_name}
                             category={job.category}
                             date={new Date(job.job_date).toLocaleDateString('hu-HU')}
                             isCompleted={false}
