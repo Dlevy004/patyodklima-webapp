@@ -1,6 +1,7 @@
 import { useId } from 'react';
 
 import PropTypes from 'prop-types';
+import Select from 'react-select';
 
 import './InputField.css';
 
@@ -9,6 +10,64 @@ function InputField({ label, type, value, onChange, placeholder, pattern, requir
     const inputClassName = error ? 'input-error' : '';
     const inputId = useId();
     const errorId = `${inputId}-error`;
+
+    const selectStyles = {
+        container: (base) => ({
+            ...base,
+            width: '100%',
+        }),
+        control: (base, state) => ({
+            ...base,
+            borderRadius: '11px',
+            padding: '0.15rem 0.3rem',
+            boxShadow: error
+                ? 'inset 0px 0px 5px 0px rgba(255, 77, 77, 0.2)'
+                : 'inset 0px 0px 10px 0px rgba(0,0,0,0.2)',
+            border: error ? '2px solid #ff4d4d' : 'none',
+            outline: 'none',
+            minHeight: '42px',
+            cursor: 'pointer',
+        }),
+        valueContainer: (base) => ({
+            ...base,
+            padding: '0 6px',
+        }),
+        singleValue: (base) => ({
+            ...base,
+            color: 'var(--text-color1)',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+        }),
+        placeholder: (base) => ({
+            ...base,
+            color: 'var(--text-color1)',
+            opacity: 0.6,
+        }),
+        indicatorSeparator: () => ({ display: 'none' }),
+        menu: (base) => ({
+            ...base,
+            overflow: 'hidden',
+            borderRadius: '11px',
+            zIndex: 20,
+        }),
+        menuList: (base) => ({
+            ...base,
+            maxHeight: '220px',
+        }),
+        option: (base, state) => ({
+            ...base,
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            cursor: 'pointer',
+            backgroundColor: state.isSelected
+                ? 'var(--bg-color-ternary)'
+                : state.isFocused
+                    ? 'rgba(0,0,0,0.05)'
+                    : 'transparent',
+            color: state.isSelected ? '#fff' : 'var(--text-color1)',
+        }),
+    };
 
     let inputElement = null;
 
@@ -26,25 +85,26 @@ function InputField({ label, type, value, onChange, placeholder, pattern, requir
                 />
             );
             break;
-        case 'select':
+        case 'select': {
+            const selectedOption = options?.find((opt) => opt.value === value) || null;
+
             inputElement = (
-                <select
-                    id={inputId}
-                    value={value}
-                    onChange={onChange}
-                    required={required}
-                    className={inputClassName}
+                <Select
+                    inputId={inputId}
+                    value={selectedOption}
+                    onChange={(selected) => {
+                        onChange({ target: { value: selected ? selected.value : '' } });
+                    }}
+                    options={options}
+                    placeholder={placeholder || 'Válassz...'}
+                    styles={selectStyles}
+                    isClearable={false}
                     aria-invalid={!!error}
-                >
-                    <option value="" disabled>{placeholder || 'Válassz...'}</option>
-                    {options?.map((opt) => (
-                        <option key={opt.value} value={opt.value}>
-                            {opt.label}
-                        </option>
-                    ))}
-                </select>
+                    aria-describedby={error ? errorId : undefined}
+                />
             );
             break;
+        }
         default:
             inputElement = (
                 <input
