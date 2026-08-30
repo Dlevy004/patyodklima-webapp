@@ -87,6 +87,41 @@ describe('InputField', () => {
         expect(inputElement).toBeInTheDocument();
     });
 
+    it('should render a dropdown if type is select', () => {
+        const mockClientData = {
+            label: 'Test Label', type: 'select',
+            value: 'Test Value', onChange: mockOnChange
+        }
+
+        render(<InputField {...mockClientData} />)
+
+        const inputElement = document.querySelector('select');
+
+        expect(inputElement).toBeInTheDocument();
+    });
+
+    it('should assign the correct value attribute to each option element based on the options array', () => {
+        const mockOptions = [
+            { value: 'val-1', label: 'Első opció' },
+            { value: 'val-2', label: 'Második opció' }
+        ];
+
+        render(
+            <InputField
+                type="select"
+                value=""
+                onChange={mockOnChange}
+                options={mockOptions}
+            />
+        );
+
+        const firstOption = screen.getByText('Első opció');
+        const secondOption = screen.getByText('Második opció');
+
+        expect(firstOption).toHaveAttribute('value', 'val-1');
+        expect(secondOption).toHaveAttribute('value', 'val-2');
+    });
+
     it('should call onChange function when user types into the field', () => {
         render(<InputField label="Név" type="text" value="" onChange={mockOnChange} />);
 
