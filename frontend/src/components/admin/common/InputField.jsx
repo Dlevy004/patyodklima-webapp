@@ -2,7 +2,7 @@ import { useId } from 'react';
 
 import PropTypes from 'prop-types';
 
-import './InputField.css'
+import './InputField.css';
 
 
 function InputField({ label, type, value, onChange, placeholder, pattern, required, error, options }) {
@@ -10,11 +10,11 @@ function InputField({ label, type, value, onChange, placeholder, pattern, requir
     const inputId = useId();
     const errorId = `${inputId}-error`;
 
-    return (
-        <div className='input-field'>
-            {label && <label htmlFor={inputId}>{label}</label>}
+    let inputElement = null;
 
-            {type === 'textarea' ? (
+    switch (type) {
+        case 'textarea':
+            inputElement = (
                 <textarea
                     id={inputId}
                     value={value}
@@ -24,7 +24,10 @@ function InputField({ label, type, value, onChange, placeholder, pattern, requir
                     className={inputClassName}
                     aria-invalid={!!error}
                 />
-            ) : type === 'select' ? (
+            );
+            break;
+        case 'select':
+            inputElement = (
                 <select
                     id={inputId}
                     value={value}
@@ -40,7 +43,10 @@ function InputField({ label, type, value, onChange, placeholder, pattern, requir
                         </option>
                     ))}
                 </select>
-            ) : (
+            );
+            break;
+        default:
+            inputElement = (
                 <input
                     id={inputId}
                     type={type}
@@ -53,17 +59,25 @@ function InputField({ label, type, value, onChange, placeholder, pattern, requir
                     aria-invalid={!!error}
                     aria-describedby={error ? errorId : undefined}
                 />
-            )}
+            );
+            break;
+    }
+
+    return (
+        <div className='input-field'>
+            {label && <label htmlFor={inputId}>{label}</label>}
+
+            {inputElement}
 
             {error && <span id={errorId} className='error-text'>{error}</span>}
         </div>
-    )
+    );
 }
 
 InputField.propTypes = {
     label: PropTypes.string,
     type: PropTypes.string.isRequired,
-    value: PropTypes.string,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     onChange: PropTypes.func.isRequired,
     placeholder: PropTypes.string,
     pattern: PropTypes.string,
