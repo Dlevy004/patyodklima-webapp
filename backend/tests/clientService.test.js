@@ -9,7 +9,10 @@ jest.mock('../database/prisma', () => ({
         findUnique: jest.fn(),
         update: jest.fn(),
         delete: jest.fn()
-    }
+    },
+    ac_units: { deleteMany: jest.fn() },
+    reference_image: { deleteMany: jest.fn() },
+    jobs: { deleteMany: jest.fn() }
 }));
 
 describe('createClient', () => {
