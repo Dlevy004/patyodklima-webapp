@@ -24,7 +24,7 @@ describe('useJobForm', () => {
             general_notes: 'Általános',
             labor_fee: 50000,
             total_amount: 350000,
-            ac_units: [{ model_name: 'Midea Xtreme' }]
+            ac_unit: 'Midea Xtreme'
         };
 
         const { result } = renderHook(() => useJobForm(mockJobData));
@@ -82,7 +82,7 @@ describe('useJobForm', () => {
     it('should validate form successfully with correct data', () => {
         const mockJobData = {
             client_id: 'c-1', category: 'survey', job_date: '2026-09-01',
-            ac_units: [{ model_name: 'AUX' }]
+            ac_unit: 'AUX'
         };
         const { result } = renderHook(() => useJobForm(mockJobData));
 
@@ -111,7 +111,7 @@ describe('useJobForm', () => {
     });
 
     it('should fail validation if ac_unit is only whitespace', () => {
-        const whitespaceJobData = { ac_units: [{ model_name: '   ' }] };
+        const whitespaceJobData = { ac_unit: '   ' };
         const { result } = renderHook(() => useJobForm(whitespaceJobData));
 
         act(() => {

@@ -1,7 +1,6 @@
 const prisma = require('../database/prisma');
 const jobService = require('../services/jobService');
 
-
 jest.mock('../database/prisma', () => ({
     jobs: {
         create: jest.fn(),
@@ -18,24 +17,22 @@ describe('jobService', () => {
     });
 
     describe('createJob', () => {
-        it('should create a new job without ac_unit if not provided', async () => {
-            // Arrange
+        it('should create a new job correctly', async () => {
             const newJob = {
                 client_id: 'client-1',
                 category: 'survey',
                 job_date: '2026-05-10',
-                internal_notes: 'Belső jegyzet',
-                general_notes: 'Általános jegyzet',
+                internal_notes: 'Belső',
+                general_notes: 'Általános',
                 labor_fee: 10000,
-                total_amount: 10000
+                total_amount: 10000,
+                ac_unit: 'Midea'
             };
             const createdJob = { id: 'job-1', ...newJob };
             prisma.jobs.create.mockResolvedValue(createdJob);
 
-            // Act
             const result = await jobService.createJob(newJob);
 
-            // Assert
             expect(result).toEqual(createdJob);
             expect(prisma.jobs.create).toHaveBeenCalledTimes(1);
             expect(prisma.jobs.create).toHaveBeenCalledWith({
@@ -46,93 +43,15 @@ describe('jobService', () => {
                     internal_notes: newJob.internal_notes,
                     general_notes: newJob.general_notes,
                     labor_fee: newJob.labor_fee,
-                    total_amount: newJob.total_amount
+                    total_amount: newJob.total_amount,
+                    ac_unit: newJob.ac_unit
                 }
             });
-        });
-
-        it('should fallback to 0 for missing amounts and prevent negative unit_price', async () => {
-            const newJob = {
-                client_id: 'client-1',
-                ac_unit: 'Teszt Klíma'
-            };
-            prisma.jobs.create.mockResolvedValue({ id: 'job-x' });
-
-            await jobService.createJob(newJob);
-
-            expect(prisma.jobs.create).toHaveBeenCalledWith(
-                expect.objectContaining({
-                    data: expect.objectContaining({
-                        ac_units: {
-                            create: expect.objectContaining({ unit_price: 0 })
-                        }
-                    })
-                })
-            );
-        });
-
-        it('should create a new job with ac_unit and calculate positive unit_price', async () => {
-            // Arrange
-            const newJob = {
-                client_id: 'client-1',
-                category: 'installation',
-                job_date: '2026-05-10',
-                labor_fee: 50000,
-                total_amount: 350000,
-                ac_unit: 'Midea Xtreme'
-            };
-            prisma.jobs.create.mockResolvedValue({ id: 'job-2' });
-
-            // Act
-            await jobService.createJob(newJob);
-
-            // Assert
-            expect(prisma.jobs.create).toHaveBeenCalledWith(
-                expect.objectContaining({
-                    data: expect.objectContaining({
-                        ac_units: {
-                            create: {
-                                model_name: 'Midea Xtreme',
-                                unit_price: 300000
-                            }
-                        }
-                    })
-                })
-            );
-        });
-
-        it('should fallback unit_price to 0 if calculation is negative or data is missing', async () => {
-            // Arrange
-            const newJob = {
-                client_id: 'client-1',
-                job_date: '2026-05-10',
-                labor_fee: 50000,
-                total_amount: 20000,
-                ac_unit: 'Hibás Árazású Klíma'
-            };
-            prisma.jobs.create.mockResolvedValue({ id: 'job-3' });
-
-            // Act
-            await jobService.createJob(newJob);
-
-            // Assert
-            expect(prisma.jobs.create).toHaveBeenCalledWith(
-                expect.objectContaining({
-                    data: expect.objectContaining({
-                        ac_units: {
-                            create: {
-                                model_name: 'Hibás Árazású Klíma',
-                                unit_price: 0
-                            }
-                        }
-                    })
-                })
-            );
         });
     });
 
     describe('getAllJobs', () => {
-        it('should return all jobs with nested clients and ac_units ordered by date', async () => {
+        it('should return all jobs with nested clients ordered by date', async () => {
             const mockJobs = [{ id: '1' }, { id: '2' }];
             prisma.jobs.findMany.mockResolvedValue(mockJobs);
 
@@ -140,7 +59,7 @@ describe('jobService', () => {
 
             expect(result).toEqual(mockJobs);
             expect(prisma.jobs.findMany).toHaveBeenCalledWith({
-                include: { clients: true, ac_units: true },
+                include: { clients: true },
                 orderBy: { created_at: 'desc' }
             });
         });
@@ -156,7 +75,7 @@ describe('jobService', () => {
             expect(result).toEqual(mockJob);
             expect(prisma.jobs.findUnique).toHaveBeenCalledWith({
                 where: { id: 'job-1' },
-                include: { clients: true, ac_units: true }
+                include: { clients: true }
             });
         });
 
@@ -168,14 +87,15 @@ describe('jobService', () => {
     });
 
     describe('updateJob', () => {
-        it('should update job properties without touching ac_units if not provided', async () => {
+        it('should update job properties correctly', async () => {
             const updatedJob = {
                 client_id: 'client-2',
                 category: 'maintenance',
                 job_date: '2026-08-20',
                 is_completed: true,
                 labor_fee: 10000,
-                total_amount: 10000
+                total_amount: 10000,
+                ac_unit: 'AUX'
             };
             prisma.jobs.update.mockResolvedValue({ id: 'job-1' });
 
@@ -191,7 +111,8 @@ describe('jobService', () => {
                     general_notes: undefined,
                     labor_fee: updatedJob.labor_fee,
                     total_amount: updatedJob.total_amount,
-                    is_completed: updatedJob.is_completed
+                    is_completed: updatedJob.is_completed,
+                    ac_unit: updatedJob.ac_unit
                 }
             });
         });
@@ -206,51 +127,6 @@ describe('jobService', () => {
                 expect.objectContaining({
                     data: expect.objectContaining({
                         job_date: undefined
-                    })
-                })
-            );
-        });
-
-        it('should fallback to 0 for missing amounts and prevent negative unit_price during update', async () => {
-            const updatedJob = {
-                ac_unit: 'Teszt Klíma'
-            };
-            prisma.jobs.update.mockResolvedValue({ id: 'job-1' });
-
-            await jobService.updateJob('job-1', updatedJob);
-
-            expect(prisma.jobs.update).toHaveBeenCalledWith(
-                expect.objectContaining({
-                    data: expect.objectContaining({
-                        ac_units: {
-                            deleteMany: {},
-                            create: expect.objectContaining({ unit_price: 0 })
-                        }
-                    })
-                })
-            );
-        });
-
-        it('should trigger nested ac_units deleteMany and create when ac_unit is provided', async () => {
-            const updatedJob = {
-                labor_fee: 40000,
-                total_amount: 240000,
-                ac_unit: 'AUX'
-            };
-            prisma.jobs.update.mockResolvedValue({ id: 'job-1' });
-
-            await jobService.updateJob('job-1', updatedJob);
-
-            expect(prisma.jobs.update).toHaveBeenCalledWith(
-                expect.objectContaining({
-                    data: expect.objectContaining({
-                        ac_units: {
-                            deleteMany: {},
-                            create: {
-                                model_name: 'AUX',
-                                unit_price: 200000
-                            }
-                        }
                     })
                 })
             );

@@ -27,7 +27,7 @@ function useJobForm(jobData) {
                 general_notes: jobData.general_notes || '',
                 labor_fee: jobData.labor_fee || '',
                 total_amount: jobData.total_amount || '',
-                ac_unit: jobData.ac_units?.[0]?.model_name || ''
+                ac_unit: jobData.ac_unit || ''
             });
         } else {
             setFormData(emptyFormData);

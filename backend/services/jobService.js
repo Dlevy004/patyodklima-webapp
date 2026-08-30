@@ -1,10 +1,9 @@
 const { client_type } = require('@prisma/client');
+
 const prisma = require('../database/prisma');
 
 
 const createJob = async (newJob) => {
-    const calculatedUnitPrice = (newJob.total_amount || 0) - (newJob.labor_fee || 0);
-
     return await prisma.jobs.create({
         data: {
             client_id: newJob.client_id,
@@ -14,15 +13,7 @@ const createJob = async (newJob) => {
             general_notes: newJob.general_notes,
             labor_fee: newJob.labor_fee,
             total_amount: newJob.total_amount,
-
-            ...(newJob.ac_unit && {
-                ac_units: {
-                    create: {
-                        model_name: newJob.ac_unit,
-                        unit_price: calculatedUnitPrice > 0 ? calculatedUnitPrice : 0
-                    }
-                }
-            })
+            ac_unit: newJob.ac_unit
         }
     });
 }
@@ -30,8 +21,7 @@ const createJob = async (newJob) => {
 const getAllJobs = async () => {
     return await prisma.jobs.findMany({
         include: {
-            clients: true,
-            ac_units: true
+            clients: true
         },
         orderBy: { created_at: 'desc' }
     });
@@ -41,19 +31,14 @@ const getJobById = async (id) => {
     return await prisma.jobs.findUnique({
         where: { id: id },
         include: {
-            clients: true,
-            ac_units: true
+            clients: true
         }
     });
 }
 
 const updateJob = async (id, updatedJob) => {
-    const calculatedUnitPrice = (updatedJob.total_amount || 0) - (updatedJob.labor_fee || 0);
-
     return await prisma.jobs.update({
-        where: {
-            id: id
-        },
+        where: { id: id },
         data: {
             client_id: updatedJob.client_id,
             category: updatedJob.category,
@@ -63,16 +48,7 @@ const updateJob = async (id, updatedJob) => {
             labor_fee: updatedJob.labor_fee,
             total_amount: updatedJob.total_amount,
             is_completed: updatedJob.is_completed,
-
-            ...(updatedJob.ac_unit && {
-                ac_units: {
-                    deleteMany: {},
-                    create: {
-                        model_name: updatedJob.ac_unit,
-                        unit_price: calculatedUnitPrice > 0 ? calculatedUnitPrice : 0
-                    }
-                }
-            })
+            ac_unit: updatedJob.ac_unit
         }
     })
 }
