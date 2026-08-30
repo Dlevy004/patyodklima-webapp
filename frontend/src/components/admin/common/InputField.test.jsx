@@ -3,6 +3,33 @@ import { describe, expect, it, vi, beforeEach } from 'vitest';
 
 import InputField from './InputField';
 
+const { capturedReactSelectProps } = vi.hoisted(() => ({
+    capturedReactSelectProps: { current: {} }
+}));
+
+vi.mock('react-select', () => ({
+    default: (props) => {
+        capturedReactSelectProps.current = props;
+
+        return (
+            <select
+                id={props.inputId}
+                data-testid="mock-react-select"
+                value={props.value ? props.value.value : ''}
+                onChange={(e) => {
+                    const selectedOption = props.options.find(opt => String(opt.value) === String(e.target.value));
+                    props.onChange(selectedOption || null);
+                }}
+            >
+                <option value="" disabled>{props.placeholder}</option>
+                {props.options?.map(opt => (
+                    <option key={opt.value} value={opt.value}>{opt.label}</option>
+                ))}
+            </select>
+        );
+    }
+}));
+
 
 describe('InputField', () => {
     const mockOnChange = vi.fn();

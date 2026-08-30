@@ -14,6 +14,25 @@ vi.mock('../../../hooks/useJobForm', () => ({
     }
 }));
 
+vi.mock('react-select', () => ({
+    default: ({ options, value, onChange, placeholder, inputId }) => (
+        <select
+            id={inputId}
+            data-testid="mock-react-select"
+            value={value ? value.value : ''}
+            onChange={(e) => {
+                const selectedOption = options.find(opt => String(opt.value) === String(e.target.value));
+                onChange(selectedOption || null);
+            }}
+        >
+            <option value="" disabled>{placeholder}</option>
+            {options?.map(opt => (
+                <option key={opt.value} value={opt.value}>{opt.label}</option>
+            ))}
+        </select>
+    )
+}));
+
 describe('AddEditJobModal', () => {
     const mockOnClose = vi.fn();
     const mockOnSave = vi.fn();
