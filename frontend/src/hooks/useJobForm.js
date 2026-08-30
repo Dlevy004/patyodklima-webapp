@@ -53,10 +53,10 @@ function useJobForm(jobData) {
         if (!formData.ac_unit || !formData.ac_unit.trim()) {
             errors.ac_unit = 'A készülék típusának megadása kötelező!';
         }
-        if (formData.labor_fee && Number.isNaN(formData.labor_fee)) {
+        if (formData.labor_fee && Number.isNaN(Number(formData.labor_fee))) {
             errors.labor_fee = 'A munkadíj csak szám lehet!';
         }
-        if (formData.total_amount && Number.isNaN(formData.total_amount)) {
+        if (formData.total_amount && Number.isNaN(Number(formData.total_amount))) {
             errors.total_amount = 'A teljes összeg csak szám lehet!';
         }
 
