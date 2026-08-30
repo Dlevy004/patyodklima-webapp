@@ -73,7 +73,7 @@ My primary goal with this was to reinforce my fundamental knowledge of web devel
     - **ESLint** for maintaining code quality and catching syntax errors
     - **Prop-types** for runtime type checking of component props
     - **Lottie React** for animated components
-age (Vitest + RTL) for components and hooks
+    - **React-Select** for custom dropdowns
 
 ## 🚧 Planned Features
 
