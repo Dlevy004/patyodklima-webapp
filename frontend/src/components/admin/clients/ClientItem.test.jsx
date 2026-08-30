@@ -1,10 +1,14 @@
-import { render, screen } from '@testing-library/react'
-import { describe, it, expect } from 'vitest'
+import { render, screen, fireEvent } from '@testing-library/react'
+import { describe, it, expect, vi, beforeEach } from 'vitest'
 
 import ClientItem from './ClientItem'
 
 
 describe('ClientItem', () => {
+    beforeEach(() => {
+        vi.clearAllMocks();
+    })
+
     const mockClient  = {
         name: 'Minta Máté',
         city: 'Budapest',
@@ -24,5 +28,45 @@ describe('ClientItem', () => {
 
         expect(container.querySelector('.action-btn.edit')).toBeInTheDocument();
         expect(container.querySelector('.action-btn.delete')).toBeInTheDocument();
+    });
+
+    it('should call onEdit and stop propagation when edit button is clicked', () => {
+        const mockOnEdit = vi.fn();
+        const mockOnDelete = vi.fn();
+
+        const { container } = render(<ClientItem {...mockClient} onEdit={mockOnEdit} onDelete={mockOnDelete} />);
+
+        const editButton = container.querySelector('.action-btn.edit');
+
+        fireEvent.click(editButton);
+
+        expect(mockOnEdit).toHaveBeenCalledTimes(1);
+        expect(mockOnDelete).not.toHaveBeenCalled();
+    });
+
+    it('should call onEdit and stop propagation when edit button is clicked', () => {
+        const mockOnEdit = vi.fn();
+        const mockOnDelete = vi.fn();
+
+        render(<ClientItem {...mockClient} onEdit={mockOnEdit} onDelete={mockOnDelete} />);
+
+        const editButton = screen.getByTitle('Szerkesztés');
+        fireEvent.click(editButton);
+
+        expect(mockOnEdit).toHaveBeenCalledTimes(1);
+        expect(mockOnDelete).not.toHaveBeenCalled();
+    });
+
+    it('should call onDelete and stop propagation when delete button is clicked', () => {
+        const mockOnEdit = vi.fn();
+        const mockOnDelete = vi.fn();
+
+        render(<ClientItem {...mockClient} onEdit={mockOnEdit} onDelete={mockOnDelete} />);
+
+        const deleteButton = screen.getByTitle('Törlés');
+        fireEvent.click(deleteButton);
+
+        expect(mockOnDelete).toHaveBeenCalledTimes(1);
+        expect(mockOnEdit).not.toHaveBeenCalled();
     });
 });
