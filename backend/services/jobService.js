@@ -1,5 +1,3 @@
-const { client_type } = require('@prisma/client');
-
 const prisma = require('../database/prisma');
 
 
