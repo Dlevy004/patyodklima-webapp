@@ -274,7 +274,7 @@ describe('deleteClient', () => {
         expect(prisma.clients.delete).toHaveBeenCalledWith({ where: { id: '1' } });
     });
 
-    it('should delete associated ac_units, reference_images, and jobs if client has only completed jobs', async () => {
+    it('should delete associated jobs if client has only completed jobs', async () => {
         // Arrange
         const mockClient = {
             id: '1',
@@ -293,12 +293,7 @@ describe('deleteClient', () => {
 
         // Assert
         expect(result).toEqual(deletedClient);
-
-        const expectedJobIds = ['job1', 'job2'];
-        expect(prisma.ac_units.deleteMany).toHaveBeenCalledWith({ where: { job_id: { in: expectedJobIds } } });
-        expect(prisma.reference_image.deleteMany).toHaveBeenCalledWith({ where: { job_id: { in: expectedJobIds } } });
         expect(prisma.jobs.deleteMany).toHaveBeenCalledWith({ where: { client_id: '1' } });
-
         expect(prisma.clients.delete).toHaveBeenCalledWith({ where: { id: '1' } });
     });
 });

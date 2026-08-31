@@ -57,16 +57,6 @@ const deleteClient = async (id) => {
     }
 
     if (client.jobs.length > 0) {
-        const jobIds = client.jobs.map(job => job.id);
-
-        await prisma.ac_units.deleteMany({
-            where: { job_id: { in: jobIds } }
-        });
-
-        await prisma.reference_image.deleteMany({
-            where: { job_id: { in: jobIds } }
-        });
-
         await prisma.jobs.deleteMany({
             where: { client_id: id }
         });

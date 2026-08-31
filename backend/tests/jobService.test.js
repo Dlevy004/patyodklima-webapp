@@ -37,14 +37,14 @@ describe('jobService', () => {
             expect(prisma.jobs.create).toHaveBeenCalledTimes(1);
             expect(prisma.jobs.create).toHaveBeenCalledWith({
                 data: {
-                    client_id: newJob.client_id,
                     category: newJob.category,
                     job_date: new Date(newJob.job_date),
                     internal_notes: newJob.internal_notes,
                     general_notes: newJob.general_notes,
                     labor_fee: newJob.labor_fee,
                     total_amount: newJob.total_amount,
-                    ac_unit: newJob.ac_unit
+                    ac_unit: newJob.ac_unit,
+                    clients: { connect: { id: newJob.client_id } }
                 }
             });
         });
@@ -104,7 +104,6 @@ describe('jobService', () => {
             expect(prisma.jobs.update).toHaveBeenCalledWith({
                 where: { id: 'job-1' },
                 data: {
-                    client_id: updatedJob.client_id,
                     category: updatedJob.category,
                     job_date: new Date(updatedJob.job_date),
                     internal_notes: undefined,
@@ -112,7 +111,8 @@ describe('jobService', () => {
                     labor_fee: updatedJob.labor_fee,
                     total_amount: updatedJob.total_amount,
                     is_completed: updatedJob.is_completed,
-                    ac_unit: updatedJob.ac_unit
+                    ac_unit: updatedJob.ac_unit,
+                    clients: { connect: { id: updatedJob.client_id } }
                 }
             });
         });
