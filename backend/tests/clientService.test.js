@@ -9,7 +9,10 @@ jest.mock('../database/prisma', () => ({
         findUnique: jest.fn(),
         update: jest.fn(),
         delete: jest.fn()
-    }
+    },
+    ac_units: { deleteMany: jest.fn() },
+    reference_image: { deleteMany: jest.fn() },
+    jobs: { deleteMany: jest.fn() }
 }));
 
 describe('createClient', () => {
@@ -221,31 +224,76 @@ describe('deleteClient', () => {
         jest.clearAllMocks();
     });
 
-    it('should delete a client if it exists', async () => {
+    it('should throw an error if the client does not exist', async () => {
         // Arrange
-        const mockClient = { id: '1', full_name: 'Minta Máté' };
-        prisma.clients.delete.mockResolvedValue(mockClient);
+        prisma.clients.findUnique.mockResolvedValue(null);
+
+        // Act & Assert
+        await expect(clientService.deleteClient('1')).rejects.toThrow('Ügyfél nem található');
+        expect(prisma.clients.findUnique).toHaveBeenCalledWith({
+            where: { id: '1' },
+            include: { jobs: true }
+        });
+    });
+
+    it('should throw an error if the client has pending jobs', async () => {
+        // Arrange
+        const mockClient = {
+            id: '1',
+            jobs: [
+                { id: 'job1', is_completed: true },
+                { id: 'job2', is_completed: false }
+            ]
+        };
+        prisma.clients.findUnique.mockResolvedValue(mockClient);
+
+        // Act & Assert
+        await expect(clientService.deleteClient('1')).rejects.toThrow('Nem törölhető: folyamatban lévő munka tartozik hozzá.');
+
+        expect(prisma.clients.delete).not.toHaveBeenCalled();
+    });
+
+    it('should delete a client and no related records if they have no jobs', async () => {
+        // Arrange
+        const mockClient = { id: '1', jobs: [] };
+        const deletedClient = { id: '1', full_name: 'Minta Máté' };
+
+        prisma.clients.findUnique.mockResolvedValue(mockClient);
+        prisma.clients.delete.mockResolvedValue(deletedClient);
 
         // Act
         const result = await clientService.deleteClient('1');
 
         // Assert
-        expect(result).toEqual(mockClient);
-        expect(prisma.clients.delete).toHaveBeenCalledTimes(1);
+        expect(result).toEqual(deletedClient);
+
+        expect(prisma.ac_units.deleteMany).not.toHaveBeenCalled();
+        expect(prisma.reference_image.deleteMany).not.toHaveBeenCalled();
+        expect(prisma.jobs.deleteMany).not.toHaveBeenCalled();
+
         expect(prisma.clients.delete).toHaveBeenCalledWith({ where: { id: '1' } });
     });
 
-    it('should throw an error if the client does not exist', async () => {
+    it('should delete associated jobs if client has only completed jobs', async () => {
         // Arrange
-        const mockClient = null;
-        prisma.clients.delete.mockResolvedValue(mockClient);
+        const mockClient = {
+            id: '1',
+            jobs: [
+                { id: 'job1', is_completed: true },
+                { id: 'job2', is_completed: true }
+            ]
+        };
+        const deletedClient = { id: '1', full_name: 'Minta Máté' };
+
+        prisma.clients.findUnique.mockResolvedValue(mockClient);
+        prisma.clients.delete.mockResolvedValue(deletedClient);
 
         // Act
         const result = await clientService.deleteClient('1');
 
         // Assert
-        expect(result).toEqual(mockClient);
-        expect(prisma.clients.delete).toHaveBeenCalledTimes(1);
+        expect(result).toEqual(deletedClient);
+        expect(prisma.jobs.deleteMany).toHaveBeenCalledWith({ where: { client_id: '1' } });
         expect(prisma.clients.delete).toHaveBeenCalledWith({ where: { id: '1' } });
     });
 });

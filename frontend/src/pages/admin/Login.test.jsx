@@ -83,6 +83,7 @@ describe('Login', () => {
             target: { value: 'secret123' },
         });
         fireEvent.click(screen.getByRole('checkbox', { name: /Emlékezz rám/i }));
+        fireEvent.click(screen.getByTestId('mock-turnstile'));
         fireEvent.click(screen.getByRole('button', { name: 'Bejelentkezés' }));
 
         await waitFor(() => {
@@ -90,7 +91,7 @@ describe('Login', () => {
                 email: 'admin@patyodklima.hu',
                 password: 'secret123',
                 rememberMe: true,
-                turnstileToken: ''
+                turnstileToken: 'sikeres-kamu-token'
             });
             expect(mockNavigate).toHaveBeenCalledWith('/admin', { replace: true });
         });
@@ -111,6 +112,7 @@ describe('Login', () => {
         fireEvent.change(screen.getByPlaceholderText('••••••••'), {
             target: { value: 'wrong' },
         });
+        fireEvent.click(screen.getByTestId('mock-turnstile'));
         fireEvent.click(screen.getByRole('button', { name: 'Bejelentkezés' }));
 
         expect(await screen.findByText('Invalid email or password.')).toBeInTheDocument();

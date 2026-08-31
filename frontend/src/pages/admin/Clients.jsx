@@ -1,3 +1,5 @@
+import toast from 'react-hot-toast'
+
 import './Clients.css'
 
 import ScrollUp from '@/components/common/ScrollUp'
@@ -35,6 +37,10 @@ function Clients() {
         if (success) {
             deleteModal.close();
             refetch();
+            toast.success('Ügyfél és a lezárt munkái sikeresen törölve!');
+        } else {
+            toast.error('Az ügyfél nem törölhető, hiszen van hozzá tartozó munka!');
+            deleteModal.close();
         }
     };
 
