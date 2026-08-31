@@ -96,7 +96,7 @@ function Jobs() {
                             key={job.id}
                             client_name={job.clients?.full_name}
                             category={categoryTranslations[job.category]}
-                            unit={job.ac_units?.length > 0 ? job.ac_units[0].model_name : 'Nincs készülék'}
+                            unit={job.ac_unit}
                             date={new Date(job.job_date).toLocaleDateString('hu-HU')}
 
                             isCompleted={job.is_completed}
