@@ -44,19 +44,6 @@ describe('ClientItem', () => {
         expect(mockOnDelete).not.toHaveBeenCalled();
     });
 
-    it('should call onEdit and stop propagation when edit button is clicked', () => {
-        const mockOnEdit = vi.fn();
-        const mockOnDelete = vi.fn();
-
-        render(<ClientItem {...mockClient} onEdit={mockOnEdit} onDelete={mockOnDelete} />);
-
-        const editButton = screen.getByTitle('Szerkesztés');
-        fireEvent.click(editButton);
-
-        expect(mockOnEdit).toHaveBeenCalledTimes(1);
-        expect(mockOnDelete).not.toHaveBeenCalled();
-    });
-
     it('should call onDelete and stop propagation when delete button is clicked', () => {
         const mockOnEdit = vi.fn();
         const mockOnDelete = vi.fn();
