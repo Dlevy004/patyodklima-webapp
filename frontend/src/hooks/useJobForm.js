@@ -50,14 +50,20 @@ function useJobForm(jobData) {
         if (!formData.category) errors.category = 'A munka típusának megadása kötelező!';
         if (!formData.job_date) errors.job_date = 'A dátum megadása kötelező!';
 
-        if (!formData.ac_unit || !formData.ac_unit.trim()) {
-            errors.ac_unit = 'A készülék típusának megadása kötelező!';
-        }
-        if (formData.labor_fee && Number.isNaN(Number(formData.labor_fee))) {
+        if (formData.labor_fee === '') {
+            errors.labor_fee = 'A munkadíj megadása kötelező!';
+        } else if (Number.isNaN(Number(formData.labor_fee))) {
             errors.labor_fee = 'A munkadíj csak szám lehet!';
         }
-        if (formData.total_amount && Number.isNaN(Number(formData.total_amount))) {
+
+        if (formData.total_amount === '') {
+            errors.total_amount = 'A teljes összeg megadása kötelező!';
+        } else if (Number.isNaN(Number(formData.total_amount))) {
             errors.total_amount = 'A teljes összeg csak szám lehet!';
+        }
+
+        if (!formData.ac_unit || !formData.ac_unit.trim()) {
+            errors.ac_unit = 'A készülék típusának megadása kötelező!';
         }
 
         setFormErrors(errors);

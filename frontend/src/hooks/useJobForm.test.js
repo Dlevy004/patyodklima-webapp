@@ -82,7 +82,7 @@ describe('useJobForm', () => {
     it('should validate form successfully with correct data', () => {
         const mockJobData = {
             client_id: 'c-1', category: 'survey', job_date: '2026-09-01',
-            ac_unit: 'AUX'
+            ac_unit: 'AUX', labor_fee: 30000, total_amount: 50000
         };
         const { result } = renderHook(() => useJobForm(mockJobData));
 
