@@ -1,6 +1,7 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 
+import toast from 'react-hot-toast'
 import ReferenceHistory from './ReferenceHistory';
 import useFetch from '@/hooks/useFetch';
 import useSaveData from '@/hooks/useSaveData';
@@ -227,6 +228,7 @@ describe('ReferenceHistory', () => {
     it('should download the reference image correctly when download button is clicked', async () => {
         const mockBlob = new Blob(['dummy image content'], { type: 'image/png' });
         window.fetch = vi.fn().mockResolvedValue({
+            ok: true,
             blob: vi.fn().mockResolvedValue(mockBlob)
         });
 
@@ -268,5 +270,64 @@ describe('ReferenceHistory', () => {
 
         createElementSpy.mockRestore();
         vi.restoreAllMocks();
+    });
+
+    it('should show a toast error if the download fails (e.g. server error)', async () => {
+        const toastSpy = vi.spyOn(toast, 'error').mockImplementation(() => {});
+
+        window.fetch = vi.fn().mockResolvedValue({
+            ok: false,
+            json: vi.fn().mockResolvedValue({ message: 'Jogosulatlan hozzáférés' })
+        });
+
+        getAuthHeaders.mockReturnValue({ Authorization: 'Bearer test-token' });
+
+        useFetch.mockReturnValue({
+            data: [mockReference],
+            isLoading: false,
+            error: null,
+            refetch: mockRefetch
+        });
+
+        render(<ReferenceHistory />);
+
+        fireEvent.click(screen.getByLabelText('Letöltés gomb'));
+
+        await waitFor(() => {
+            expect(toastSpy).toHaveBeenCalledWith('Nem sikerült letölteni a képet.');
+        });
+
+        toastSpy.mockRestore();
+    });
+
+    it('should use default error message if server error response has no message', async () => {
+        const toastSpy = vi.spyOn(toast, 'error').mockImplementation(() => {});
+        const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+
+        window.fetch = vi.fn().mockResolvedValue({
+            ok: false,
+            json: vi.fn().mockResolvedValue({})
+        });
+
+        getAuthHeaders.mockReturnValue({ Authorization: 'Bearer test-token' });
+
+        useFetch.mockReturnValue({
+            data: [mockReference],
+            isLoading: false,
+            error: null,
+            refetch: mockRefetch
+        });
+
+        render(<ReferenceHistory />);
+
+        fireEvent.click(screen.getByLabelText('Letöltés gomb'));
+
+        await waitFor(() => {
+            expect(toastSpy).toHaveBeenCalledWith('Nem sikerült letölteni a képet.');
+            expect(consoleSpy).toHaveBeenCalledWith('Letöltési hiba:', 'Szerverhiba történt a letöltés során.');
+        });
+
+        toastSpy.mockRestore();
+        consoleSpy.mockRestore();
     });
 });

@@ -59,7 +59,7 @@ function ReferenceHistory() {
         }
     };
 
-const handleDownload = async (referenceId, title) => {
+    const handleDownload = async (referenceId, title) => {
         try {
             const response = await fetch(`${API_URL}/${referenceId}/download`, {
                 headers: getAuthHeaders(),
