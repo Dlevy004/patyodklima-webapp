@@ -1,5 +1,7 @@
+const sharp = require('sharp');
+
 const referenceService = require('../services/referenceService');
-const supabaseService = require('../services/supabaseService')
+const supabaseService = require('../services/supabaseService');
 
 
 const createReference = async (req, res) => {
