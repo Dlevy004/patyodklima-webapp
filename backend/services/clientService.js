@@ -43,7 +43,28 @@ const updateClient = async (id, updatedClient) => {
 }
 
 const deleteClient = async (id) => {
-    return await prisma.clients.delete({ where: { id: id } })
+    const client = await prisma.clients.findUnique({
+        where: { id: id },
+        include: { jobs: true }
+    });
+
+    if (!client) throw new Error('Ügyfél nem található');
+
+    const hasPendingJobs = client.jobs.some(job => job.is_completed === false);
+
+    if (hasPendingJobs) {
+        throw new Error('Nem törölhető: folyamatban lévő munka tartozik hozzá.');
+    }
+
+    if (client.jobs.length > 0) {
+        await prisma.jobs.deleteMany({
+            where: { client_id: id }
+        });
+    }
+
+    return await prisma.clients.delete({
+        where: { id: id }
+    });
 }
 
 module.exports = {

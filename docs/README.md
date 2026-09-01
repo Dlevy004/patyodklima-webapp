@@ -26,7 +26,7 @@ My primary goal with this was to reinforce my fundamental knowledge of web devel
 
 ### Frontend
 - **React** (Vite)
-- Vanilla CSS
+- Vanilla **CSS**
 
 ### Backend
 - **Node.js**
@@ -48,6 +48,7 @@ My primary goal with this was to reinforce my fundamental knowledge of web devel
 - **Git & Github** for source control and PR handling
 - **Google Analytics** for tracks and reports website's traffic
 - **Render** for deploying the backend and frontend
+- **UptimeRobot** for monitoring the availability, performance, and status of the website
 
 ### Package manager & dependencies
 - **npm** package manager
@@ -72,7 +73,7 @@ My primary goal with this was to reinforce my fundamental knowledge of web devel
     - **ESLint** for maintaining code quality and catching syntax errors
     - **Prop-types** for runtime type checking of component props
     - **Lottie React** for animated components
-age (Vitest + RTL) for components and hooks
+    - **React-Select** for custom dropdowns
 
 ## 🚧 Planned Features
 

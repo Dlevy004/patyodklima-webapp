@@ -6,6 +6,12 @@ import ActionBtn from '../common/ActionBtn'
 
 
 function ClientItem({ name, city, phone, onDelete, onEdit }) {
+
+    const handleActionClick = (e, actionFunction) => {
+        e.stopPropagation();
+        actionFunction();
+    };
+
     return (
         <li className='client-item' onClick={onEdit}>
             <div className='client-details'>
@@ -14,8 +20,16 @@ function ClientItem({ name, city, phone, onDelete, onEdit }) {
                 <p className='client-phone'>{phone}</p>
             </div>
             <div className='actions'>
-                <ActionBtn type='edit' onClick={onEdit} ariaLabel={`${name} szerkesztése`} />
-                <ActionBtn type='delete' onClick={onDelete} ariaLabel={`${name} törlése`} />
+                <ActionBtn
+                    type='edit'
+                    onClick={(e) => handleActionClick(e, onEdit)}
+                    ariaLabel={`${name} szerkesztése`}
+                />
+                <ActionBtn
+                    type='delete'
+                    onClick={(e) => handleActionClick(e, onDelete)}
+                    ariaLabel={`${name} törlése`}
+                />
             </div>
         </li>
     )
