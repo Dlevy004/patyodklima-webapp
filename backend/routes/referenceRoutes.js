@@ -13,4 +13,6 @@ router.post('/references', authenticate, upload.single('image'), referenceContro
 router.put('/references/:id', authenticate, referenceController.updateReference);
 router.delete('/references/:id', authenticate, referenceController.deleteReference);
 
+router.get('/references/:id/download', authenticate, referenceController.downloadReference);
+
 module.exports = router;
