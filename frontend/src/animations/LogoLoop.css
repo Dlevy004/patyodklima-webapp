@@ -184,3 +184,14 @@
     transition: none !important;
   }
 }
+
+@media (max-width: 768px) {
+  .logoloop {
+    --logoloop-gap: 35px !important;
+    --logoloop-logoHeight: 35px !important;
+  }
+
+  .logoloop__item img {
+    width: 90px;
+  }
+}
