@@ -26,6 +26,11 @@
     color: #ff0000;
 }
 
+.action-btn.download {
+    color: #28a745;
+    background-color: #f0fdf4;
+}
+
 .action-btn.visible, .action-btn.invisible {
     background-color: #ececec;
     color: #000000;
