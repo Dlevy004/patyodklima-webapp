@@ -97,10 +97,39 @@ const deleteReference = async (req, res) => {
     }
 }
 
+const downloadReference = async (req, res) => {
+    try {
+        const referenceId = req.params.id;
+        const reference = await referenceService.getReferenceById(referenceId);
+
+        if (!reference) {
+            return res.status(404).json({ message: 'A referenciakép nem található.' });
+        }
+
+        const imageResponse = await fetch(reference.image_url);
+        const imageBuffer = Buffer.from(await imageResponse.arrayBuffer());
+
+        const pngBuffer = await sharp(imageBuffer).png().toBuffer();
+
+        const fileName = `referencia-${referenceId}.png`;
+
+        res.set({
+            'Content-Type': 'image/png',
+            'Content-Disposition': `attachment; filename="${fileName}"`,
+        });
+
+        res.send(pngBuffer);
+    } catch (error) {
+        console.error('Error while downloading reference image:', error.message);
+        res.status(500).json({ message: 'Hiba történt a kép letöltése során.' });
+    }
+}
+
 module.exports = {
     createReference,
     getAllReferences,
     getReferenceById,
     updateReference,
-    deleteReference
+    deleteReference,
+    downloadReference
 };
