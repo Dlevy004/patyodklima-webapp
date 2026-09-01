@@ -57,6 +57,19 @@ function ReferenceHistory() {
         }
     };
 
+    const handleDownload = async (referenceId, title) => {
+        const response = await fetch(`${API_URL}/${referenceId}/download`, {
+            headers: getAuthHeaders(),
+        });
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `${title}.png`;
+        a.click();
+        window.URL.revokeObjectURL(url);
+    };
+
     return (
         <div className='reference-history'>
             <h2 className='reference-history-title'>Jelenlegi referenciák</h2>
