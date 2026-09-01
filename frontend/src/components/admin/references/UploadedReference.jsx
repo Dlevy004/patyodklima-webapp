@@ -5,7 +5,7 @@ import './UploadedReference.css';
 import ActionBtn from '../common/ActionBtn';
 
 
-function UploadedReference({ title, imageUrl, isVisible = true, onDelete, onEdit, onToggleVisibility }) {
+function UploadedReference({ title, imageUrl, isVisible = true, onDelete, onEdit, onToggleVisibility, onDownload }) {
     return (
         <li className={`uploaded-reference ${isVisible ? '' : 'is-hidden'}`}>
             <img className='single-reference-img' src={imageUrl} alt={title} loading="lazy" />
@@ -15,7 +15,10 @@ function UploadedReference({ title, imageUrl, isVisible = true, onDelete, onEdit
                         ? <ActionBtn type='visible' onClick={onToggleVisibility} />
                         : <ActionBtn type='invisible' onClick={onToggleVisibility} />
                 }
+
                 <ActionBtn type='edit' onClick={onEdit} />
+                <ActionBtn type='download' onClick={onDownload} />
+
                 <ActionBtn type='delete' onClick={onDelete} />
             </div>
         </li>

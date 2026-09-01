@@ -91,6 +91,7 @@ function ReferenceHistory() {
                                 onDelete={() => deleteModal.open(reference)}
                                 onEdit={() => editModal.open(reference)}
                                 onToggleVisibility={() => handleToggleVisibility(reference)}
+                                onDownload={() => handleDownload(reference.id, reference.description)}
                             />
                         ))
                     }
