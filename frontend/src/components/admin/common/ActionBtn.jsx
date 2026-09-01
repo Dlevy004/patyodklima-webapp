@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
 import {
     SquarePen, Trash2,
-    Eye, EyeOff
+    Eye, EyeOff,
+    Download
 } from 'lucide-react';
 
 import './ActionButtons.css';
