@@ -2,7 +2,8 @@ import PropTypes from 'prop-types';
 import {
     SquarePen, Trash2,
     Eye, EyeOff,
-    CircleCheck, CircleX
+    CircleCheck, CircleX,
+    Download
 } from 'lucide-react';
 
 import './ActionButtons.css';
@@ -31,6 +32,10 @@ const buttonTypes = {
     pending: {
         title: 'Folyamatban',
         icon: <CircleX strokeWidth={2} aria-hidden='true'/>
+    },
+    download: {
+        title: 'Letöltés',
+        icon: <Download strokeWidth={2} aria-hidden='true'/>
     }
 }
 
