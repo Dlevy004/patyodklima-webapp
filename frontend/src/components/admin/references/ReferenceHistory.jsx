@@ -9,6 +9,7 @@ import useModal from '@/hooks/useModal';
 import ModalBackdrop from '@/components/admin/common/ModalBackdrop';
 import DeleteDataModal from '@/components/admin/common/DeleteDataModal';
 import EditReferenceModal from './EditReferenceModal';
+import { getAuthHeaders } from '@/utils/api';
 
 const API_URL = `${import.meta.env.VITE_API_URL}/api/references`
 
