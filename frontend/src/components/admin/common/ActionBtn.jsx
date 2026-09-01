@@ -23,6 +23,10 @@ const buttonTypes = {
     invisible: {
         title: 'Elrejtés',
         icon: <EyeOff strokeWidth={2} aria-hidden='true' />
+    },
+    download: {
+        title: 'Letöltés',
+        icon: <Download strokeWidth={2} aria-hidden='true'/>
     }
 }
 
