@@ -3,7 +3,7 @@ import './Logos.css';
 import LogoLoop from '@/animations/LogoLoop';
 
 const brandLogos = [
-  { src: "/logos/Aux.svg", alt: "AUX logo", href: "https://aux-magyarorszag.hu/" },
+  { src: "/logos/Aux-logo.svg", alt: "AUX logo", href: "https://aux-magyarorszag.hu/" },
   { src: "/logos/ceklima.svg", alt: "Ceklima logo", href: "https://www.ceklima.hu/" },
   { src: "/logos/melegethu.svg", alt: "Melegethu logo", href: "https://www.meleget.hu/" },
   { src: "/logos/Midea.svg", alt: "Midea logo", href: "https://midea.hu/" },
