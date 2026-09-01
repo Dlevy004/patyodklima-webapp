@@ -60,7 +60,12 @@ const getReferenceById = async (req, res) => {
 const updateReference = async (req, res) => {
     try {
         const referenceId = req.params.id;
-        const referenceToUpdate = req.body;
+
+        const { description, is_visible } = req.body;
+        const referenceToUpdate = {
+            description: description,
+            is_visible: is_visible
+        };
 
         const existingReference = await referenceService.getReferenceById(referenceId);
         if (!existingReference) {
@@ -106,7 +111,17 @@ const downloadReference = async (req, res) => {
             return res.status(404).json({ message: 'A referenciakép nem található.' });
         }
 
-        const imageResponse = await fetch(reference.image_url);
+        const urlObj = new URL(reference.image_url);
+        if (!urlObj.hostname.includes('supabase.co')) {
+            return res.status(403).json({ message: 'Biztonsági okokból a letöltés megtagadva: érvénytelen forrás.' });
+        }
+
+        const imageResponse = await fetch(reference.image_url, { redirect: 'error' });
+
+        if (!imageResponse.ok) {
+            throw new Error(`Sikertelen letöltés a tárhelyről: ${imageResponse.statusText}`);
+        }
+
         const imageBuffer = Buffer.from(await imageResponse.arrayBuffer());
 
         const pngBuffer = await sharp(imageBuffer).png().toBuffer();
