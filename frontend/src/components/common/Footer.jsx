@@ -46,7 +46,7 @@ function Footer() {
             <div className="footer-bottom">
                 <p>Fejlesztette: Daróczi Levente</p>
                 <p>Pátyod Klíma &copy; { new Date().getFullYear() } | Minden jog fenntartva!</p>
-                <p style={{ color: '#f2f2f2' }}>Verzió:&nbsp; v2.1.0</p>
+                <p style={{ color: '#f2f2f2' }}>Verzió:&nbsp; v2.1.1</p>
             </div>
         </footer>
     )

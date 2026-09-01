@@ -9,13 +9,11 @@ datasource db {
 /// This model has constraints using non-default deferring rules and requires additional setup for migrations. Visit https://pris.ly/d/constraint-deferring for more info.
 model ac_units {
   id                    String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  job_id                String?   @db.Uuid
   transparent_image_url String?   @db.VarChar
   brand                 String?   @db.VarChar
   model_name            String?   @db.VarChar
   unit_price            Int
   created_at            DateTime? @default(now()) @db.Timestamp(6)
-  jobs                  jobs?     @relation(fields: [job_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model ad_templates {
@@ -106,21 +104,19 @@ model jobs {
   general_notes   String?
   labor_fee       Int?              @default(0)
   total_amount    Int
+  ac_unit         String?           @db.VarChar
+  is_completed    Boolean           @default(false)
   created_at      DateTime?         @default(now()) @db.Timestamp(6)
-  ac_units        ac_units[]
   clients         clients?          @relation(fields: [client_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  reference_image reference_image[]
 }
 
 /// This model has constraints using non-default deferring rules and requires additional setup for migrations. Visit https://pris.ly/d/constraint-deferring for more info.
 model reference_image {
   id          String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  job_id      String?   @db.Uuid
   image_url   String    @db.VarChar
   description String?   @db.VarChar
   is_visible  Boolean   @default(true)
   created_at  DateTime? @default(now()) @db.Timestamp(6)
-  jobs        jobs?     @relation(fields: [job_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model users {
