@@ -1,3 +1,5 @@
+import toast from 'react-hot-toast'
+
 import './ReferenceHistory.css'
 
 import DataStateFeedback from '../common/DataStateFeedback';
@@ -9,6 +11,7 @@ import useModal from '@/hooks/useModal';
 import ModalBackdrop from '@/components/admin/common/ModalBackdrop';
 import DeleteDataModal from '@/components/admin/common/DeleteDataModal';
 import EditReferenceModal from './EditReferenceModal';
+import { getAuthHeaders } from '@/utils/api';
 
 const API_URL = `${import.meta.env.VITE_API_URL}/api/references`
 
@@ -56,6 +59,30 @@ function ReferenceHistory() {
         }
     };
 
+    const handleDownload = async (referenceId, title) => {
+        try {
+            const response = await fetch(`${API_URL}/${referenceId}/download`, {
+                headers: getAuthHeaders(),
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json().catch(() => ({}));
+                throw new Error(errorData.message || 'Szerverhiba történt a letöltés során.');
+            }
+
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${title}.png`;
+            a.click();
+            window.URL.revokeObjectURL(url);
+        } catch (error) {
+            console.error('Letöltési hiba:', error.message);
+            toast.error(`Nem sikerült letölteni a képet.`)
+        }
+    };
+
     return (
         <div className='reference-history'>
             <h2 className='reference-history-title'>Jelenlegi referenciák</h2>
@@ -77,6 +104,7 @@ function ReferenceHistory() {
                                 onDelete={() => deleteModal.open(reference)}
                                 onEdit={() => editModal.open(reference)}
                                 onToggleVisibility={() => handleToggleVisibility(reference)}
+                                onDownload={() => handleDownload(reference.id, reference.description)}
                             />
                         ))
                     }

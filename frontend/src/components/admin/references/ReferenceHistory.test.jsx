@@ -1,15 +1,19 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 
+import toast from 'react-hot-toast'
 import ReferenceHistory from './ReferenceHistory';
 import useFetch from '@/hooks/useFetch';
 import useSaveData from '@/hooks/useSaveData';
 import useDeleteData from '@/hooks/useDeleteData';
+import { getAuthHeaders } from '@/utils/api';
 
 vi.mock('@/hooks/useFetch');
 vi.mock('@/hooks/useSaveData');
 vi.mock('@/hooks/useDeleteData');
-
+vi.mock('@/utils/api', () => ({
+    getAuthHeaders: vi.fn(),
+}));
 
 describe('ReferenceHistory', () => {
     const mockRefetch = vi.fn();
@@ -219,5 +223,111 @@ describe('ReferenceHistory', () => {
         expect(mockRefetch).not.toHaveBeenCalled();
 
         expect(screen.getByText('Referenciakép szerkesztése')).toBeInTheDocument();
+    });
+
+    it('should download the reference image correctly when download button is clicked', async () => {
+        const mockBlob = new Blob(['dummy image content'], { type: 'image/png' });
+        window.fetch = vi.fn().mockResolvedValue({
+            ok: true,
+            blob: vi.fn().mockResolvedValue(mockBlob)
+        });
+
+        getAuthHeaders.mockReturnValue({ Authorization: 'Bearer test-token' });
+
+        window.URL.createObjectURL = vi.fn().mockReturnValue('blob:test-url');
+        window.URL.revokeObjectURL = vi.fn();
+
+        const mockAnchorElement = { href: '', download: '', click: vi.fn() };
+        const originalCreateElement = document.createElement.bind(document);
+        const createElementSpy = vi.spyOn(document, 'createElement').mockImplementation((tagName) => {
+            if (tagName === 'a') return mockAnchorElement;
+            return originalCreateElement(tagName);
+        });
+
+        useFetch.mockReturnValue({
+            data: [mockReference],
+            isLoading: false,
+            error: null,
+            refetch: mockRefetch
+        });
+
+        render(<ReferenceHistory />);
+
+        fireEvent.click(screen.getByLabelText('Letöltés gomb'));
+
+        await waitFor(() => {
+            expect(window.fetch).toHaveBeenCalledWith(
+                'http://localhost:3000/api/references/1/download',
+                { headers: { Authorization: 'Bearer test-token' } }
+            );
+        });
+
+        expect(window.URL.createObjectURL).toHaveBeenCalledWith(mockBlob);
+        expect(mockAnchorElement.href).toBe('blob:test-url');
+        expect(mockAnchorElement.download).toBe('Teszt kép.png');
+        expect(mockAnchorElement.click).toHaveBeenCalled();
+        expect(window.URL.revokeObjectURL).toHaveBeenCalledWith('blob:test-url');
+
+        createElementSpy.mockRestore();
+        vi.restoreAllMocks();
+    });
+
+    it('should show a toast error if the download fails (e.g. server error)', async () => {
+        const toastSpy = vi.spyOn(toast, 'error').mockImplementation(() => {});
+
+        window.fetch = vi.fn().mockResolvedValue({
+            ok: false,
+            json: vi.fn().mockResolvedValue({ message: 'Jogosulatlan hozzáférés' })
+        });
+
+        getAuthHeaders.mockReturnValue({ Authorization: 'Bearer test-token' });
+
+        useFetch.mockReturnValue({
+            data: [mockReference],
+            isLoading: false,
+            error: null,
+            refetch: mockRefetch
+        });
+
+        render(<ReferenceHistory />);
+
+        fireEvent.click(screen.getByLabelText('Letöltés gomb'));
+
+        await waitFor(() => {
+            expect(toastSpy).toHaveBeenCalledWith('Nem sikerült letölteni a képet.');
+        });
+
+        toastSpy.mockRestore();
+    });
+
+    it('should use default error message if server error response has no message', async () => {
+        const toastSpy = vi.spyOn(toast, 'error').mockImplementation(() => {});
+        const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+
+        window.fetch = vi.fn().mockResolvedValue({
+            ok: false,
+            json: vi.fn().mockResolvedValue({})
+        });
+
+        getAuthHeaders.mockReturnValue({ Authorization: 'Bearer test-token' });
+
+        useFetch.mockReturnValue({
+            data: [mockReference],
+            isLoading: false,
+            error: null,
+            refetch: mockRefetch
+        });
+
+        render(<ReferenceHistory />);
+
+        fireEvent.click(screen.getByLabelText('Letöltés gomb'));
+
+        await waitFor(() => {
+            expect(toastSpy).toHaveBeenCalledWith('Nem sikerült letölteni a képet.');
+            expect(consoleSpy).toHaveBeenCalledWith('Letöltési hiba:', 'Szerverhiba történt a letöltés során.');
+        });
+
+        toastSpy.mockRestore();
+        consoleSpy.mockRestore();
     });
 });

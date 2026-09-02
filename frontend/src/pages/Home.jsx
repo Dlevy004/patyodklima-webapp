@@ -1,11 +1,13 @@
+import Navbar from '../components/common/Navbar'
 import Hero from '../components/home/Hero'
+import Logos from '../components/home/Logos'
 import Services from '../components/home/Services'
 import Reference from '../components/home/Reference'
 import Contact from '../components/home/Contact'
-import Navbar from '../components/common/Navbar'
 import Footer from '../components/common/Footer'
 import ScrollUp from '../components/common/ScrollUp'
 import CookiePanel from '../components/common/CookiePanel'
+
 import Seo from '../components/common/Seo'
 import BusinessSchema from '../components/common/BusinessSchema'
 
@@ -23,6 +25,7 @@ function Home() {
             <Navbar />
             <main>
                 <Hero />
+                <Logos />
                 <Services />
                 <Reference />
                 <Contact />

@@ -1,5 +1,7 @@
+const sharp = require('sharp');
+
 const referenceService = require('../services/referenceService');
-const supabaseService = require('../services/supabaseService')
+const supabaseService = require('../services/supabaseService');
 
 
 const createReference = async (req, res) => {
@@ -58,7 +60,12 @@ const getReferenceById = async (req, res) => {
 const updateReference = async (req, res) => {
     try {
         const referenceId = req.params.id;
-        const referenceToUpdate = req.body;
+
+        const { description, is_visible } = req.body;
+        const referenceToUpdate = {
+            description: description,
+            is_visible: is_visible
+        };
 
         const existingReference = await referenceService.getReferenceById(referenceId);
         if (!existingReference) {
@@ -95,10 +102,49 @@ const deleteReference = async (req, res) => {
     }
 }
 
+const downloadReference = async (req, res) => {
+    try {
+        const referenceId = req.params.id;
+        const reference = await referenceService.getReferenceById(referenceId);
+
+        if (!reference) {
+            return res.status(404).json({ message: 'A referenciakép nem található.' });
+        }
+
+        const urlObj = new URL(reference.image_url);
+        if (!urlObj.hostname.includes('supabase.co')) {
+            return res.status(403).json({ message: 'Biztonsági okokból a letöltés megtagadva: érvénytelen forrás.' });
+        }
+
+        const imageResponse = await fetch(reference.image_url, { redirect: 'error' });
+
+        if (!imageResponse.ok) {
+            throw new Error(`Sikertelen letöltés a tárhelyről: ${imageResponse.statusText}`);
+        }
+
+        const imageBuffer = Buffer.from(await imageResponse.arrayBuffer());
+
+        const pngBuffer = await sharp(imageBuffer).png().toBuffer();
+
+        const fileName = `referencia-${referenceId}.png`;
+
+        res.set({
+            'Content-Type': 'image/png',
+            'Content-Disposition': `attachment; filename="${fileName}"`,
+        });
+
+        res.send(pngBuffer);
+    } catch (error) {
+        console.error('Error while downloading reference image:', error.message);
+        res.status(500).json({ message: 'Hiba történt a kép letöltése során.' });
+    }
+}
+
 module.exports = {
     createReference,
     getAllReferences,
     getReferenceById,
     updateReference,
-    deleteReference
+    deleteReference,
+    downloadReference
 };

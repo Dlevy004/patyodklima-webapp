@@ -40,7 +40,7 @@ function ProfilePanel({ onClose, isInstallable, installPWA }) {
                 >
                     Kijelentkezés
                 </button>
-                <p style={{ color: 'var(--grey-text)', marginTop: '15px' }}>Verzió:&nbsp; v2.1.1</p>
+                <p style={{ color: 'var(--grey-text)', marginTop: '15px' }}>Verzió:&nbsp; v2.2.0</p>
             </div>
         </div>
     );

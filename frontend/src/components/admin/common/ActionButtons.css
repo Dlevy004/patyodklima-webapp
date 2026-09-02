@@ -21,9 +21,14 @@
     color: #0284c7;
 }
 
-.action-btn.delete {
+.action-btn.delete, .action-btn.pending {
     background-color: #fee2e2;
     color: #ff0000;
+}
+
+.action-btn.completed, .action-btn.download {
+    color: #28a745;
+    background-color: #f0fdf4;
 }
 
 .action-btn.visible, .action-btn.invisible {
