@@ -31,14 +31,26 @@ function ProfilePanel({ onClose, isInstallable, installPWA }) {
     };
 
     return (
-        <div className="profile-panel-wrapper" role="menu" aria-label="Felhasználói menü">
-            <div className="profile-panel-inner">
-                <img
-                    src={placeholderImg}
-                    alt="Felhasználó profilképe"
-                    className="profile-panel-img"
-                />
-                <h3 className="profile-panel-name">{user?.name}</h3>
+        <>
+            <div className="profile-panel-wrapper" role="menu" aria-label="Felhasználói menü">
+                <div className="profile-panel-inner">
+                    <img
+                        src={user?.profile_pic_url || placeholderImg}
+                        alt="Felhasználó profilképe"
+                        className="profile-panel-img"
+                    />
+                    <h3 style={{ color: 'var(--grey-text)', marginTop: '15px' }} className="profile-panel-name">{user?.full_name || 'Adminisztrátor'}</h3>
+                    <p style={{ color: 'var(--grey-text)', margin: '15px' }}>{user?.role}</p>
+
+                    <button
+                        type="button"
+                        className="profile-panel-userdata-btn"
+                        onClick={() => editModal.open(user)}
+                        role="menuitem"
+                    >
+                        Adatok módosítása
+                    </button>
+
                     {isInstallable && (
                         <button
                             type="button"
