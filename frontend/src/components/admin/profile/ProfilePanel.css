@@ -72,7 +72,8 @@
     transform: scale(0.98);
 }
 
-.profile-panel-install-btn {
+.profile-panel-install-btn,
+.profile-panel-userdata-btn {
     width: 100%;
     margin-bottom: 1rem;
     padding: 0.85rem 1rem;
@@ -86,7 +87,8 @@
 }
 
 .profile-panel-install-btn:hover,
-.profile-panel-logout-btn:hover {
+.profile-panel-logout-btn:hover,
+.profile-panel-userdata-btn:hover {
     transform: translateY(-3px);
 }
 
