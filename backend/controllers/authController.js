@@ -1,4 +1,5 @@
 const authService = require('../services/authService');
+const supabaseService = require('../services/supabaseService');
 
 
 const verifyTurnstile = async (token) => {
@@ -95,8 +96,44 @@ const changePassword = async (req, res) => {
     }
 };
 
+const updateProfile = async (req, res) => {
+    try {
+        const { fullName, currentPassword, newPassword } = req.body;
+        let profilePicUrl;
+
+        if (req.file) {
+            profilePicUrl = await supabaseService.uploadImage(req.file, 'Avatars');
+        }
+
+        const result = await authService.updateProfile({
+            userId: req.user.id,
+            fullName,
+            profilePicUrl,
+            currentPassword,
+            newPassword
+        });
+
+        if (!result.success) {
+            if (result.error === 'INVALID_CURRENT_PASSWORD') return res.status(401).json({ message: 'A jelenlegi jelszó helytelen.' });
+            if (result.error === 'SAME_PASSWORD') return res.status(400).json({ message: 'Az új jelszónak el kell térnie a jelenlegi jelszótól.' });
+            return res.status(404).json({ message: 'A felhasználó nem található.' });
+        }
+
+        return res.status(200).json({
+            message: 'Profil sikeresen frissítve!',
+            token: result.token,
+            user: result.user,
+        });
+
+    } catch (error) {
+        console.error('Error while updating profile:', error.message);
+        return res.status(500).json({ message: 'Hiba történt a profil frissítése közben.' });
+    }
+};
+
 module.exports = {
     login,
     getMe,
     changePassword,
+    updateProfile
 };
