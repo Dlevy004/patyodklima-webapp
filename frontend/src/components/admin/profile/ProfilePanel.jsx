@@ -62,17 +62,27 @@ function ProfilePanel({ onClose, isInstallable, installPWA }) {
                         </button>
                     )}
 
-                <button
-                    type="button"
-                    className="profile-panel-logout-btn"
-                    onClick={handleLogout}
-                    role="menuitem"
-                >
-                    Kijelentkezés
-                </button>
-                <p style={{ color: 'var(--grey-text)', marginTop: '15px' }}>Verzió:&nbsp; v2.2.0</p>
+                    <button
+                        type="button"
+                        className="profile-panel-logout-btn"
+                        onClick={handleLogout}
+                        role="menuitem"
+                    >
+                        Kijelentkezés
+                    </button>
+
+                    <p style={{ color: 'var(--grey-text)', marginTop: '15px' }}>Verzió:&nbsp; v2.2.0</p>
+                </div>
             </div>
-        </div>
+
+            <ModalBackdrop isOpen={editModal.isOpen} onClose={editModal.close}>
+                <EditUserDataModal
+                    onClose={editModal.close}
+                    onSave={handleSaveUser}
+                    userData={editModal.selectedItem}
+                />
+            </ModalBackdrop>
+        </>
     );
 }
 
