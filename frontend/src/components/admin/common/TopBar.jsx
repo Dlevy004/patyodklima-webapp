@@ -6,7 +6,7 @@ import './TopBar.css'
 
 import ProfilPic from '@/assets/images/profile-placeholder.avif'
 import HamburgerMenu from '../../common/HamburgerMenu'
-import ProfilePanel from './ProfilePanel';
+import ProfilePanel from '../profile/ProfilePanel';
 import { usePWAInstall } from '../../../hooks/usePWAInstall';
 
 
