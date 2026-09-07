@@ -2,6 +2,12 @@ import './ProfilePanel.css';
 
 import { useAuth } from '../../../context/AuthContext';
 import placeholderImg from '../../../assets/images/profile-placeholder.avif';
+import ModalBackdrop from '../common/ModalBackdrop'
+import EditUserDataModal from '../profile/EditUserDataModal'
+import useModal from '../../../hooks/useModal'
+import useSaveData from '../../../hooks/useSaveData'
+
+const API_URL = `${import.meta.env.VITE_API_URL}/api/auth/profile`;
 
 
 function ProfilePanel({ onClose, isInstallable, installPWA }) {
@@ -10,6 +16,18 @@ function ProfilePanel({ onClose, isInstallable, installPWA }) {
     const handleLogout = () => {
         logout();
         if (onClose) onClose();
+    };
+
+    const editModal = useModal();
+    const { saveData } = useSaveData();
+
+    const handleSaveUser = async (formData) => {
+        const success = await saveData(API_URL, 'PUT', formData);
+
+        if (success) {
+            editModal.close();
+            window.location.reload();
+        }
     };
 
     return (
