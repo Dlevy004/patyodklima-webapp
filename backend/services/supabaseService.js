@@ -2,7 +2,7 @@ const supabase = require('../config/supabase');
 const sharp = require('sharp');
 
 
-const uploadImage = async (file) => {
+const uploadImage = async (file, bucketName = 'References') => {
     const optimizedBuffer = await sharp(file.buffer)
         .rotate()
         .resize({ width: 1920, withoutEnlargement: true })
@@ -18,7 +18,7 @@ const uploadImage = async (file) => {
     const fileName = `${Date.now()}-${safeName}.webp`;
 
     const { data, error } = await supabase.storage
-        .from('References')
+        .from(bucketName)
         .upload(fileName, optimizedBuffer, {
             contentType: 'image/webp',
         });
@@ -28,17 +28,17 @@ const uploadImage = async (file) => {
     }
 
     const { data: publicUrlData } = supabase.storage
-        .from('References')
+        .from(bucketName)
         .getPublicUrl(fileName);
 
     return publicUrlData.publicUrl;
 };
 
-const deleteImage = async (imageUrl) => {
+const deleteImage = async (imageUrl, bucketName = 'References') => {
     const fileName = imageUrl.split('/').pop();
 
     const { error } = await supabase.storage
-        .from('References')
+        .from(bucketName)
         .remove([fileName]);
 
     if (error) {
