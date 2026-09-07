@@ -11,10 +11,8 @@ import './SideNavbar.css'
 
 import NavButton from './NavButton'
 import NavSection from './NavSection'
-
 import horizontalLogo from '../../../assets/images/logo.avif'
 import verticalLogo from '../../../assets/images/tr-logo-icon.avif'
-
 import MobileMenu from '../../common/MobileMenu'
 
 
@@ -33,8 +31,7 @@ function SideNavbar({ isMobileMenuOpen, closeMobileMenu }) {
             <NavButton IconComponent={House} title='Főoldal' url='/admin' onClick={closeMobileMenu} />
             <NavSection title='Adminisztráció' ButtonComponents={[
                 <NavButton key='client-page' IconComponent={FileUser} title='Ügyfélnapló' url='/admin/clients' onClick={closeMobileMenu} />,
-                <NavButton key='job-page' IconComponent={BookMarked} title='Munkanapló' url='/admin/jobs' onClick={closeMobileMenu} />,
-                <NavButton key='error-page' IconComponent={CircleX} title='Bejelentések' url='/admin/errors' onClick={closeMobileMenu} />,
+                <NavButton key='job-page' IconComponent={BookMarked} title='Munkanapló' url='/admin/jobs' onClick={closeMobileMenu} />
             ]} />
             <NavSection title='Értékesítés' ButtonComponents={[
                 <NavButton key='ai-page' IconComponent={PencilRuler} title='Látványterv' url='/admin/visualdesigns' onClick={closeMobileMenu} />

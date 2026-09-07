@@ -11,7 +11,6 @@ import AdminLayout from './pages/admin/AdminLayout'
 import Dashboard from './pages/admin/Dashboard'
 import Clients from './pages/admin/Clients'
 import Jobs from './pages/admin/Jobs'
-import Errors from './pages/admin/Errors'
 import VisualDesign from './pages/admin/VisualDesign'
 import References from './pages/admin/References'
 import Ads from './pages/admin/Ads'
@@ -32,7 +31,6 @@ function App() {
               <Route index element={<Dashboard />} />
               <Route path='clients' element={<Clients />} />
               <Route path='jobs' element={<Jobs />} />
-              <Route path='errors' element={<Errors />} />
               <Route path='visualdesigns' element={<VisualDesign />} />
               <Route path='ads' element={<Ads />} />
               <Route path='references' element={<References />} />

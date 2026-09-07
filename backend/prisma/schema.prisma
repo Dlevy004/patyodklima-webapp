@@ -37,20 +37,6 @@ model ai_visual_designs {
   users               users?               @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
-model bug_reports {
-  id             String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  reporter_name  String?   @db.VarChar
-  reporter_email String?   @db.VarChar
-  phone_number   String?   @db.VarChar
-  zip_code       String?   @db.VarChar
-  city           String?   @db.VarChar
-  street_address String?   @db.VarChar
-  description    String
-  image_url      String?   @db.VarChar
-  is_handled     Boolean?  @default(false)
-  created_at     DateTime? @default(now()) @db.Timestamp(6)
-}
-
 model clients {
   id             String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   full_name      String      @db.VarChar
