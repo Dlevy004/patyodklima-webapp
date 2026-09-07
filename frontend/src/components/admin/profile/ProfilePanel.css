@@ -68,10 +68,6 @@
     transition: background-color 0.2s ease, transform 0.1s ease;
 }
 
-.profile-panel-logout-btn:hover {
-    background-color: #e64040;
-}
-
 .profile-panel-logout-btn:active {
     transform: scale(0.98);
 }
@@ -89,7 +85,8 @@
     transition: background-color 0.2s ease, transform 0.1s ease;
 }
 
-.profile-panel-install-btn:hover {
+.profile-panel-install-btn:hover,
+.profile-panel-logout-btn:hover {
     transform: translateY(-3px);
 }
 
