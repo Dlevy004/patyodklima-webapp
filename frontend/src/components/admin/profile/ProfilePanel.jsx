@@ -37,8 +37,8 @@ function ProfilePanel({ onClose, isInstallable, installPWA }) {
                         alt="Felhasználó profilképe"
                         className="profile-panel-img"
                     />
-                    <h3 style={{ color: 'var(--grey-text)', marginTop: '15px' }} className="profile-panel-name">{user?.fullName || 'Adminisztrátor'}</h3>
-                    <p style={{ color: 'var(--grey-text)', margin: '15px' }}>{user?.role}</p>
+                    <h3 className="profile-panel-name">{user?.fullName || 'Adminisztrátor'}</h3>
+                    <p className="profile-panel-role">{user?.role}</p>
 
                     <button
                         type="button"
@@ -69,7 +69,7 @@ function ProfilePanel({ onClose, isInstallable, installPWA }) {
                         Kijelentkezés
                     </button>
 
-                    <p style={{ color: 'var(--grey-text)', marginTop: '15px' }}>Verzió:&nbsp; v2.2.0</p>
+                    <p className="profile-panel-version">Verzió:&nbsp; v2.2.0</p>
                 </div>
             </div>
 

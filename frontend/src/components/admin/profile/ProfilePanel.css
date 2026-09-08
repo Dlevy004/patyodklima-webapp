@@ -53,6 +53,21 @@
     font-weight: 700;
     font-family: inherit;
     text-align: center;
+    margin-top: 10px;
+}
+
+.profile-panel-role {
+    font-size: 1rem;
+    color: var(--grey-text);
+    text-align: center;
+    margin: 5px 0 15px 0;
+}
+
+.profile-panel-version {
+    font-size: 1rem;
+    color: var(--grey-text);
+    text-align: center;
+    margin: 15px 0 0 0;
 }
 
 .profile-panel-logout-btn {
