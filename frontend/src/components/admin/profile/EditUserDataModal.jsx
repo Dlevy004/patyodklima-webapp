@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import PropTypes from 'prop-types';
 import { SquarePen } from 'lucide-react';
@@ -27,9 +27,20 @@ function EditUserDataModal({ onClose, onSave, userData }) {
     const [selectedFile, setSelectedFile] = useState(null);
     const [previewUrl, setPreviewUrl] = useState(userData?.profilePicUrl || placeholderImg);
 
+    useEffect(() => {
+        return () => {
+            if (previewUrl && previewUrl.startsWith('blob:')) {
+                URL.revokeObjectURL(previewUrl);
+            }
+        };
+    }, [previewUrl]);
+
     const handleFileChange = (e) => {
         const file = e.target.files[0];
         if (file) {
+            if (previewUrl && previewUrl.startsWith('blob:')) {
+                URL.revokeObjectURL(previewUrl);
+            }
             setSelectedFile(file);
             setPreviewUrl(URL.createObjectURL(file));
         }
@@ -37,7 +48,7 @@ function EditUserDataModal({ onClose, onSave, userData }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-            if (validateForm()) {
+        if (validateForm()) {
             const submitData = new FormData();
 
             submitData.append('fullName', formData.fullName);
@@ -52,7 +63,6 @@ function EditUserDataModal({ onClose, onSave, userData }) {
             }
 
             onSave(submitData);
-            toast.success('Sikeresen frissítve!');
         } else {
             toast.error('Hiba az adatok mentése közben.');
         }
