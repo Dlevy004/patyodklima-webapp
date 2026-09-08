@@ -354,4 +354,55 @@ describe('authService.updateProfile', () => {
         expect(result2.success).toBe(false);
         expect(result2.error).toBe('SAME_PASSWORD');
     });
+
+    it('should successfully update profile (name, picture) without changing the password', async () => {
+        prisma.users.findUnique.mockResolvedValue(mockUser);
+
+        const updatedUser = { ...mockUser, full_name: 'Új Név', profile_pic_url: 'new-pic.jpg' };
+        prisma.users.update.mockResolvedValue(updatedUser);
+        jwt.sign.mockReturnValue('new-token');
+        const result = await authService.updateProfile({
+            userId: 'user-1', fullName: 'Új Név', profilePicUrl: 'new-pic.jpg'
+        });
+
+        expect(prisma.users.update).toHaveBeenCalledWith({
+            where: { id: 'user-1' },
+            data: { full_name: 'Új Név', profile_pic_url: 'new-pic.jpg' },
+        });
+        expect(result.success).toBe(true);
+        expect(result.token).toBe('new-token');
+        expect(result.user.fullName).toBe('Új Név');
+        expect(result.user.profilePicUrl).toBe('new-pic.jpg');
+    });
+
+    it('should successfully update profile including the password', async () => {
+        prisma.users.findUnique.mockResolvedValue(mockUser);
+        bcrypt.compare.mockResolvedValue(true);
+        bcrypt.hash.mockResolvedValue('new-hashed-password');
+
+        const updatedUser = {
+            ...mockUser,
+            password_hash: 'new-hashed-password',
+            must_change_password: false
+        };
+        prisma.users.update.mockResolvedValue(updatedUser);
+        jwt.sign.mockReturnValue('new-token');
+        const result = await authService.updateProfile({
+            userId: 'user-1',
+            fullName: 'Új Név',
+            currentPassword: 'old-password',
+            newPassword: 'new-password'
+        });
+
+        expect(prisma.users.update).toHaveBeenCalledWith({
+            where: { id: 'user-1' },
+            data: {
+                full_name: 'Új Név',
+                password_hash: 'new-hashed-password',
+                must_change_password: false
+            },
+        });
+        expect(result.success).toBe(true);
+        expect(result.user.mustChangePassword).toBe(false);
+    });
 });
