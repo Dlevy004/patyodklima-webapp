@@ -49,8 +49,7 @@
 
 .profile-panel-name {
     font-size: 1.25rem;
-    color: #111827;
-    margin: 0 0 0 0;
+    color: var(--text-color1);
     font-weight: 700;
     font-family: inherit;
     text-align: center;
