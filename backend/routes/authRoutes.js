@@ -10,7 +10,10 @@ const loginLimiter = rateLimit({
     legacyHeaders: false,
 });
 
-const upload = multer({ storage: multer.memoryStorage() });
+const upload = multer({
+    storage: multer.memoryStorage(),
+    limits: { fileSize: 5 * 1024 * 1024 }
+});
 
 const authController = require('../controllers/authController');
 const { authenticate } = require('../middleware/authMiddleware');
