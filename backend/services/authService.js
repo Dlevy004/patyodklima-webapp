@@ -135,7 +135,14 @@ const updateProfile = async ({ userId, fullName, profilePicUrl, currentPassword,
     if (fullName) dataToUpdate.full_name = fullName;
     if (profilePicUrl) dataToUpdate.profile_pic_url = profilePicUrl;
 
-    if (currentPassword && newPassword) {
+    if (currentPassword || newPassword) {
+        if (!currentPassword || !newPassword) {
+            return { success: false, error: 'INCOMPLETE_PASSWORD_DATA' };
+        }
+        if (newPassword.length < 8) {
+            return { success: false, error: 'PASSWORD_TOO_SHORT' };
+        }
+
         const isCurrentPasswordValid = await comparePassword(currentPassword, user.password_hash);
         if (!isCurrentPasswordValid) {
             return { success: false, error: 'INVALID_CURRENT_PASSWORD' };
@@ -143,6 +150,7 @@ const updateProfile = async ({ userId, fullName, profilePicUrl, currentPassword,
         if (currentPassword === newPassword) {
             return { success: false, error: 'SAME_PASSWORD' };
         }
+
         dataToUpdate.password_hash = await hashPassword(newPassword);
         dataToUpdate.must_change_password = false;
     }
