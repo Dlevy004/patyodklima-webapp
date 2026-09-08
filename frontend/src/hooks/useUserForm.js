@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 const emptyFormData = {
-    full_name: '', currentPassword: '',
+    fullName: '', currentPassword: '',
     newPassword: '', newPasswordConfirm: ''
 }
 
@@ -13,7 +13,7 @@ function useUserForm(userData) {
     useEffect(() => {
         if (userData) {
             setFormData({
-                full_name: userData.full_name || '',
+                fullName: userData.fullName || '',
                 currentPassword: '',
                 newPassword: '',
                 newPasswordConfirm: ''
@@ -35,7 +35,7 @@ function useUserForm(userData) {
     const validateForm = () => {
         const errors = {};
 
-        if (!formData.fullName) errors.full_name = 'A név megadása kötelező!';
+        if (!formData.fullName) errors.fullName = 'A név megadása kötelező!';
 
         const isPasswordChanging = formData.currentPassword || formData.newPassword || formData.newPasswordConfirm;
 
