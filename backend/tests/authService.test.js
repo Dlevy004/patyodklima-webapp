@@ -308,3 +308,32 @@ describe('authService.verifyToken', () => {
         });
     });
 });
+
+describe('authService.updateProfile', () => {
+    beforeEach(() => {
+        jest.clearAllMocks();
+        process.env.JWT_SECRET = 'test-secret';
+    });
+    const mockUser = {
+        id: 'user-1',
+        email: 'admin@patyodklima.hu',
+        full_name: 'Admin',
+        profile_pic_url: 'old-pic.jpg',
+        password_hash: 'old-hash',
+        role: 'admin',
+        must_change_password: true,
+    };
+
+    it('should reject if the user does not exist or has an unsupported role', async () => {
+
+        prisma.users.findUnique.mockResolvedValueOnce(null);
+        const result1 = await authService.updateProfile({ userId: 'missing-id' });
+        expect(result1.success).toBe(false);
+        expect(result1.error).toBe('USER_NOT_FOUND');
+
+        prisma.users.findUnique.mockResolvedValueOnce({ ...mockUser, role: 'guest' });
+        const result2 = await authService.updateProfile({ userId: 'user-1' });
+        expect(result2.success).toBe(false);
+        expect(result2.error).toBe('USER_NOT_FOUND');
+    });
+});
