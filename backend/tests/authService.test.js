@@ -336,4 +336,22 @@ describe('authService.updateProfile', () => {
         expect(result2.success).toBe(false);
         expect(result2.error).toBe('USER_NOT_FOUND');
     });
+
+    it('should reject password changes with incorrect or identical passwords', async () => {
+        prisma.users.findUnique.mockResolvedValue(mockUser);
+
+        bcrypt.compare.mockResolvedValueOnce(false);
+        const result1 = await authService.updateProfile({
+            userId: 'user-1', currentPassword: 'wrong-password', newPassword: 'new-password'
+        });
+        expect(result1.success).toBe(false);
+        expect(result1.error).toBe('INVALID_CURRENT_PASSWORD');
+
+        bcrypt.compare.mockResolvedValueOnce(true);
+        const result2 = await authService.updateProfile({
+            userId: 'user-1', currentPassword: 'same-password', newPassword: 'same-password'
+        });
+        expect(result2.success).toBe(false);
+        expect(result2.error).toBe('SAME_PASSWORD');
+    });
 });
