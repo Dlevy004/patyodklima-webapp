@@ -142,4 +142,32 @@ describe('useSaveData', () => {
 
         expect(toast.error).toHaveBeenCalledWith('Hiba történt a mentés során!');
     });
+
+    it('should correctly configure fetch for FormData payloads (omit Content-Type, send raw body)', async () => {
+        fetch.mockResolvedValueOnce({ ok: true });
+
+        const { result } = renderHook(() => useSaveData());
+
+
+        const formDataPayload = new FormData();
+        formDataPayload.append('fullName', 'Máté');
+
+        formDataPayload.append('profileImage', new File([''], 'test.png', { type: 'image/png' }));
+
+        await act(async () => {
+            await result.current.saveData('/api/profile', 'PUT', formDataPayload);
+        });
+
+        expect(fetch).toHaveBeenCalledTimes(1);
+
+        const fetchArgs = fetch.mock.calls[0];
+        const fetchOptions = fetchArgs[1];
+
+        expect(fetchOptions.body).toBeInstanceOf(FormData);
+        expect(fetchOptions.body).toBe(formDataPayload);
+
+        if (fetchOptions.headers) {
+            expect(fetchOptions.headers).not.toHaveProperty('Content-Type');
+        }
+    });
 });
