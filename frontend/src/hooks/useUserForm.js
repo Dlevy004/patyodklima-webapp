@@ -35,7 +35,7 @@ function useUserForm(userData) {
     const validateForm = () => {
         const errors = {};
 
-        if (!formData.fullName) errors.fullName = 'A név megadása kötelező!';
+        if (!formData.fullName?.trim()) errors.fullName = 'A név megadása kötelező!';
 
         const isPasswordChanging = formData.currentPassword || formData.newPassword || formData.newPasswordConfirm;
 
