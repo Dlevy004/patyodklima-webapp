@@ -97,9 +97,9 @@ const changePassword = async (req, res) => {
 };
 
 const updateProfile = async (req, res) => {
+    let profilePicUrl;
     try {
         const { fullName, currentPassword, newPassword } = req.body;
-        let profilePicUrl;
 
         if (req.file) {
             profilePicUrl = await supabaseService.uploadImage(req.file, 'Avatars');
@@ -114,8 +114,15 @@ const updateProfile = async (req, res) => {
         });
 
         if (!result.success) {
+            if (profilePicUrl) {
+                await supabaseService.deleteImage(profilePicUrl);
+            }
+
             if (result.error === 'INVALID_CURRENT_PASSWORD') return res.status(401).json({ message: 'A jelenlegi jelszó helytelen.' });
             if (result.error === 'SAME_PASSWORD') return res.status(400).json({ message: 'Az új jelszónak el kell térnie a jelenlegi jelszótól.' });
+            if (result.error === 'INCOMPLETE_PASSWORD_DATA') return res.status(400).json({ message: 'Mindkét jelszó mező kitöltése kötelező.' });
+            if (result.error === 'PASSWORD_TOO_SHORT') return res.status(400).json({ message: 'Az új jelszó túl rövid.' });
+
             return res.status(404).json({ message: 'A felhasználó nem található.' });
         }
 
@@ -126,6 +133,9 @@ const updateProfile = async (req, res) => {
         });
 
     } catch (error) {
+        if (profilePicUrl) {
+            await supabaseService.deleteImage(profilePicUrl);
+        }
         console.error('Error while updating profile:', error.message);
         return res.status(500).json({ message: 'Hiba történt a profil frissítése közben.' });
     }
