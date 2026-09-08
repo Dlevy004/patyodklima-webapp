@@ -25,6 +25,7 @@ const sanitizeUser = (user) => ({
     id: user.id,
     email: user.email,
     fullName: user.full_name,
+    profilePicUrl: user.profile_pic_url,
     role: user.role,
     mustChangePassword: user.must_change_password,
 });
