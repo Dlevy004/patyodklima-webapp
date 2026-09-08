@@ -50,14 +50,14 @@
     width: 100%;
 }
 
-.wrapper-left {
+.user-wrapper-left {
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
     max-width: 150px;
 }
 
-.wrapper-right {
+.user-wrapper-right {
     display: flex;
     flex-direction: column;
     gap: 1rem;

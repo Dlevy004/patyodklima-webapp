@@ -65,7 +65,7 @@ function EditUserDataModal({ onClose, onSave, userData }) {
                 <h1 id="modal-title">Saját adatok módosítása</h1>
             </div>
             <div className='user-datas-wrapper'>
-                <div className='wrapper-left'>
+                <div className='user-wrapper-left'>
                     <div className='client-avatar'>
                         <label htmlFor="profile-image-upload" className="avatar-label">
                             <img src={previewUrl} alt="Felhasználó profilképe" className="avatar-img" />
@@ -84,7 +84,7 @@ function EditUserDataModal({ onClose, onSave, userData }) {
                         />
                     </div>
                 </div>
-                <div className='wrapper-right'>
+                <div className='user-wrapper-right'>
                     {inputFields.map((field) => (
                         <InputField
                             key={field.name}
