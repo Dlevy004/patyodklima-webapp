@@ -35,7 +35,7 @@ function EditUserDataModal({ onClose, onSave, userData }) {
         }
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
             if (validateForm()) {
             const submitData = new FormData();
