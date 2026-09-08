@@ -308,3 +308,101 @@ describe('authService.verifyToken', () => {
         });
     });
 });
+
+describe('authService.updateProfile', () => {
+    beforeEach(() => {
+        jest.clearAllMocks();
+        process.env.JWT_SECRET = 'test-secret';
+    });
+    const mockUser = {
+        id: 'user-1',
+        email: 'admin@patyodklima.hu',
+        full_name: 'Admin',
+        profile_pic_url: 'old-pic.jpg',
+        password_hash: 'old-hash',
+        role: 'admin',
+        must_change_password: true,
+    };
+
+    it('should reject if the user does not exist or has an unsupported role', async () => {
+
+        prisma.users.findUnique.mockResolvedValueOnce(null);
+        const result1 = await authService.updateProfile({ userId: 'missing-id' });
+        expect(result1.success).toBe(false);
+        expect(result1.error).toBe('USER_NOT_FOUND');
+
+        prisma.users.findUnique.mockResolvedValueOnce({ ...mockUser, role: 'guest' });
+        const result2 = await authService.updateProfile({ userId: 'user-1' });
+        expect(result2.success).toBe(false);
+        expect(result2.error).toBe('USER_NOT_FOUND');
+    });
+
+    it('should reject password changes with incorrect or identical passwords', async () => {
+        prisma.users.findUnique.mockResolvedValue(mockUser);
+
+        bcrypt.compare.mockResolvedValueOnce(false);
+        const result1 = await authService.updateProfile({
+            userId: 'user-1', currentPassword: 'wrong-password', newPassword: 'new-password'
+        });
+        expect(result1.success).toBe(false);
+        expect(result1.error).toBe('INVALID_CURRENT_PASSWORD');
+
+        bcrypt.compare.mockResolvedValueOnce(true);
+        const result2 = await authService.updateProfile({
+            userId: 'user-1', currentPassword: 'same-password', newPassword: 'same-password'
+        });
+        expect(result2.success).toBe(false);
+        expect(result2.error).toBe('SAME_PASSWORD');
+    });
+
+    it('should successfully update profile (name, picture) without changing the password', async () => {
+        prisma.users.findUnique.mockResolvedValue(mockUser);
+
+        const updatedUser = { ...mockUser, full_name: 'Új Név', profile_pic_url: 'new-pic.jpg' };
+        prisma.users.update.mockResolvedValue(updatedUser);
+        jwt.sign.mockReturnValue('new-token');
+        const result = await authService.updateProfile({
+            userId: 'user-1', fullName: 'Új Név', profilePicUrl: 'new-pic.jpg'
+        });
+
+        expect(prisma.users.update).toHaveBeenCalledWith({
+            where: { id: 'user-1' },
+            data: { full_name: 'Új Név', profile_pic_url: 'new-pic.jpg' },
+        });
+        expect(result.success).toBe(true);
+        expect(result.token).toBe('new-token');
+        expect(result.user.fullName).toBe('Új Név');
+        expect(result.user.profilePicUrl).toBe('new-pic.jpg');
+    });
+
+    it('should successfully update profile including the password', async () => {
+        prisma.users.findUnique.mockResolvedValue(mockUser);
+        bcrypt.compare.mockResolvedValue(true);
+        bcrypt.hash.mockResolvedValue('new-hashed-password');
+
+        const updatedUser = {
+            ...mockUser,
+            password_hash: 'new-hashed-password',
+            must_change_password: false
+        };
+        prisma.users.update.mockResolvedValue(updatedUser);
+        jwt.sign.mockReturnValue('new-token');
+        const result = await authService.updateProfile({
+            userId: 'user-1',
+            fullName: 'Új Név',
+            currentPassword: 'old-password',
+            newPassword: 'new-password'
+        });
+
+        expect(prisma.users.update).toHaveBeenCalledWith({
+            where: { id: 'user-1' },
+            data: {
+                full_name: 'Új Név',
+                password_hash: 'new-hashed-password',
+                must_change_password: false
+            },
+        });
+        expect(result.success).toBe(true);
+        expect(result.user.mustChangePassword).toBe(false);
+    });
+});
