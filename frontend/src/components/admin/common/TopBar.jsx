@@ -8,11 +8,13 @@ import ProfilPic from '@/assets/images/profile-placeholder.avif'
 import HamburgerMenu from '../../common/HamburgerMenu'
 import ProfilePanel from '../profile/ProfilePanel';
 import { usePWAInstall } from '../../../hooks/usePWAInstall';
+import { useAuth } from '../../../context/AuthContext';
 
 
 function TopBar({ title, onMenuClick, isMobileMenuOpen }) {
     const [isProfileOpen, setIsProfileOpen] = useState(false);
     const profileRef = useRef(null);
+    const { user } = useAuth();
 
     const { isInstallable, installPWA } = usePWAInstall();
 
@@ -42,7 +44,7 @@ function TopBar({ title, onMenuClick, isMobileMenuOpen }) {
                         aria-haspopup="menu"
                         onClick={() => setIsProfileOpen((prev) => !prev)}
                     >
-                        <img src={ProfilPic} alt='Profilkép' className='profile-pic'/>
+                        <img src={user?.profilePicUrl || ProfilPic} alt='Profilkép' className='profile-pic'/>
                     </button>
 
                     {
