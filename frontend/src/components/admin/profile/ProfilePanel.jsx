@@ -33,11 +33,11 @@ function ProfilePanel({ onClose, isInstallable, installPWA }) {
             <div className="profile-panel-wrapper" role="menu" aria-label="Felhasználói menü">
                 <div className="profile-panel-inner">
                     <img
-                        src={user?.profile_pic_url || placeholderImg}
+                        src={user?.profilePicUrl || placeholderImg}
                         alt="Felhasználó profilképe"
                         className="profile-panel-img"
                     />
-                    <h3 style={{ color: 'var(--grey-text)', marginTop: '15px' }} className="profile-panel-name">{user?.full_name || 'Adminisztrátor'}</h3>
+                    <h3 style={{ color: 'var(--grey-text)', marginTop: '15px' }} className="profile-panel-name">{user?.fullName || 'Adminisztrátor'}</h3>
                     <p style={{ color: 'var(--grey-text)', margin: '15px' }}>{user?.role}</p>
 
                     <button

@@ -25,7 +25,7 @@ function EditUserDataModal({ onClose, onSave, userData }) {
     } = useUserForm(userData);
 
     const [selectedFile, setSelectedFile] = useState(null);
-    const [previewUrl, setPreviewUrl] = useState(userData?.profile_pic_url || placeholderImg);
+    const [previewUrl, setPreviewUrl] = useState(userData?.profilePicUrl || placeholderImg);
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
