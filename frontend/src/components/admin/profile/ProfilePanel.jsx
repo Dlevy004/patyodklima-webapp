@@ -7,8 +7,6 @@ import EditUserDataModal from '../profile/EditUserDataModal'
 import useModal from '../../../hooks/useModal'
 import useSaveData from '../../../hooks/useSaveData'
 
-const API_URL = `${import.meta.env.VITE_API_URL}/api/auth/profile`;
-
 
 function ProfilePanel({ onClose, isInstallable, installPWA }) {
     const { logout, user } = useAuth();
@@ -22,7 +20,7 @@ function ProfilePanel({ onClose, isInstallable, installPWA }) {
     const { saveData } = useSaveData();
 
     const handleSaveUser = async (formData) => {
-        const success = await saveData(API_URL, 'PUT', formData);
+        const success = await saveData(`${import.meta.env.VITE_API_URL}/api/auth/profile`, 'PUT', formData);
 
         if (success) {
             editModal.close();
