@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 import PropTypes from 'prop-types';
 import { SquarePen } from 'lucide-react';
+import toast from "react-hot-toast";
 
 import './EditUserDataModal.css';
 
@@ -51,6 +52,9 @@ function EditUserDataModal({ onClose, onSave, userData }) {
             }
 
             onSave(submitData);
+            toast.success('Sikeresen frissítve!');
+        } else {
+            toast.error('Hiba az adatok mentése közben.');
         }
     };
 
