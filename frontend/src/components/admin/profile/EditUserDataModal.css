@@ -91,7 +91,13 @@
 }
 
 .avatar-input {
-    display: none;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    border: 0;
 }
 
 .avatar-overlay {
