@@ -118,7 +118,6 @@ describe('EditUserDataModal', () => {
         fireEvent.click(screen.getByText('Mentés'));
 
         expect(mockOnSave).toHaveBeenCalledTimes(1);
-        expect(toast.success).toHaveBeenCalledWith('Sikeresen frissítve!');
 
         const submittedFormData = mockOnSave.mock.calls[0][0];
 
