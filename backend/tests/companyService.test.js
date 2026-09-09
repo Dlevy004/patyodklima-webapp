@@ -4,8 +4,7 @@ const prisma = require('../database/prisma');
 jest.mock('../database/prisma', () => ({
     company: {
         findFirst: jest.fn(),
-        update: jest.fn(),
-        create: jest.fn(),
+        upsert: jest.fn(),
     },
 }));
 
@@ -16,7 +15,7 @@ describe('companyService', () => {
     });
 
     const mockDbCompany = {
-        id: 'company-123',
+        id: 'default-company-id',
         name: 'Pátyod Klíma',
         headquarters: 'Csenger',
         registration_number: '123',
@@ -27,7 +26,7 @@ describe('companyService', () => {
     };
 
     const expectedFrontendCompany = {
-        id: 'company-123',
+        id: 'default-company-id',
         name: 'Pátyod Klíma',
         headquarters: 'Csenger',
         registrationNumber: '123',
@@ -68,16 +67,25 @@ describe('companyService', () => {
             email: 'info@patyod.hu'
         };
 
-        it('should update the existing company if one is found', async () => {
-            prisma.company.findFirst.mockResolvedValue(mockDbCompany);
-            prisma.company.update.mockResolvedValue(mockDbCompany);
+        it('should upsert the company data and return the updated company', async () => {
+            prisma.company.upsert.mockResolvedValue(mockDbCompany);
 
             const result = await companyService.updateCompany(updateData);
 
-            expect(prisma.company.findFirst).toHaveBeenCalledTimes(1);
-            expect(prisma.company.update).toHaveBeenCalledWith({
-                where: { id: 'company-123' },
-                data: {
+            expect(prisma.company.upsert).toHaveBeenCalledTimes(1);
+            expect(prisma.company.upsert).toHaveBeenCalledWith({
+                where: { id: 'default-company-id' },
+                update: {
+                    name: 'Pátyod Klíma',
+                    headquarters: 'Csenger',
+                    registration_number: '123',
+                    tax_number: '456',
+                    f_gas_number: '789',
+                    phone_number: '+3630',
+                    email: 'info@patyod.hu'
+                },
+                create: {
+                    id: 'default-company-id',
                     name: 'Pátyod Klíma',
                     headquarters: 'Csenger',
                     registration_number: '123',
@@ -87,30 +95,8 @@ describe('companyService', () => {
                     email: 'info@patyod.hu'
                 }
             });
-            expect(prisma.company.create).not.toHaveBeenCalled();
-            expect(result).toEqual(expectedFrontendCompany);
-        });
 
-        it('should create a new company if none exists in the database', async () => {
-            prisma.company.findFirst.mockResolvedValue(null);
-            prisma.company.create.mockResolvedValue(mockDbCompany);
-
-            const result = await companyService.updateCompany(updateData);
-
-            expect(prisma.company.findFirst).toHaveBeenCalledTimes(1);
-            expect(prisma.company.create).toHaveBeenCalledWith({
-                data: {
-                    name: 'Pátyod Klíma',
-                    headquarters: 'Csenger',
-                    registration_number: '123',
-                    tax_number: '456',
-                    f_gas_number: '789',
-                    phone_number: '+3630',
-                    email: 'info@patyod.hu'
-                }
-            });
-            expect(prisma.company.update).not.toHaveBeenCalled();
-            expect(result).toEqual(expectedFrontendCompany);
+            expect(result).toEqual(mockDbCompany);
         });
     });
 });
