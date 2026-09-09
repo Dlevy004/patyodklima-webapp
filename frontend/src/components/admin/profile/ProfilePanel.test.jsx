@@ -188,4 +188,107 @@ describe('ProfilePanel', () => {
 
         expect(mockLogout).toHaveBeenCalledTimes(1);
     });
+
+    it('should fetch company data and open company modal on successful fetch', async () => {
+        window.fetch = vi.fn().mockResolvedValue({
+            ok: true,
+            json: async () => ({ company: { name: 'Pátyod Klíma' } })
+        });
+
+        render(<ProfilePanel />);
+
+        const companyBtn = screen.getByText('Cégadatok');
+        fireEvent.click(companyBtn);
+
+        expect(window.fetch).toHaveBeenCalledWith(
+            'http://localhost:3000/api/company',
+            expect.objectContaining({ method: 'GET' })
+        );
+
+        await waitFor(() => {
+            expect(mockOpenModal).toHaveBeenCalledWith({ name: 'Pátyod Klíma' });
+        });
+    });
+
+    it('should show error toast if fetching company data returns a non-ok response', async () => {
+        window.fetch = vi.fn().mockResolvedValue({
+            ok: false
+        });
+
+        render(<ProfilePanel />);
+
+        const companyBtn = screen.getByText('Cégadatok');
+        fireEvent.click(companyBtn);
+
+        await waitFor(() => {
+            expect(toast.error).toHaveBeenCalledWith('Nem sikerült betölteni a cégadatokat.');
+            expect(mockOpenModal).not.toHaveBeenCalled();
+        });
+    });
+
+    it('should catch error, log it, and show error toast if fetch throws an exception', async () => {
+        const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+        window.fetch = vi.fn().mockRejectedValue(new Error('Network error'));
+
+        render(<ProfilePanel />);
+
+        const companyBtn = screen.getByText('Cégadatok');
+        fireEvent.click(companyBtn);
+
+        await waitFor(() => {
+            expect(consoleSpy).toHaveBeenCalled();
+            expect(toast.error).toHaveBeenCalledWith('Hiba történt a szerverrel való kommunikáció során.');
+            expect(mockOpenModal).not.toHaveBeenCalled();
+        });
+
+        consoleSpy.mockRestore();
+    });
+
+    it('should call API and close company modal on successful company save', async () => {
+        useModal.mockReturnValue({
+            isOpen: true,
+            open: mockOpenModal,
+            close: mockCloseModal,
+            selectedItem: mockUser,
+        });
+
+        mockSaveData.mockResolvedValue(true);
+
+        render(<ProfilePanel />);
+
+        const saveBtn = screen.getByText('Mock Cég Mentés');
+        fireEvent.click(saveBtn);
+
+        expect(mockSaveData).toHaveBeenCalledWith(
+            'http://localhost:3000/api/company',
+            'PUT',
+            { name: 'Új Cég' }
+        );
+
+        await waitFor(() => {
+            expect(mockCloseModal).toHaveBeenCalledTimes(1);
+        });
+    });
+
+    it('should NOT close company modal if saving company data fails', async () => {
+        useModal.mockReturnValue({
+            isOpen: true,
+            open: mockOpenModal,
+            close: mockCloseModal,
+            selectedItem: mockUser,
+        });
+
+        mockSaveData.mockResolvedValue(false);
+
+        render(<ProfilePanel />);
+
+        const saveBtn = screen.getByText('Mock Cég Mentés');
+        fireEvent.click(saveBtn);
+
+        await waitFor(() => {
+            expect(mockSaveData).toHaveBeenCalledTimes(1);
+        });
+
+        expect(mockCloseModal).not.toHaveBeenCalled();
+    });
 });
