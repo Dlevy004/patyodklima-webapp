@@ -23,8 +23,9 @@ const updateCompanyData = async (req, res) => {
             taxNumber, fGasNumber, phoneNumber, email
         } = req.body ?? {};
 
-        if (!name || !email) {
-            return res.status(400).json({ message: 'A név és az email cím megadása kötelező!' });
+        if (!name || !headquarters || !registrationNumber ||
+            !taxNumber || !fGasNumber || !phoneNumber || !email) {
+            return res.status(400).json({ message: 'Minden mező kitöltése kötelező!' });
         }
 
         const updatedCompany = await companyService.updateCompany({
