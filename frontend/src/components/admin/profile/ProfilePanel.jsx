@@ -25,11 +25,29 @@ function ProfilePanel({ onClose, isInstallable, installPWA }) {
     };
 
     const handleSaveUser = async (formData) => {
-        const success = await saveData(`${import.meta.env.VITE_API_URL}/api/auth/profile`, 'PUT', formData);
+        try {
+            const headers = getAuthHeaders();
+            delete headers['Content-Type'];
 
-        if (success) {
-            userModal.close();
-            window.location.reload();
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/profile`, {
+                method: 'PUT',
+                headers: headers,
+                body: formData
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+
+                localStorage.setItem('token', data.token);
+
+                userModal.close();
+                window.location.reload();
+            } else {
+                toast.error('Hiba az adatok mentése során.');
+            }
+        } catch (error) {
+            console.error(error);
+            toast.error('Szerverhiba történt.');
         }
     };
 
