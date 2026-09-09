@@ -1,3 +1,5 @@
+import toast from 'react-hot-toast';
+
 let globalDeferredPrompt = null;
 
 window.addEventListener('beforeinstallprompt', (e) => {
@@ -14,7 +16,10 @@ export function usePWAInstall() {
         const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
 
         if (isStandalone) {
-            alert("Az alkalmazás már telepítve van, és jelenleg is abból használod!");
+            toast(
+                "Az alkalmazás már telepítve van, és jelenleg is abból használod!",
+                { duration: 3000 }
+            );
             return;
         }
 
@@ -31,10 +36,11 @@ export function usePWAInstall() {
                 console.error("Hiba a telepítés során:", error);
             }
         } else {
-            alert(
-                "Úgy tűnik, az alkalmazás már telepítve van, vagy a böngésződ nem támogatja az automatikus telepítést.\n\n" +
-                "Asztali gépen: Keresd a 'Telepítés' ikont a böngésző címsorának jobb szélén!\n\n" +
-                "Telefonon: Nyisd meg a böngésző beállítások menüjét, és válaszd a 'Hozzáadás a kezdőképernyőhöz' opciót!"
+            toast(
+                "✅ Úgy tűnik, az alkalmazás már telepítve van, vagy a böngésződ nem támogatja az automatikus telepítést.\n\n" +
+                "💻 Asztali gépen: Keresd a 'Telepítés' ikont a böngésző címsorának jobb szélén!\n\n" +
+                "📱 Telefonon: Nyisd meg a böngésző beállítások menüjét, és válaszd a 'Hozzáadás a kezdőképernyőhöz' opciót!",
+                { duration: 8000 }
             );
         }
     };
