@@ -118,7 +118,15 @@ function ProfilePanel({ onClose, isInstallable, installPWA }) {
                 <EditUserDataModal
                     onClose={userModal.close}
                     onSave={handleSaveUser}
-                    userData={editModal.selectedItem}
+                    userData={userModal.selectedItem}
+                />
+            </ModalBackdrop>
+
+            <ModalBackdrop isOpen={companyModal.isOpen} onClose={companyModal.close}>
+                <EditCompanyDataModal
+                    onClose={companyModal.close}
+                    onSave={handleSaveCompany}
+                    companyData={companyModal.selectedItem}
                 />
             </ModalBackdrop>
         </>
