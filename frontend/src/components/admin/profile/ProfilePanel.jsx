@@ -24,9 +24,6 @@ function ProfilePanel({ onClose, isInstallable, installPWA }) {
         if (onClose) onClose();
     };
 
-    const editModal = useModal();
-    const { saveData } = useSaveData();
-
     const handleSaveUser = async (formData) => {
         const success = await saveData(`${import.meta.env.VITE_API_URL}/api/auth/profile`, 'PUT', formData);
 
@@ -82,6 +79,15 @@ function ProfilePanel({ onClose, isInstallable, installPWA }) {
                         role="menuitem"
                     >
                         Adatok módosítása
+                    </button>
+
+                    <button
+                        type="button"
+                        className="profile-panel-companydata-btn"
+                        onClick={handleOpenCompanyModal}
+                        role="menuitem"
+                    >
+                        Cégadatok
                     </button>
 
                     {isInstallable && (
