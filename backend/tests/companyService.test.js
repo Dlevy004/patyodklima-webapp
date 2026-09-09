@@ -74,7 +74,7 @@ describe('companyService', () => {
 
             expect(prisma.company.upsert).toHaveBeenCalledTimes(1);
             expect(prisma.company.upsert).toHaveBeenCalledWith({
-                where: { id: 'default-company-id' },
+                where: { id: '00000000-0000-0000-0000-000000000001' },
                 update: {
                     name: 'Pátyod Klíma',
                     headquarters: 'Csenger',
@@ -85,7 +85,7 @@ describe('companyService', () => {
                     email: 'info@patyod.hu'
                 },
                 create: {
-                    id: 'default-company-id',
+                    id: '00000000-0000-0000-0000-000000000001',
                     name: 'Pátyod Klíma',
                     headquarters: 'Csenger',
                     registration_number: '123',
