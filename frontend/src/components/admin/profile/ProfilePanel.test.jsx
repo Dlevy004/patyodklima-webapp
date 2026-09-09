@@ -1,6 +1,8 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
+import toast from 'react-hot-toast';
+
 import ProfilePanel from './ProfilePanel';
 import { useAuth } from '../../../context/AuthContext';
 import useModal from '../../../hooks/useModal';
@@ -9,6 +11,7 @@ import useSaveData from '../../../hooks/useSaveData';
 vi.mock('../../../context/AuthContext');
 vi.mock('../../../hooks/useModal');
 vi.mock('../../../hooks/useSaveData');
+vi.mock('react-hot-toast');
 
 vi.mock('../common/ModalBackdrop', () => ({
     default: ({ children, isOpen }) => (isOpen ? <div data-testid="mock-backdrop">{children}</div> : null),
@@ -19,6 +22,15 @@ vi.mock('../profile/EditUserDataModal', () => ({
         <div data-testid="mock-edit-modal">
             <button onClick={() => onSave({ fullName: 'Új Név' })}>Mock Mentés</button>
             <button onClick={onClose}>Mock Mégse</button>
+        </div>
+    ),
+}));
+
+vi.mock('../profile/EditCompanyDataModal', () => ({
+    default: ({ onSave, onClose }) => (
+        <div data-testid="mock-company-modal">
+            <button onClick={() => onSave({ name: 'Új Cég' })}>Mock Cég Mentés</button>
+            <button onClick={onClose}>Mock Cég Mégse</button>
         </div>
     ),
 }));
