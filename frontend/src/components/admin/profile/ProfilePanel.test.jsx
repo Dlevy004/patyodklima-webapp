@@ -174,7 +174,9 @@ describe('ProfilePanel', () => {
             selectedItem: mockUser,
         });
 
-        mockSaveData.mockResolvedValue(false);
+        window.fetch = vi.fn().mockResolvedValue({
+            ok: false
+        });
 
         render(<ProfilePanel />);
 
@@ -182,7 +184,8 @@ describe('ProfilePanel', () => {
         fireEvent.click(saveBtn);
 
         await waitFor(() => {
-            expect(mockSaveData).toHaveBeenCalledTimes(1);
+            expect(window.fetch).toHaveBeenCalledTimes(1);
+            expect(toast.error).toHaveBeenCalledWith('Hiba az adatok mentése során.');
         });
 
         expect(mockCloseModal).not.toHaveBeenCalled();
