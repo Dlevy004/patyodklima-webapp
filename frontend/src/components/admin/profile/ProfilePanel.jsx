@@ -1,9 +1,13 @@
 import './ProfilePanel.css';
 
+import { toast } from 'react-hot-toast';
+
 import { useAuth } from '../../../context/AuthContext';
+import { getAuthHeaders } from '../../../utils/api';
 import placeholderImg from '../../../assets/images/profile-placeholder.avif';
 import ModalBackdrop from '../common/ModalBackdrop'
 import EditUserDataModal from '../profile/EditUserDataModal'
+import EditCompanyDataModal from '../profile/EditCompanyDataModal'
 import useModal from '../../../hooks/useModal'
 import useSaveData from '../../../hooks/useSaveData'
 
@@ -29,6 +33,33 @@ function ProfilePanel({ onClose, isInstallable, installPWA }) {
         if (success) {
             userModal.close();
             window.location.reload();
+        }
+    };
+
+    const handleOpenCompanyModal = async () => {
+        try {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/company`, {
+                method: 'GET',
+                headers: getAuthHeaders({ 'Content-Type': 'application/json' })
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                companyModal.open(data.company);
+            } else {
+                toast.error('Nem sikerült betölteni a cégadatokat.');
+            }
+        } catch (error) {
+            console.error(error);
+            toast.error('Hiba történt a szerverrel való kommunikáció során.');
+        }
+    };
+
+    const handleSaveCompany = async (formData) => {
+        const success = await saveData(`${import.meta.env.VITE_API_URL}/api/company`, 'PUT', formData);
+
+        if (success) {
+            companyModal.close();
         }
     };
 
