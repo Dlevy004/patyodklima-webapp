@@ -77,8 +77,6 @@ My primary goal with this was to reinforce my fundamental knowledge of web devel
     - **React-Select** for custom dropdowns
 
 ## 🚧 Planned Features
-
-### Main Features
 - 👤 Client management ✅
 - 🧰 Job/installation tracking ✅
 - 🖼️ Reference image management ✅
