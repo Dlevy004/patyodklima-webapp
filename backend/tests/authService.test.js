@@ -405,4 +405,38 @@ describe('authService.updateProfile', () => {
         expect(result.success).toBe(true);
         expect(result.user.mustChangePassword).toBe(false);
     });
+
+    it('should return INCOMPLETE_PASSWORD_DATA if only currentPassword is provided', async () => {
+        prisma.users.findUnique.mockResolvedValueOnce({ id: 'user-1', role: 'admin' });
+
+        const result = await authService.updateProfile({
+            userId: 'user-1',
+            currentPassword: 'oldPassword123',
+        });
+
+        expect(result).toEqual({ success: false, error: 'INCOMPLETE_PASSWORD_DATA' });
+    });
+
+    it('should return INCOMPLETE_PASSWORD_DATA if only newPassword is provided', async () => {
+        prisma.users.findUnique.mockResolvedValueOnce({ id: 'user-1', role: 'admin' });
+
+        const result = await authService.updateProfile({
+            userId: 'user-1',
+            newPassword: 'newPassword123',
+        });
+
+        expect(result).toEqual({ success: false, error: 'INCOMPLETE_PASSWORD_DATA' });
+    });
+
+    it('should return PASSWORD_TOO_SHORT if newPassword is less than 8 characters', async () => {
+        prisma.users.findUnique.mockResolvedValueOnce({ id: 'user-1', role: 'admin' });
+
+        const result = await authService.updateProfile({
+            userId: 'user-1',
+            currentPassword: 'oldPassword123',
+            newPassword: 'short',
+        });
+
+        expect(result).toEqual({ success: false, error: 'PASSWORD_TOO_SHORT' });
+    });
 });
