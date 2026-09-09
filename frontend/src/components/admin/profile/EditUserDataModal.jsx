@@ -38,9 +38,6 @@ function EditUserDataModal({ onClose, onSave, userData }) {
     const handleFileChange = (e) => {
         const file = e.target.files[0];
         if (file) {
-            if (previewUrl && previewUrl.startsWith('blob:')) {
-                URL.revokeObjectURL(previewUrl);
-            }
             setSelectedFile(file);
             setPreviewUrl(URL.createObjectURL(file));
         }
