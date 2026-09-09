@@ -21,32 +21,32 @@ const getCompany = async () => {
 };
 
 const updateCompany = async (data) => {
-    const existingCompany = await prisma.company.findFirst();
+    const companyId = 'default-company-id';
 
-    const dbData = {
-        name: data.name,
-        headquarters: data.headquarters,
-        registration_number: data.registrationNumber,
-        tax_number: data.taxNumber,
-        f_gas_number: data.fGasNumber,
-        phone_number: data.phoneNumber,
-        email: data.email,
-    };
+    const updatedCompany = await prisma.company.upsert({
+        where: { id: companyId },
+        update: {
+            name: data.name,
+            headquarters: data.headquarters,
+            registration_number: data.registrationNumber,
+            tax_number: data.taxNumber,
+            f_gas_number: data.fGasNumber,
+            phone_number: data.phoneNumber,
+            email: data.email
+        },
+        create: {
+            id: companyId,
+            name: data.name,
+            headquarters: data.headquarters,
+            registration_number: data.registrationNumber,
+            tax_number: data.taxNumber,
+            f_gas_number: data.fGasNumber,
+            phone_number: data.phoneNumber,
+            email: data.email
+        }
+    });
 
-    let updatedCompany;
-
-    if (existingCompany) {
-        updatedCompany = await prisma.company.update({
-            where: { id: existingCompany.id },
-            data: dbData,
-        });
-    } else {
-        updatedCompany = await prisma.company.create({
-            data: dbData,
-        });
-    }
-
-    return sanitizeCompany(updatedCompany);
+    return updatedCompany;
 };
 
 module.exports = {
