@@ -53,10 +53,12 @@
 
 .company-wrapper-left {
     display: flex;
-    justify-content: flex-start;
+    flex-direction: column;
+    justify-content: stretch;
     align-items: flex-start;
-    max-width: 150px;
-    margin-right: 2rem;
+    flex: 1;
+    gap: 1rem;
+    width: 100%;
 }
 
 .company-wrapper-right {
@@ -151,17 +153,9 @@
     color: var(--text-color2);
 }
 
-@media screen and (max-width: 850px) {
+@media screen and (max-width: 900px) {
     .company-datas-wrapper {
         flex-direction: column;
         align-items: center;
-    }
-
-    .company-wrapper-left {
-        margin-right: 0;
-    }
-
-    .company-wrapper-right {
-        width: 100%;
     }
 }
