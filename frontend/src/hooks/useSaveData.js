@@ -14,12 +14,14 @@ function useSaveData() {
         setError(null);
 
         try {
+            const isFormData = payload instanceof FormData;
+
             const response = await fetch(url, {
                 method: method,
-                headers: getAuthHeaders({
-                    'Content-Type': 'application/json',
-                }),
-                body: JSON.stringify(payload)
+                headers: getAuthHeaders(
+                    isFormData ? {} : { 'Content-Type': 'application/json' }
+                ),
+                body: isFormData ? payload : JSON.stringify(payload)
             });
 
             if (!response.ok) {

@@ -133,20 +133,6 @@ CREATE TABLE "ai_visual_designs" (
   "created_at" timestamp DEFAULT (now())
 );
 
-CREATE TABLE "bug_reports" (
-  "id" uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-  "reporter_name" varchar,
-  "reporter_email" varchar,
-  "phone_number" varchar,
-  "zip_code" varchar,
-  "city" varchar,
-  "street_address" varchar,
-  "description" text NOT NULL,
-  "image_url" varchar,
-  "is_handled" boolean DEFAULT false,
-  "created_at" timestamp DEFAULT (now())
-);
-
 ALTER TABLE "jobs" ADD FOREIGN KEY ("client_id") REFERENCES "clients" ("id") DEFERRABLE INITIALLY IMMEDIATE;
 
 ALTER TABLE "ac_units" ADD FOREIGN KEY ("job_id") REFERENCES "jobs" ("id") DEFERRABLE INITIALLY IMMEDIATE;

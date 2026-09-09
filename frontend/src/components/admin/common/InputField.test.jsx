@@ -230,4 +230,30 @@ describe('InputField', () => {
 
         expect(mockOnChange).toHaveBeenCalledWith({ target: { value: '' } });
     });
+
+    it('should fallback to an empty string when value is null or undefined to prevent uncontrolled input warnings', () => {
+        const mockOnChange = vi.fn();
+
+        const { rerender } = render(
+            <InputField label="Test Field" type="text" value={null} onChange={mockOnChange} />
+        );
+        let fieldElement = screen.getByLabelText('Test Field');
+        expect(fieldElement.value).toBe('');
+
+        rerender(
+            <InputField label="Test Field" type="text" value={undefined} onChange={mockOnChange} />
+        );
+        expect(fieldElement.value).toBe('');
+
+        rerender(
+            <InputField label="Test Field" type="textarea" value={null} onChange={mockOnChange} />
+        );
+        fieldElement = screen.getByLabelText('Test Field');
+        expect(fieldElement.value).toBe('');
+
+        rerender(
+            <InputField label="Test Field" type="textarea" value={undefined} onChange={mockOnChange} />
+        );
+        expect(fieldElement.value).toBe('');
+    });
 });

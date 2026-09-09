@@ -49,10 +49,25 @@
 
 .profile-panel-name {
     font-size: 1.25rem;
-    color: #111827;
-    margin: 0 0 1.5rem 0;
+    color: var(--text-color1);
     font-weight: 700;
     font-family: inherit;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.profile-panel-role {
+    font-size: 1rem;
+    color: var(--grey-text);
+    text-align: center;
+    margin: 5px 0 15px 0;
+}
+
+.profile-panel-version {
+    font-size: 1rem;
+    color: var(--grey-text);
+    text-align: center;
+    margin: 15px 0 0 0;
 }
 
 .profile-panel-logout-btn {
@@ -68,15 +83,13 @@
     transition: background-color 0.2s ease, transform 0.1s ease;
 }
 
-.profile-panel-logout-btn:hover {
-    background-color: #e64040;
-}
-
 .profile-panel-logout-btn:active {
     transform: scale(0.98);
 }
 
-.profile-panel-install-btn {
+.profile-panel-install-btn,
+.profile-panel-userdata-btn,
+.profile-panel-companydata-btn {
     width: 100%;
     margin-bottom: 1rem;
     padding: 0.85rem 1rem;
@@ -89,7 +102,10 @@
     transition: background-color 0.2s ease, transform 0.1s ease;
 }
 
-.profile-panel-install-btn:hover {
+.profile-panel-install-btn:hover,
+.profile-panel-logout-btn:hover,
+.profile-panel-userdata-btn:hover,
+.profile-panel-companydata-btn:hover {
     transform: translateY(-3px);
 }
 

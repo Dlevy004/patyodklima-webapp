@@ -25,6 +25,7 @@ const sanitizeUser = (user) => ({
     id: user.id,
     email: user.email,
     fullName: user.full_name,
+    profilePicUrl: user.profile_pic_url,
     role: user.role,
     mustChangePassword: user.must_change_password,
 });
@@ -122,6 +123,52 @@ const changePassword = async ({ userId, currentPassword, newPassword }) => {
     };
 };
 
+const updateProfile = async ({ userId, fullName, profilePicUrl, currentPassword, newPassword }) => {
+    const user = await prisma.users.findUnique({ where: { id: userId } });
+
+    if (!user || !ALLOWED_ROLES.has(user.role)) {
+        return { success: false, error: 'USER_NOT_FOUND' };
+    }
+
+    const dataToUpdate = {};
+
+    if (fullName) dataToUpdate.full_name = fullName;
+    if (profilePicUrl) dataToUpdate.profile_pic_url = profilePicUrl;
+
+    if (currentPassword || newPassword) {
+        if (!currentPassword || !newPassword) {
+            return { success: false, error: 'INCOMPLETE_PASSWORD_DATA' };
+        }
+        if (newPassword.length < 8) {
+            return { success: false, error: 'PASSWORD_TOO_SHORT' };
+        }
+
+        const isCurrentPasswordValid = await comparePassword(currentPassword, user.password_hash);
+        if (!isCurrentPasswordValid) {
+            return { success: false, error: 'INVALID_CURRENT_PASSWORD' };
+        }
+        if (currentPassword === newPassword) {
+            return { success: false, error: 'SAME_PASSWORD' };
+        }
+
+        dataToUpdate.password_hash = await hashPassword(newPassword);
+        dataToUpdate.must_change_password = false;
+    }
+
+    const updatedUser = await prisma.users.update({
+        where: { id: userId },
+        data: dataToUpdate,
+    });
+
+    const token = signToken(updatedUser, false);
+
+    return {
+        success: true,
+        token,
+        user: sanitizeUser(updatedUser),
+    };
+};
+
 module.exports = {
     ALLOWED_ROLES,
     hashPassword,
@@ -132,4 +179,5 @@ module.exports = {
     getUserById,
     changePassword,
     sanitizeUser,
+    updateProfile
 };
