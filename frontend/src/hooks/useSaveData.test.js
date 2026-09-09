@@ -166,8 +166,7 @@ describe('useSaveData', () => {
         expect(fetchOptions.body).toBeInstanceOf(FormData);
         expect(fetchOptions.body).toBe(formDataPayload);
 
-        if (fetchOptions.headers) {
-            expect(fetchOptions.headers).not.toHaveProperty('Content-Type');
-        }
+        expect(fetchOptions.headers).toBeDefined();
+        expect(fetchOptions.headers).not.toHaveProperty('Content-Type');
     });
 });
