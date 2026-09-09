@@ -138,20 +138,29 @@ describe('ProfilePanel', () => {
             selectedItem: mockUser,
         });
 
-        mockSaveData.mockResolvedValue(true);
+        window.fetch = vi.fn().mockResolvedValue({
+            ok: true,
+            json: async () => ({ token: 'new-jwt-token' })
+        });
+
+        localStorage.clear();
 
         render(<ProfilePanel />);
 
         const saveBtn = screen.getByText('Mock Mentés');
         fireEvent.click(saveBtn);
 
-        expect(mockSaveData).toHaveBeenCalledWith(
-            'http://localhost:3000/api/auth/profile',
-            'PUT',
-            { fullName: 'Új Név' }
-        );
-
         await waitFor(() => {
+            expect(window.fetch).toHaveBeenCalledWith(
+                'http://localhost:3000/api/auth/profile',
+                expect.objectContaining({
+                    method: 'PUT',
+                    body: { fullName: 'Új Név' }
+                })
+            );
+
+            expect(localStorage.getItem('token')).toBe('new-jwt-token');
+
             expect(mockCloseModal).toHaveBeenCalledTimes(1);
             expect(window.location.reload).toHaveBeenCalledTimes(1);
         });
