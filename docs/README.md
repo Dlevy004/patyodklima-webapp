@@ -79,11 +79,11 @@ My primary goal with this was to reinforce my fundamental knowledge of web devel
 ## 🚧 Planned Features
 
 ### Main Features
-- 👤 Client management
-- 🧰 Job/installation tracking
-- 🖼️ Reference image management
-- 📢 Ad creation & publishing
-- 🤖 AI visual design tool
+- 👤 Client management ✅
+- 🧰 Job/installation tracking ✅
+- 🖼️ Reference image management ✅
+- 📢 Ad creation & publishing ⏳
+- 🤖 AI visual design tool ⏳
 
 ---
 
