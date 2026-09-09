@@ -41,6 +41,8 @@ function EditCompanyDataModal({ onClose, onSave, companyData }) {
             onSubmit={handleSubmit}
             noValidate
             aria-labelledby="modal-title"
+            role="dialog"
+            aria-modal="true"
         >
             <div className='title-bg'>
                 <h1 id="modal-title">Cég adatok módosítása</h1>
