@@ -21,7 +21,7 @@ const getCompany = async () => {
 };
 
 const updateCompany = async (data) => {
-    const companyId = 'default-company-id';
+    const companyId = '00000000-0000-0000-0000-000000000001';
 
     const updatedCompany = await prisma.company.upsert({
         where: { id: companyId },
