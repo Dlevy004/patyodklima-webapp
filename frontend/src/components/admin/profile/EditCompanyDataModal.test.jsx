@@ -95,4 +95,26 @@ describe('EditCompanyDataModal', () => {
         expect(mockOnSave).not.toHaveBeenCalled();
         expect(toast.error).toHaveBeenCalledWith('Kérjük, javítsa a hibákat a mentéshez!');
     });
+
+    it('should call handleInputChange when an input value changes', () => {
+        render(<EditCompanyDataModal onClose={mockOnClose} onSave={mockOnSave} companyData={{}} />);
+
+        const nameInput = screen.getByLabelText('Cég neve');
+        fireEvent.change(nameInput, { target: { value: 'Új Cég Név' } });
+
+        expect(defaultFormState.handleInputChange).toHaveBeenCalledWith(
+            'name',
+            expect.anything()
+        );
+
+        const emailInput = screen.getByLabelText('Email cím');
+        fireEvent.change(emailInput, { target: { value: 'info@ujceg.hu' } });
+
+        expect(defaultFormState.handleInputChange).toHaveBeenCalledWith(
+            'email',
+            expect.anything()
+        );
+
+        expect(defaultFormState.handleInputChange).toHaveBeenCalledTimes(2);
+    });
 });
