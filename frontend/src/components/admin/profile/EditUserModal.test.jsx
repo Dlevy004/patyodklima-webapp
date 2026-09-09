@@ -164,4 +164,23 @@ describe('EditUserDataModal', () => {
             expect.anything()
         );
     });
+
+    it('should revoke previous object URL when replacing an already selected file', () => {
+        render(<EditUserDataModal onClose={mockOnClose} onSave={mockOnSave} userData={{}} />);
+
+        const fileInput = document.getElementById('profile-image-upload');
+
+        const file1 = new File(['dummy1'], 'avatar1.png', { type: 'image/png' });
+        fireEvent.change(fileInput, { target: { files: [file1] } });
+
+        expect(window.URL.createObjectURL).toHaveBeenCalledTimes(1);
+
+        const file2 = new File(['dummy2'], 'avatar2.png', { type: 'image/png' });
+        fireEvent.change(fileInput, { target: { files: [file2] } });
+
+        expect(window.URL.revokeObjectURL).toHaveBeenCalledTimes(1);
+        expect(window.URL.revokeObjectURL).toHaveBeenCalledWith('blob:http://localhost/mocked-image-url');
+
+        expect(window.URL.createObjectURL).toHaveBeenCalledTimes(2);
+    });
 });
