@@ -76,7 +76,7 @@ function InputField({ label, type, value, onChange, placeholder, pattern, requir
             inputElement = (
                 <textarea
                     id={inputId}
-                    value={value}
+                    value={value ?? ''}
                     onChange={onChange}
                     placeholder={placeholder}
                     required={required}
@@ -110,7 +110,7 @@ function InputField({ label, type, value, onChange, placeholder, pattern, requir
                 <input
                     id={inputId}
                     type={type}
-                    value={value}
+                    value={value ?? ''}
                     onChange={onChange}
                     placeholder={placeholder}
                     pattern={pattern}
