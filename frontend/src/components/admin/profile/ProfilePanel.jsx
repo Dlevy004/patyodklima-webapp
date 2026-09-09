@@ -10,6 +10,10 @@ import useSaveData from '../../../hooks/useSaveData'
 
 function ProfilePanel({ onClose, isInstallable, installPWA }) {
     const { logout, user } = useAuth();
+    const { saveData } = useSaveData();
+
+    const userModal = useModal();
+    const companyModal = useModal();
 
     const handleLogout = () => {
         logout();
@@ -23,7 +27,7 @@ function ProfilePanel({ onClose, isInstallable, installPWA }) {
         const success = await saveData(`${import.meta.env.VITE_API_URL}/api/auth/profile`, 'PUT', formData);
 
         if (success) {
-            editModal.close();
+            userModal.close();
             window.location.reload();
         }
     };
@@ -43,7 +47,7 @@ function ProfilePanel({ onClose, isInstallable, installPWA }) {
                     <button
                         type="button"
                         className="profile-panel-userdata-btn"
-                        onClick={() => editModal.open(user)}
+                        onClick={() => userModal.open(user)}
                         role="menuitem"
                     >
                         Adatok módosítása
@@ -73,9 +77,9 @@ function ProfilePanel({ onClose, isInstallable, installPWA }) {
                 </div>
             </div>
 
-            <ModalBackdrop isOpen={editModal.isOpen} onClose={editModal.close}>
+            <ModalBackdrop isOpen={userModal.isOpen} onClose={userModal.close}>
                 <EditUserDataModal
-                    onClose={editModal.close}
+                    onClose={userModal.close}
                     onSave={handleSaveUser}
                     userData={editModal.selectedItem}
                 />
