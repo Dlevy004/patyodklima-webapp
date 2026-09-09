@@ -88,7 +88,8 @@
 }
 
 .profile-panel-install-btn,
-.profile-panel-userdata-btn {
+.profile-panel-userdata-btn,
+.profile-panel-companydata-btn {
     width: 100%;
     margin-bottom: 1rem;
     padding: 0.85rem 1rem;
@@ -103,7 +104,8 @@
 
 .profile-panel-install-btn:hover,
 .profile-panel-logout-btn:hover,
-.profile-panel-userdata-btn:hover {
+.profile-panel-userdata-btn:hover,
+.profile-panel-companydata-btn:hover {
     transform: translateY(-3px);
 }
 
