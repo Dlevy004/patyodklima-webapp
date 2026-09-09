@@ -37,6 +37,7 @@ describe('EditUserDataModal', () => {
         vi.clearAllMocks();
 
         window.URL.createObjectURL = vi.fn(() => 'blob:http://localhost/mocked-image-url');
+        window.URL.revokeObjectURL = vi.fn();
 
         useUserForm.mockReturnValue(defaultFormState);
     });
