@@ -303,4 +303,32 @@ describe('ProfilePanel', () => {
 
         expect(mockCloseModal).not.toHaveBeenCalled();
     });
+
+    it('should catch error, log it, and show error toast if user save fetch throws an exception', async () => {
+        useModal.mockReturnValue({
+            isOpen: true,
+            open: mockOpenModal,
+            close: mockCloseModal,
+            selectedItem: mockUser,
+        });
+
+        window.fetch = vi.fn().mockRejectedValue(new Error('Network error'));
+
+        const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+
+        render(<ProfilePanel />);
+
+        const saveBtn = screen.getByText('Mock Mentés');
+        fireEvent.click(saveBtn);
+
+        await waitFor(() => {
+            expect(consoleSpy).toHaveBeenCalled();
+            expect(toast.error).toHaveBeenCalledWith('Szerverhiba történt.');
+        });
+
+        expect(mockCloseModal).not.toHaveBeenCalled();
+        expect(window.location.reload).not.toHaveBeenCalled();
+
+        consoleSpy.mockRestore();
+    });
 });
