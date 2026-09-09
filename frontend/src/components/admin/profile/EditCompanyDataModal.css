@@ -1,6 +1,6 @@
 .company-data-modal {
     width: 95vw;
-    max-width: clamp(300px, 50vw, 550px);
+    max-width: clamp(300px, 50vw, 600px);
     max-height: 95vh;
     display: flex;
     flex-direction: column;
