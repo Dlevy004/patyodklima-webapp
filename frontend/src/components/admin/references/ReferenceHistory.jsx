@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 import toast from 'react-hot-toast'
 
 import './ReferenceHistory.css'
@@ -16,8 +18,14 @@ import { getAuthHeaders } from '@/utils/api';
 const API_URL = `${import.meta.env.VITE_API_URL}/api/references`
 
 
-function ReferenceHistory() {
+function ReferenceHistory({ refreshTrigger }) {
     const { data: references = [], isLoading, error, refetch } = useFetch(API_URL);
+
+    useEffect(() => {
+        if (refreshTrigger > 0) {
+            refetch();
+        }
+    }, [refreshTrigger, refetch]);
 
     const deleteModal = useModal();
     const editModal = useModal();
