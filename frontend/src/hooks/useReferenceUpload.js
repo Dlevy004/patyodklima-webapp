@@ -5,7 +5,7 @@ import toast from 'react-hot-toast';
 import { getAuthHeaders } from '../utils/api';
 
 
-export default function useReferenceUpload() {
+export default function useReferenceUpload(onSuccess) {
     const [file, setFile] = useState(null);
     const [previewUrl, setPreviewUrl] = useState(null);
     const [description, setDescription] = useState('');
@@ -80,6 +80,7 @@ export default function useReferenceUpload() {
             }
 
             toast.success('Referenciakép sikeresen feltöltve!');
+            if (onSuccess) onSuccess();
 
             setFile(null);
             setPreviewUrl(null);
