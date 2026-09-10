@@ -86,7 +86,7 @@ export default function useReferenceUpload() {
             setDescription('');
 
         } catch (error) {
-                toast.error('Error during upload: ', error.message);
+            toast.error('Error during upload: ', error.message);
         } finally {
             setIsUploading(false);
         }
