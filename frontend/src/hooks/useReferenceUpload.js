@@ -73,19 +73,25 @@ export default function useReferenceUpload(onSuccess) {
                     const jsonResponse = JSON.parse(textResponse);
                     if (jsonResponse.message) errorMessage = jsonResponse.message;
                 } catch (err) {
-                    console.error(err.errorMessage);
+                    console.error('Error parsing JSON response:', err);
                 }
 
                 throw new Error(errorMessage);
             }
 
             toast.success('Referenciakép sikeresen feltöltve!');
-            if (onSuccess) onSuccess();
 
             setFile(null);
             setPreviewUrl(null);
             setDescription('');
 
+            if (onSuccess) {
+                try {
+                    onSuccess();
+                } catch (cbError) {
+                    console.error('Callback error:', cbError);
+                }
+            }
         } catch (error) {
             toast.error(`Error during upload: ${error.message}`);
         } finally {
