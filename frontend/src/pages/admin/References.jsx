@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import './References.css'
 
 import ScrollUp from '@/components/common/ScrollUp'
@@ -11,6 +13,8 @@ import InputField from '@/components/admin/common/InputField';
 function References() {
     usePageTitle('Referenciák');
 
+    const [refreshTrigger, setRefreshTrigger] = useState(0);
+
     const {
         previewUrl,
         description,
@@ -19,7 +23,7 @@ function References() {
         handleFileSelect,
         handleDescriptionChange,
         handleSubmit
-    } = useReferenceUpload();
+    } = useReferenceUpload(() => setRefreshTrigger((prev) => prev + 1));
 
     return (
         <>
@@ -42,8 +46,8 @@ function References() {
                     </div>
                 </form>
 
-            <ReferenceHistory />
-        </div>
+                <ReferenceHistory key={refreshTrigger} />
+            </div>
 
             <ScrollUp />
         </>
