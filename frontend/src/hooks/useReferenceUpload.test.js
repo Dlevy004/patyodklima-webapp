@@ -148,4 +148,23 @@ describe('useReferenceUpload Hook', () => {
         expect(result.current.description).toBe('');
         expect(result.current.errors).toEqual({});
     });
+
+    it('should call onSuccess callback if provided and upload is successful', async () => {
+        const mockOnSuccess = vi.fn();
+
+        const { result } = renderHook(() => useReferenceUpload(mockOnSuccess));
+
+        window.fetch.mockResolvedValueOnce({ ok: true });
+
+        act(() => {
+            result.current.handleFileSelect(new File([''], 'test.png'));
+            result.current.handleDescriptionChange({ target: { value: 'Kiváló munka' } });
+        });
+
+        await act(async () => {
+            await result.current.handleSubmit({ preventDefault: vi.fn() });
+        });
+
+        expect(mockOnSuccess).toHaveBeenCalledTimes(1);
+    });
 });
