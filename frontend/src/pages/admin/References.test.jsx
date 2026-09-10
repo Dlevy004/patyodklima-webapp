@@ -1,5 +1,5 @@
-import { render, screen } from '@testing-library/react';
-import { vi, describe, it, expect } from 'vitest';
+import { render, screen, act } from '@testing-library/react';
+import { vi, describe, it, expect, beforeEach } from 'vitest';
 
 import useReferenceUpload from '@/hooks/useReferenceUpload';
 import References from './References';
@@ -7,6 +7,11 @@ import References from './References';
 vi.mock('@/hooks/useReferenceUpload');
 vi.mock('@/hooks/usePageTitle', () => ({ default: vi.fn() }));
 vi.mock('@/components/common/ScrollUp', () => ({ default: () => <div>ScrollUp</div> }));
+
+vi.mock('@/components/admin/references/ReferenceHistory', () => ({
+    default: () => <div>Mocked ReferenceHistory</div>
+}));
+
 
 describe('References Page', () => {
     it('should render form elements correctly', () => {
