@@ -19,28 +19,33 @@ My primary goal with this was to reinforce my fundamental knowledge of web devel
 ## 🛠️ Tech Stack
 
 ### Designing and Styling
+
 - **Figma** for for UI/UX designing and prototyping
 - **dbdiagram.io** for visualize DBML schemas
 - **Google Fonts** for typography
 - **Unsplash / Pexels** for stock photos
 
 ### Frontend
+
 - **React** (Vite)
 - Vanilla **CSS**
 
 ### Backend
+
 - **Node.js**
 - **Express**
 - **Prisma ORM**
 - **PostgreSQL** via **Supabase**
 
 ### Testing
+
 - **Vitest** and **React Testing Library** for frontend unit testing
 - **Jest** for backend unit testing
 - **Chrome DevTools** for responsive testing and debugging
 - **Postman** for API endpoint testing
 
 ### Tools
+
 - **VS Code** is my primary code editor
 - **Jira** for agile task management
 - **Claude / Gemini** for code optimization and learning
@@ -52,9 +57,11 @@ My primary goal with this was to reinforce my fundamental knowledge of web devel
 - **UptimeRobot** for monitoring the availability, performance, and status of the website
 
 ### Package manager & dependencies
+
 - **npm** package manager
 
     #### Backend dependencies:
+
     - **Supabase JS** for managing file storage
     - **Multer** for handling and processing incoming file uploads
     - **Sharp** for image processing, resizing, and WebP optimization
@@ -65,6 +72,7 @@ My primary goal with this was to reinforce my fundamental knowledge of web devel
     - **express-rate-limit** for prevents brute-force login attacks
 
     #### Frontend dependencies:
+
     - **React Hot Toast** library for user feedback notifications
     - **Framer Motion** for website animations
     - **Lucide React** for customizable SVG icons
@@ -77,6 +85,7 @@ My primary goal with this was to reinforce my fundamental knowledge of web devel
     - **React-Select** for custom dropdowns
 
 ## 🚧 Planned Features
+
 - 👤 Client management ✅
 - 🧰 Job/installation tracking ✅
 - 🖼️ Reference image management ✅
