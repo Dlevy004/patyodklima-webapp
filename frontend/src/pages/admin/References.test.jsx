@@ -1,5 +1,5 @@
-import { render, screen } from '@testing-library/react';
-import { vi, describe, it, expect } from 'vitest';
+import { render, screen, act } from '@testing-library/react';
+import { vi, describe, it, expect, beforeEach } from 'vitest';
 
 import useReferenceUpload from '@/hooks/useReferenceUpload';
 import References from './References';
@@ -8,7 +8,17 @@ vi.mock('@/hooks/useReferenceUpload');
 vi.mock('@/hooks/usePageTitle', () => ({ default: vi.fn() }));
 vi.mock('@/components/common/ScrollUp', () => ({ default: () => <div>ScrollUp</div> }));
 
+vi.mock('@/components/admin/references/ReferenceHistory', () => ({
+    default: () => <div>Mocked ReferenceHistory</div>
+}));
+
+
 describe('References Page', () => {
+
+    beforeEach(() => {
+        vi.clearAllMocks();
+    });
+
     it('should render form elements correctly', () => {
         vi.mocked(useReferenceUpload).mockReturnValue({
             previewUrl: null,
@@ -56,6 +66,30 @@ describe('References Page', () => {
         render(<References />);
         const button = screen.getByRole('button');
         expect(button).toBeDisabled();
+    });
 
+    it('should update refreshTrigger and re-render ReferenceHistory when onSuccess callback is called', () => {
+        vi.mocked(useReferenceUpload).mockReturnValue({
+            previewUrl: null,
+            description: '',
+            errors: {},
+            isUploading: false,
+            handleFileSelect: vi.fn(),
+            handleDescriptionChange: vi.fn(),
+            handleSubmit: vi.fn()
+        });
+
+        render(<References />);
+
+        const hookCalls = vi.mocked(useReferenceUpload).mock.calls;
+        const onSuccessCallback = hookCalls[0][0];
+
+        expect(typeof onSuccessCallback).toBe('function');
+
+        act(() => {
+            onSuccessCallback();
+        });
+
+        expect(useReferenceUpload).toHaveBeenCalledTimes(2);
     });
 });

@@ -85,7 +85,7 @@ describe('useReferenceUpload Hook', () => {
             await result.current.handleSubmit({ preventDefault: vi.fn() });
         });
 
-        expect(toast.error).toHaveBeenCalledWith('Error during upload: ', 'Custom backend error');
+        expect(toast.error).toHaveBeenCalledWith('Error during upload: Custom backend error');
     });
 
     it('should log JSON parse error when server returns invalid JSON', async () => {
@@ -115,12 +115,8 @@ describe('useReferenceUpload Hook', () => {
         });
 
         expect(consoleSpy).toHaveBeenCalled();
-        expect(consoleSpy).toHaveBeenCalledWith(undefined);
-
-        expect(toast.error).toHaveBeenCalledWith(
-            'Error during upload: ',
-            'Server error (Status: 500)'
-        );
+        expect(consoleSpy).toHaveBeenCalledWith('Error parsing JSON response:', expect.any(SyntaxError));
+        expect(toast.error).toHaveBeenCalledWith('Error during upload: Server error (Status: 500)');
 
         consoleSpy.mockRestore();
     });
@@ -147,5 +143,51 @@ describe('useReferenceUpload Hook', () => {
         expect(result.current.previewUrl).toBeNull();
         expect(result.current.description).toBe('');
         expect(result.current.errors).toEqual({});
+    });
+
+    it('should call onSuccess callback if provided and upload is successful', async () => {
+        const mockOnSuccess = vi.fn();
+
+        const { result } = renderHook(() => useReferenceUpload(mockOnSuccess));
+
+        window.fetch.mockResolvedValueOnce({ ok: true });
+
+        act(() => {
+            result.current.handleFileSelect(new File([''], 'test.png'));
+            result.current.handleDescriptionChange({ target: { value: 'Kiváló munka' } });
+        });
+
+        await act(async () => {
+            await result.current.handleSubmit({ preventDefault: vi.fn() });
+        });
+
+        expect(mockOnSuccess).toHaveBeenCalledTimes(1);
+    });
+
+    it('should catch and log error if onSuccess callback throws an exception', async () => {
+        const mockError = new Error('Hibás callback logika');
+        const mockOnSuccess = vi.fn().mockImplementation(() => {
+            throw mockError;
+        });
+
+        const { result } = renderHook(() => useReferenceUpload(mockOnSuccess));
+
+        window.fetch.mockResolvedValueOnce({ ok: true });
+
+        const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+
+        act(() => {
+            result.current.handleFileSelect(new File([''], 'test.png'));
+            result.current.handleDescriptionChange({ target: { value: 'Kiváló munka' } });
+        });
+
+        await act(async () => {
+            await result.current.handleSubmit({ preventDefault: vi.fn() });
+        });
+
+        expect(mockOnSuccess).toHaveBeenCalledTimes(1);
+        expect(consoleSpy).toHaveBeenCalledWith('Callback error:', mockError);
+
+        consoleSpy.mockRestore();
     });
 });

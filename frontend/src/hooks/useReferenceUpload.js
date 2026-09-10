@@ -5,7 +5,7 @@ import toast from 'react-hot-toast';
 import { getAuthHeaders } from '../utils/api';
 
 
-export default function useReferenceUpload() {
+export default function useReferenceUpload(onSuccess) {
     const [file, setFile] = useState(null);
     const [previewUrl, setPreviewUrl] = useState(null);
     const [description, setDescription] = useState('');
@@ -56,9 +56,12 @@ export default function useReferenceUpload() {
         formData.append('is_visible', 'true');
 
         try {
+            const headers = getAuthHeaders();
+            delete headers['Content-Type'];
+
             const response = await fetch(`${import.meta.env.VITE_API_URL}/api/references`, {
                 method: 'POST',
-                headers: getAuthHeaders(),
+                headers: headers,
                 body: formData,
             });
 
@@ -70,7 +73,7 @@ export default function useReferenceUpload() {
                     const jsonResponse = JSON.parse(textResponse);
                     if (jsonResponse.message) errorMessage = jsonResponse.message;
                 } catch (err) {
-                    console.error(err.errorMessage);
+                    console.error('Error parsing JSON response:', err);
                 }
 
                 throw new Error(errorMessage);
@@ -82,8 +85,15 @@ export default function useReferenceUpload() {
             setPreviewUrl(null);
             setDescription('');
 
+            if (onSuccess) {
+                try {
+                    onSuccess();
+                } catch (cbError) {
+                    console.error('Callback error:', cbError);
+                }
+            }
         } catch (error) {
-                toast.error('Error during upload: ', error.message);
+            toast.error(`Error during upload: ${error.message}`);
         } finally {
             setIsUploading(false);
         }

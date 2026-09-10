@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import './References.css'
 
 import ScrollUp from '@/components/common/ScrollUp'
@@ -11,6 +13,8 @@ import InputField from '@/components/admin/common/InputField';
 function References() {
     usePageTitle('Referenciák');
 
+    const [refreshTrigger, setRefreshTrigger] = useState(0);
+
     const {
         previewUrl,
         description,
@@ -19,31 +23,31 @@ function References() {
         handleFileSelect,
         handleDescriptionChange,
         handleSubmit
-    } = useReferenceUpload();
+    } = useReferenceUpload(() => setRefreshTrigger((prev) => prev + 1));
 
     return (
         <>
-        <div className='references-page'>
-            <form className='references-container' onSubmit={handleSubmit} noValidate>
-                <DragAndDrop onFileSelect={handleFileSelect} previewUrl={previewUrl} />
+            <div className='references-page'>
+                <form className='references-container' onSubmit={handleSubmit} noValidate>
+                    <DragAndDrop onFileSelect={handleFileSelect} previewUrl={previewUrl} />
 
-                <div className='image-description-container'>
-                    <InputField
-                        label='Leírás hozzáadása'
-                        type='textarea'
-                        required={true}
-                        onChange={handleDescriptionChange}
-                        value={description}
-                        error={errors.description}
-                    />
+                    <div className='image-description-container'>
+                        <InputField
+                            label='Leírás hozzáadása'
+                            type='textarea'
+                            required={true}
+                            onChange={handleDescriptionChange}
+                            value={description}
+                            error={errors.description}
+                        />
 
-                    {errors.file && <span className="error-text" role='alert'>{errors.file}</span>}
-                    <button className='submit-btn' type='submit' disabled={isUploading}>Feltöltés</button>
-                </div>
-            </form>
+                        {errors.file && <span className="error-text" role='alert'>{errors.file}</span>}
+                        <button className='submit-btn' type='submit' disabled={isUploading}>Feltöltés</button>
+                    </div>
+                </form>
 
-            <ReferenceHistory />
-        </div>
+                <ReferenceHistory key={refreshTrigger} />
+            </div>
 
             <ScrollUp />
         </>

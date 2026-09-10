@@ -330,4 +330,33 @@ describe('ReferenceHistory', () => {
         toastSpy.mockRestore();
         consoleSpy.mockRestore();
     });
+
+    it('should NOT call refetch on mount if refreshTrigger is 0 or undefined', () => {
+        useFetch.mockReturnValue({
+            data: [],
+            isLoading: false,
+            error: null,
+            refetch: mockRefetch
+        });
+
+        render(<ReferenceHistory refreshTrigger={0} />);
+
+        expect(mockRefetch).not.toHaveBeenCalled();
+    });
+
+    it('should call refetch when refreshTrigger prop changes to a value greater than 0', () => {
+        useFetch.mockReturnValue({
+            data: [],
+            isLoading: false,
+            error: null,
+            refetch: mockRefetch
+        });
+
+        const { rerender } = render(<ReferenceHistory refreshTrigger={0} />);
+        expect(mockRefetch).not.toHaveBeenCalled();
+
+        rerender(<ReferenceHistory refreshTrigger={1} />);
+
+        expect(mockRefetch).toHaveBeenCalledTimes(1);
+    });
 });
