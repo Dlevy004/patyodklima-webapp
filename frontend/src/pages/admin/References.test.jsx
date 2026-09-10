@@ -14,6 +14,11 @@ vi.mock('@/components/admin/references/ReferenceHistory', () => ({
 
 
 describe('References Page', () => {
+
+    beforeEach(() => {
+        vi.clearAllMocks();
+    });
+
     it('should render form elements correctly', () => {
         vi.mocked(useReferenceUpload).mockReturnValue({
             previewUrl: null,
