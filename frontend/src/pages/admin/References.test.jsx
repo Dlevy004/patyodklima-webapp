@@ -66,6 +66,30 @@ describe('References Page', () => {
         render(<References />);
         const button = screen.getByRole('button');
         expect(button).toBeDisabled();
+    });
 
+    it('should update refreshTrigger and re-render ReferenceHistory when onSuccess callback is called', () => {
+        vi.mocked(useReferenceUpload).mockReturnValue({
+            previewUrl: null,
+            description: '',
+            errors: {},
+            isUploading: false,
+            handleFileSelect: vi.fn(),
+            handleDescriptionChange: vi.fn(),
+            handleSubmit: vi.fn()
+        });
+
+        render(<References />);
+
+        const hookCalls = vi.mocked(useReferenceUpload).mock.calls;
+        const onSuccessCallback = hookCalls[0][0];
+
+        expect(typeof onSuccessCallback).toBe('function');
+
+        act(() => {
+            onSuccessCallback();
+        });
+
+        expect(useReferenceUpload).toHaveBeenCalledTimes(2);
     });
 });
