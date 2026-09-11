@@ -15,12 +15,12 @@ const generateDesign = async (req, res) => {
         const maskImageBuffer = files.mask[0].buffer;
 
         let aiPrompt = '';
-        const commonPrompt = 'Match the original perspective, scale, lighting, shadows and wall texture. Do not add extra devices, text, logos or watermarks. Preserve everything outside the selected region.';
+        const commonPrompt = 'Match the original perspective, lighting, and shadows. Photorealistic architectural photography.';
 
         if (placementType === 'indoor') {
-            aiPrompt = `Add exactly one realistic, modern white indoor wall-mounted split air conditioner. Place it high on the interior wall in the selected region. ${commonPrompt}`;
+            aiPrompt = `A standard white indoor split air conditioner mounted on the wall, clean minimalist white plastic, realistic home appliance. ${commonPrompt}`;
         } else if (placementType === 'outdoor') {
-            aiPrompt = `Add exactly one realistic outdoor HVAC unit with a protective grille. Align it naturally with the exterior wall. ${commonPrompt}`;
+            aiPrompt = `A large square metal outdoor air conditioner compressor unit, exterior HVAC motor with a large circular fan grille, realistic building equipment. ${commonPrompt}`;
         } else {
             return res.status(400).json({ message: 'Invalid placement type. (indoor/outdoor)' });
         }
