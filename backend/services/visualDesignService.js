@@ -1,8 +1,6 @@
-const { PrismaClient } = require('@prisma/client');
+const prisma = require('../database/prisma');
 
 const supabaseService = require('./supabaseService');
-
-const prisma = new PrismaClient();
 
 const createPendingDesign = async (userId, placementType) => {
     return await prisma.ai_visual_designs.create({
