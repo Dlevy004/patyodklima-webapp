@@ -1,3 +1,4 @@
+const sharp = require('sharp');
 const prisma = require('../database/prisma');
 
 const supabaseService = require('./supabaseService');
