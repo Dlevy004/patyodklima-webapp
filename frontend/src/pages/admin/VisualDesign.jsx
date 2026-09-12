@@ -3,7 +3,6 @@ import { useState } from 'react';
 import './VisualDesign.css'
 
 import ScrollUp from '../../components/common/ScrollUp'
-
 import usePageTitle from '../../hooks/usePageTitle';
 import DragAndDrop from '@/components/admin/common/DragAndDrop';
 import Slider from '../../components/admin/common/Slider';
