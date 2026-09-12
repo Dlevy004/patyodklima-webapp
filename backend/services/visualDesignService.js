@@ -98,10 +98,22 @@ const processAndSaveDesign = async (designId, originalBuffer, maskBuffer, prompt
         const generatedImageArrayBuffer = await cfResponse.arrayBuffer();
         const generatedImageBuffer = Buffer.from(generatedImageArrayBuffer);
 
-        const originalImageUrl = await supabaseService.uploadImage(originalFileObj);
+        // The result from Cloudflare AI is a 512x512 image.
+        // We need to resize it back to the original crop size and composite it onto the original image.
+        const restoredGeneratedRegion = await sharp(generatedImageBuffer)
+            .resize(cropSize, cropSize)
+            .toBuffer();
+
+        // Composite the restored generated region back onto the original image
+        const finalImageBuffer = await sharp(originalBuffer)
+            .composite([{ input: restoredGeneratedRegion, left: cropLeft, top: cropTop }])
+            .toBuffer();
+
+        // Upload the original and generated images to Supabase
+        const originalImageUrl = await supabaseService.uploadImage(originalFileObj, 'VisualDesign');
 
         const generatedFileObj = {
-            buffer: generatedImageBuffer,
+            buffer: finalImageBuffer,
             originalname: `generated-design-${designId}.png`,
             mimetype: 'image/png'
         };
