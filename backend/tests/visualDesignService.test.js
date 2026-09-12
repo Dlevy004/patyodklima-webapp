@@ -213,4 +213,44 @@ describe('Visual Design', () => {
 
         expect(sharpMock.extract).toHaveBeenCalledWith({ left: 0, top: 0, width: 1000, height: 1000 });
     });
+
+    test('processAndSaveDesign should execute timeout callback (abort controller)', async () => {
+        jest.spyOn(global, 'setTimeout').mockImplementationOnce((cb) => {
+            cb();
+            return 999;
+        });
+
+        global.fetch.mockRejectedValueOnce(new Error('Network Error'));
+
+        const dummyBuffer = Buffer.from('dummy');
+        await expect(
+            visualDesignService.processAndSaveDesign('123', dummyBuffer, dummyBuffer, 'test prompt', {})
+        ).rejects.toThrow('Network Error');
+
+        global.setTimeout.mockRestore();
+    });
+
+    test('processAndSaveDesign should catch errors if Supabase cleanup fails', async () => {
+        global.fetch.mockResolvedValue({ ok: true, arrayBuffer: async () => new ArrayBuffer(8) });
+        supabaseService.uploadImage
+            .mockResolvedValueOnce('https://supabase.../original.jpg')
+            .mockResolvedValueOnce('https://supabase.../generated.png');
+
+        supabaseService.deleteImageFromBucket.mockRejectedValue(new Error('Supabase Delete Error'));
+
+        prisma.ai_visual_designs.update
+            .mockRejectedValueOnce(new Error('Prisma Database Error'))
+            .mockResolvedValueOnce({ id: '123', status: 'failed' });
+
+        const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+
+        const dummyBuffer = Buffer.from('dummy');
+        await expect(
+            visualDesignService.processAndSaveDesign('123', dummyBuffer, dummyBuffer, 'test prompt', {})
+        ).rejects.toThrow('Prisma Database Error');
+
+        expect(consoleSpy).toHaveBeenCalledTimes(2);
+
+        consoleSpy.mockRestore();
+    });
 });
