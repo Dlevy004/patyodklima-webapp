@@ -16,7 +16,9 @@
     transform: scale(1.1);
 }
 
-.action-btn.edit {
+.action-btn.edit,
+.action-btn.undo,
+.action-btn.draw {
     background-color: #d3e9f5;
     color: #0284c7;
 }
