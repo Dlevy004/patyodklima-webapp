@@ -16,8 +16,13 @@ const createPendingDesign = async (userId, placementType) => {
 
 const processAndSaveDesign = async (designId, originalBuffer, maskBuffer, prompt, originalFileObj) => {
     try {
-        // Analyse the original image to get its dimensions
+        // Analyse the original image and the mask to get its dimensions
         const metadata = await sharp(originalBuffer).metadata();
+        const maskMetadata = await sharp(maskBuffer).metadata();
+
+        if (metadata.width !== maskMetadata.width || metadata.height !== maskMetadata.height) {
+            throw new Error('The dimensions of the original image and the mask do not match.');
+        }
 
         // Search for the white box in the mask to determine the crop area
         const trimmedMask = await sharp(maskBuffer)
