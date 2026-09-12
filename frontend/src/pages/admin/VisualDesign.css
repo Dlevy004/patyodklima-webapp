@@ -1,0 +1,62 @@
+.visual-design-page {
+    display: flex;
+    flex-direction: column;
+}
+
+.visuals-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+.vd-drag-drop {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.vd-action-buttons {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    display: flex;
+    gap: 10px;
+}
+
+.vd-generate-btn {
+    width: 100%;
+    max-width: 200px;
+    padding: 0.85rem 1rem;
+    background-color: var(--bg-color-ternary);
+    color: #ffffff;
+    border: none;
+    border-radius: 0.85rem;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.vd-generate-btn:hover {
+    transform: translateY(-3px);
+}
+
+.vd-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 100%;
+    max-width: 600px;
+}
+
+.vd-modifiers {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex: 1;
+    max-width: 250px;
+    gap: 1rem;
+}

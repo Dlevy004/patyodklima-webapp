@@ -3,7 +3,8 @@ import {
     SquarePen, Trash2,
     Eye, EyeOff,
     CircleCheck, CircleX,
-    Download
+    Download, LassoSelect,
+    Undo2
 } from 'lucide-react';
 
 import './ActionButtons.css';
@@ -36,6 +37,14 @@ const buttonTypes = {
     download: {
         title: 'Letöltés',
         icon: <Download strokeWidth={2} aria-hidden='true'/>
+    },
+    draw: {
+        title: 'Rajzolás',
+        icon: <LassoSelect strokeWidth={2} aria-hidden='true'/>
+    },
+    undo: {
+        title: 'Visszavonás',
+        icon: <Undo2 strokeWidth={2} aria-hidden='true'/>
     }
 }
 
