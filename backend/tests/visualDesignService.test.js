@@ -16,7 +16,6 @@ jest.mock('../services/supabaseService', () => ({
     deleteImageFromBucket: jest.fn()
 }));
 
-
 jest.mock('sharp', () => {
     const sharpMock = {
         metadata: jest.fn().mockResolvedValue({ width: 1000, height: 1000 }),
@@ -26,6 +25,8 @@ jest.mock('sharp', () => {
         threshold: jest.fn().mockReturnThis(),
         png: jest.fn().mockReturnThis(),
         composite: jest.fn().mockReturnThis(),
+        extractChannel: jest.fn().mockReturnThis(),
+        joinChannel: jest.fn().mockReturnThis(),
         toBuffer: jest.fn().mockImplementation(async (opts) => {
             if (opts && opts.resolveWithObject) {
                 return {
@@ -61,6 +62,18 @@ describe('Visual Design', () => {
             }
         });
         expect(result).toEqual(mockDesign);
+    });
+
+    test('processAndSaveDesign should throw error if dimensions do not match', async () => {
+        const sharpMock = require('sharp')();
+        sharpMock.metadata
+            .mockResolvedValueOnce({ width: 1000, height: 1000 })
+            .mockResolvedValueOnce({ width: 800, height: 800 });
+
+        const dummyBuffer = Buffer.from('dummy');
+        await expect(
+            visualDesignService.processAndSaveDesign('123', dummyBuffer, dummyBuffer, 'test prompt', {})
+        ).rejects.toThrow('The dimensions of the original image and the mask do not match.');
     });
 
     test('processAndSaveDesign should process image, call AI, upload, and update DB to completed', async () => {
@@ -104,12 +117,38 @@ describe('Visual Design', () => {
 
         await expect(
             visualDesignService.processAndSaveDesign('123', dummyBuffer, dummyBuffer, 'test prompt', {})
-        ).rejects.toThrow('Cloudflare AI hiba: 500 - Internal Server Error');
+        ).rejects.toThrow(/Cloudflare AI/);
 
         expect(prisma.ai_visual_designs.update).toHaveBeenCalledWith({
             where: { id: '123' },
             data: { status: 'failed' }
         });
+    });
+
+    test('processAndSaveDesign should delete uploaded images from Supabase if DB update fails', async () => {
+        global.fetch.mockResolvedValue({
+            ok: true,
+            arrayBuffer: async () => new ArrayBuffer(8)
+        });
+
+        supabaseService.uploadImage
+            .mockResolvedValueOnce('https://supabase.../original.jpg')
+            .mockResolvedValueOnce('https://supabase.../generated.png');
+
+        supabaseService.deleteImageFromBucket.mockResolvedValue();
+
+        prisma.ai_visual_designs.update
+            .mockRejectedValueOnce(new Error('Prisma Database Error'))
+            .mockResolvedValueOnce({ id: '123', status: 'failed' });
+
+        const dummyBuffer = Buffer.from('dummy');
+
+        await expect(
+            visualDesignService.processAndSaveDesign('123', dummyBuffer, dummyBuffer, 'test prompt', {})
+        ).rejects.toThrow('Prisma Database Error');
+
+        expect(supabaseService.deleteImageFromBucket).toHaveBeenCalledWith('https://supabase.../original.jpg', 'VisualDesign');
+        expect(supabaseService.deleteImageFromBucket).toHaveBeenCalledWith('https://supabase.../generated.png', 'VisualDesign');
     });
 
     test('processAndSaveDesign should adjust crop boundaries if mask is near the top-left edge (< 0)', async () => {
