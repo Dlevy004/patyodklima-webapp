@@ -5,7 +5,13 @@ const visualDesignController = require('../controllers/visualDesignController');
 const { authenticate } = require('../middleware/authMiddleware');
 
 const router = express.Router();
-const upload = multer({ storage: multer.memoryStorage() });
+const upload = multer({
+    storage: multer.memoryStorage(),
+    limits: {
+        fileSize: 10 * 1024 * 1024,
+        files: 2
+    }
+});
 
 const cpUpload = upload.fields([
     { name: 'image', maxCount: 1 },
