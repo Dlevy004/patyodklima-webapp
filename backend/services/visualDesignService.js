@@ -122,6 +122,7 @@ const processAndSaveDesign = async (designId, originalBuffer, maskBuffer, prompt
         // We need to resize it back to the original crop size and composite it onto the original image.
         const restoredGeneratedRegion = await sharp(generatedImageBuffer)
             .resize(cropSize, cropSize)
+            .joinChannel(alphaMaskBuffer)
             .toBuffer();
 
         // Composite the restored generated region back onto the original image
@@ -130,14 +131,14 @@ const processAndSaveDesign = async (designId, originalBuffer, maskBuffer, prompt
             .toBuffer();
 
         // Upload the original and generated images to Supabase
-        const originalImageUrl = await supabaseService.uploadImage(originalFileObj, 'VisualDesign');
+        originalImageUrl = await supabaseService.uploadImage(originalFileObj, 'VisualDesign');
 
         const generatedFileObj = {
             buffer: finalImageBuffer,
             originalname: `generated-design-${designId}.png`,
             mimetype: 'image/png'
         };
-        const generatedImageUrl = await supabaseService.uploadImage(generatedFileObj, 'VisualDesign');
+        generatedImageUrl = await supabaseService.uploadImage(generatedFileObj, 'VisualDesign');
 
         const updatedDesign = await prisma.ai_visual_designs.update({
             where: { id: designId },
