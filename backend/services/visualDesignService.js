@@ -15,6 +15,10 @@ const createPendingDesign = async (userId, placementType) => {
 };
 
 const processAndSaveDesign = async (designId, originalBuffer, maskBuffer, prompt, originalFileObj) => {
+    let originalImageUrl = null;
+    let generatedImageUrl = null;
+    let timeoutId;
+
     try {
         // Analyse the original image and the mask to get its dimensions
         const metadata = await sharp(originalBuffer).metadata();
@@ -75,6 +79,9 @@ const processAndSaveDesign = async (designId, originalBuffer, maskBuffer, prompt
             .png()
             .toBuffer();
 
+        const controller = new AbortController();
+        timeoutId = setTimeout(() => controller.abort(), 30000);
+
         // Fetch the Cloudflare AI API for inpainting
         const cfResponse = await fetch(
             `https://api.cloudflare.com/client/v4/accounts/${process.env.CLOUDFLARE_ACCOUNT_ID}/ai/run/@cf/runwayml/stable-diffusion-v1-5-inpainting`,
@@ -91,17 +98,25 @@ const processAndSaveDesign = async (designId, originalBuffer, maskBuffer, prompt
                     mask: [...croppedMask512],
                     guidance: 7.5,
                     num_steps: 20
-                })
+                }),
+                signal: controller.signal
             }
         );
+        clearTimeout(timeoutId);
 
         if (!cfResponse.ok) {
             const errorText = await cfResponse.text();
-            throw new Error(`Cloudflare AI hiba: ${cfResponse.status} - ${errorText}`);
+            throw new Error(`Cloudflare AI error: ${cfResponse.status} - ${errorText}`);
         }
 
         const generatedImageArrayBuffer = await cfResponse.arrayBuffer();
         const generatedImageBuffer = Buffer.from(generatedImageArrayBuffer);
+
+        // Extract the alpha channel from the mask to use as an alpha mask for compositing
+        const alphaMaskBuffer = await sharp(maskBuffer)
+            .extract(extractOpts)
+            .extractChannel('green')
+            .toBuffer();
 
         // The result from Cloudflare AI is a 512x512 image.
         // We need to resize it back to the original crop size and composite it onto the original image.
@@ -136,6 +151,15 @@ const processAndSaveDesign = async (designId, originalBuffer, maskBuffer, prompt
         return updatedDesign;
 
     } catch (error) {
+        if (timeoutId) clearTimeout(timeoutId);
+
+        if (originalImageUrl) {
+            await supabaseService.deleteImageFromBucket(originalImageUrl, 'VisualDesign').catch(console.error);
+        }
+        if (generatedImageUrl) {
+            await supabaseService.deleteImageFromBucket(generatedImageUrl, 'VisualDesign').catch(console.error);
+        }
+
         await prisma.ai_visual_designs.update({
             where: { id: designId },
             data: { status: 'failed' }
