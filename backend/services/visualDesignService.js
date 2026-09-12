@@ -80,9 +80,12 @@ const processAndSaveDesign = async (designId, originalBuffer, maskBuffer, prompt
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    prompt: prompt,
-                    image: [...originalBuffer],
-                    mask: [...maskBuffer]
+                    prompt: `high quality, photorealistic, ${prompt}`,
+                    negative_prompt: "window, TV, screen, wrong proportions, ugly, blurry, poorly drawn, deformed, cartoon, watermark, text",
+                    image: [...croppedOriginal512],
+                    mask: [...croppedMask512],
+                    guidance: 7.5,
+                    num_steps: 20
                 })
             }
         );
