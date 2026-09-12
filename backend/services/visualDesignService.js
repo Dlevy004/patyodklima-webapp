@@ -117,7 +117,7 @@ const processAndSaveDesign = async (designId, originalBuffer, maskBuffer, prompt
             originalname: `generated-design-${designId}.png`,
             mimetype: 'image/png'
         };
-        const generatedImageUrl = await supabaseService.uploadImage(generatedFileObj);
+        const generatedImageUrl = await supabaseService.uploadImage(generatedFileObj, 'VisualDesign');
 
         const updatedDesign = await prisma.ai_visual_designs.update({
             where: { id: designId },
