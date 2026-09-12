@@ -55,6 +55,7 @@ My primary goal with this was to reinforce my fundamental knowledge of web devel
 - **Google Analytics** for tracks and reports website's traffic
 - **Render** for deploying the backend and frontend
 - **UptimeRobot** for monitoring the availability, performance, and status of the website
+- **Cloudflare AI** for the image inpainting to generate realistic indoor and outdoor HVAC unit placement on photos
 
 ### Package manager & dependencies
 
