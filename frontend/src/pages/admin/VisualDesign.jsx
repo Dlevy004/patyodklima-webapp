@@ -45,8 +45,37 @@ function VisualDesign() {
         setFile(null);
         setPreviewUrl(null);
         setGeneratedImageUrl(null);
-        setMaskFile(null);
         setError(null);
+        setIsDrawingMode(false);
+    };
+
+    const handleUndo = () => {
+        maskCanvasRef.current?.reset();
+    };
+
+    const handleDownload = async () => {
+        const urlToDownload = generatedImageUrl || previewUrl;
+        if (!urlToDownload) return;
+
+        try {
+            const response = await fetch(urlToDownload);
+            const blob = await response.blob();
+            const blobUrl = window.URL.createObjectURL(blob);
+
+            const a = document.createElement('a');
+            a.href = blobUrl;
+            a.download = generatedImageUrl ? 'latvanyterv.png' : 'eredeti-kep.png';
+            a.click();
+
+            window.URL.revokeObjectURL(blobUrl);
+        } catch (err) {
+            console.error('Letöltési hiba:', err);
+        }
+    };
+
+    const handleToggleDrawing = () => {
+        if (!previewUrl || generatedImageUrl) return;
+        setIsDrawingMode((prev) => !prev);
     };
 
     const handleSubmit = async (e) => {
