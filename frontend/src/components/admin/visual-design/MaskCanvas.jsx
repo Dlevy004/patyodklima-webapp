@@ -53,8 +53,22 @@ const MaskCanvas = forwardRef(({ imageUrl, isDrawingMode }, ref) => {
             const { width, height } = entry.contentRect;
             if (width === 0 || height === 0) return;
 
+            const previousWidth = canvas.width;
+            const previousHeight = canvas.height;
+
             canvas.width = width;
             canvas.height = height;
+
+            if (rectRef.current && previousWidth && previousHeight) {
+                const scaleX = canvas.width / previousWidth;
+                const scaleY = canvas.height / previousHeight;
+                rectRef.current = {
+                    x: rectRef.current.x * scaleX,
+                    y: rectRef.current.y * scaleY,
+                    w: rectRef.current.w * scaleX,
+                    h: rectRef.current.h * scaleY
+                };
+            }
             drawRect();
         });
 
