@@ -27,9 +27,12 @@ function VisualDesign() {
 
     const [isDrawingMode, setIsDrawingMode] = useState(false);
     const maskCanvasRef = useRef(null);
+    const activeRequestRef = useRef(0);
 
     const handleFileSelect = (selectedFile) => {
         if (!selectedFile) return;
+
+        activeRequestRef.current += 1;
 
         setFile(selectedFile);
         setPreviewUrl(URL.createObjectURL(selectedFile));
@@ -47,6 +50,8 @@ function VisualDesign() {
     }, [previewUrl]);
 
     const handleDelete = () => {
+        activeRequestRef.current += 1;
+
         setFile(null);
         setPreviewUrl(null);
         setGeneratedImageUrl(null);
@@ -107,6 +112,8 @@ function VisualDesign() {
             return;
         }
 
+        const requestId = ++activeRequestRef.current;
+
         setIsLoading(true);
         setError(null);
 
@@ -131,15 +138,22 @@ function VisualDesign() {
             }
 
             const data = await response.json();
+
+            if (activeRequestRef.current !== requestId) return;
+
             setGeneratedImageUrl(data.generated_image_url);
             setIsDrawingMode(false);
             toast.success('A látványterv elkészült!');
         } catch (err) {
+            if (activeRequestRef.current !== requestId) return;
+
             console.error('Generálási hiba:', err);
             setError(err.message);
             toast.error("Hiba történt a generálás során.");
         } finally {
-            setIsLoading(false);
+            if (activeRequestRef.current === requestId) {
+                setIsLoading(false);
+            }
         }
     };
 
