@@ -49,11 +49,11 @@ const buttonTypes = {
 }
 
 
-function ActionButton({ type, onClick }) {
+function ActionButton({ type, onClick, className = '' }) {
     return (
         <button
             type='button'
-            className={`action-btn ${type}`}
+            className={`action-btn ${type} ${className}`.trim()}
             onClick={onClick}
             aria-label={`${buttonTypes[type]?.title} gomb`}
             title={buttonTypes[type]?.title}
