@@ -107,22 +107,23 @@ function VisualDesign() {
         setIsLoading(true);
         setError(null);
 
-        const formData = new FormData();
-        formData.append('image', file);
-        formData.append('placementType', placementType);
-        formData.append('prompt', placementType === 'indoor'
-            ? 'white split air conditioner unit on the wall'
-            : 'air conditioner outdoor compressor unit'
-        );
-
         try {
-            const response = await fetch('http://localhost:5000/api/visual-design/generate', {
+            const maskBlob = await maskCanvasRef.current.getMaskBlob();
+            if (!maskBlob) throw new Error('Nem sikerült elkészíteni a kijelölést.');
+
+            const formData = new FormData();
+            formData.append('image', file);
+            formData.append('mask', maskBlob, 'mask.png');
+            formData.append('placementType', placementType);
+
+            const response = await fetch(`${API_URL}/generate`, {
                 method: 'POST',
+                headers: getAuthHeaders(),
                 body: formData
             });
 
             if (!response.ok) {
-                const errorData = await response.json();
+                const errorData = await response.json().catch(() => ({}));
                 throw new Error(errorData.message || 'Hiba történt a generálás során.');
             }
 
@@ -139,34 +140,64 @@ function VisualDesign() {
         }
     };
 
+    const displayedImage = generatedImageUrl || previewUrl;
+
     return (
         <>
             <div className='visual-design-page'>
                 <form className='visuals-container' onSubmit={handleSubmit} noValidate>
                     <div className='vd-drag-drop'>
-                        <DragAndDrop className='drag-drop' onFileSelect={handleFileSelect} previewUrl={previewUrl} />
-                        <div className='vd-action-buttons'>
-                            <ActionBtn type='undo' onClick={{}} />
-                            <ActionBtn type='download' onClick={{}} />
-                            <ActionBtn type='delete' onClick={handleDelete} />
-                        </div>
+                        <DragAndDrop
+                            className='drag-drop'
+                            onFileSelect={handleFileSelect}
+                            previewUrl={displayedImage}
+                        />
+
+                        {previewUrl && !generatedImageUrl && (
+                            <MaskCanvas
+                                ref={maskCanvasRef}
+                                imageUrl={previewUrl}
+                                isDrawingMode={isDrawingMode}
+                            />
+                        )}
+
+                        {previewUrl && (
+                            <div className='vd-action-buttons'>
+                                <ActionBtn type='undo' onClick={handleUndo} />
+                                <ActionBtn type='download' onClick={handleDownload} />
+                                <ActionBtn type='delete' onClick={handleDelete} />
+                            </div>
+                        )}
+
+                        {isLoading && (
+                            <div className='vd-loading-overlay'>
+                                <span className='vd-spinner' aria-hidden="true"></span>
+                            </div>
+                        )}
+
                     </div>
                     {error && <span className='error-text' role='alert'>{error}</span>}
 
                     <div className="vd-buttons">
                         <div className='vd-modifiers'>
-                            <ActionBtn type='draw' onClick={{}} />
+                            <ActionBtn
+                                type='draw'
+                                onClick={handleToggleDrawing}
+                                className={isDrawingMode ? 'is-active' : ''}
+                            />
                             <Slider
-                                condition={{}}
-                                button1ClassName='vd-slider-btn1'
+                                condition={placementType === 'outdoor' ? 'slide-right' : ''}
+                                button1ClassName={`vd-slider-btn1 ${placementType === 'indoor' ? 'active' : ''}`.trim()}
                                 button1Title='Beltéri'
-                                onButton1Click={{}}
-                                button2ClassName='vd-slider-btn2'
+                                onButton1Click={() => setPlacementType('indoor')}
+                                button2ClassName={`vd-slider-btn2 ${placementType === 'outdoor' ? 'active' : ''}`.trim()}
                                 button2Title='Kültéri'
-                                onButton2Click={{}}
+                                onButton2Click={() => setPlacementType('outdoor')}
                             />
                         </div>
-                        <button className='vd-generate-btn' type='submit'>Generálás</button>
+                        <button className='vd-generate-btn' type='submit' disabled={isLoading}>
+                            {isLoading ? 'Generálás…' : 'Generálás'}
+                        </button>
                     </div>
                 </form>
             </div>
