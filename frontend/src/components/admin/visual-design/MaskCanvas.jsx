@@ -1,8 +1,12 @@
-import { forwardRef, useEffect, useImperativeHandle, useRef } from 'react';
+import { forwardRef, useEffect, useImperativeHandle, useRef, useId } from 'react';
 
 import PropTypes from 'prop-types';
 
 import './MaskCanvas.css';
+
+const KEY_STEP = 10;
+const KEY_STEP_LARGE = 30;
+const DEFAULT_SELECTION_RATIO = 0.25;
 
 
 const MaskCanvas = forwardRef(({ imageUrl, isDrawingMode }, ref) => {
@@ -11,6 +15,57 @@ const MaskCanvas = forwardRef(({ imageUrl, isDrawingMode }, ref) => {
     const rectRef = useRef(null);
     const startPointRef = useRef(null);
     const isDrawingRef = useRef(false);
+    const instructionsId = useId();
+
+    const ensureSelection = () => {
+        const canvas = canvasRef.current;
+        if (!canvas || rectRef.current) return;
+
+        const w = Math.max(40, canvas.width * DEFAULT_SELECTION_RATIO);
+        const h = Math.max(40, canvas.height * DEFAULT_SELECTION_RATIO);
+        rectRef.current = {
+            x: (canvas.width - w) / 2,
+            y: (canvas.height - h) / 2,
+            w,
+            h
+        };
+    };
+
+    const handleKeyDown = (e) => {
+        if (!isDrawingMode) return;
+        const canvas = canvasRef.current;
+        if (!canvas) return;
+
+        if (e.key === 'Escape') {
+            e.preventDefault();
+            rectRef.current = null;
+            drawRect();
+            return;
+        }
+
+        const moveKeys = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
+        if (!moveKeys.includes(e.key)) return;
+
+        e.preventDefault();
+        ensureSelection();
+
+        const rect = rectRef.current;
+        const step = e.shiftKey ? KEY_STEP_LARGE : KEY_STEP;
+
+        if (e.altKey) {
+            if (e.key === 'ArrowRight') rect.w = clamp(rect.w + step, 20, canvas.width - rect.x);
+            if (e.key === 'ArrowLeft') rect.w = clamp(rect.w - step, 20, canvas.width - rect.x);
+            if (e.key === 'ArrowDown') rect.h = clamp(rect.h + step, 20, canvas.height - rect.y);
+            if (e.key === 'ArrowUp') rect.h = clamp(rect.h - step, 20, canvas.height - rect.y);
+        } else {
+            if (e.key === 'ArrowRight') rect.x = clamp(rect.x + step, 0, canvas.width - rect.w);
+            if (e.key === 'ArrowLeft') rect.x = clamp(rect.x - step, 0, canvas.width - rect.w);
+            if (e.key === 'ArrowDown') rect.y = clamp(rect.y + step, 0, canvas.height - rect.h);
+            if (e.key === 'ArrowUp') rect.y = clamp(rect.y - step, 0, canvas.height - rect.h);
+        }
+
+        drawRect();
+    };
 
     // Draw the rectangle on the canvas based on the current rectRef
     const drawRect = () => {
@@ -198,11 +253,15 @@ const MaskCanvas = forwardRef(({ imageUrl, isDrawingMode }, ref) => {
         <canvas
             ref={canvasRef}
             className={`mask-canvas ${isDrawingMode ? 'is-drawing' : ''}`}
+            tabIndex={isDrawingMode ? 0 : -1}
+            aria-label="Klíma helyének kijelölése a képen"
+            aria-describedby={isDrawingMode ? instructionsId : undefined}
             onPointerDown={handlePointerDown}
             onPointerMove={handlePointerMove}
             onPointerUp={handlePointerUp}
             onPointerCancel={handlePointerUp}
             onClick={handleClick}
+            onKeyDown={handleKeyDown}
         />
     );
 });
