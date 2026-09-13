@@ -70,6 +70,9 @@ function VisualDesign() {
 
         try {
             const response = await fetch(urlToDownload);
+            if (!response.ok) {
+                throw new Error(`Download failed with status ${response.status}`);
+            }
             const blob = await response.blob();
             const blobUrl = window.URL.createObjectURL(blob);
 
