@@ -105,6 +105,8 @@ afterEach(() => {
 const selectFile = () => fireEvent.click(screen.getByTestId('select-file-btn'));
 
 describe('VisualDesign', () => {
+    const flushPromises = () => act(() => Promise.resolve());
+
     it('renders without a preview image and without action buttons/mask canvas initially', () => {
         render(<VisualDesign />);
 
@@ -207,7 +209,11 @@ describe('VisualDesign', () => {
 
     it('downloads the original preview image and toasts success', async () => {
         const blob = new Blob(['image-bytes'], { type: 'image/png' });
-        globalThis.fetch.mockResolvedValueOnce({ blob: async () => blob });
+
+        globalThis.fetch.mockResolvedValueOnce({
+            ok: true,
+            blob: async () => blob
+        });
 
         render(<VisualDesign />);
         selectFile();
@@ -217,6 +223,7 @@ describe('VisualDesign', () => {
         await waitFor(() => {
             expect(toast.success).toHaveBeenCalledWith('A kép letöltése sikeres.');
         });
+
         expect(HTMLAnchorElement.prototype.click).toHaveBeenCalled();
         expect(lastAnchorDownload).toBe('eredeti-kep.png');
     });
@@ -224,12 +231,17 @@ describe('VisualDesign', () => {
     it('downloads the generated image with the "latvanyterv.png" filename after a successful generation', async () => {
         globalThis.fetch.mockResolvedValueOnce({
             ok: true,
-            json: async () => ({ generated_image_url: 'https://example.com/generated.png' })
+            json: async () => ({
+                generated_image_url: 'https://example.com/generated.png'
+            })
         });
 
         render(<VisualDesign />);
         selectFile();
-        fireEvent.submit(screen.getByRole('button', { name: 'Generálás' }).closest('form'));
+
+        fireEvent.submit(
+            screen.getByRole('button', { name: 'Generálás' }).closest('form')
+        );
 
         await waitFor(() => {
             expect(screen.getByTestId('preview-image')).toHaveAttribute(
@@ -238,14 +250,24 @@ describe('VisualDesign', () => {
             );
         });
 
-        const downloadBlob = new Blob(['generated-bytes'], { type: 'image/png' });
-        globalThis.fetch.mockResolvedValueOnce({ blob: async () => downloadBlob });
+        const downloadBlob = new Blob(['generated-bytes'], {
+            type: 'image/png'
+        });
+
+        globalThis.fetch.mockResolvedValueOnce({
+            ok: true,
+            blob: async () => downloadBlob
+        });
 
         fireEvent.click(screen.getByTestId('action-btn-download'));
 
         await waitFor(() => {
-            expect(toast.success).toHaveBeenCalledWith('A kép letöltése sikeres.');
+            expect(toast.success).toHaveBeenCalledWith(
+                'A kép letöltése sikeres.'
+            );
         });
+
+        expect(HTMLAnchorElement.prototype.click).toHaveBeenCalled();
         expect(lastAnchorDownload).toBe('latvanyterv.png');
     });
 
