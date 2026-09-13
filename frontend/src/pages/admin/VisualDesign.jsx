@@ -12,6 +12,70 @@ import ActionBtn from '../../components/admin/common/ActionBtn';
 function VisualDesign() {
     usePageTitle('Látványterv');
 
+    const [file, setFile] = useState(null);
+    const [previewUrl, setPreviewUrl] = useState(null);
+    const [placementType, setPlacementType] = useState('indoor');
+
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState(null);
+    const [generatedImageUrl, setGeneratedImageUrl] = useState(null);
+
+    const [isDrawingMode, setIsDrawingMode] = useState(false);
+    const [maskFile, setMaskFile] = useState(null);
+
+    const handleFileSelect = (selectedFile, url) => {
+        setFile(selectedFile);
+        setPreviewUrl(url);
+        setGeneratedImageUrl(null);
+        setError(null);
+    };
+
+    const handleDelete = () => {
+        setFile(null);
+        setPreviewUrl(null);
+        setGeneratedImageUrl(null);
+        setMaskFile(null);
+        setError(null);
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        if (!file) return;
+
+        setIsLoading(true);
+        setError(null);
+
+        const formData = new FormData();
+        formData.append('image', file);
+        formData.append('placementType', placementType);
+        formData.append('prompt', placementType === 'indoor'
+            ? 'white split air conditioner unit on the wall'
+            : 'air conditioner outdoor compressor unit'
+        );
+
+        try {
+            const response = await fetch('http://localhost:5000/api/visual-design/generate', {
+                method: 'POST',
+                body: formData
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.message || 'Hiba történt a generálás során.');
+            }
+
+            const data = await response.json();
+
+            setGeneratedImageUrl(data.generated_image_url);
+        } catch (err) {
+            console.error('Generálási hiba:', err);
+            setError(err.message);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
     return (
         <>
             <div className='visual-design-page'>
