@@ -21,14 +21,23 @@ function VisualDesign() {
     const [generatedImageUrl, setGeneratedImageUrl] = useState(null);
 
     const [isDrawingMode, setIsDrawingMode] = useState(false);
-    const [maskFile, setMaskFile] = useState(null);
+    const maskCanvasRef = useRef(null);
 
-    const handleFileSelect = (selectedFile, url) => {
+    const handleFileSelect = (selectedFile) => {
+        if (!selectedFile) return;
+
         setFile(selectedFile);
-        setPreviewUrl(url);
+        setPreviewUrl(URL.createObjectURL(selectedFile));
         setGeneratedImageUrl(null);
         setError(null);
+        setIsDrawingMode(false);
     };
+
+    useEffect(() => {
+        return () => {
+            if (previewUrl) URL.revokeObjectURL(previewUrl);
+        };
+    }, [previewUrl]);
 
     const handleDelete = () => {
         setFile(null);
