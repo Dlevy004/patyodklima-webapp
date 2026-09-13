@@ -36,6 +36,8 @@ function VisualDesign() {
         setGeneratedImageUrl(null);
         setError(null);
         setIsDrawingMode(false);
+
+        toast.success('A kép feltöltése sikeres.');
     };
 
     useEffect(() => {
@@ -50,6 +52,8 @@ function VisualDesign() {
         setGeneratedImageUrl(null);
         setError(null);
         setIsDrawingMode(false);
+
+        toast.success('A kép törlése sikeres.');
     };
 
     const handleUndo = () => {
@@ -71,8 +75,10 @@ function VisualDesign() {
             a.click();
 
             window.URL.revokeObjectURL(blobUrl);
+            toast.success('A kép letöltése sikeres.');
         } catch (err) {
             console.error('Letöltési hiba:', err);
+            toast.error('Hiba történt a letöltés során.');
         }
     };
 
@@ -84,7 +90,15 @@ function VisualDesign() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (!file) return;
+        if (!file) {
+            toast.error('Előbb tölts fel egy képet!');
+            return;
+        }
+
+        if (!maskCanvasRef.current?.hasSelection()) {
+            toast.error('Jelöld be a klíma helyét a képen!');
+            return;
+        }
 
         setIsLoading(true);
         setError(null);
@@ -109,11 +123,13 @@ function VisualDesign() {
             }
 
             const data = await response.json();
-
             setGeneratedImageUrl(data.generated_image_url);
+            setIsDrawingMode(false);
+            toast.success('A látványterv elkészült!');
         } catch (err) {
             console.error('Generálási hiba:', err);
             setError(err.message);
+            toast.error("Hiba történt a generálás során.");
         } finally {
             setIsLoading(false);
         }
