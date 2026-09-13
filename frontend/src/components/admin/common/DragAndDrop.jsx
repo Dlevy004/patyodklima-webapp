@@ -3,7 +3,7 @@ import { Plus } from 'lucide-react'
 import './DragAndDrop.css'
 
 
-function DragAndDrop({ onFileSelect, previewUrl }) {
+function DragAndDrop({ onFileSelect, previewUrl, className = '' }) {
     const handleDragOver = (e) => {
         e.preventDefault();
     };
@@ -17,7 +17,7 @@ function DragAndDrop({ onFileSelect, previewUrl }) {
 
     return (
         <label
-            className="drag-and-drop-container"
+            className={`drag-and-drop-container ${className}`.trim()}
             onDragOver={handleDragOver}
             onDrop={handleDrop}
         >
