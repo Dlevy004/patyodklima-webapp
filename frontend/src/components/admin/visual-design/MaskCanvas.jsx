@@ -12,16 +12,6 @@ const MaskCanvas = forwardRef(({ imageUrl, isDrawingMode }, ref) => {
     const startPointRef = useRef(null);
     const isDrawingRef = useRef(false);
 
-    // Uploaded image natural size (in pixels) is needed to scale the mask rectangle correctly
-    useEffect(() => {
-        if (!imageUrl) return;
-        const img = new Image();
-        img.onload = () => {
-            naturalSizeRef.current = { width: img.naturalWidth, height: img.naturalHeight };
-        };
-        img.src = imageUrl;
-    }, [imageUrl]);
-
     // Draw the rectangle on the canvas based on the current rectRef
     const drawRect = () => {
         const canvas = canvasRef.current;
@@ -39,6 +29,28 @@ const MaskCanvas = forwardRef(({ imageUrl, isDrawingMode }, ref) => {
         ctx.fillRect(rect.x, rect.y, rect.w, rect.h);
         ctx.strokeRect(rect.x, rect.y, rect.w, rect.h);
     };
+
+    // Upload the image to get its natural size, which is used to scale the rectangle coordinates correctly
+    useEffect(() => {
+        let cancelled = false;
+
+        rectRef.current = null;
+        naturalSizeRef.current = { width: 0, height: 0 };
+        drawRect();
+
+        if (!imageUrl) return;
+
+        const img = new Image();
+        img.onload = () => {
+            if (cancelled) return;
+            naturalSizeRef.current = { width: img.naturalWidth, height: img.naturalHeight };
+        };
+        img.src = imageUrl;
+
+        return () => {
+            cancelled = true;
+        };
+    }, [imageUrl]);
 
     // ResizeObserver is used to keep the canvas internal size in sync with the actual displayed size
     // — this improves the coordinate offset caused by layout shift
