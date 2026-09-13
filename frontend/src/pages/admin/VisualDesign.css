@@ -3,6 +3,18 @@
     flex-direction: column;
 }
 
+.vd-drag-drop .drag-and-drop-container.drag-drop {
+    width: 100%;
+    max-width: 500px;
+    aspect-ratio: 4/3;
+}
+
+.vd-drag-drop .drag-and-drop-container.drag-drop:has(img.drag-and-drop-preview) {
+    aspect-ratio: auto;
+    height: auto;
+    max-height: 600px;
+}
+
 .visuals-container {
     display: flex;
     flex-direction: column;
