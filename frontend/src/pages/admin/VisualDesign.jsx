@@ -1,5 +1,7 @@
 import { useRef, useState, useEffect } from 'react';
 
+import toast from 'react-hot-toast';
+
 import './VisualDesign.css'
 
 import ScrollUp from '../../components/common/ScrollUp'
