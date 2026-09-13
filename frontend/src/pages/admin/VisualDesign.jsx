@@ -57,6 +57,10 @@ function VisualDesign() {
     };
 
     const handleUndo = () => {
+        if (generatedImageUrl) {
+            setGeneratedImageUrl(null);
+            return;
+        }
         maskCanvasRef.current?.reset();
     };
 
