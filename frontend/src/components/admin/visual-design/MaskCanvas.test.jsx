@@ -381,4 +381,209 @@ describe('MaskCanvas', () => {
         expect(canvas.width).toBe(initialWidth);
         expect(canvas.height).toBe(initialHeight);
     });
+
+    it('creates a default selection when using a movement key without an existing selection', () => {
+        const ref = createRef();
+
+        const { container } = render(
+            <MaskCanvas
+                ref={ref}
+                imageUrl="photo.png"
+                isDrawingMode={true}
+            />
+        );
+
+        const canvas = container.querySelector('canvas');
+        triggerResize(400, 300);
+
+        fireEvent.keyDown(canvas, { key: 'ArrowRight' });
+
+        expect(ref.current.hasSelection()).toBe(true);
+
+        const ctx = canvas.getContext('2d');
+        const [x, y, w, h] = ctx.fillRect.mock.calls.at(-1);
+
+        expect(w).toBe(100);
+        expect(h).toBe(75);
+    });
+
+    it('ignores keyboard input when drawing mode is disabled', () => {
+        const ref = createRef();
+
+        const { container } = render(
+            <MaskCanvas
+                ref={ref}
+                imageUrl="photo.png"
+                isDrawingMode={false}
+            />
+        );
+
+        const canvas = container.querySelector('canvas');
+
+        fireEvent.keyDown(canvas, { key: 'ArrowRight' });
+
+        expect(ref.current.hasSelection()).toBe(false);
+    });
+
+    it('ignores non-movement keyboard input', () => {
+        const ref = createRef();
+
+        const { container } = render(
+            <MaskCanvas
+                ref={ref}
+                imageUrl="photo.png"
+                isDrawingMode={true}
+            />
+        );
+
+        const canvas = container.querySelector('canvas');
+
+        fireEvent.keyDown(canvas, { key: 'a' });
+
+        expect(ref.current.hasSelection()).toBe(false);
+    });
+
+    it('clears the selection when Escape is pressed', () => {
+        const ref = createRef();
+
+        const { container } = render(
+            <MaskCanvas
+                ref={ref}
+                imageUrl="photo.png"
+                isDrawingMode={true}
+            />
+        );
+
+        const canvas = container.querySelector('canvas');
+        triggerResize(400, 300);
+
+        fireEvent.keyDown(canvas, { key: 'ArrowRight' });
+
+        expect(ref.current.hasSelection()).toBe(true);
+
+        fireEvent.keyDown(canvas, { key: 'Escape' });
+
+        expect(ref.current.hasSelection()).toBe(false);
+    });
+
+    it('moves the selection with the arrow keys', () => {
+        const { container } = render(
+            <MaskCanvas
+                imageUrl="photo.png"
+                isDrawingMode={true}
+            />
+        );
+
+        const canvas = container.querySelector('canvas');
+        triggerResize(400, 300);
+
+        fireEvent.keyDown(canvas, { key: 'ArrowRight' });
+        fireEvent.keyDown(canvas, { key: 'ArrowLeft' });
+        fireEvent.keyDown(canvas, { key: 'ArrowDown' });
+        fireEvent.keyDown(canvas, { key: 'ArrowUp' });
+
+        expect(canvas.getContext('2d').fillRect).toHaveBeenCalled();
+    });
+
+    it('moves the selection by 30px when Shift + ArrowRight is pressed', () => {
+        const { container } = render(
+            <MaskCanvas
+                imageUrl="photo.png"
+                isDrawingMode={true}
+            />
+        );
+
+        const canvas = container.querySelector('canvas');
+        triggerResize(400, 300);
+
+        fireEvent.keyDown(canvas, {
+            key: 'ArrowRight',
+            shiftKey: true
+        });
+
+        const ctx = canvas.getContext('2d');
+        const [x] = ctx.fillRect.mock.calls.at(-1);
+
+        expect(x).toBe(180);
+    });
+
+    it('resizes the selection with Alt + arrow keys', () => {
+        const { container } = render(
+            <MaskCanvas
+                imageUrl="photo.png"
+                isDrawingMode={true}
+            />
+        );
+
+        const canvas = container.querySelector('canvas');
+        triggerResize(400, 300);
+
+        fireEvent.keyDown(canvas, {
+            key: 'ArrowRight',
+            altKey: true
+        });
+
+        fireEvent.keyDown(canvas, {
+            key: 'ArrowLeft',
+            altKey: true
+        });
+
+        fireEvent.keyDown(canvas, {
+            key: 'ArrowDown',
+            altKey: true
+        });
+
+        fireEvent.keyDown(canvas, {
+            key: 'ArrowUp',
+            altKey: true
+        });
+
+        expect(canvas.getContext('2d').fillRect).toHaveBeenCalled();
+    });
+
+    it('scales the existing selection when the canvas is resized', () => {
+        const ref = createRef();
+
+        const { container } = render(
+            <MaskCanvas
+                ref={ref}
+                imageUrl="photo.png"
+                isDrawingMode={true}
+            />
+        );
+
+        const canvas = container.querySelector('canvas');
+
+        triggerResize(400, 300);
+
+        fireEvent.pointerDown(canvas, {
+            clientX: 50,
+            clientY: 60,
+            pointerId: 1
+        });
+
+        fireEvent.pointerMove(canvas, {
+            clientX: 150,
+            clientY: 120,
+            pointerId: 1
+        });
+
+        fireEvent.pointerUp(canvas, {
+            clientX: 150,
+            clientY: 120,
+            pointerId: 1
+        });
+
+        expect(ref.current.hasSelection()).toBe(true);
+
+        triggerResize(800, 600);
+
+        const ctx = canvas.getContext('2d');
+        const [x, y, w, h] = ctx.fillRect.mock.calls.at(-1);
+
+        expect(x).toBe(100);
+        expect(y).toBe(120);
+        expect(w).toBe(200);
+        expect(h).toBe(120);
+    });
 });
