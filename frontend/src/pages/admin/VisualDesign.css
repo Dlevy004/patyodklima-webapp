@@ -13,6 +13,7 @@
     aspect-ratio: auto;
     height: auto;
     max-height: 600px;
+    overflow: hidden;
 }
 
 .visuals-container {
