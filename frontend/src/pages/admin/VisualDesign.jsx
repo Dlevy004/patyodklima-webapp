@@ -9,6 +9,7 @@ import Slider from '../../components/admin/common/Slider';
 import ActionBtn from '../../components/admin/common/ActionBtn';
 import { getAuthHeaders } from '@/utils/api';
 
+const API_URL = `${import.meta.env.VITE_API_URL}/api/visual-designs`;
 
 function VisualDesign() {
     usePageTitle('Látványterv');
