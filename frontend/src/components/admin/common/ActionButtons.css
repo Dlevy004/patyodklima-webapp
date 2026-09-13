@@ -3,6 +3,8 @@
     border-radius: 50%;
     width: 42px;
     height: 42px;
+    box-sizing: border-box;
+    flex-shrink: 0;
 
     display: flex;
     justify-content: center;
@@ -16,7 +18,9 @@
     transform: scale(1.1);
 }
 
-.action-btn.edit {
+.action-btn.edit,
+.action-btn.undo,
+.action-btn.draw {
     background-color: #d3e9f5;
     color: #0284c7;
 }

@@ -21,7 +21,7 @@ describe('DragAndDrop', () => {
     it('should render uploaded image when previewUrl is provided', () => {
         render(<DragAndDrop onFileSelect={mockOnFileSelect} previewUrl="blob:fake-url" />);
 
-        expect(screen.getByAltText('A feltöltött referenciakép előnézete')).toBeInTheDocument();
+        expect(screen.getByAltText('A feltöltött kép előnézete')).toBeInTheDocument();
         expect(screen.queryByText('Húzd ide a képet vagy kattints ide a feltöltéshez')).not.toBeInTheDocument();
     });
 

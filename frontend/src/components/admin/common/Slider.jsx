@@ -14,12 +14,14 @@ function Slider({ title, condition, button1ClassName, onButton1Click, button1Tit
             <div className="slider-container">
                 <div className={`slider-bg ${condition}`} aria-hidden="true"></div>
                 <button
+                    type="button"
                     className={button1ClassName}
                     onClick={onButton1Click}
                 >
                     {button1Title}
                 </button>
                 <button
+                    type="button"
                     className={button2ClassName}
                     onClick={onButton2Click}
                 >
