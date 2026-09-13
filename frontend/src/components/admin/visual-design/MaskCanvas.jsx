@@ -1,0 +1,190 @@
+import { forwardRef, useEffect, useImperativeHandle, useRef } from 'react';
+
+import PropTypes from 'prop-types';
+
+import './MaskCanvas.css';
+
+
+const MaskCanvas = forwardRef(({ imageUrl, isDrawingMode }, ref) => {
+    const canvasRef = useRef(null);
+    const naturalSizeRef = useRef({ width: 0, height: 0 });
+    const rectRef = useRef(null);
+    const startPointRef = useRef(null);
+    const isDrawingRef = useRef(false);
+
+    // Uploaded image natural size (in pixels) is needed to scale the mask rectangle correctly
+    useEffect(() => {
+        if (!imageUrl) return;
+        const img = new Image();
+        img.onload = () => {
+            naturalSizeRef.current = { width: img.naturalWidth, height: img.naturalHeight };
+        };
+        img.src = imageUrl;
+    }, [imageUrl]);
+
+    // Draw the rectangle on the canvas based on the current rectRef
+    const drawRect = () => {
+        const canvas = canvasRef.current;
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        const rect = rectRef.current;
+        if (!rect) return;
+
+        ctx.fillStyle = 'rgba(37, 132, 220, 0.35)';
+        ctx.strokeStyle = 'rgba(37, 132, 220, 0.9)';
+        ctx.lineWidth = 2;
+        ctx.setLineDash([6, 4]);
+        ctx.fillRect(rect.x, rect.y, rect.w, rect.h);
+        ctx.strokeRect(rect.x, rect.y, rect.w, rect.h);
+    };
+
+    // ResizeObserver is used to keep the canvas internal size in sync with the actual displayed size
+    // — this improves the coordinate offset caused by layout shift
+    // (e.g., when the container aspect ratio changes after the image loads)
+    useEffect(() => {
+        const canvas = canvasRef.current;
+        if (!canvas) return;
+
+        const observer = new ResizeObserver((entries) => {
+            const entry = entries[0];
+            if (!entry) return;
+            const { width, height } = entry.contentRect;
+            if (width === 0 || height === 0) return;
+
+            canvas.width = width;
+            canvas.height = height;
+            drawRect();
+        });
+
+        observer.observe(canvas);
+        return () => observer.disconnect();
+    }, [imageUrl]);
+
+    // Get the mouse/touch position relative to the canvas, scaled to the canvas internal size
+    const getRelativePos = (e) => {
+        const canvas = canvasRef.current;
+        const rect = canvas.getBoundingClientRect();
+        const scaleX = canvas.width / rect.width;
+        const scaleY = canvas.height / rect.height;
+        const x = (e.clientX - rect.left) * scaleX;
+        const y = (e.clientY - rect.top) * scaleY;
+        return { x, y };
+    };
+
+    const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+
+    const handlePointerDown = (e) => {
+        if (!isDrawingMode) return;
+        e.preventDefault();
+        e.stopPropagation();
+
+        const canvas = canvasRef.current;
+        canvas.setPointerCapture(e.pointerId);
+
+        const { x, y } = getRelativePos(e);
+        startPointRef.current = { x, y };
+        rectRef.current = { x, y, w: 0, h: 0 };
+        isDrawingRef.current = true;
+        drawRect();
+    };
+
+    // Handle pointer move event to update the rectangle dimensions while drawing
+    const handlePointerMove = (e) => {
+        if (!isDrawingMode || !isDrawingRef.current) return;
+        e.preventDefault();
+
+        const canvas = canvasRef.current;
+        const start = startPointRef.current;
+        let { x, y } = getRelativePos(e);
+
+        // the rectangle should not go outside the canvas boundaries
+        x = clamp(x, 0, canvas.width);
+        y = clamp(y, 0, canvas.height);
+
+        const left = Math.min(start.x, x);
+        const top = Math.min(start.y, y);
+        const width = Math.abs(x - start.x);
+        const height = Math.abs(y - start.y);
+
+        rectRef.current = { x: left, y: top, w: width, h: height };
+        drawRect();
+    };
+
+    // Handle pointer up event to finalize the rectangle drawing
+    const handlePointerUp = (e) => {
+        if (!isDrawingRef.current) return;
+        isDrawingRef.current = false;
+        canvasRef.current?.releasePointerCapture(e.pointerId);
+    };
+
+    const handleClick = (e) => {
+        if (isDrawingMode) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+    };
+
+    // Expose methods to the parent component via ref
+    useImperativeHandle(ref, () => ({
+        reset: () => {
+            rectRef.current = null;
+            drawRect();
+        },
+        hasSelection: () => {
+            const rect = rectRef.current;
+            return !!rect && rect.w > 6 && rect.h > 6;
+        },
+        getMaskBlob: () => {
+            const rect = rectRef.current;
+            const canvas = canvasRef.current;
+            const { width, height } = naturalSizeRef.current;
+
+            if (!rect || !width || !height) return Promise.resolve(null);
+
+            const scaleX = width / canvas.width;
+            const scaleY = height / canvas.height;
+
+            const maskCanvas = document.createElement('canvas');
+            maskCanvas.width = width;
+            maskCanvas.height = height;
+            const ctx = maskCanvas.getContext('2d');
+
+            ctx.fillStyle = 'black';
+            ctx.fillRect(0, 0, width, height);
+
+            ctx.fillStyle = 'white';
+            ctx.fillRect(
+                rect.x * scaleX,
+                rect.y * scaleY,
+                rect.w * scaleX,
+                rect.h * scaleY
+            );
+
+            return new Promise((resolve) => {
+                maskCanvas.toBlob((blob) => resolve(blob), 'image/png');
+            });
+        }
+    }));
+
+    return (
+        <canvas
+            ref={canvasRef}
+            className={`mask-canvas ${isDrawingMode ? 'is-drawing' : ''}`}
+            onPointerDown={handlePointerDown}
+            onPointerMove={handlePointerMove}
+            onPointerUp={handlePointerUp}
+            onPointerCancel={handlePointerUp}
+            onClick={handleClick}
+        />
+    );
+});
+
+MaskCanvas.displayName = 'MaskCanvas';
+MaskCanvas.propTypes = {
+    imageUrl: PropTypes.string,
+    isDrawingMode: PropTypes.bool
+};
+
+export default MaskCanvas;
