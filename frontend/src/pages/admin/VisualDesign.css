@@ -97,3 +97,23 @@
 @keyframes vd-spin {
     to { transform: rotate(360deg); }
 }
+
+@media screen and (max-width: 550px) {
+    .vd-buttons {
+        flex-direction: column;
+        gap: 2rem;
+        width: 100%;
+    }
+
+    .vd-modifiers {
+        width: min(100%, 340px);
+        display: grid;
+        grid-template-columns: auto 1fr;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .vd-modifiers .slider {
+        width: 100%;
+    }
+}
