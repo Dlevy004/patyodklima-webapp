@@ -484,4 +484,121 @@ describe('VisualDesign', () => {
 
         expect(formData.get('placementType')).toBe('indoor');
     });
+
+    it('shows an error when image download response is not ok', async () => {
+        globalThis.fetch.mockResolvedValueOnce({
+            ok: false,
+            status: 500
+        });
+
+        render(<VisualDesign />);
+        selectFile();
+
+        fireEvent.click(screen.getByTestId('action-btn-download'));
+
+        await waitFor(() => {
+            expect(toast.error).toHaveBeenCalledWith(
+                'Hiba történt a letöltés során.'
+            );
+        });
+
+        expect(HTMLAnchorElement.prototype.click).not.toHaveBeenCalled();
+    });
+
+    it('ignores a stale successful generation response', async () => {
+        let resolveFetch;
+
+        globalThis.fetch.mockReturnValueOnce(
+            new Promise((resolve) => {
+                resolveFetch = resolve;
+            })
+        );
+
+        render(<VisualDesign />);
+        selectFile();
+
+        const form = screen
+            .getByRole('button', { name: 'Generálás' })
+            .closest('form');
+
+        fireEvent.submit(form);
+
+        await waitFor(() => {
+            expect(globalThis.fetch).toHaveBeenCalledTimes(1);
+        });
+
+        selectFile();
+
+        resolveFetch({
+            ok: true,
+            json: async () => ({
+                generated_image_url: 'https://example.com/old-generated.png'
+            })
+        });
+
+        await flushPromises();
+        await flushPromises();
+
+        expect(screen.getByTestId('preview-image')).toHaveAttribute(
+            'src',
+            'blob:mock-object-url'
+        );
+
+        expect(toast.success).not.toHaveBeenCalledWith(
+            'A látványterv elkészült!'
+        );
+
+        expect(screen.getByRole('button', { name: 'Generálás…' }))
+            .toBeDisabled();
+    });
+
+    it('ignores a stale generation error', async () => {
+        let rejectFetch;
+
+        globalThis.fetch.mockReturnValueOnce(
+            new Promise((resolve, reject) => {
+                rejectFetch = reject;
+            })
+        );
+
+        const consoleErrorSpy = vi
+            .spyOn(console, 'error')
+            .mockImplementation(() => {});
+
+        render(<VisualDesign />);
+        selectFile();
+
+        const form = screen
+            .getByRole('button', { name: 'Generálás' })
+            .closest('form');
+
+        fireEvent.submit(form);
+
+        await waitFor(() => {
+            expect(globalThis.fetch).toHaveBeenCalledTimes(1);
+        });
+
+        selectFile();
+
+        rejectFetch(new Error('old request failed'));
+
+        await flushPromises();
+        await flushPromises();
+
+        expect(screen.queryByRole('alert')).not.toBeInTheDocument();
+
+        expect(toast.error).not.toHaveBeenCalledWith(
+            'Hiba történt a generálás során.'
+        );
+
+        expect(consoleErrorSpy).not.toHaveBeenCalledWith(
+            'Generálási hiba:',
+            expect.any(Error)
+        );
+
+        expect(screen.getByRole('button', { name: 'Generálás…' }))
+            .toBeDisabled();
+
+        consoleErrorSpy.mockRestore();
+    });
 });
