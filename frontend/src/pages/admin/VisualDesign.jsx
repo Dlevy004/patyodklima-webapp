@@ -7,6 +7,7 @@ import usePageTitle from '../../hooks/usePageTitle';
 import DragAndDrop from '@/components/admin/common/DragAndDrop';
 import Slider from '../../components/admin/common/Slider';
 import ActionBtn from '../../components/admin/common/ActionBtn';
+import { getAuthHeaders } from '@/utils/api';
 
 
 function VisualDesign() {
