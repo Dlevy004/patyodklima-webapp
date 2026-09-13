@@ -151,6 +151,7 @@ function VisualDesign() {
                             <ActionBtn type='delete' onClick={handleDelete} />
                         </div>
                     </div>
+                    {error && <span className='error-text' role='alert'>{error}</span>}
 
                     <div className="vd-buttons">
                         <div className='vd-modifiers'>
