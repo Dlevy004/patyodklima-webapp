@@ -3,6 +3,8 @@
     border-radius: 50%;
     width: 42px;
     height: 42px;
+    box-sizing: border-box;
+    flex-shrink: 0;
 
     display: flex;
     justify-content: center;
