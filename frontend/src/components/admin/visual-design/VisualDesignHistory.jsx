@@ -1,6 +1,6 @@
 import HistoryList from '@/components/admin/common/HistoryList';
 import GeneratedDesignCard from './GeneratedDesignCard';
-import { getAuthHeaders } from '../../../utils/api'
+import useFileDownload from '../../../hooks/useFileDownload';
 
 const DESIGNS_API_URL = `${import.meta.env.VITE_API_URL}/api/visual-designs`;
 

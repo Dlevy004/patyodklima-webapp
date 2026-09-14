@@ -6,7 +6,7 @@ import useSaveData from '@/hooks/useSaveData';
 import useModal from '@/hooks/useModal';
 import ModalBackdrop from '@/components/admin/common/ModalBackdrop';
 import EditReferenceModal from './EditReferenceModal';
-import { getAuthHeaders } from '@/utils/api';
+import useFileDownload from '../../../hooks/useFileDownload';
 
 const API_URL = `${import.meta.env.VITE_API_URL}/api/references`
 
@@ -14,6 +14,7 @@ const API_URL = `${import.meta.env.VITE_API_URL}/api/references`
 function ReferenceHistory() {
     const editModal = useModal();
     const { saveData } = useSaveData();
+    const { downloadFile } = useFileDownload();
     const refetchRef = useRef(() => {});
 
     const handleToggleVisibility = async (reference, refetch) => {
