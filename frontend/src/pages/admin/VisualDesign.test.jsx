@@ -21,6 +21,12 @@ vi.mock('../../components/common/ScrollUp', () => ({
     default: () => <div data-testid="scroll-up" />
 }));
 
+vi.mock('../../components/admin/visual-design/VisualDesignHistory', () => ({
+    default: () => (
+        <div data-testid="visual-design-history" />
+    )
+}));
+
 vi.mock('@/utils/api', () => ({
     getAuthHeaders: () => ({ Authorization: 'Bearer test-token' })
 }));
