@@ -38,9 +38,8 @@ function ReferenceHistory({ refreshTrigger }) {
     const handleDownload = async (referenceId, title) => {
         try {
             const response = await fetch(`${API_URL}/${referenceId}/download`, {
-                headers: getAuthHeaders(),
+                headers: getAuthHeaders()
             });
-
             if (!response.ok) {
                 const errorData = await response.json().catch(() => ({}));
                 throw new Error(errorData.message || 'Szerverhiba történt a letöltés során.');
@@ -55,46 +54,33 @@ function ReferenceHistory({ refreshTrigger }) {
             window.URL.revokeObjectURL(url);
         } catch (error) {
             console.error('Letöltési hiba:', error.message);
-            toast.error(`Nem sikerült letölteni a képet.`)
+            toast.error('Nem sikerült letölteni a képet.')
         }
     };
 
     return (
-        <div className='reference-history'>
-            <h2 className='reference-history-title'>Jelenlegi referenciák</h2>
-            <ul className='reference-history-container'>
-                <DataStateFeedback
-                    isLoading={isLoading}
-                    error={error}
-                    isEmpty={!isLoading && !error && references?.length === 0}
-                    emptyMessage={'Nincsenek feltöltött referenciák.'}
-                >
-                    {
-                        references?.map((reference) => (
-                            <UploadedReference
-                                key={reference.id}
-                                title={reference.description}
-                                imageUrl={reference.image_url}
-                                isVisible={reference.is_visible}
-
-                                onDelete={() => deleteModal.open(reference)}
-                                onEdit={() => editModal.open(reference)}
-                                onToggleVisibility={() => handleToggleVisibility(reference)}
-                                onDownload={() => handleDownload(reference.id, reference.description)}
-                            />
-                        ))
-                    }
-                </DataStateFeedback>
-            </ul>
-
-            <ModalBackdrop isOpen={deleteModal.isOpen} onClose={deleteModal.close}>
-                <DeleteDataModal
-                    titleData={'Referenciakép'}
-                    descriptionData={'referenciát'}
-                    onClose={deleteModal.close}
-                    onDelete={handleDeleteClick}
-                />
-            </ModalBackdrop>
+        <>
+            <HistoryList
+                title="Jelenlegi referenciák"
+                apiUrl={API_URL}
+                refreshTrigger={refreshTrigger}
+                emptyMessage="Nincsenek feltöltött referenciák."
+                deleteLabels={{ titleData: 'Referenciakép', descriptionData: 'referenciát' }}
+                onRefetchReady={(fn) => { refetchRef.current = fn; }}
+            >
+                {(reference, { key, refetch, onDelete }) => (
+                    <UploadedReference
+                        key={key}
+                        title={reference.description}
+                        imageUrl={reference.image_url}
+                        isVisible={reference.is_visible}
+                        onDelete={onDelete}
+                        onEdit={() => editModal.open(reference)}
+                        onToggleVisibility={() => handleToggleVisibility(reference, refetch)}
+                        onDownload={() => handleDownload(reference.id, reference.description)}
+                    />
+                )}
+            </HistoryList>
 
             <ModalBackdrop isOpen={editModal.isOpen} onClose={editModal.close}>
                 <EditReferenceModal
@@ -103,8 +89,8 @@ function ReferenceHistory({ refreshTrigger }) {
                     referenceData={editModal.selectedItem}
                 />
             </ModalBackdrop>
-        </div>
-    )
+        </>
+    );
 }
 
 export default ReferenceHistory;
