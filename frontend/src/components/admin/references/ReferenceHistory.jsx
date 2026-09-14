@@ -35,28 +35,8 @@ function ReferenceHistory() {
         }
     };
 
-    const handleDownload = async (referenceId, title) => {
-        try {
-            const response = await fetch(`${API_URL}/${referenceId}/download`, {
-                headers: getAuthHeaders()
-            });
-            if (!response.ok) {
-                const errorData = await response.json().catch(() => ({}));
-                throw new Error(errorData.message || 'Szerverhiba történt a letöltés során.');
-            }
-
-            const blob = await response.blob();
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `${title}.png`;
-            a.click();
-            window.URL.revokeObjectURL(url);
-        } catch (error) {
-            console.error('Letöltési hiba:', error.message);
-            toast.error('Nem sikerült letölteni a képet.')
-        }
-    };
+    const handleDownload = (referenceId, title) =>
+        downloadFile(`${API_URL}/${referenceId}/download`, `${title}.png`);
 
     return (
         <>
