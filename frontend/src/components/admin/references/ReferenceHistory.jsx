@@ -13,7 +13,7 @@ import { getAuthHeaders } from '@/utils/api';
 const API_URL = `${import.meta.env.VITE_API_URL}/api/references`
 
 
-function ReferenceHistory({ refreshTrigger }) {
+function ReferenceHistory() {
     const editModal = useModal();
     const { saveData } = useSaveData();
     const refetchRef = useRef(() => {});
@@ -63,7 +63,6 @@ function ReferenceHistory({ refreshTrigger }) {
             <HistoryList
                 title="Jelenlegi referenciák"
                 apiUrl={API_URL}
-                refreshTrigger={refreshTrigger}
                 emptyMessage="Nincsenek feltöltött referenciák."
                 deleteLabels={{ titleData: 'Referenciakép', descriptionData: 'referenciát' }}
                 onRefetchReady={(fn) => { refetchRef.current = fn; }}
