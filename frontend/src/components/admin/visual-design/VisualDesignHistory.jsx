@@ -1,5 +1,3 @@
-import toast from 'react-hot-toast'
-
 import HistoryList from '@/components/admin/common/HistoryList';
 import GeneratedDesignCard from './GeneratedDesignCard';
 import { getAuthHeaders } from '../../../utils/api'
