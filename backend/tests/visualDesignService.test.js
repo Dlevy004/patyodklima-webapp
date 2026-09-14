@@ -10,7 +10,9 @@ jest.mock('../database/prisma', () => ({
         update: jest.fn(),
         findMany: jest.fn(),
         delete: jest.fn(),
-        findUnique: jest.fn()
+        findUnique: jest.fn(),
+        deleteMany: jest.fn(),
+        findFirst: jest.fn()
     }
 }));
 
