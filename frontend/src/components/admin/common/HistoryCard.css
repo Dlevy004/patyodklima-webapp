@@ -61,7 +61,7 @@
     pointer-events: none;
 }
 
-.history-card:is(:hover, :focus-visible) .history-card-actions {
+.history-card:is(:hover, :focus-within) .history-card-actions {
     opacity: 1;
     pointer-events: auto;
 }
