@@ -155,10 +155,10 @@ const processAndSaveDesign = async (designId, originalBuffer, maskBuffer, prompt
         if (timeoutId) clearTimeout(timeoutId);
 
         if (originalImageUrl) {
-            await supabaseService.deleteImageFromBucket(originalImageUrl, 'VisualDesign').catch(console.error);
+            await supabaseService.deleteImage(originalImageUrl, 'VisualDesign').catch(console.error);
         }
         if (generatedImageUrl) {
-            await supabaseService.deleteImageFromBucket(generatedImageUrl, 'VisualDesign').catch(console.error);
+            await supabaseService.deleteImage(generatedImageUrl, 'VisualDesign').catch(console.error);
         }
 
         await prisma.ai_visual_designs.update({

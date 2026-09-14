@@ -13,7 +13,7 @@ jest.mock('../database/prisma', () => ({
 
 jest.mock('../services/supabaseService', () => ({
     uploadImage: jest.fn(),
-    deleteImageFromBucket: jest.fn()
+    deleteImage: jest.fn()
 }));
 
 jest.mock('sharp', () => {
@@ -135,7 +135,7 @@ describe('Visual Design', () => {
             .mockResolvedValueOnce('https://supabase.../original.jpg')
             .mockResolvedValueOnce('https://supabase.../generated.png');
 
-        supabaseService.deleteImageFromBucket.mockResolvedValue();
+        supabaseService.deleteImage.mockResolvedValue();
 
         prisma.ai_visual_designs.update
             .mockRejectedValueOnce(new Error('Prisma Database Error'))
@@ -147,8 +147,8 @@ describe('Visual Design', () => {
             visualDesignService.processAndSaveDesign('123', dummyBuffer, dummyBuffer, 'test prompt', {})
         ).rejects.toThrow('Prisma Database Error');
 
-        expect(supabaseService.deleteImageFromBucket).toHaveBeenCalledWith('https://supabase.../original.jpg', 'VisualDesign');
-        expect(supabaseService.deleteImageFromBucket).toHaveBeenCalledWith('https://supabase.../generated.png', 'VisualDesign');
+        expect(supabaseService.deleteImage).toHaveBeenCalledWith('https://supabase.../original.jpg', 'VisualDesign');
+        expect(supabaseService.deleteImage).toHaveBeenCalledWith('https://supabase.../generated.png', 'VisualDesign');
     });
 
     test('processAndSaveDesign should adjust crop boundaries if mask is near the top-left edge (< 0)', async () => {
@@ -236,7 +236,7 @@ describe('Visual Design', () => {
             .mockResolvedValueOnce('https://supabase.../original.jpg')
             .mockResolvedValueOnce('https://supabase.../generated.png');
 
-        supabaseService.deleteImageFromBucket.mockRejectedValue(new Error('Supabase Delete Error'));
+        supabaseService.deleteImage.mockRejectedValue(new Error('Supabase Delete Error'));
 
         prisma.ai_visual_designs.update
             .mockRejectedValueOnce(new Error('Prisma Database Error'))
