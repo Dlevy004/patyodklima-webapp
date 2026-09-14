@@ -31,7 +31,8 @@ UploadedReference.propTypes = {
     isVisible: PropTypes.bool,
     onDelete: PropTypes.func.isRequired,
     onEdit: PropTypes.func.isRequired,
-    onToggleVisibility: PropTypes.func.isRequired
+    onToggleVisibility: PropTypes.func.isRequired,
+    onDownload: PropTypes.func.isRequired
 };
 
 export default UploadedReference;
