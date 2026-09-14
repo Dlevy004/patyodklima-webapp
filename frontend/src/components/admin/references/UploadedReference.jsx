@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 
-import './UploadedReference.css';
-
+import HistoryCard from '@/components/admin/common/HistoryCard';
 import ActionBtn from '../common/ActionBtn';
 
 
