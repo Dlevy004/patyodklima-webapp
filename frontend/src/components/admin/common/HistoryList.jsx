@@ -1,4 +1,4 @@
-+import { useEffect } from 'react';
+import { useEffect } from 'react';
 
 import PropTypes from 'prop-types';
 
@@ -39,13 +39,13 @@ function HistoryList({
     return (
         <div className='history-list'>
             {title && <h2 className='history-list-title'>{title}</h2>}
-            <ul className='history-list-container'>
-                <DataStateFeedback
-                    isLoading={isLoading}
-                    error={error}
-                    isEmpty={!isLoading && !error && items.length === 0}
-                    emptyMessage={emptyMessage}
-                >
+            <DataStateFeedback
+                isLoading={isLoading}
+                error={error}
+                isEmpty={!isLoading && !error && items.length === 0}
+                emptyMessage={emptyMessage}
+            >
+                <ul className='history-list-container'>
                     {items.map((item) =>
                         children(item, {
                             key: getItemKey(item),
@@ -53,8 +53,8 @@ function HistoryList({
                             onDelete: () => deleteModal.open(item)
                         })
                     )}
-                </DataStateFeedback>
-            </ul>
+                </ul>
+            </DataStateFeedback>
 
             <ModalBackdrop isOpen={deleteModal.isOpen} onClose={deleteModal.close}>
                 <DeleteDataModal
