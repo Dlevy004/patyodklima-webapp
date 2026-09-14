@@ -1,6 +1,7 @@
 .visual-design-page {
     display: flex;
     flex-direction: column;
+    gap: 4rem;
 }
 
 .vd-drag-drop .drag-and-drop-container.drag-drop {
