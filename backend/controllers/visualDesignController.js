@@ -17,7 +17,7 @@ const getAllDesigns = async (req, res) => {
 const downloadDesign = async (req, res) => {
     try {
         const designId = req.params.id;
-        const design = await visualDesignService.getDesignById(designId);
+        const design = await visualDesignService.getDesignById(designId, req.user.id);
 
         if (!design) {
             return res.status(404).json({ message: 'A látványterv nem található.' });
@@ -105,13 +105,16 @@ const deleteDesign = async (req, res) => {
             return res.status(404).json({ message: 'A látványterv nem található.' });
         }
 
-        const deletedDesign = await visualDesignService.deleteDesign(designId);
-
         if (existingDesign.original_image_url) {
             await supabaseService.deleteImage(existingDesign.original_image_url, 'VisualDesign').catch(console.error);
         }
         if (existingDesign.generated_image_url) {
             await supabaseService.deleteImage(existingDesign.generated_image_url, 'VisualDesign').catch(console.error);
+        }
+
+        const deletedDesign = await visualDesignService.deleteDesign(designId);
+        if (!deleted) {
+            return res.status(404).json({ message: 'A látványterv nem található.' });
         }
 
         res.status(200).json(deletedDesign);

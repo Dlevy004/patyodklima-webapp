@@ -43,6 +43,7 @@ const deleteImage = async (imageUrl, bucketName = 'References') => {
 
     if (error) {
         console.error(`Supabase delete error: ${error.message}`);
+        throw new Error(`Supabase delete error: ${error.message}`);
     }
 };
 
