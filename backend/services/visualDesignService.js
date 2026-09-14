@@ -169,6 +169,25 @@ const processAndSaveDesign = async (designId, originalBuffer, maskBuffer, prompt
     }
 };
 
+const getAllDesigns = async (userId) => {
+    return await prisma.ai_visual_designs.findMany({
+        where: { user_id: userId },
+        orderBy: { created_at: 'desc' }
+    });
+};
+
+const deleteDesign = async (designId) => {
+    return await prisma.ai_visual_designs.delete({
+        where: { id: designId }
+    });
+};
+
+const getDesignById = async (designId) => {
+    return await prisma.ai_visual_designs.findUnique({
+        where: { id: designId }
+    });
+};
+
 module.exports = {
     createPendingDesign,
     processAndSaveDesign
