@@ -176,15 +176,16 @@ const getAllDesigns = async (userId) => {
     });
 };
 
-const deleteDesign = async (designId) => {
-    return await prisma.ai_visual_designs.delete({
-        where: { id: designId }
+const deleteDesign = async (designId, userId) => {
+    const { count } = await prisma.ai_visual_designs.deleteMany({
+        where: { id: designId, user_id: userId }
     });
+    return count > 0;
 };
 
-const getDesignById = async (designId) => {
-    return await prisma.ai_visual_designs.findUnique({
-        where: { id: designId }
+const getDesignById = async (designId, userId) => {
+    return await prisma.ai_visual_designs.findFirst({
+        where: { id: designId, user_id: userId }
     });
 };
 
