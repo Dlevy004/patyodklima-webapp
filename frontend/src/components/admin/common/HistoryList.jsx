@@ -1,3 +1,5 @@
++import { useEffect } from 'react';
+
 import PropTypes from 'prop-types';
 
 import './HistoryList.css';
@@ -14,11 +16,16 @@ function HistoryList({
     title, apiUrl,
     emptyMessage, deleteLabels,
     getItemKey = (item) => item.id,
+    onRefetchReady,
     children
 }) {
     const { data: items, isLoading, error, refetch } = useHistoryData(apiUrl);
     const deleteModal = useModal();
     const { deleteData } = useDeleteData();
+
+    useEffect(() => {
+        onRefetchReady?.(refetch);
+    }, [onRefetchReady, refetch]);
 
     const handleDeleteClick = async () => {
         const success = await deleteData(`${apiUrl}/${deleteModal.selectedItem.id}`);
@@ -70,6 +77,7 @@ HistoryList.propTypes = {
         descriptionData: PropTypes.string.isRequired
     }).isRequired,
     getItemKey: PropTypes.func,
+    onRefetchReady: PropTypes.func,
     children: PropTypes.func.isRequired
 };
 
