@@ -21,6 +21,12 @@ vi.mock('../../components/common/ScrollUp', () => ({
     default: () => <div data-testid="scroll-up" />
 }));
 
+vi.mock('../../components/admin/visual-design/VisualDesignHistory', () => ({
+    default: () => (
+        <div data-testid="visual-design-history" />
+    )
+}));
+
 vi.mock('@/utils/api', () => ({
     getAuthHeaders: () => ({ Authorization: 'Bearer test-token' })
 }));
@@ -477,9 +483,14 @@ describe('VisualDesign', () => {
 
         await waitFor(() => {
             expect(globalThis.fetch).toHaveBeenCalledTimes(1);
+            expect(globalThis.fetch.mock.calls[0][0]).toBe(
+                'http://localhost:3000/api/visual-designs/generate'
+            );
         });
 
         const [, calledOptions] = globalThis.fetch.mock.calls[0];
+
+        expect(calledOptions.body.get('placementType')).toBe('indoor');
         const formData = calledOptions.body;
 
         expect(formData.get('placementType')).toBe('indoor');

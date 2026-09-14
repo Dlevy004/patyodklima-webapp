@@ -91,7 +91,7 @@ describe('Supabase Service', () => {
             expect(supabase.storage.remove).toHaveBeenCalledWith(['123-kep.jpg']);
         });
 
-        it('should log an error if deletion fails', async () => {
+        it('should log and throw an error if deletion fails', async () => {
             // Arrange
             const imageUrl = 'https://supabase.co/.../hiba.jpg';
             const errorMessage = 'File not found';
@@ -102,10 +102,11 @@ describe('Supabase Service', () => {
                 error: { message: errorMessage }
             });
 
-            // Act
-            await supabaseService.deleteImage(imageUrl);
+            // Act & Assert
+            await expect(
+                supabaseService.deleteImage(imageUrl)
+            ).rejects.toThrow(`Supabase delete error: ${errorMessage}`);
 
-            // Assert
             expect(consoleSpy).toHaveBeenCalledWith(`Supabase delete error: ${errorMessage}`);
 
             consoleSpy.mockRestore();

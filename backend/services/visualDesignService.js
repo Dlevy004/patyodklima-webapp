@@ -155,10 +155,10 @@ const processAndSaveDesign = async (designId, originalBuffer, maskBuffer, prompt
         if (timeoutId) clearTimeout(timeoutId);
 
         if (originalImageUrl) {
-            await supabaseService.deleteImageFromBucket(originalImageUrl, 'VisualDesign').catch(console.error);
+            await supabaseService.deleteImage(originalImageUrl, 'VisualDesign').catch(console.error);
         }
         if (generatedImageUrl) {
-            await supabaseService.deleteImageFromBucket(generatedImageUrl, 'VisualDesign').catch(console.error);
+            await supabaseService.deleteImage(generatedImageUrl, 'VisualDesign').catch(console.error);
         }
 
         await prisma.ai_visual_designs.update({
@@ -169,7 +169,30 @@ const processAndSaveDesign = async (designId, originalBuffer, maskBuffer, prompt
     }
 };
 
+const getAllDesigns = async (userId) => {
+    return await prisma.ai_visual_designs.findMany({
+        where: { user_id: userId },
+        orderBy: { created_at: 'desc' }
+    });
+};
+
+const deleteDesign = async (designId, userId) => {
+    const { count } = await prisma.ai_visual_designs.deleteMany({
+        where: { id: designId, user_id: userId }
+    });
+    return count > 0;
+};
+
+const getDesignById = async (designId, userId) => {
+    return await prisma.ai_visual_designs.findFirst({
+        where: { id: designId, user_id: userId }
+    });
+};
+
 module.exports = {
     createPendingDesign,
-    processAndSaveDesign
+    processAndSaveDesign,
+    getAllDesigns,
+    getDesignById,
+    deleteDesign
 };

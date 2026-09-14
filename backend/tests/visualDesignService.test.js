@@ -8,12 +8,17 @@ jest.mock('../database/prisma', () => ({
     ai_visual_designs: {
         create: jest.fn(),
         update: jest.fn(),
+        findMany: jest.fn(),
+        delete: jest.fn(),
+        findUnique: jest.fn(),
+        deleteMany: jest.fn(),
+        findFirst: jest.fn()
     }
 }));
 
 jest.mock('../services/supabaseService', () => ({
     uploadImage: jest.fn(),
-    deleteImageFromBucket: jest.fn()
+    deleteImage: jest.fn()
 }));
 
 jest.mock('sharp', () => {
@@ -135,7 +140,7 @@ describe('Visual Design', () => {
             .mockResolvedValueOnce('https://supabase.../original.jpg')
             .mockResolvedValueOnce('https://supabase.../generated.png');
 
-        supabaseService.deleteImageFromBucket.mockResolvedValue();
+        supabaseService.deleteImage.mockResolvedValue();
 
         prisma.ai_visual_designs.update
             .mockRejectedValueOnce(new Error('Prisma Database Error'))
@@ -147,8 +152,8 @@ describe('Visual Design', () => {
             visualDesignService.processAndSaveDesign('123', dummyBuffer, dummyBuffer, 'test prompt', {})
         ).rejects.toThrow('Prisma Database Error');
 
-        expect(supabaseService.deleteImageFromBucket).toHaveBeenCalledWith('https://supabase.../original.jpg', 'VisualDesign');
-        expect(supabaseService.deleteImageFromBucket).toHaveBeenCalledWith('https://supabase.../generated.png', 'VisualDesign');
+        expect(supabaseService.deleteImage).toHaveBeenCalledWith('https://supabase.../original.jpg', 'VisualDesign');
+        expect(supabaseService.deleteImage).toHaveBeenCalledWith('https://supabase.../generated.png', 'VisualDesign');
     });
 
     test('processAndSaveDesign should adjust crop boundaries if mask is near the top-left edge (< 0)', async () => {
@@ -236,7 +241,9 @@ describe('Visual Design', () => {
             .mockResolvedValueOnce('https://supabase.../original.jpg')
             .mockResolvedValueOnce('https://supabase.../generated.png');
 
-        supabaseService.deleteImageFromBucket.mockRejectedValue(new Error('Supabase Delete Error'));
+        supabaseService.deleteImage
+            .mockRejectedValueOnce(new Error('Supabase Delete Error'))
+            .mockRejectedValueOnce(new Error('Supabase Delete Error'));
 
         prisma.ai_visual_designs.update
             .mockRejectedValueOnce(new Error('Prisma Database Error'))
@@ -252,5 +259,67 @@ describe('Visual Design', () => {
         expect(consoleSpy).toHaveBeenCalledTimes(2);
 
         consoleSpy.mockRestore();
+    });
+
+    test('getAllDesigns should return all designs for the given user ordered by newest first', async () => {
+        const mockDesigns = [
+            { id: '2', user_id: 'user-1', created_at: '2026-09-14T12:00:00Z' },
+            { id: '1', user_id: 'user-1', created_at: '2026-09-13T12:00:00Z' }
+        ];
+
+        prisma.ai_visual_designs.findMany.mockResolvedValue(mockDesigns);
+
+        const result = await visualDesignService.getAllDesigns('user-1');
+
+        expect(prisma.ai_visual_designs.findMany).toHaveBeenCalledWith({
+            where: { user_id: 'user-1' },
+            orderBy: { created_at: 'desc' }
+        });
+
+        expect(result).toEqual(mockDesigns);
+    });
+
+    test('deleteDesign should delete the design belonging to the given user and return true', async () => {
+        prisma.ai_visual_designs.deleteMany.mockResolvedValue({ count: 1 });
+
+        const result = await visualDesignService.deleteDesign('123', 'user-1');
+
+        expect(prisma.ai_visual_designs.deleteMany).toHaveBeenCalledWith({
+            where: { id: '123', user_id: 'user-1' }
+        });
+        expect(result).toBe(true);
+    });
+
+    test('deleteDesign should return false if no design was deleted (not found or not owned)', async () => {
+        prisma.ai_visual_designs.deleteMany.mockResolvedValue({ count: 0 });
+
+        const result = await visualDesignService.deleteDesign('123', 'user-1');
+
+        expect(result).toBe(false);
+    });
+
+    test('getDesignById should return the design belonging to the given user', async () => {
+        const mockDesign = {
+            id: '123',
+            user_id: 'user-1',
+            status: 'completed'
+        };
+
+        prisma.ai_visual_designs.findFirst.mockResolvedValue(mockDesign);
+
+        const result = await visualDesignService.getDesignById('123', 'user-1');
+
+        expect(prisma.ai_visual_designs.findFirst).toHaveBeenCalledWith({
+            where: { id: '123', user_id: 'user-1' }
+        });
+        expect(result).toEqual(mockDesign);
+    });
+
+    test('getDesignById should return null if the design belongs to another user', async () => {
+        prisma.ai_visual_designs.findFirst.mockResolvedValue(null);
+
+        const result = await visualDesignService.getDesignById('123', 'other-user');
+
+        expect(result).toBeNull();
     });
 });

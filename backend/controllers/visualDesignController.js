@@ -1,5 +1,58 @@
-const visualDesignService = require('../services/visualDesignService');
+const sharp = require('sharp');
 
+const visualDesignService = require('../services/visualDesignService');
+const supabaseService = require('../services/supabaseService');
+
+
+const getAllDesigns = async (req, res) => {
+    try {
+        const designs = await visualDesignService.getAllDesigns(req.user.id);
+        res.status(200).json(designs);
+    } catch (error) {
+        console.error('Error while getting visual designs:', error.message);
+        res.status(500).json({ message: 'Hiba történt a látványtervek lekérése közben.' });
+    }
+};
+
+const downloadDesign = async (req, res) => {
+    try {
+        const designId = req.params.id;
+        const design = await visualDesignService.getDesignById(designId, req.user.id);
+
+        if (!design) {
+            return res.status(404).json({ message: 'A látványterv nem található.' });
+        }
+
+        const imageUrl = design.generated_image_url || design.original_image_url;
+        if (!imageUrl) {
+            return res.status(404).json({ message: 'Nincs letölthető kép ehhez a látványtervhez.' });
+        }
+
+        const urlObj = new URL(imageUrl);
+        if (!urlObj.hostname.includes('supabase.co')) {
+            return res.status(403).json({ message: 'Biztonsági okokból a letöltés megtagadva: érvénytelen forrás.' });
+        }
+
+        const imageResponse = await fetch(imageUrl, { redirect: 'error' });
+        if (!imageResponse.ok) {
+            throw new Error(`Sikertelen letöltés a tárhelyről: ${imageResponse.statusText}`);
+        }
+
+        const imageBuffer = Buffer.from(await imageResponse.arrayBuffer());
+        const pngBuffer = await sharp(imageBuffer).png().toBuffer();
+
+        const fileName = `latvanyterv-${designId}.png`;
+
+        res.set({
+            'Content-Type': 'image/png',
+            'Content-Disposition': `attachment; filename="${fileName}"`,
+        });
+        res.send(pngBuffer);
+    } catch (error) {
+        console.error('Error while downloading visual design:', error.message);
+        res.status(500).json({ message: 'Hiba történt a kép letöltése során.' });
+    }
+};
 
 const generateDesign = async (req, res) => {
     try {
@@ -43,6 +96,37 @@ const generateDesign = async (req, res) => {
     }
 };
 
+const deleteDesign = async (req, res) => {
+    try {
+        const designId = req.params.id;
+
+        const existingDesign = await visualDesignService.getDesignById(designId);
+        if (!existingDesign) {
+            return res.status(404).json({ message: 'A látványterv nem található.' });
+        }
+
+        if (existingDesign.original_image_url) {
+            await supabaseService.deleteImage(existingDesign.original_image_url, 'VisualDesign').catch(console.error);
+        }
+        if (existingDesign.generated_image_url) {
+            await supabaseService.deleteImage(existingDesign.generated_image_url, 'VisualDesign').catch(console.error);
+        }
+
+        const deletedDesign = await visualDesignService.deleteDesign(designId);
+        if (!deleted) {
+            return res.status(404).json({ message: 'A látványterv nem található.' });
+        }
+
+        res.status(200).json(deletedDesign);
+    } catch (error) {
+        console.error('Error while deleting visual design:', error.message);
+        res.status(400).json({ message: 'Hiba történt a látványterv törlése közben.' });
+    }
+};
+
 module.exports = {
-    generateDesign
+    generateDesign,
+    getAllDesigns,
+    deleteDesign,
+    downloadDesign
 };

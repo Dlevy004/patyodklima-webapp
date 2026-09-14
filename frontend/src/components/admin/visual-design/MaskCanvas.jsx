@@ -255,7 +255,6 @@ const MaskCanvas = forwardRef(({ imageUrl, isDrawingMode }, ref) => {
             className={`mask-canvas ${isDrawingMode ? 'is-drawing' : ''}`}
             tabIndex={isDrawingMode ? 0 : -1}
             aria-label="Klíma helyének kijelölése a képen"
-            aria-describedby={isDrawingMode ? instructionsId : undefined}
             onPointerDown={handlePointerDown}
             onPointerMove={handlePointerMove}
             onPointerUp={handlePointerUp}

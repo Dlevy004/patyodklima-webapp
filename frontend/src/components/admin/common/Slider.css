@@ -5,7 +5,7 @@
     width: 100%;
 }
 
-.slider label {
+.slider p {
     font-size: var(--fs-p);
 }
 

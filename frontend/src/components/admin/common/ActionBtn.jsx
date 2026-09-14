@@ -65,7 +65,8 @@ function ActionButton({ type, onClick, className = '' }) {
 
 ActionButton.propTypes = {
     type: PropTypes.string.isRequired,
-    onClick: PropTypes.func.isRequired
+    onClick: PropTypes.func.isRequired,
+    className: PropTypes.string
 };
 
 export default ActionButton;
