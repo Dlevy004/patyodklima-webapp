@@ -256,4 +256,57 @@ describe('Visual Design', () => {
 
         consoleSpy.mockRestore();
     });
+
+    test('getAllDesigns should return all designs for the given user ordered by newest first', async () => {
+        const mockDesigns = [
+            { id: '2', user_id: 'user-1', created_at: '2026-09-14T12:00:00Z' },
+            { id: '1', user_id: 'user-1', created_at: '2026-09-13T12:00:00Z' }
+        ];
+
+        prisma.ai_visual_designs.findMany.mockResolvedValue(mockDesigns);
+
+        const result = await visualDesignService.getAllDesigns('user-1');
+
+        expect(prisma.ai_visual_designs.findMany).toHaveBeenCalledWith({
+            where: { user_id: 'user-1' },
+            orderBy: { created_at: 'desc' }
+        });
+
+        expect(result).toEqual(mockDesigns);
+    });
+
+    test('deleteDesign should delete the design with the given id', async () => {
+        const mockDeletedDesign = {
+            id: '123',
+            status: 'completed'
+        };
+
+        prisma.ai_visual_designs.delete.mockResolvedValue(mockDeletedDesign);
+
+        const result = await visualDesignService.deleteDesign('123');
+
+        expect(prisma.ai_visual_designs.delete).toHaveBeenCalledWith({
+            where: { id: '123' }
+        });
+
+        expect(result).toEqual(mockDeletedDesign);
+    });
+
+    test('getDesignById should return the design with the given id', async () => {
+        const mockDesign = {
+            id: '123',
+            user_id: 'user-1',
+            status: 'completed'
+        };
+
+        prisma.ai_visual_designs.findUnique.mockResolvedValue(mockDesign);
+
+        const result = await visualDesignService.getDesignById('123');
+
+        expect(prisma.ai_visual_designs.findUnique).toHaveBeenCalledWith({
+            where: { id: '123' }
+        });
+
+        expect(result).toEqual(mockDesign);
+    });
 });
