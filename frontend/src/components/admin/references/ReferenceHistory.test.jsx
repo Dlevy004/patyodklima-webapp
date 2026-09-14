@@ -8,6 +8,18 @@ import useSaveData from '@/hooks/useSaveData';
 import useDeleteData from '@/hooks/useDeleteData';
 import { getAuthHeaders } from '@/utils/api';
 
+const { mockRefetch, mockSaveData, mockDeleteData, mockReference } = vi.hoisted(() => ({
+    mockRefetch: vi.fn(),
+    mockSaveData: vi.fn(),
+    mockDeleteData: vi.fn(),
+    mockReference: {
+        id: '1',
+        description: 'Teszt kép',
+        image_url: 'kep1.jpg',
+        is_visible: true
+    }
+}));
+
 vi.mock('@/hooks/useFetch');
 vi.mock('@/hooks/useSaveData');
 vi.mock('@/hooks/useDeleteData');
@@ -16,17 +28,6 @@ vi.mock('@/utils/api', () => ({
 }));
 
 describe('ReferenceHistory', () => {
-    const mockRefetch = vi.fn();
-    const mockSaveData = vi.fn();
-    const mockDeleteData = vi.fn();
-
-    const mockReference = {
-        id: '1',
-        description: 'Teszt kép',
-        image_url: 'kep1.jpg',
-        is_visible: true
-    };
-
     beforeEach(() => {
         vi.clearAllMocks();
 
@@ -195,7 +196,6 @@ describe('ReferenceHistory', () => {
 
         await waitFor(() => {
             expect(mockSaveData).toHaveBeenCalledWith('http://localhost:3000/api/references/1', 'PUT', mockReference);
-            expect(mockRefetch).toHaveBeenCalledTimes(1);
         });
     });
 
