@@ -122,5 +122,8 @@ const deleteDesign = async (req, res) => {
 };
 
 module.exports = {
-    generateDesign
+    generateDesign,
+    getAllDesigns,
+    deleteDesign,
+    downloadDesign
 };
