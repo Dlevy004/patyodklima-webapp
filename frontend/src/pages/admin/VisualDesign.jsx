@@ -11,11 +11,14 @@ import MaskCanvas from '@/components/admin/visual-design/MaskCanvas';
 import Slider from '../../components/admin/common/Slider';
 import ActionBtn from '../../components/admin/common/ActionBtn';
 import { getAuthHeaders } from '@/utils/api';
+import VisualDesignHistory from '../../components/admin/visual-design/VisualDesignHistory';
 
 const API_URL = `${import.meta.env.VITE_API_URL}/api/visual-designs`;
 
 function VisualDesign() {
     usePageTitle('Látványterv');
+
+    const [refreshTrigger, setRefreshTrigger] = useState(0);
 
     const [file, setFile] = useState(null);
     const [previewUrl, setPreviewUrl] = useState(null);
@@ -143,6 +146,7 @@ function VisualDesign() {
 
             setGeneratedImageUrl(data.generated_image_url);
             setIsDrawingMode(false);
+            setRefreshTrigger((prev) => prev + 1);
             toast.success('A látványterv elkészült!');
         } catch (err) {
             if (activeRequestRef.current !== requestId) return;
@@ -217,6 +221,8 @@ function VisualDesign() {
                         </button>
                     </div>
                 </form>
+
+                <VisualDesignHistory key={refreshTrigger}/>
             </div>
 
             <ScrollUp />
