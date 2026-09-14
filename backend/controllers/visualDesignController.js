@@ -1,3 +1,5 @@
+const sharp = require('sharp');
+
 const visualDesignService = require('../services/visualDesignService');
 
 
