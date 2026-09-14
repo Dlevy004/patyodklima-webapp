@@ -14,19 +14,9 @@ const API_URL = `${import.meta.env.VITE_API_URL}/api/references`
 
 
 function ReferenceHistory({ refreshTrigger }) {
-    const { data: references = [], isLoading, error, refetch } = useFetch(API_URL);
-
-    useEffect(() => {
-        if (refreshTrigger > 0) {
-            refetch();
-        }
-    }, [refreshTrigger, refetch]);
-
-    const deleteModal = useModal();
     const editModal = useModal();
-
-    const { deleteData } = useDeleteData();
-    const { saveData} = useSaveData();
+    const { saveData } = useSaveData();
+    const refetchRef = useRef(() => {});
 
     const handleToggleVisibility = async (reference) => {
         const url = `${API_URL}/${reference.id}`;
@@ -36,19 +26,7 @@ function ReferenceHistory({ refreshTrigger }) {
             description: reference.description,
             is_visible: !reference.is_visible
         });
-
-        if (success) {
-            refetch();
-        }
-    };
-
-    const handleDeleteClick = async () => {
-        const success = await deleteData(`${API_URL}/${deleteModal.selectedItem.id}`);
-
-        if (success) {
-            deleteModal.close();
-            refetch();
-        }
+        if (success) refetch();
     };
 
     const handleSaveClick = async (reference) => {
