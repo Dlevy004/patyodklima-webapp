@@ -2,16 +2,11 @@ import { useRef } from 'react';
 
 import toast from 'react-hot-toast';
 
-import './ReferenceHistory.css'
-
-import DataStateFeedback from '../common/DataStateFeedback';
+import HistoryList from '@/components/admin/common/HistoryList';
 import UploadedReference from './UploadedReference';
-import useFetch from '@/hooks/useFetch';
-import useDeleteData from '@/hooks/useDeleteData';
 import useSaveData from '@/hooks/useSaveData';
 import useModal from '@/hooks/useModal';
 import ModalBackdrop from '@/components/admin/common/ModalBackdrop';
-import DeleteDataModal from '@/components/admin/common/DeleteDataModal';
 import EditReferenceModal from './EditReferenceModal';
 import { getAuthHeaders } from '@/utils/api';
 
