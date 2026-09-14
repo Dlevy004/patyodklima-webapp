@@ -18,10 +18,8 @@ function ReferenceHistory({ refreshTrigger }) {
     const { saveData } = useSaveData();
     const refetchRef = useRef(() => {});
 
-    const handleToggleVisibility = async (reference) => {
-        const url = `${API_URL}/${reference.id}`;
-
-        const success = await saveData(url, 'PUT', {
+    const handleToggleVisibility = async (reference, refetch) => {
+        const success = await saveData(`${API_URL}/${reference.id}`, 'PUT', {
             image_url: reference.image_url,
             description: reference.description,
             is_visible: !reference.is_visible
