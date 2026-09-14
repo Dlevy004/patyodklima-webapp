@@ -8,6 +8,9 @@ jest.mock('../database/prisma', () => ({
     ai_visual_designs: {
         create: jest.fn(),
         update: jest.fn(),
+        findMany: jest.fn(),
+        delete: jest.fn(),
+        findUnique: jest.fn()
     }
 }));
 
