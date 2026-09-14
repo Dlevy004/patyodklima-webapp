@@ -21,5 +21,6 @@ const cpUpload = upload.fields([
 router.get('/visual-designs', authenticate, visualDesignController.getAllDesigns);
 router.get('/visual-designs/:id/download', authenticate, visualDesignController.downloadDesign);
 router.post('/visual-designs/generate', authenticate, cpUpload, visualDesignController.generateDesign);
+router.delete('/visual-designs/:id', authenticate, visualDesignController.deleteDesign);
 
 module.exports = router;
