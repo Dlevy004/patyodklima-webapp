@@ -28,13 +28,10 @@ function ReferenceHistory({ refreshTrigger }) {
     };
 
     const handleSaveClick = async (reference) => {
-        const url = `${API_URL}/${editModal.selectedItem.id}`;
-
-        const success = await saveData(url, 'PUT', reference);
-
+        const success = await saveData(`${API_URL}/${editModal.selectedItem.id}`, 'PUT', reference);
         if (success) {
             editModal.close();
-            refetch();
+            refetchRef.current();
         }
     };
 
