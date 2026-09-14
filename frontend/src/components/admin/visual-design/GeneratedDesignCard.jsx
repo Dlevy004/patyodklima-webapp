@@ -25,6 +25,7 @@ function GeneratedDesignCard({ design, onDelete, onDownload }) {
 
 GeneratedDesignCard.propTypes = {
     design: PropTypes.shape({
+        id: PropTypes.string.isRequired,
         generated_image_url: PropTypes.string,
         original_image_url: PropTypes.string,
         placement_type: PropTypes.string,
