@@ -34,7 +34,7 @@ function SideNavbar({ isMobileMenuOpen, closeMobileMenu }) {
                 <NavButton key='job-page' IconComponent={BookMarked} title='Munkanapló' url='/admin/jobs' onClick={closeMobileMenu} />
             ]} />
             <NavSection title='Értékesítés' ButtonComponents={[
-                <NavButton key='ai-page' IconComponent={PencilRuler} title='Látványterv' url='/admin/visualdesigns' onClick={closeMobileMenu} />
+                <NavButton key='ai-page' IconComponent={PencilRuler} title='Látványterv' url='/admin/visual-designs' onClick={closeMobileMenu} />
             ]} />
             <NavSection title='Marketing' ButtonComponents={[
                 <NavButton key='reference-page' IconComponent={Images} title='Referencia' url='/admin/references' onClick={closeMobileMenu} />,

@@ -4,6 +4,7 @@
     max-width: 350px;
     height: auto;
     padding: 1rem;
+    overflow: hidden;
 
     display: flex;
     flex-direction: column;

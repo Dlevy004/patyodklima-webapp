@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
 import UploadedReference from './UploadedReference';
@@ -27,7 +27,7 @@ describe('UploadedReference', () => {
         expect(screen.getByAltText('Test Reference')).toBeInTheDocument();
     });
 
-    it('should contain the is-hidden class when isVisible is false', () => {
+    it('should contain the is-dimmed class when isVisible is false', () => {
         render(
             <UploadedReference
                 title="Test Reference"
@@ -40,10 +40,10 @@ describe('UploadedReference', () => {
         );
 
         const referenceElement = screen.getByAltText('Test Reference').closest('li');
-        expect(referenceElement).toHaveClass('uploaded-reference is-hidden');
+        expect(referenceElement).toHaveClass('history-card is-dimmed');
     });
 
-    it('should not contain the is-hidden class when isVisible is true', () => {
+    it('should not contain the is-dimmed class when isVisible is true', () => {
         render(
             <UploadedReference
                 title="Test Reference"
@@ -56,6 +56,6 @@ describe('UploadedReference', () => {
         );
 
         const referenceElement = screen.getByAltText('Test Reference').closest('li');
-        expect(referenceElement).not.toHaveClass('uploaded-reference is-hidden');
+        expect(referenceElement).not.toHaveClass('history-card is-dimmed');
     });
 });

@@ -1,9 +1,9 @@
-.reference-history-title {
+.history-list-title {
     padding-bottom: 2rem;
     font-size: var(--fs-h3);
 }
 
-.reference-history-container {
+.history-list-container {
     display: flex;
     flex-direction: row;
     align-items: stretch;
