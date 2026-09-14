@@ -190,5 +190,8 @@ const getDesignById = async (designId) => {
 
 module.exports = {
     createPendingDesign,
-    processAndSaveDesign
+    processAndSaveDesign,
+    getAllDesigns,
+    getDesignById,
+    deleteDesign
 };
