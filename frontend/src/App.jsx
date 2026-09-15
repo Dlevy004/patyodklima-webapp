@@ -6,6 +6,7 @@ import PrivacyPolicy from './pages/PrivacyPolicy'
 import { Toaster } from 'react-hot-toast'
 
 import { AuthProvider } from './context/AuthContext'
+import { getStoredDarkMode } from './utils/theme';
 import ProtectedRoute from './components/admin/auth/ProtectedRoute'
 import Login from './pages/admin/Login'
 import AdminLayout from './pages/admin/AdminLayout'
@@ -19,7 +20,7 @@ import Ads from './pages/admin/Ads'
 
 function App() {
   useEffect(() => {
-    document.body.classList.toggle('darkmode', localStorage.getItem('darkmode') === 'active');
+    document.body.classList.toggle('darkmode', getStoredDarkMode());
   }, []);
 
   return (

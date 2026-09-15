@@ -4,19 +4,15 @@ import { Sun, Moon } from 'lucide-react'
 
 import './ThemeSwitcher.css'
 
+import { getStoredDarkMode, setStoredDarkMode } from '../../utils/theme';
+
 
 function ThemeSwitcher() {
-    const [isDarkModeEnabled, setIsDarkModeEnabled] = useState(
-        () => localStorage.getItem('darkmode') === 'active'
-    );
+    const [isDarkModeEnabled, setIsDarkModeEnabled] = useState(getStoredDarkMode);
 
     useEffect(() => {
         document.body.classList.toggle('darkmode', isDarkModeEnabled)
-        if (isDarkModeEnabled) {
-            localStorage.setItem('darkmode', 'active');
-        } else {
-            localStorage.removeItem('darkmode');
-        }
+        setStoredDarkMode(isDarkModeEnabled);
     }, [isDarkModeEnabled])
 
     return(
