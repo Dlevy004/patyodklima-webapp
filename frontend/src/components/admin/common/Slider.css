@@ -13,7 +13,7 @@
     position: relative;
     display: flex;
     align-items: center;
-    background-color: #fff;
+    background-color: var(--input-bg);
     border-radius: 11px;
     box-shadow: inset 0px 0px 10px 0px rgba(0,0,0,0.15);
     padding: 4px;
@@ -47,6 +47,14 @@
     height: 100%;
 }
 
+body.darkmode .slider-container button {
+    color: var(--text-color2);
+}
+
 .slider-container button.active {
     color: var(--text-color2);
+}
+
+body.darkmode .slider-container button.active {
+    color: var(--text-color1);
 }
