@@ -59,4 +59,25 @@ describe('ThemeSwitcher', () => {
 
         expect(localStorage.getItem('darkmode')).toBe('active');
     });
+
+    it('falls back to light mode and does not throw when localStorage.getItem throws', () => {
+        localStorage.getItem.mockImplementationOnce(() => {
+            throw new Error('storage blocked');
+        });
+
+        expect(() => render(<ThemeSwitcher />)).not.toThrow();
+        expect(screen.getByTestId('dark-icon')).toBeInTheDocument();
+    });
+
+    it('does not throw when localStorage.setItem throws on toggle', () => {
+        localStorage.setItem.mockImplementationOnce(() => {
+            throw new Error('quota exceeded');
+        });
+
+        render(<ThemeSwitcher />);
+        const button = screen.getByRole('button', { name: 'Témaváltás (sötét/világos)' });
+
+        expect(() => fireEvent.click(button)).not.toThrow();
+        expect(document.body.classList.contains('darkmode')).toBe(true);
+    });
 });
