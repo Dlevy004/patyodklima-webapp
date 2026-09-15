@@ -7,6 +7,13 @@
     --bg-hover-color: #f2f2f2;
     --mobile-bg-color: #f2f2f2;
 
+    --input-bg: #f2f2f2;
+    --placeholder-text: #656566;
+    --bg-color-admin: #f2f2f2;
+    --bg-color-admin2: #228fce;
+    --completed-green-bg: #d6f8e0;
+    --profile-panel-bg: #f2f2f2;
+
     --primary-color: #228fce;
     --secondary-color: #e77525;
 
@@ -26,13 +33,21 @@
 }
 
 .darkmode {
-    --bg-color-primary: #121212;
+    --bg-color-primary: #1E293B;
     --bg-color-secondary1: linear-gradient(to bottom,#202020, #56565670);
     --bg-color-secondary2: linear-gradient(to top, #202020, #56565670);
     --bg-color-brands: #202020;
     --bg-color-ternary: #1f508d;
     --bg-hover-color: #f2f2f2;
     --mobile-bg-color: #202020;
+
+    --input-bg: #94A3B8;
+    --placeholder-text: white;
+    --bg-color-admin: #2a3951;
+    --bg-color-admin2: #2a3951;
+    --grey-text: #8c929c;
+    --completed-green-bg: #89b095;
+    --profile-panel-bg: #1f508d;
 
     --primary-color: #228fce;
     --secondary-color: #e77525;

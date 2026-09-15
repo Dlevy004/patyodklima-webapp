@@ -90,8 +90,8 @@ My primary goal with this was to reinforce my fundamental knowledge of web devel
 - 👤 Client management ✅
 - 🧰 Job/installation tracking ✅
 - 🖼️ Reference image management ✅
+- 🤖 AI visual design tool ✅
 - 📢 Ad creation & publishing ⏳
-- 🤖 AI visual design tool ⏳
 
 ---
 

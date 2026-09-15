@@ -12,6 +12,7 @@
     min-width: 0;
     max-width: 100%;
     cursor: pointer;
+    background-color: var(--bg-color-admin);
 }
 
 .client-item:hover {
@@ -47,7 +48,7 @@
 }
 
 .client-details .client-city {
-    color: rgb(101, 101, 101);
+    color: var(--grey-text);
     text-overflow: ellipsis;
 }
 

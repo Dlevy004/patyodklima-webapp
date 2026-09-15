@@ -5,11 +5,12 @@ import { toast } from 'react-hot-toast';
 import { useAuth } from '../../../context/AuthContext';
 import { getAuthHeaders } from '../../../utils/api';
 import placeholderImg from '../../../assets/images/profile-placeholder.avif';
-import ModalBackdrop from '../common/ModalBackdrop'
 import EditUserDataModal from '../profile/EditUserDataModal'
 import EditCompanyDataModal from '../profile/EditCompanyDataModal'
 import useModal from '../../../hooks/useModal'
 import useSaveData from '../../../hooks/useSaveData'
+import ModalBackdrop from '../common/ModalBackdrop'
+import ThemeSwitcher from '../../common/ThemeSwitcher';
 
 
 function ProfilePanel({ onClose, isInstallable, installPWA }) {
@@ -118,6 +119,11 @@ function ProfilePanel({ onClose, isInstallable, installPWA }) {
                             App telepítése
                         </button>
                     )}
+
+                    <div className='darkmode-wrapper'>
+                        <p>Sötét mód</p>
+                        <ThemeSwitcher />
+                    </div>
 
                     <button
                         type="button"

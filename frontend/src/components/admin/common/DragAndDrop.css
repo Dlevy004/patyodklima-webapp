@@ -14,7 +14,7 @@
 
     background-color: rgba(75, 189, 242, 0.32);
     border-radius: 1rem;
-    border: 2px solid black;
+    border: 2px solid var(--text-color1);
     border-style: dashed;
     cursor: pointer;
 }

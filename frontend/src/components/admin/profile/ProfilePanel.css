@@ -14,7 +14,7 @@
 
 .profile-panel-inner {
     position: relative;
-    background-color: #ffffff;
+    background-color: var(--bg-color-admin);
     border-radius: 1.25rem;
     padding: 1.3rem;
     display: flex;
@@ -30,7 +30,7 @@
     right: 24px;
     width: 20px;
     height: 20px;
-    background-color: #ffffff;
+    background-color: var(--bg-color-admin);
     transform: rotate(45deg);
     border-top-left-radius: 4px;
 }
@@ -40,7 +40,7 @@
     height: 5rem;
     border-radius: 50%;
     object-fit: cover;
-    border: 1px solid #e5e7eb;
+    border: 1px solid black;
     position: relative;
     display: flex;
     align-items: center;
@@ -94,7 +94,7 @@
     margin-bottom: 1rem;
     padding: 0.85rem 1rem;
     background-color: var(--bg-color-ternary);
-    color: #ffffff;
+    color: #f2f2f2;
     border: none;
     border-radius: 0.85rem;
     font-size: 1rem;
@@ -107,6 +107,34 @@
 .profile-panel-userdata-btn:hover,
 .profile-panel-companydata-btn:hover {
     transform: translateY(-3px);
+}
+
+.darkmode-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.darkmode-wrapper .theme-switch {
+    transform: rotate(0deg);
+    margin-right: 0;
+    flex-shrink: 0;
+}
+
+.darkmode-wrapper .theme-switch .my-icon {
+    transform: rotate(0deg);
+}
+
+.darkmode-wrapper p {
+    margin: 0;
+    font-size: 1rem;
+    color: var(--text-color1);
+    line-height: 1;
 }
 
 @keyframes fadeInDown {

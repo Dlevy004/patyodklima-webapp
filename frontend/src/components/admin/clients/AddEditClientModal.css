@@ -33,7 +33,7 @@
 .client-data-modal .title-bg h1 {
     padding: clamp(1.5rem, 4vw, 2rem);
     font-size: var(--fs-h2);
-    color: var(--text-color2);
+    color: #f2f2f2;
     font-weight: bold;
 }
 
@@ -95,7 +95,7 @@
 .client-data-modal .modal-save-btn {
     border: 2px solid var(--primary-bg-color);
     background-color: var(--bg-color-ternary);
-    color: var(--text-color2);
+    color: #f2f2f2;
 }
 
 @media screen and (max-width: 850px) {
