@@ -12,7 +12,11 @@ function ThemeSwitcher() {
 
     useEffect(() => {
         document.body.classList.toggle('darkmode', isDarkModeEnabled)
-        localStorage.setItem('darkmode', isDarkModeEnabled ? 'active' : null)
+        if (isDarkModeEnabled) {
+            localStorage.setItem('darkmode', 'active');
+        } else {
+            localStorage.removeItem('darkmode');
+        }
     }, [isDarkModeEnabled])
 
     return(
