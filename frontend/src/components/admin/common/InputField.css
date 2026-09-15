@@ -20,7 +20,11 @@
     padding: 0.7rem;
     font-family: inherit;
     box-shadow: inset 0px 0px 10px 0px rgba(0,0,0,0.2);
-    color: var(--text-color1);
+    color: black;
+}
+
+.input-field input::placeholder, .input-field textarea::placeholder {
+    color: var(--placeholder-text);
 }
 
 .input-field textarea {
