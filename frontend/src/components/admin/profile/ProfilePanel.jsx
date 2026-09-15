@@ -120,6 +120,11 @@ function ProfilePanel({ onClose, isInstallable, installPWA }) {
                         </button>
                     )}
 
+                    <div className='darkmode-wrapper'>
+                        <p>Sötét mód</p>
+                        <ThemeSwitcher />
+                    </div>
+
                     <button
                         type="button"
                         className="profile-panel-logout-btn"
