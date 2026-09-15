@@ -109,6 +109,30 @@
     transform: translateY(-3px);
 }
 
+.darkmode-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.darkmode-wrapper .theme-switch {
+    transform: rotate(0deg);
+    margin-right: 0;
+    flex-shrink: 0;
+}
+
+.darkmode-wrapper p {
+    margin: 0;
+    font-size: 1rem;
+    color: var(--text-color1);
+    line-height: 1;
+}
+
 @keyframes fadeInDown {
     from {
         opacity: 0;
