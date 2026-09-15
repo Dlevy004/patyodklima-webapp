@@ -11,6 +11,7 @@ describe('ThemeSwitcher', () => {
             getItem: vi.fn((key) => mockStorage[key] || null),
             setItem: vi.fn((key, value) => { mockStorage[key] = String(value); }),
             clear: vi.fn(() => { mockStorage = {}; }),
+            removeItem: vi.fn()
         },
         writable: true
     });
