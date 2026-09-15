@@ -16,7 +16,7 @@ function InputField({ label, type, value, onChange, placeholder, pattern, requir
             ...base,
             width: '100%',
         }),
-        control: (base, state) => ({
+        control: (base) => ({
             ...base,
             borderRadius: '11px',
             padding: '0.15rem 0.3rem',
