@@ -1,7 +1,7 @@
 <p align="center">
     <img src="./logo.avif" alt="Pátyod Klíma Logó" width="200">
 </p>
-<h1 align="center">Pátyod Klíma Web Application</h1>
+<h1 align="center">Pátyod Klíma Admin Portal</h1>
 
 
 ## 📋 About
