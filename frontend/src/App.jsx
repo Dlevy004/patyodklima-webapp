@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { useEffect } from 'react'
 
 import Home from './pages/Home'
 import PrivacyPolicy from './pages/PrivacyPolicy'
@@ -17,6 +18,10 @@ import Ads from './pages/admin/Ads'
 
 
 function App() {
+  useEffect(() => {
+    document.body.classList.toggle('darkmode', localStorage.getItem('darkmode') === 'active');
+  }, []);
+
   return (
     <AuthProvider>
       <BrowserRouter>
