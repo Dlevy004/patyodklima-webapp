@@ -55,7 +55,7 @@
 .login-illustration-content h2 {
     max-width: 18ch;
     margin-bottom: 0.75rem;
-    color: var(--text-color1);
+    color: black;
     font-size: var(--fs-h2);
     line-height: 1.2;
 }
