@@ -49,7 +49,7 @@ app.use((err, req, res, next) => {
 });
 
 //Server start
-app.listen(process.env.PORT, () => {
+app.listen(PORT, () => {
   console.log(`The server started at http://localhost:${PORT}.`);
 });
 
