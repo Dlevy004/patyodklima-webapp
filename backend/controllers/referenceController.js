@@ -91,8 +91,9 @@ const deleteReference = async (req, res) => {
             return res.status(404).json({ message: 'A referenciakép nem található.' });
         }
 
-        const deletedReference = await referenceService.deleteReference(referenceId);
         await supabaseService.deleteImage(existingReference.image_url);
+
+        const deletedReference = await referenceService.deleteReference(referenceId);
 
         res.status(200).json(deletedReference);
     }

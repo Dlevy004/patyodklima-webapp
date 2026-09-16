@@ -1,0 +1,72 @@
+.history-card {
+    position: relative;
+    width: clamp(300px, 40vw, 450px);
+    max-width: 250px;
+    aspect-ratio: 1 / 1;
+    border-radius: 15px;
+    cursor: pointer;
+
+    transition: transform 0.3s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.history-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--secondary-color);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 15px;
+    pointer-events: none;
+}
+
+.history-card:is(:hover, :focus-visible, :active) {
+    transform: translateY(-5px);
+}
+
+.history-card:is(:hover, :focus-visible, :active)::after {
+    opacity: 0.5;
+}
+
+.history-card.is-dimmed .history-card-img {
+    filter: grayscale(100%) opacity(60%);
+}
+
+.history-card-img {
+    width: 100%;
+    max-width: 250px;
+    height: auto;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    border-radius: 15px;
+    display: block;
+}
+
+.history-card-actions {
+    position: absolute;
+    transform: translateY(-25%);
+    bottom: 0%;
+    z-index: 10;
+    opacity: 0;
+
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-evenly;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.history-card:is(:hover, :focus-within) .history-card-actions {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.history-card-actions button {
+    width: 50px;
+    height: 50px;
+}

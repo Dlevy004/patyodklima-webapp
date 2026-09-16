@@ -1,0 +1,13 @@
+.history-list-title {
+    padding-bottom: 2rem;
+    font-size: var(--fs-h3);
+}
+
+.history-list-container {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    flex-wrap: wrap;
+    gap: clamp(0.5rem, 2vw, 1rem);
+    flex: 1;
+}

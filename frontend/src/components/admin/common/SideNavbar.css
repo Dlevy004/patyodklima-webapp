@@ -6,13 +6,17 @@
 .sidenav-collapsed { width: 85px; }
 
 .sidenav-container, .sidenav-collapsed {
-    background-color: var(--bg-color-primary);
     box-shadow: 0px 0px 33px 10px rgba(0,0,0,0.2);
     justify-content: space-between;
     position: fixed;
     height: 100%;
     gap: 1rem;
     transition: all 0.8s ease-in-out;
+}
+
+.sidenav-container, .sidenav-collapsed {
+    background-color: var(--bg-color-admin);
+    transition: all 0.3s ease;
 }
 
 .sidenav-container, .sidenav-top {
@@ -71,6 +75,12 @@
 .sidenav-collapsed .hide-btn svg {
     transform: rotate(90deg);
     transition: all 0.8s ease;
+}
+
+.sidenav-collapsed .hide-btn svg,
+.sidenav-container .hide-btn svg {
+    transition: all 0.3s ease;
+    color: var(--text-color1)
 }
 
 /*NavSection*/

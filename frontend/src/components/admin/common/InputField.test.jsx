@@ -181,11 +181,11 @@ describe('InputField', () => {
 
         let optionStyleSelected = styles.option(baseStyle, { isSelected: true, isFocused: false });
         expect(optionStyleSelected.backgroundColor).toBe('var(--bg-color-ternary)');
-        expect(optionStyleSelected.color).toBe('#fff');
+        expect(optionStyleSelected.color).toBe('black');
 
         let optionStyleFocused = styles.option(baseStyle, { isSelected: false, isFocused: true });
         expect(optionStyleFocused.backgroundColor).toBe('rgba(0,0,0,0.05)');
-        expect(optionStyleFocused.color).toBe('var(--text-color1)');
+        expect(optionStyleFocused.color).toBe('black');
 
         let optionStyleDefault = styles.option(baseStyle, { isSelected: false, isFocused: false });
         expect(optionStyleDefault.backgroundColor).toBe('transparent');

@@ -1,10 +1,12 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { useLayoutEffect } from 'react'
 
 import Home from './pages/Home'
 import PrivacyPolicy from './pages/PrivacyPolicy'
 import { Toaster } from 'react-hot-toast'
 
 import { AuthProvider } from './context/AuthContext'
+import { getStoredDarkMode } from './utils/theme';
 import ProtectedRoute from './components/admin/auth/ProtectedRoute'
 import Login from './pages/admin/Login'
 import AdminLayout from './pages/admin/AdminLayout'
@@ -17,6 +19,10 @@ import Ads from './pages/admin/Ads'
 
 
 function App() {
+  useLayoutEffect(() => {
+    document.body.classList.toggle('darkmode', getStoredDarkMode());
+  }, []);
+
   return (
     <AuthProvider>
       <BrowserRouter>
@@ -31,7 +37,7 @@ function App() {
               <Route index element={<Dashboard />} />
               <Route path='clients' element={<Clients />} />
               <Route path='jobs' element={<Jobs />} />
-              <Route path='visualdesigns' element={<VisualDesign />} />
+              <Route path='visual-designs' element={<VisualDesign />} />
               <Route path='ads' element={<Ads />} />
               <Route path='references' element={<References />} />
             </Route>

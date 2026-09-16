@@ -16,7 +16,7 @@ function InputField({ label, type, value, onChange, placeholder, pattern, requir
             ...base,
             width: '100%',
         }),
-        control: (base, state) => ({
+        control: (base) => ({
             ...base,
             borderRadius: '11px',
             padding: '0.15rem 0.3rem',
@@ -27,6 +27,7 @@ function InputField({ label, type, value, onChange, placeholder, pattern, requir
             outline: 'none',
             minHeight: '42px',
             cursor: 'pointer',
+            backgroundColor: 'var(--input-bg)'
         }),
         valueContainer: (base) => ({
             ...base,
@@ -34,13 +35,13 @@ function InputField({ label, type, value, onChange, placeholder, pattern, requir
         }),
         singleValue: (base) => ({
             ...base,
-            color: 'var(--text-color1)',
+            color: 'black',
             overflow: 'hidden',
             textOverflow: 'ellipsis',
         }),
         placeholder: (base) => ({
             ...base,
-            color: 'var(--text-color1)',
+            color: 'var(--placeholder-text)',
             opacity: 0.6,
         }),
         indicatorSeparator: () => ({ display: 'none' }),
@@ -49,6 +50,7 @@ function InputField({ label, type, value, onChange, placeholder, pattern, requir
             overflow: 'hidden',
             borderRadius: '11px',
             zIndex: 20,
+            backgroundColor: 'var(--input-bg)'
         }),
         menuList: (base) => ({
             ...base,
@@ -65,7 +67,7 @@ function InputField({ label, type, value, onChange, placeholder, pattern, requir
                 : state.isFocused
                     ? 'rgba(0,0,0,0.05)'
                     : 'transparent',
-            color: state.isSelected ? '#fff' : 'var(--text-color1)',
+            color: 'black',
         }),
     };
 
