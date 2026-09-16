@@ -80,6 +80,7 @@ describe('References Page', () => {
         });
 
         render(<References />);
+        const initialHistory = screen.getByText('Mocked ReferenceHistory');
 
         const hookCalls = vi.mocked(useReferenceUpload).mock.calls;
         const onSuccessCallback = hookCalls[0][0];
@@ -91,5 +92,6 @@ describe('References Page', () => {
         });
 
         expect(useReferenceUpload).toHaveBeenCalledTimes(2);
+        expect(screen.getByText('Mocked ReferenceHistory')).not.toBe(initialHistory);
     });
 });
