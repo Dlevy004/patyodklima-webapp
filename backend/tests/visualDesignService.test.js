@@ -322,4 +322,36 @@ describe('Visual Design', () => {
 
         expect(result).toBeNull();
     });
+
+    test('processAndSaveDesign should throw error if the original image exceeds the pixel limit', async () => {
+        const sharpMock = require('sharp')();
+        sharpMock.metadata.mockResolvedValueOnce({ width: 6000, height: 5000 });
+
+        const dummyBuffer = Buffer.from('dummy');
+        await expect(
+            visualDesignService.processAndSaveDesign('123', dummyBuffer, dummyBuffer, 'test prompt', {})
+        ).rejects.toThrow('The uploaded image dimensions are not supported.');
+    });
+
+    test('processAndSaveDesign should throw error if the mask exceeds the pixel limit', async () => {
+        const sharpMock = require('sharp')();
+        sharpMock.metadata
+            .mockResolvedValueOnce({ width: 1000, height: 1000 })
+            .mockResolvedValueOnce({ width: 6000, height: 5000 });
+
+        const dummyBuffer = Buffer.from('dummy');
+        await expect(
+            visualDesignService.processAndSaveDesign('123', dummyBuffer, dummyBuffer, 'test prompt', {})
+        ).rejects.toThrow('The uploaded image dimensions are not supported.');
+    });
+
+    test('processAndSaveDesign should throw error if width or height is missing from metadata', async () => {
+        const sharpMock = require('sharp')();
+        sharpMock.metadata.mockResolvedValueOnce({ width: undefined, height: 1000 });
+
+        const dummyBuffer = Buffer.from('dummy');
+        await expect(
+            visualDesignService.processAndSaveDesign('123', dummyBuffer, dummyBuffer, 'test prompt', {})
+        ).rejects.toThrow('The uploaded image dimensions are not supported.');
+    });
 });
