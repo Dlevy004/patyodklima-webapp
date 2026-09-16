@@ -113,7 +113,7 @@ const deleteDesign = async (req, res) => {
         }
 
         const deletedDesign = await visualDesignService.deleteDesign(designId);
-        if (!deleted) {
+        if (!deletedDesign) {
             return res.status(404).json({ message: 'A látványterv nem található.' });
         }
 
