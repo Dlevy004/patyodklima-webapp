@@ -48,7 +48,7 @@ app.use((err, req, res, next) => {
 
 //Server start
 app.listen(process.env.PORT, () => {
-  console.log(`The server started at http://localhost:${process.env.PORT}.`);
+  console.log(`The server started at http://localhost:${PORT}.`);
 });
 
 module.exports = app;
