@@ -7,8 +7,23 @@ const PORT = process.env.PORT || 3000;
 
 const app = express();
 
+const allowedOrigins = [
+    process.env.FRONTEND_URL,
+    'http://localhost:5173'
+].filter(Boolean);
+
+const corsOptions = {
+    origin(origin, callback) {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    }
+};
+
 // Middlewares
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 app.set('trust proxy', 1);
 
