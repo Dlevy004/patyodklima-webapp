@@ -3,6 +3,7 @@ require('@dotenvx/dotenvx').config();
 const express = require('express');
 const cors = require('cors');
 const routes = require('./routes/index');
+const helmet = require('helmet');
 const PORT = process.env.PORT || 3000;
 
 const app = express();
@@ -26,6 +27,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 app.set('trust proxy', 1);
+app.use(helmet());
 
 // Routes
 // Health check
