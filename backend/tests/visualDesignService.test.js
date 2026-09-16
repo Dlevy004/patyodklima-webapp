@@ -23,6 +23,7 @@ jest.mock('../services/supabaseService', () => ({
 
 jest.mock('sharp', () => {
     const sharpMock = {
+        rotate: jest.fn().mockReturnThis(),
         metadata: jest.fn().mockResolvedValue({ width: 1000, height: 1000 }),
         trim: jest.fn().mockReturnThis(),
         extract: jest.fn().mockReturnThis(),
