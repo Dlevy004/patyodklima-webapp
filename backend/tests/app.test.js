@@ -1,6 +1,5 @@
 const request = require('supertest');
 
-
 jest.mock('../routes/index', () => {
     const express = require('express');
     const router = express.Router();
@@ -11,9 +10,9 @@ jest.mock('../routes/index', () => {
     return router;
 });
 
-const app = require('../index');
+const app = require('../app');
 
-describe('index.js (Express app)', () => {
+describe('app.js (Express app)', () => {
     it('should respond 200 OK on the health check endpoint', async () => {
         const res = await request(app).get('/api/health');
 
@@ -50,11 +49,15 @@ describe('index.js (Express app)', () => {
     });
 
     it('should not reflect a non-whitelisted origin in the CORS header', async () => {
+        const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+
         const res = await request(app)
             .get('/api/health')
             .set('Origin', 'https://gonosz-oldal.com');
 
         expect(res.headers['access-control-allow-origin']).toBeUndefined();
+
+        consoleSpy.mockRestore();
     });
 
     it('should route requests through /api to the routes module', async () => {
@@ -74,23 +77,5 @@ describe('index.js (Express app)', () => {
         expect(consoleSpy).toHaveBeenCalled();
 
         consoleSpy.mockRestore();
-    });
-
-    describe('startServer', () => {
-        it('should call app.listen with the configured port and log the start message', () => {
-            const listenSpy = jest.spyOn(app, 'listen').mockImplementation((port, cb) => {
-                cb();
-                return { close: jest.fn() };
-            });
-            const consoleSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
-
-            app.startServer();
-
-            expect(listenSpy).toHaveBeenCalledWith(expect.any(Number), expect.any(Function));
-            expect(consoleSpy).toHaveBeenCalledWith(expect.stringContaining('The server started at'));
-
-            listenSpy.mockRestore();
-            consoleSpy.mockRestore();
-        });
     });
 });
