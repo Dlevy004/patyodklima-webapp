@@ -19,7 +19,7 @@ import Ads from './pages/admin/Ads'
 
 
 function App() {
-  useEffect(() => {
+  useLayoutEffect(() => {
     document.body.classList.toggle('darkmode', getStoredDarkMode());
   }, []);
 
