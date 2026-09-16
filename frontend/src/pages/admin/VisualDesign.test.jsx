@@ -516,7 +516,7 @@ describe('VisualDesign', () => {
         expect(HTMLAnchorElement.prototype.click).not.toHaveBeenCalled();
     });
 
-    it('ignores a stale successful generation response', async () => {
+    it('resets the loading state when a new file is selected during a stale successful generation response', async () => {
         let resolveFetch;
 
         globalThis.fetch.mockReturnValueOnce(
@@ -540,6 +540,8 @@ describe('VisualDesign', () => {
 
         selectFile();
 
+        expect(screen.getByRole('button', { name: 'Generálás' })).not.toBeDisabled();
+
         resolveFetch({
             ok: true,
             json: async () => ({
@@ -559,11 +561,10 @@ describe('VisualDesign', () => {
             'A látványterv elkészült!'
         );
 
-        expect(screen.getByRole('button', { name: 'Generálás…' }))
-            .toBeDisabled();
+        expect(screen.getByRole('button', { name: 'Generálás' })).not.toBeDisabled();
     });
 
-    it('ignores a stale generation error', async () => {
+    it('resets the loading state when a new file is selected during a stale generation error', async () => {
         let rejectFetch;
 
         globalThis.fetch.mockReturnValueOnce(
@@ -591,6 +592,8 @@ describe('VisualDesign', () => {
 
         selectFile();
 
+        expect(screen.getByRole('button', { name: 'Generálás' })).not.toBeDisabled();
+
         rejectFetch(new Error('old request failed'));
 
         await flushPromises();
@@ -607,8 +610,7 @@ describe('VisualDesign', () => {
             expect.any(Error)
         );
 
-        expect(screen.getByRole('button', { name: 'Generálás…' }))
-            .toBeDisabled();
+        expect(screen.getByRole('button', { name: 'Generálás' })).not.toBeDisabled();
 
         consoleErrorSpy.mockRestore();
     });
