@@ -1,15 +1,33 @@
+require('@dotenvx/dotenvx').config();
+
 const express = require('express');
 const cors = require('cors');
 const routes = require('./routes/index');
-
-require('@dotenvx/dotenvx').config();
+const helmet = require('helmet');
+const PORT = Number(process.env.PORT) || 3000;
 
 const app = express();
 
+const allowedOrigins = [
+    process.env.FRONTEND_URL,
+    'http://localhost:5173'
+].filter(Boolean);
+
+const corsOptions = {
+    origin(origin, callback) {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    }
+};
+
 // Middlewares
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 app.set('trust proxy', 1);
+app.use(helmet());
 
 // Routes
 // Health check
@@ -17,15 +35,29 @@ app.get('/api/health', (req, res) => {
     res.status(200).send('OK');
 });
 
-app.get('/', (req, res) => {
-  res.json({ message: 'Hello World!' });
-});
-
 app.use('/api', routes);
 
-//Server start
-app.listen(process.env.PORT, () => {
-  console.log(`The server started at http://localhost:${process.env.PORT}.`);
+// 404 - Not found route
+app.use((req, res) => {
+    res.status(404).json({ message: 'Not found' });
 });
 
+// global error handling
+app.use((err, req, res, next) => {
+    console.error(err);
+    res.status(err.status || 500).json({ message: err.message || 'Internal server error' });
+});
+
+//Server start
+function startServer() {
+    return app.listen(PORT, () => {
+        console.log(`The server started at http://localhost:${PORT}.`);
+    });
+}
+
+if (require.main === module) {
+    startServer();
+}
+
 module.exports = app;
+module.exports.startServer = startServer;
