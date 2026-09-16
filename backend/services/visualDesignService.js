@@ -21,6 +21,11 @@ const processAndSaveDesign = async (designId, originalBuffer, maskBuffer, prompt
 
     try {
         // Analyse the original image and the mask to get its dimensions
+
+        // Normalise the image based on its EXIF orientation to match the width/height metadatas,
+        // which the browser will show to the user
+        originalBuffer = await sharp(originalBuffer).rotate().toBuffer();
+
         const metadata = await sharp(originalBuffer).metadata();
         const maskMetadata = await sharp(maskBuffer).metadata();
 
