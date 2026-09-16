@@ -24,6 +24,14 @@ const processAndSaveDesign = async (designId, originalBuffer, maskBuffer, prompt
         const metadata = await sharp(originalBuffer).metadata();
         const maskMetadata = await sharp(maskBuffer).metadata();
 
+        const MAX_PIXELS = 25_000_000;
+        const exceedsPixelLimit = ({ width, height }) =>
+            !width || !height || width * height > MAX_PIXELS;
+
+        if (exceedsPixelLimit(metadata) || exceedsPixelLimit(maskMetadata)) {
+            throw new Error('The uploaded image dimensions are not supported.');
+        }
+
         if (metadata.width !== maskMetadata.width || metadata.height !== maskMetadata.height) {
             throw new Error('The dimensions of the original image and the mask do not match.');
         }
