@@ -35,6 +35,17 @@ app.get('/api/health', (req, res) => {
 
 app.use('/api', routes);
 
+// 404 - Not found route
+app.use((req, res) => {
+    res.status(404).json({ message: 'Not found' });
+});
+
+// global error handling
+app.use((err, req, res, next) => {
+    console.error(err);
+    res.status(err.status || 500).json({ message: err.message || 'Internal server error' });
+});
+
 //Server start
 app.listen(process.env.PORT, () => {
   console.log(`The server started at http://localhost:${process.env.PORT}.`);
