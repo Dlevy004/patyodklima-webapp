@@ -100,7 +100,7 @@ const deleteDesign = async (req, res) => {
     try {
         const designId = req.params.id;
 
-        const existingDesign = await visualDesignService.getDesignById(designId);
+        const existingDesign = await visualDesignService.getDesignById(designId, req.user.id);
         if (!existingDesign) {
             return res.status(404).json({ message: 'A látványterv nem található.' });
         }
@@ -112,7 +112,7 @@ const deleteDesign = async (req, res) => {
             await supabaseService.deleteImage(existingDesign.generated_image_url, 'VisualDesign').catch(console.error);
         }
 
-        const deletedDesign = await visualDesignService.deleteDesign(designId);
+        const deletedDesign = await visualDesignService.deleteDesign(designId, req.user.id);
         if (!deletedDesign) {
             return res.status(404).json({ message: 'A látványterv nem található.' });
         }
