@@ -33,10 +33,6 @@ app.get('/api/health', (req, res) => {
     res.status(200).send('OK');
 });
 
-app.get('/', (req, res) => {
-  res.json({ message: 'Hello World!' });
-});
-
 app.use('/api', routes);
 
 //Server start
