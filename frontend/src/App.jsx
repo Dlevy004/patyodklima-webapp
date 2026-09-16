@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useLayoutEffect } from 'react'
 
 import Home from './pages/Home'
 import PrivacyPolicy from './pages/PrivacyPolicy'
