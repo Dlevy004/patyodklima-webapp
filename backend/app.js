@@ -2,9 +2,8 @@ require('@dotenvx/dotenvx').config();
 
 const express = require('express');
 const cors = require('cors');
-const routes = require('./routes/index');
 const helmet = require('helmet');
-const PORT = Number(process.env.PORT) || 3000;
+const routes = require('./routes/index');
 
 const app = express();
 
@@ -29,6 +28,7 @@ app.use(express.json());
 app.set('trust proxy', 1);
 app.use(helmet());
 
+
 // Routes
 // Health check
 app.get('/api/health', (req, res) => {
@@ -48,16 +48,4 @@ app.use((err, req, res, next) => {
     res.status(err.status || 500).json({ message: err.message || 'Internal server error' });
 });
 
-//Server start
-function startServer() {
-    return app.listen(PORT, () => {
-        console.log(`The server started at http://localhost:${PORT}.`);
-    });
-}
-
-if (require.main === module) {
-    startServer();
-}
-
 module.exports = app;
-module.exports.startServer = startServer;
