@@ -23,6 +23,7 @@ jest.mock('../services/supabaseService', () => ({
 
 jest.mock('sharp', () => {
     const sharpMock = {
+        rotate: jest.fn().mockReturnThis(),
         metadata: jest.fn().mockResolvedValue({ width: 1000, height: 1000 }),
         trim: jest.fn().mockReturnThis(),
         extract: jest.fn().mockReturnThis(),
@@ -363,5 +364,16 @@ describe('Visual Design', () => {
         await expect(
             visualDesignService.processAndSaveDesign('123', dummyBuffer, dummyBuffer, 'test prompt', {})
         ).rejects.toThrow('The uploaded image dimensions are not supported.');
+    });
+
+    test('processAndSaveDesign should normalise the original image orientation via sharp().rotate()', async () => {
+        global.fetch.mockResolvedValue({ ok: true, arrayBuffer: async () => new ArrayBuffer(8) });
+        prisma.ai_visual_designs.update.mockResolvedValue({ id: '123', status: 'completed' });
+
+        const dummyBuffer = Buffer.from('dummy');
+        await visualDesignService.processAndSaveDesign('123', dummyBuffer, dummyBuffer, 'test prompt', {});
+
+        const sharpMock = require('sharp')();
+        expect(sharpMock.rotate).toHaveBeenCalledTimes(1);
     });
 });
