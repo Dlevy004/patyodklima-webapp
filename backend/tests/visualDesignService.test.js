@@ -365,4 +365,15 @@ describe('Visual Design', () => {
             visualDesignService.processAndSaveDesign('123', dummyBuffer, dummyBuffer, 'test prompt', {})
         ).rejects.toThrow('The uploaded image dimensions are not supported.');
     });
+
+    test('processAndSaveDesign should normalise the original image orientation via sharp().rotate()', async () => {
+        global.fetch.mockResolvedValue({ ok: true, arrayBuffer: async () => new ArrayBuffer(8) });
+        prisma.ai_visual_designs.update.mockResolvedValue({ id: '123', status: 'completed' });
+
+        const dummyBuffer = Buffer.from('dummy');
+        await visualDesignService.processAndSaveDesign('123', dummyBuffer, dummyBuffer, 'test prompt', {});
+
+        const sharpMock = require('sharp')();
+        expect(sharpMock.rotate).toHaveBeenCalledTimes(1);
+    });
 });
