@@ -87,7 +87,7 @@ export default function useReferenceUpload(onSuccess) {
 
             if (onSuccess) {
                 try {
-                    onSuccess();
+                    await onSuccess();
                 } catch (cbError) {
                     console.error('Callback error:', cbError);
                 }
