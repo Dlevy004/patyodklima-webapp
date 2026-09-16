@@ -36,6 +36,7 @@ function VisualDesign() {
         if (!selectedFile) return;
 
         activeRequestRef.current += 1;
+        setIsLoading(false);
 
         setFile(selectedFile);
         setPreviewUrl(URL.createObjectURL(selectedFile));
@@ -54,6 +55,7 @@ function VisualDesign() {
 
     const handleDelete = () => {
         activeRequestRef.current += 1;
+        setIsLoading(false);
 
         setFile(null);
         setPreviewUrl(null);
