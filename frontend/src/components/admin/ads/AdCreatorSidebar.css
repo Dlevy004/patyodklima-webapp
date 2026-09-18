@@ -20,6 +20,7 @@
     justify-content: flex-start;
 }
 
+/*Toggle button settings*/
 .ad-sidebar-toggle {
     position: absolute;
     left: 0;
@@ -45,6 +46,7 @@
     transform: rotate(-90deg);
 }
 
+/*Title and label when collapsed*/
 .ad-sidebar-title {
     font-size: var(--fs-h3);
     font-family: var(--primary-font-family);
@@ -71,6 +73,7 @@
     width: 100%;
 }
 
+/*Scrollbar settings*/
 .ad-sidebar-content::-webkit-scrollbar { display: none; }
 
 .ad-sidebar-content::-webkit-scrollbar-thumb {
@@ -78,6 +81,7 @@
     border-radius: 999px;
 }
 
+/*Open sidebar content*/
 .ad-sidebar-group h3 {
     font-size: 0.9rem;
     margin-bottom: 0.5rem;
@@ -214,6 +218,7 @@
         max-height: 100vh;
     }
 
+    /*Toggle button*/
     .ad-sidebar-toggle {
         top: 0.85rem;
         left: 50%;
@@ -228,6 +233,7 @@
         transform: rotate(0deg);
     }
 
+    /*Label*/
     .ad-sidebar-collapsed-label {
         writing-mode: horizontal-tb;
         transform: none;
