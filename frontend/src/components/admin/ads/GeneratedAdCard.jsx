@@ -11,6 +11,7 @@ function GeneratedAdCard({ ad, onDelete, onDownload }) {
         <HistoryCard
             imageUrl={ad.generated_image_url}
             alt={title}
+            modifierClassName='is-landscape'
         >
             <ActionBtn
                 type='download'
