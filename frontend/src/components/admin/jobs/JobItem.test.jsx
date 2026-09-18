@@ -7,7 +7,6 @@ describe('JobItem', () => {
     const mockJob = {
         client_name: 'Teszt Elek',
         category: 'Telepítés',
-        unit: 'Midea Xtreme',
         date: '2026-08-30',
         isCompleted: false
     };
@@ -17,7 +16,6 @@ describe('JobItem', () => {
 
         expect(screen.getByText('Teszt Elek')).toBeInTheDocument();
         expect(screen.getByText('Telepítés')).toBeInTheDocument();
-        expect(screen.getByText('Midea Xtreme')).toBeInTheDocument();
         expect(screen.getByText('2026-08-30')).toBeInTheDocument();
     });
 
