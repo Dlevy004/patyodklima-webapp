@@ -6,6 +6,7 @@ import './Ads.css';
 
 import usePageTitle from '@/hooks/usePageTitle';
 import useFetch from '@/hooks/useFetch';
+import useAdForm from '@/hooks/useAdForm';
 import { getAuthHeaders } from '@/utils/api';
 import { renderAdToCanvas, downloadCanvasAsPng, canvasToBlob } from '@/utils/adCanvas';
 import AdPreview from '@/components/admin/ads/AdPreview';
@@ -19,13 +20,6 @@ const TEMPLATES_URL = `${API_URL}/api/ad-templates`;
 const AD_AC_UNITS_URL = `${API_URL}/api/ad-ac-units`;
 const ADS_URL = `${API_URL}/api/ads`;
 
-const initialFormData = {
-    headline: '', acUnitName: '',
-    details: '', price: '',
-    showLogo: true, showPhone: true,
-};
-
-
 function Ads() {
     usePageTitle('Hirdetések');
 
@@ -35,10 +29,14 @@ function Ads() {
     const templates = templatesData ?? [];
     const acUnits = acUnitsData ?? [];
 
+    const {
+        formData, formErrors,
+        handleInputChange, resetForm, validateForm,
+    } = useAdForm();
+
     const [step, setStep] = useState('templates');
     const [selectedTemplateId, setSelectedTemplateId] = useState(null);
     const [selectedAcUnitId, setSelectedAcUnitId] = useState(null);
-    const [formData, setFormData] = useState(initialFormData);
     const [isSaving, setIsSaving] = useState(false);
     const [refreshKey, setRefreshKey] = useState(0);
 
@@ -51,18 +49,6 @@ function Ads() {
         () => acUnits.find((item) => item.id === selectedAcUnitId) || null,
         [acUnits, selectedAcUnitId]
     );
-
-    const handleSelectTemplate = (templateId) => {
-        setSelectedTemplateId(templateId);
-    };
-
-    const handleSelectAcUnit = (unitId) => {
-        setSelectedAcUnitId(unitId);
-    };
-
-    const handleFormChange = (field, value) => {
-        setFormData((prev) => ({ ...prev, [field]: value }));
-    };
 
     const buildCanvas = useCallback(async () => {
         if (!selectedTemplate?.background_image_url) {
@@ -107,7 +93,7 @@ function Ads() {
         setStep('templates');
         setSelectedTemplateId(null);
         setSelectedAcUnitId(null);
-        setFormData(initialFormData);
+        resetForm();
 
         toast.success('A hirdetés alaphelyzetbe állítva.');
     };
@@ -139,8 +125,8 @@ function Ads() {
             return;
         }
 
-        if (!formData.acUnitName || formData.price === '') {
-            toast.error('A készülék típusa és az ár megadása kötelező.');
+        if (!validateForm()) {
+            toast.error('Kérlek töltsd ki a hiányzó mezőket!');
             return;
         }
 
@@ -210,9 +196,10 @@ function Ads() {
                 selectedTemplateId={selectedTemplateId}
                 selectedAcUnitId={selectedAcUnitId}
                 formData={formData}
-                onSelectTemplate={handleSelectTemplate}
-                onSelectAcUnit={handleSelectAcUnit}
-                onFormChange={handleFormChange}
+                formErrors={formErrors}
+                onSelectTemplate={setSelectedTemplateId}
+                onSelectAcUnit={setSelectedAcUnitId}
+                onFormChange={handleInputChange}
                 onFinish={handleFinish}
                 isSaving={isSaving}
             />
