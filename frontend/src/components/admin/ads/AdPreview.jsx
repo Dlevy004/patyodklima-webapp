@@ -6,6 +6,19 @@ import ActionBtn from '@/components/admin/common/ActionBtn';
 import { DEFAULT_AD_LAYOUT } from '@/utils/adLayout';
 import { formatAdPrice, parseDetailLines } from '@/utils/adCategories';
 
+function layerBox(box) {
+    return {
+        left: `${box.x * 100}%`,
+        top: `${box.y * 100}%`,
+        width: box.width != null ? `${box.width * 100}%` : undefined,
+        height: box.height != null ? `${box.height * 100}%` : undefined,
+        maxWidth: box.maxWidth != null ? `${box.maxWidth * 100}%` : undefined,
+        color: box.color,
+        fontSize: box.fontSize != null ? `${box.fontSize * 100}cqh` : undefined,
+        lineHeight: box.lineHeight,
+        transform: box.scale ? `scale(${box.scale})` : undefined,
+    };
+}
 
 function AdPreview({
     template, acUnit, headline, acUnitName,
@@ -32,12 +45,7 @@ function AdPreview({
                                 src={logoUrl}
                                 alt='Pátyod Klíma logó'
                                 className='ad-layer ad-layer-logo'
-                                style={{
-                                    left: `${layout.logo.x * 700}%`,
-                                    top: `${layout.logo.y * 100}%`,
-                                    width: `${layout.logo.width * 100}%`,
-                                    height: `${layout.logo.height * 100}%`,
-                                }}
+                                style={layerBox(layout.logo)}
                             />
                         )}
 
@@ -46,12 +54,7 @@ function AdPreview({
                                 src={phoneImageUrl}
                                 alt='Telefonszám'
                                 className='ad-layer ad-layer-phone'
-                                style={{
-                                    left: `${layout.phone.x * 70}%`,
-                                    top: `${layout.phone.y * 130}%`,
-                                    width: `${layout.phone.width * 100}%`,
-                                    height: `${layout.phone.height * 100}%`,
-                                }}
+                                style={layerBox(layout.phone)}
                             />
                         )}
 
@@ -60,25 +63,14 @@ function AdPreview({
                                 src={acUnit.transparent_image_url}
                                 alt={acUnit.model_name || 'Klíma készülék'}
                                 className='ad-layer ad-layer-unit'
-                                style={{
-                                    left: `${layout.acUnit.x * 100}%`,
-                                    top: `${layout.acUnit.y * 75}%`,
-                                    width: `${layout.acUnit.width * 100}%`,
-                                    height: `${layout.acUnit.height * 100}%`,
-                                }}
+                                style={layerBox(layout.acUnit)}
                             />
                         )}
 
                         {headline && (
                             <p
                                 className='ad-layer ad-layer-headline'
-                                style={{
-                                    left: `${layout.headline.x * 110}%`,
-                                    top: `${layout.headline.y * 110}%`,
-                                    maxWidth: `${layout.headline.maxWidth * 100}%`,
-                                    color: layout.headline.color,
-                                    fontSize: `${layout.headline.fontSize * 140}cqh`,
-                                }}
+                                style={layerBox(layout.headline)}
                             >
                                 {headline}
                             </p>
@@ -87,13 +79,7 @@ function AdPreview({
                         {acUnitName && (
                             <p
                                 className='ad-layer ad-layer-device'
-                                style={{
-                                    left: `${layout.deviceType.x * 110}%`,
-                                    top: `${layout.deviceType.y * 115}%`,
-                                    maxWidth: `${layout.deviceType.maxWidth * 100}%`,
-                                    color: layout.deviceType.color,
-                                    fontSize: `${layout.deviceType.fontSize * 200}cqh`,
-                                }}
+                                style={layerBox(layout.deviceType)}
                             >
                                 {acUnitName}
                             </p>
@@ -102,14 +88,7 @@ function AdPreview({
                         {detailLines.length > 0 && (
                             <ul
                                 className='ad-layer ad-layer-details'
-                                style={{
-                                    left: `${layout.details.x * 110}%`,
-                                    top: `${layout.details.y * 125}%`,
-                                    maxWidth: `${layout.details.maxWidth * 100}%`,
-                                    color: layout.details.color,
-                                    fontSize: `${layout.details.fontSize * 170}cqh`,
-                                    lineHeight: layout.details.lineHeight,
-                                }}
+                                style={layerBox(layout.details)}
                             >
                                 {detailLines.map((line) => (
                                     <li key={line}>{line}</li>
@@ -120,12 +99,7 @@ function AdPreview({
                         {price !== '' && price !== null && price !== undefined && (
                             <p
                                 className='ad-layer ad-layer-price'
-                                style={{
-                                    left: `${layout.price.x * 250}%`,
-                                    top: `${layout.price.y * 120}%`,
-                                    color: layout.price.color,
-                                    fontSize: `${layout.price.fontSize * 150}cqh`,
-                                }}
+                                style={layerBox(layout.price)}
                             >
                                 {layout.price.prefix}{formatAdPrice(price)}{layout.price.suffix}
                             </p>
