@@ -87,6 +87,7 @@ function AdCreatorSidebar({
                                     type='button'
                                     className={`ad-template-card ${selectedTemplateId === template.id ? 'is-selected' : ''}`.trim()}
                                     onClick={() => onSelectTemplate(template.id)}
+                                    aria-pressed={selectedTemplateId === template.id}
                                 >
                                     <img src={template.background_image_url} alt={template.name} />
                                 </button>
@@ -114,6 +115,7 @@ function AdCreatorSidebar({
                                     type='button'
                                     className={`ad-device-card ${selectedAcUnitId === unit.id ? 'is-selected' : ''}`.trim()}
                                     onClick={() => onSelectAcUnit(unit.id)}
+                                    aria-pressed={selectedAcUnitId === unit.id}
                                 >
                                     {unit.transparent_image_url ? (
                                         <img src={unit.transparent_image_url} alt={unit.model_name || brand} />
