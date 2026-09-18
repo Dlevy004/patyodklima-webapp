@@ -134,59 +134,67 @@ function AdCreatorSidebar({
 
     const renderTextForm = () => (
         <div className='ad-sidebar-content ad-sidebar-form'>
-            <InputField
-                label='Főcím'
-                type='text'
-                value={formData.headline}
-                onChange={(e) => onFormChange('headline', e.target.value)}
-                placeholder='Pl.: Nyári ajánlat'
-                required
-            />
-            <InputField
-                label='Készülék típusa'
-                type='text'
-                value={formData.acUnitName}
-                onChange={(e) => onFormChange('acUnitName', e.target.value)}
-                placeholder='Pl.: ANDE'
-                required
-            />
-            <InputField
-                label='Részletek'
-                type='textarea'
-                value={formData.details}
-                onChange={(e) => onFormChange('details', e.target.value)}
-                placeholder={'Pl.:\nCseppvíz-fűtés\nWi-Fi vezérlés\nA+++ energiaosztály'}
-                required
-            />
-            <InputField
-                label='Ár'
-                type='number'
-                value={formData.price}
-                onChange={(e) => onFormChange('price', e.target.value)}
-                required
-            />
+            <div className='ad-form-col'>
+                <InputField
+                    label='Főcím'
+                    type='text'
+                    value={formData.headline}
+                    onChange={(e) => onFormChange('headline', e.target.value)}
+                    placeholder='Pl.: Nyári ajánlat'
+                    required
+                    error={formErrors.headline}
+                />
+                <InputField
+                    label='Készülék típusa'
+                    type='text'
+                    value={formData.acUnitName}
+                    onChange={(e) => onFormChange('acUnitName', e.target.value)}
+                    placeholder='Pl.: ANDE'
+                    required
+                    error={formErrors.acUnitName}
+                />
+                <InputField
+                    label='Részletek'
+                    type='textarea'
+                    value={formData.details}
+                    onChange={(e) => onFormChange('details', e.target.value)}
+                    placeholder={'Pl.:\nCseppvíz-fűtés\nWi-Fi vezérlés\nA+++ energiaosztály'}
+                    required
+                    error={formErrors.details}
+                />
+            </div>
+            <div className='ad-form-col'>
+                <InputField
+                    label='Ár'
+                    type='number'
+                    value={formData.price}
+                    onChange={(e) => onFormChange('price', e.target.value)}
+                    required
+                    error={formErrors.price}
+                />
 
-            <Slider
-                title='Logó'
-                condition={formData.showLogo ? '' : 'slide-right'}
-                button1ClassName={`ad-toggle-btn ${formData.showLogo ? 'active' : ''}`.trim()}
-                button1Title='Igen'
-                onButton1Click={() => onFormChange('showLogo', true)}
-                button2ClassName={`ad-toggle-btn ${!formData.showLogo ? 'active' : ''}`.trim()}
-                button2Title='Nem'
-                onButton2Click={() => onFormChange('showLogo', false)}
-            />
+                <Slider
+                    title='Logó'
+                    condition={formData.showLogo ? '' : 'slide-right'}
+                    button1ClassName={`ad-toggle-btn ${formData.showLogo ? 'active' : ''}`.trim()}
+                    button1Title='Igen'
+                    onButton1Click={() => onFormChange('showLogo', true)}
+                    button2ClassName={`ad-toggle-btn ${!formData.showLogo ? 'active' : ''}`.trim()}
+                    button2Title='Nem'
+                    onButton2Click={() => onFormChange('showLogo', false)}
+                />
 
-            <Slider
-                title='Telefonszám'
-                condition={formData.showPhone ? '' : 'slide-right'}
-                button1ClassName={`ad-toggle-btn ${formData.showPhone ? 'active' : ''}`.trim()}
-                button1Title='Igen'
-                onButton1Click={() => onFormChange('showPhone', true)}
-                button2ClassName={`ad-toggle-btn ${!formData.showPhone ? 'active' : ''}`.trim()}
-                button2Title='Nem'
-                onButton2Click={() => onFormChange('showPhone', false)}
-            />
+                <Slider
+                    title='Telefonszám'
+                    condition={formData.showPhone ? '' : 'slide-right'}
+                    button1ClassName={`ad-toggle-btn ${formData.showPhone ? 'active' : ''}`.trim()}
+                    button1Title='Igen'
+                    onButton1Click={() => onFormChange('showPhone', true)}
+                    button2ClassName={`ad-toggle-btn ${!formData.showPhone ? 'active' : ''}`.trim()}
+                    button2Title='Nem'
+                    onButton2Click={() => onFormChange('showPhone', false)}
+                />
+            </div>
         </div>
     );
 
