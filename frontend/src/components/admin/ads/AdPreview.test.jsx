@@ -39,7 +39,7 @@ describe('AdPreview', () => {
         render(<AdPreview {...defaultProps} />);
 
         expect(screen.getByAltText('Pátyod Klíma logó')).toBeInTheDocument();
-        expect(screen.getByAltText('Telefonszám')).toBeInTheDocument();
+        expect(screen.getByAltText('Telefonszám: 06 30 629 0793')).toBeInTheDocument();
         expect(screen.getByAltText('Daikin Sensira')).toBeInTheDocument();
         expect(screen.getByText('Nyári akció')).toBeInTheDocument();
         expect(screen.getByText('Daikin Sensira')).toBeInTheDocument();
