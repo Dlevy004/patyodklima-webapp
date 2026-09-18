@@ -214,56 +214,54 @@ function AdCreatorSidebar({
                 <ChevronUp aria-hidden='true' />
             </button>
 
-            {isCollapsed ? (
-                <p className='ad-sidebar-collapsed-label'>{AD_STEP_LABELS[step]}</p>
-            ) : (
-                <>
-                    <h2 className='ad-sidebar-title'>{AD_STEP_LABELS[step]}</h2>
+            <p className='ad-sidebar-collapsed-label'>{AD_STEP_LABELS[step]}</p>
 
-                    {step === 'templates' && renderTemplates()}
-                    {step === 'devices' && renderDevices()}
-                    {step === 'text' && renderTextForm()}
+            <div className='ad-sidebar-body'>
+                <h2 className='ad-sidebar-title'>{AD_STEP_LABELS[step]}</h2>
 
-                    <div className='ad-sidebar-footer'>
-                        {step !== 'templates' && (
-                            <button type='button' className='ad-sidebar-btn ad-sidebar-btn-secondary' onClick={goBack}>
-                                Vissza
-                            </button>
-                        )}
+                {step === 'templates' && renderTemplates()}
+                {step === 'devices' && renderDevices()}
+                {step === 'text' && renderTextForm()}
 
-                        {step === 'templates' && (
-                            <button
-                                type='button'
-                                className='ad-sidebar-btn ad-sidebar-btn-primary'
-                                onClick={goNext}
-                            >
-                                Tovább
-                            </button>
-                        )}
+                <div className='ad-sidebar-footer'>
+                    {step !== 'templates' && (
+                        <button type='button' className='ad-sidebar-btn ad-sidebar-btn-secondary' onClick={goBack}>
+                            Vissza
+                        </button>
+                    )}
 
-                        {step === 'devices' && (
-                            <button
-                                type='button'
-                                className='ad-sidebar-btn ad-sidebar-btn-primary'
-                                onClick={goNext}
-                            >
-                                Tovább
-                            </button>
-                        )}
+                    {step === 'templates' && (
+                        <button
+                            type='button'
+                            className='ad-sidebar-btn ad-sidebar-btn-primary'
+                            onClick={goNext}
+                        >
+                            Tovább
+                        </button>
+                    )}
 
-                        {step === 'text' && (
-                            <button
-                                type='button'
-                                className='ad-sidebar-btn ad-sidebar-btn-primary'
-                                onClick={onFinish}
-                                disabled={isSaving}
-                            >
-                                {isSaving ? 'Mentés…' : 'Kész'}
-                            </button>
-                        )}
-                    </div>
-                </>
-            )}
+                    {step === 'devices' && (
+                        <button
+                            type='button'
+                            className='ad-sidebar-btn ad-sidebar-btn-primary'
+                            onClick={goNext}
+                        >
+                            Tovább
+                        </button>
+                    )}
+
+                    {step === 'text' && (
+                        <button
+                            type='button'
+                            className='ad-sidebar-btn ad-sidebar-btn-primary'
+                            onClick={onFinish}
+                            disabled={isSaving}
+                        >
+                            {isSaving ? 'Mentés…' : 'Kész'}
+                        </button>
+                    )}
+                </div>
+            </div>
         </aside>
     );
 }
@@ -283,6 +281,7 @@ AdCreatorSidebar.propTypes = {
         showLogo: PropTypes.bool,
         showPhone: PropTypes.bool,
     }).isRequired,
+    formErrors: PropTypes.object,
     onSelectTemplate: PropTypes.func.isRequired,
     onSelectAcUnit: PropTypes.func.isRequired,
     onFormChange: PropTypes.func.isRequired,
