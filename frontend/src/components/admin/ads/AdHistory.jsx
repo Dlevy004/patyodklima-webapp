@@ -8,8 +8,10 @@ const ADS_API_URL = `${import.meta.env.VITE_API_URL}/api/ads`;
 function AdHistory({ refreshKey }) {
     const { downloadFile } = useFileDownload();
 
-    const handleDownload = (adId, title) =>
-        downloadFile(`${ADS_API_URL}/${adId}/download`, `${title}.png`);
+    const handleDownload = (adId, title) => {
+        const filename = title?.trim() || `hirdetes-${adId}`;
+        return downloadFile(`${ADS_API_URL}/${adId}/download`, `${filename}.png`);
+    };
 
     return (
         <HistoryList
