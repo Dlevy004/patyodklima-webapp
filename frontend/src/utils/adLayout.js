@@ -1,16 +1,16 @@
 export const AD_CANVAS_WIDTH = 1920;
-export const AD_CANVAS_HEIGHT = 1080;
+export const AD_CANVAS_HEIGHT = Math.round(1920 * 9 / 17);
 export const AD_ASPECT_RATIO = '17 / 9';
 export const AD_FONT_FAMILY = 'Josefin Sans, sans-serif';
 
 export const DEFAULT_AD_LAYOUT = {
-    logo: { x: 0.04, y: 0.06, width: 0.22, height: 0.12 },
-    phone: { x: 0.72, y: 0.06, width: 0.24, height: 0.12 },
-    headline: { x: 0.04, y: 0.22, maxWidth: 0.45, fontSize: 0.065, color: '#c41e1e', fontWeight: '800' },
-    deviceType: { x: 0.04, y: 0.34, maxWidth: 0.45, fontSize: 0.028, color: '#1a1a1a', fontWeight: '600' },
-    details: { x: 0.04, y: 0.42, maxWidth: 0.38, fontSize: 0.024, lineHeight: 1.4, color: '#1a1a1a', bulletGap: 0.028 },
-    price: { x: 0.04, y: 0.72, fontSize: 0.055, color: '#c41e1e', fontWeight: '800', prefix: 'Bruttó: ', suffix: ' Ft' },
-    acUnit: { x: 0.48, y: 0.28, width: 0.48, height: 0.65 },
+    logo: { x: 0.18, y: 0.06, width: 0.22, height: 0.12 },
+    phone: { x: 0.42, y: 0.06, width: 0.24, height: 0.12 },
+    headline: { x: 0.05, y: 0.24, maxWidth: 0.45, fontSize: 0.091, color: '#c41e1e', fontWeight: '800' },
+    deviceType: { x: 0.05, y: 0.39, maxWidth: 0.45, fontSize: 0.056, color: '#1a1a1a', fontWeight: '600' },
+    details: { x: 0.05, y: 0.52, maxWidth: 0.38, fontSize: 0.041, lineHeight: 1.4, color: '#1a1a1a', bulletGap: 0.028 },
+    price: { x: 0.10, y: 0.84, fontSize: 0.082, color: '#c41e1e', fontWeight: '800', prefix: 'Bruttó: ', suffix: ' Ft' },
+    acUnit: { x: 0.48, y: 0.20, width: 0.48, height: 0.70, scale: 1.1 },
 };
 
 export function layoutToPx(layout, width, height) {
@@ -68,6 +68,7 @@ export function layoutToPx(layout, width, height) {
             y: toPx(layout.acUnit.y, height),
             width: toPx(layout.acUnit.width, width),
             height: toPx(layout.acUnit.height, height),
+            scale: layout.acUnit.scale ?? 1,
         },
     };
 }
