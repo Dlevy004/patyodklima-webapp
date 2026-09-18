@@ -138,7 +138,7 @@ function Ads() {
 
             const payload = new FormData();
             payload.append('image', blob, 'hirdetes.png');
-            payload.append('templateId', selectedTemplateId || '');
+            payload.append('templateId', selectedTemplateId);
             payload.append('headline', formData.headline);
             payload.append('acUnitName', formData.acUnitName);
             payload.append('details', formData.details);
