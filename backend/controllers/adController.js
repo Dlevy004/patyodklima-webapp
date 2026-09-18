@@ -50,8 +50,13 @@ const generateAd = async (req, res) => {
             return res.status(400).json({ message: 'A készülék típusa és az ár megadása kötelező.' });
         }
 
-        const parsedPrice = Number.parseInt(fullPrice, 10);
-        if (Number.isNaN(parsedPrice) || parsedPrice < 0) {
+        const priceText = String(fullPrice);
+        const parsedPrice = Number(priceText);
+
+        if (!/^\d+$/.test(priceText)
+            || !Number.isSafeInteger(parsedPrice)
+            || parsedPrice > 2147483647
+        ) {
             return res.status(400).json({ message: 'Érvénytelen ár.' });
         }
 
