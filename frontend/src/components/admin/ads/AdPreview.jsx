@@ -52,7 +52,7 @@ function AdPreview({
                         {showPhone && phoneImageUrl && (
                             <img
                                 src={phoneImageUrl}
-                                alt='Telefonszám'
+                                alt='Telefonszám: 06 30 629 0793'
                                 className='ad-layer ad-layer-phone'
                                 style={layerBox(layout.phone)}
                             />
