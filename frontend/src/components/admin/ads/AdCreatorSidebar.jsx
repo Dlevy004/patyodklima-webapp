@@ -35,6 +35,7 @@ function AdCreatorSidebar({
     selectedTemplateId,
     selectedAcUnitId,
     formData,
+    formErrors = {},
     onSelectTemplate,
     onSelectAcUnit,
     onFormChange,
