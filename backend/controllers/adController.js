@@ -34,6 +34,13 @@ const getAllAds = async (req, res) => {
     }
 };
 
+const parseFlag = (value) => {
+    if (value === undefined) return undefined;
+    if (value === true || value === 'true') return true;
+    if (value === false || value === 'false') return false;
+    return null;
+};
+
 const generateAd = async (req, res) => {
     try {
         const file = req.file;
@@ -60,6 +67,13 @@ const generateAd = async (req, res) => {
             return res.status(400).json({ message: 'Érvénytelen ár.' });
         }
 
+        const parsedShowLogo = parseFlag(showLogo);
+        const parsedShowPhone = parseFlag(showPhone);
+
+        if (parsedShowLogo === null || parsedShowPhone === null) {
+            return res.status(400).json({ message: 'A showLogo és showPhone mező csak true/false lehet.' });
+        }
+
         const generatedImageUrl = await supabaseService.uploadImage(file, 'Ads');
 
         let ad;
@@ -70,8 +84,8 @@ const generateAd = async (req, res) => {
                 acUnitName,
                 details: details || null,
                 fullPrice: parsedPrice,
-                showLogo: parseFlag(showLogo),
-                showPhone: parseFlag(showPhone)
+                showLogo: parsedShowLogo,
+                showPhone: parsedShowPhone
             });
         } catch (createError) {
             await supabaseService.deleteImage(generatedImageUrl, 'Ads').catch(console.error);
