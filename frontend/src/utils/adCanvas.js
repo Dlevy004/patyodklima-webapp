@@ -42,7 +42,7 @@ function wrapText(ctx, text, maxWidth) {
 }
 
 function drawContainedImage(ctx, img, box) {
-    const scale = Math.min(box.width / img.width, box.height / img.height);
+    const scale = Math.min(box.width / img.width, box.height / img.height) * (box.scale || 1);
     const drawWidth = img.width * scale;
     const drawHeight = img.height * scale;
     const drawX = box.x + (box.width - drawWidth) / 2;
@@ -67,6 +67,10 @@ export async function renderAdToCanvas({
     const canvas = document.createElement('canvas');
     canvas.width = AD_CANVAS_WIDTH;
     canvas.height = AD_CANVAS_HEIGHT;
+
+    if (typeof document !== 'undefined' && document.fonts?.ready) {
+        await document.fonts.ready;
+    }
 
     const ctx = canvas.getContext('2d');
     const px = layoutToPx(layout, AD_CANVAS_WIDTH, AD_CANVAS_HEIGHT);
