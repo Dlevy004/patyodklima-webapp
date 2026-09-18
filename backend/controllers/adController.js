@@ -62,16 +62,21 @@ const generateAd = async (req, res) => {
 
         const generatedImageUrl = await supabaseService.uploadImage(file, 'Ads');
 
-        const ad = await adService.createAd(req.user.id, {
-            templateId: templateId || null,
-            headline: headline || null,
-            acUnitName,
-            details: details || null,
-            fullPrice: parsedPrice,
-            showLogo: showLogo === 'true' || showLogo === true,
-            showPhone: showPhone === 'true' || showPhone === true,
-            generatedImageUrl
-        });
+        let ad;
+        try {
+            ad = await adService.createAd(req.user.id, {
+                templateId: templateId || null,
+                headline: headline || null,
+                acUnitName,
+                details: details || null,
+                fullPrice: parsedPrice,
+                showLogo: parseFlag(showLogo),
+                showPhone: parseFlag(showPhone)
+            });
+        } catch (createError) {
+            await supabaseService.deleteImage(generatedImageUrl, 'Ads').catch(console.error);
+            throw createError;
+        }
 
         res.status(200).json(ad);
     } catch (error) {
@@ -128,7 +133,7 @@ const deleteAd = async (req, res) => {
         }
 
         if (existingAd.generated_image_url) {
-            await supabaseService.deleteImage(existingAd.generated_image_url, 'Ads').catch(console.error);
+            await supabaseService.deleteImage(existingAd.generated_image_url, 'Ads');
         }
 
         const deleted = await adService.deleteAd(adId, req.user.id);
