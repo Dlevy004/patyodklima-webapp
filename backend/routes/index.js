@@ -7,11 +7,13 @@ const referenceRoutes = require('./referenceRoutes');
 const jobRoutes = require('./jobRoutes');
 const companyRoutes = require('./companyRoutes');
 const visualDesignRoutes = require('./visualDesignRoutes');
+const adRoutes = require('./adRoutes');
 
 const router = express.Router();
 
 router.use(authRoutes);
 router.use(referenceRoutes);
+router.use(adRoutes);
 
 router.use(authenticate);
 router.use(clientRoutes);

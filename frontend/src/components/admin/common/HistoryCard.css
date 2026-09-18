@@ -70,3 +70,14 @@
     width: 50px;
     height: 50px;
 }
+
+.history-card.is-landscape {
+    width: clamp(240px, 42vw, 360px);
+    max-width: 360px;
+    aspect-ratio: 17 / 9;
+}
+
+.history-card.is-landscape .history-card-img {
+    max-width: none;
+    aspect-ratio: 17 / 9;
+}

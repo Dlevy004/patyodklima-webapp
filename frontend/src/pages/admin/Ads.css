@@ -1,0 +1,24 @@
+.ads-page {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+    width: 100%;
+    max-width: 980px;
+    margin: 0 auto;
+    padding-bottom: 2rem;
+}
+
+.ads-creator {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+}
+
+@media screen and (max-width: 1024px) {
+    .ads-page {
+        max-width: 100%;
+        padding-right: 0;
+        padding-bottom: calc(6.5rem + env(safe-area-inset-bottom, 0px));
+    }
+}
