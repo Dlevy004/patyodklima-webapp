@@ -1,8 +1,11 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import AdHistory from './AdHistory';
 
-const { mockDownloadFile } = vi.hoisted(() => ({ mockDownloadFile: vi.fn() }));
+const { mockDownloadFile, mockAdRef } = vi.hoisted(() => ({
+    mockDownloadFile: vi.fn(),
+    mockAdRef: { current: { id: '1', headline: 'Nyári akció' } },
+}));
 
 vi.mock('@/hooks/useFileDownload', () => ({
     default: () => ({ downloadFile: mockDownloadFile }),
@@ -16,7 +19,7 @@ vi.mock('@/components/admin/common/HistoryList', () => ({
             <span data-testid='empty-message'>{emptyMessage}</span>
             <span data-testid='delete-title'>{deleteLabels.titleData}</span>
             <span data-testid='delete-description'>{deleteLabels.descriptionData}</span>
-            {children({ id: '1', headline: 'Nyári akció' }, { key: '1', onDelete: vi.fn() })}
+            {children(mockAdRef.current, { key: mockAdRef.current.id, onDelete: vi.fn() })}
         </div>
     ),
 }));
@@ -31,6 +34,11 @@ vi.mock('./GeneratedAdCard', () => ({
 }));
 
 describe('AdHistory', () => {
+    beforeEach(() => {
+        mockDownloadFile.mockClear();
+        mockAdRef.current = { id: '1', headline: 'Nyári akció' };
+    });
+
     it('renders HistoryList with the correct props', () => {
         render(<AdHistory refreshKey={1} />);
 
@@ -47,5 +55,29 @@ describe('AdHistory', () => {
         fireEvent.click(screen.getByRole('button', { name: 'download' }));
 
         expect(mockDownloadFile).toHaveBeenCalledWith('http://localhost:3000/api/ads/1/download', 'Nyári akció.png');
+    });
+
+    it('falls back to a generated filename when the ad has no headline', () => {
+        mockAdRef.current = { id: '42', headline: undefined };
+        render(<AdHistory refreshKey={1} />);
+
+        fireEvent.click(screen.getByRole('button', { name: 'download' }));
+
+        expect(mockDownloadFile).toHaveBeenCalledWith(
+            'http://localhost:3000/api/ads/42/download',
+            'hirdetes-42.png'
+        );
+    });
+
+    it('falls back to a generated filename when the headline is only whitespace', () => {
+        mockAdRef.current = { id: '43', headline: '   ' };
+        render(<AdHistory refreshKey={1} />);
+
+        fireEvent.click(screen.getByRole('button', { name: 'download' }));
+
+        expect(mockDownloadFile).toHaveBeenCalledWith(
+            'http://localhost:3000/api/ads/43/download',
+            'hirdetes-43.png'
+        );
     });
 });
