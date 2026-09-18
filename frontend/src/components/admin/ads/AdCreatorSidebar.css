@@ -76,11 +76,6 @@
 /*Scrollbar settings*/
 .ad-sidebar-content::-webkit-scrollbar { display: none; }
 
-.ad-sidebar-content::-webkit-scrollbar-thumb {
-    background: rgba(0, 0, 0, 0.2);
-    border-radius: 999px;
-}
-
 /*Open sidebar content*/
 .ad-sidebar-group h3 {
     font-size: 0.9rem;
