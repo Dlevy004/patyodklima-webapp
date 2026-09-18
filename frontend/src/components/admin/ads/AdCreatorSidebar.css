@@ -200,27 +200,25 @@
         right: 0;
         width: 100%;
         height: auto;
-        max-height: 88vh;
         border-radius: 1rem 1rem 0 0;
-        padding: 1rem 1rem calc(1rem + env(safe-area-inset-bottom, 0px));
+        transition: height 0.6s ease-in-out;
     }
 
     .ad-sidebar-collapsed {
-        height: 72px;
-        max-height: 72px;
+        height: 70px;
+        max-height: 80px;
         align-items: center;
         justify-content: center;
-        padding-top: 1rem;
     }
 
     .ad-sidebar:not(.ad-sidebar-collapsed) {
-        height: 100vh;
-        max-height: 100vh;
+        height: 50vh;
+        max-height: 60vh;
     }
 
     /*Toggle button*/
     .ad-sidebar-toggle {
-        top: 0.85rem;
+        top: 0;
         left: 50%;
         transform: translate(-50%, -50%);
     }
@@ -236,7 +234,22 @@
     /*Label*/
     .ad-sidebar-collapsed-label {
         writing-mode: horizontal-tb;
-        transform: none;
         margin-top: 0.5rem;
+    }
+
+    /*Content layout*/
+    .ad-template-list,
+    .ad-device-list {
+        display: flex;
+        flex-direction: row;
+        gap: 0.65rem;
+    }
+
+    /*Sidebar footer*/
+    .ad-sidebar-footer {
+        display: flex;
+        flex-direction: row;
+        margin: 0 auto;
+        max-width: 400px;
     }
 }
