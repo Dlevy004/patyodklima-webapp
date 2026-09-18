@@ -230,8 +230,12 @@
         max-width: 100%;
         border-radius: 1rem 1rem 0 0;
         padding-bottom: max(1rem, env(safe-area-inset-bottom, 0px));
-        overflow: hidden;
+        overflow: visible;
         transition: height 0.4s ease, max-height 0.4s ease;
+    }
+
+    .ad-sidebar-body {
+        overflow: hidden;
     }
 
     .ad-sidebar::after {
@@ -266,6 +270,8 @@
         top: 0;
         left: 50%;
         transform: translate(-50%, -50%);
+        z-index: 5;
+        overflow: visible;
     }
 
     .ad-sidebar-toggle svg {
