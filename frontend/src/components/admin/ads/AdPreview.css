@@ -31,8 +31,9 @@
     position: relative;
     width: 100%;
     aspect-ratio: 17 / 9;
-    background-size: cover;
+    background-size: 100% 100%;
     background-position: center;
+    background-repeat: no-repeat;
     border-radius: 0.5rem;
     overflow: hidden;
     container-type: size;
@@ -59,7 +60,7 @@
     object-fit: contain;
     object-position: center;
     pointer-events: none;
-    scale: 1.1;
+    transform-origin: center center;
 }
 
 .ad-layer-headline {
