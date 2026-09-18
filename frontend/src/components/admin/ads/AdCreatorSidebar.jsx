@@ -18,12 +18,14 @@ import {
 const SIDEBAR_STORAGE_KEY = 'isAdSidebarCollapsed';
 const MOBILE_BREAKPOINT = 1024;
 
+
 function getInitialCollapsedState() {
     const isMobile = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT}px)`).matches;
     if (isMobile) return true;
 
     return localStorage.getItem(SIDEBAR_STORAGE_KEY) === 'true';
 }
+
 
 function AdCreatorSidebar({
     step,
@@ -137,14 +139,15 @@ function AdCreatorSidebar({
                 type='text'
                 value={formData.headline}
                 onChange={(e) => onFormChange('headline', e.target.value)}
-                placeholder='Pl.: Nyár végi ajánlat'
+                placeholder='Pl.: Nyári ajánlat'
+                required
             />
             <InputField
                 label='Készülék típusa'
                 type='text'
                 value={formData.acUnitName}
                 onChange={(e) => onFormChange('acUnitName', e.target.value)}
-                placeholder='Pl.: ANDE Xtreme Save Pro Magix 3000'
+                placeholder='Pl.: ANDE'
                 required
             />
             <InputField
@@ -153,13 +156,13 @@ function AdCreatorSidebar({
                 value={formData.details}
                 onChange={(e) => onFormChange('details', e.target.value)}
                 placeholder={'Pl.:\nCseppvíz-fűtés\nWi-Fi vezérlés\nA+++ energiaosztály'}
+                required
             />
             <InputField
                 label='Ár'
                 type='number'
                 value={formData.price}
                 onChange={(e) => onFormChange('price', e.target.value)}
-                placeholder='295000'
                 required
             />
 
