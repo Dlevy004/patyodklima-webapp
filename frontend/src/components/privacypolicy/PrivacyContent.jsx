@@ -3,7 +3,6 @@ import { motion } from 'motion/react'
 import './PrivacyContent.css'
 
 import PrivacyImg from '@/assets/images/20250715_130101.avif'
-import PrivacyDoc from '@/assets/patyodklima-adatkezelesi-tajekoztato-v200.pdf'
 import PrivacySection from './PrivacySection'
 import Wave from '@/components/common/Wave'
 import { fadeInContainer, fadeInUp } from '@/animations/variants'
