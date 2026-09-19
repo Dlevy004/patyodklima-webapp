@@ -6,6 +6,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ---
 
+## [2.4.0] - 2026-09-16
+
+### Added
+- **AI Visual Design Studio:** Introduced a complete workflow to generate HVAC unit visualisations on images. This includes image upload, placement selection, mask drawing, downloading, and a full design history.
+- **Dark Mode:** Added a theme toggle switch to the Profile Panel, allowing users to switch the Admin Portal between light and dark modes.
+
+### Changed
+- **Reference Management:** The reference history list now refreshes automatically in real-time after a successful image upload, eliminating the need for manual page reloads.
+
+### Fixed
+- Resolved a visual overflow bug within the drag-and-drop image upload area.
+
+---
+
 ## [2.3.0] - 2026-09-09
 
 ### Added
