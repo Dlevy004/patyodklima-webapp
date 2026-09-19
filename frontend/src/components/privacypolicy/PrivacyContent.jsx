@@ -103,7 +103,7 @@ function PrivacyContent() {
                 <motion.a
                     target='_blank'
                     rel='noopener noreferrer'
-                    href={PrivacyDoc}
+                    href='/patyodklima-adatkezelesi-tajekoztato.pdf'
                     className='download-btn'
 
                     variants={itemVariants}
