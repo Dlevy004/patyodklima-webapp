@@ -87,11 +87,12 @@ My primary goal with this was to reinforce my fundamental knowledge of web devel
 
 ## 🚧 Planned Features
 
+- 📊 Custom dashboard ⏳
 - 👤 Client management ✅
 - 🧰 Job/installation tracking ✅
 - 🖼️ Reference image management ✅
 - 🤖 AI visual design tool ✅
-- 📢 Ad creation & publishing ⏳
+- 📢 Ad creation & downloading ✅
 
 ---
 
