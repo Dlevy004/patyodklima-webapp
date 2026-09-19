@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ---
 
+## [2.4.2] - 2026-09-16
+
+### Fixed
+- Fixed an issue in the Visual Design tool where some uploaded photos from mobile devices appeared sideways or incorrectly rotated.
+- Resolved various minor bugs within the Visual Design workflow.
+
+---
+
 ## [2.4.0] - 2026-09-16
 
 ### Added
