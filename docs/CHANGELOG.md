@@ -113,7 +113,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [1.2.0] - 2025-12-08
 
-This release featuring a complete design overhaul and a modernized technical foundation for better performance and accessibility.
+This release features a complete design overhaul and a modernized technical foundation for better performance and accessibility.
 
 ### Fixed
 - Major improvements with navigation for keyboard-only users and screen readers (theme switcher, mobile menu's close button).
@@ -150,13 +150,13 @@ This release featuring a complete design overhaul and a modernized technical fou
 - Updated styling and layout of the Hero section
 - Updated the background of the Reference section
 - Removed the top margin from the Reference section
-- Replace JPG and PNG images with optimized WebP or AVIF versions
+- Replaced JPG and PNG images with optimized WebP or AVIF versions
 
 ---
 
 ## [1.0.0] - 2025-09-06
 
 ### Added
-- Initital release of the website.
+- Initial release of the website.
 - Basic structure including header, hero, services, references, contact section and footer.
 - Basic CSS and JavaScript functionalities implemented.
