@@ -4,6 +4,25 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+---
+
+## [2.1.0] - 2026-08-23
+
+### Changed
+- Updated the textual content on the Privacy Policy page and replaced the downloadable PDF with the newest version.
+- Translated admin error messages from English to Hungarian for better localised feedback.
+- Improved UX in the Admin Portal by making entire client list items clickable.
+
+### Fixed
+- Resolved a z-index issue where the side navigation bar overlapped with modal windows.
+- Fixed the active state button colour for the *current page* indicator in the admin portal.
+
+### Security
+- Integrated the Cloudflare Turnstile widget to ensure a more secure and bot-protected login process.
+- Reduced the maximum allowed login attempts from 10 to 5 to better prevent brute-force attacks.
+
+---
+
 ## [2.0.0] - 2026-08-22
 
 ### Added
