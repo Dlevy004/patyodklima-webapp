@@ -4,6 +4,27 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0] - 2026-08-22
+
+### Added
+- **Admin Portal:** A brand new, secure dashboard to manage daily operations.
+- **Client Management:** Complete system to track and manage client details.
+- **Reference Management:** Easily upload, edit, and manage reference images with a new drag-and-drop interface.
+- **Installable App (PWA):** The admin interface can now be installed as a standalone application on both desktop and mobile devices directly from the profile menu.
+- **Animations:** Added smooth scroll animations and dynamic milestones to the public website.
+
+### Changed
+- **Website Overhaul:** The entire public website has been rebuilt with modern technologies.
+- **Redesigned Hero Section:** A completely fresh and modernized top section for the landing page.
+- **Improved Dark Mode:** Refined colors and contrast across the site for better readability and accessibility.
+- **Modernized UI:** Replaced older graphics with a consistent icon set.
+
+### Fixed
+- Resolved a lingering horizontal scrollbar issue on smaller screens.
+- Fixed overlapping layout elements in the mobile navigation view.
+
+### Security
+- **Authentication:** Implemented a secure, fully protected login and logout system for the admin panel to prevent unauthorized access.
 
 ---
 
