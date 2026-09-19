@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ---
 
+## [2.1.1] - 2026-08-26
+
+### Changed
+- Improved website loading speed and reliability by preventing the server from entering sleep mode during periods of inactivity.
+
+### Added
+- Automated uptime monitoring that immediately notifies the developer if the platform becomes inaccessible.
+
+---
+
 ## [2.1.0] - 2026-08-23
 
 ### Changed
