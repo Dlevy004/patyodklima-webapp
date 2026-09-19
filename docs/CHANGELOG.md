@@ -6,6 +6,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ---
 
+## [2.3.0] - 2026-09-09
+
+### Added
+- **Account Management:** Introduced responsive modals for editing personal profile and company details in the Admin Portal.
+- **Profile Pictures:** Added support for profile pictures, including an automatic placeholder fallback if no image is uploaded.
+
+### Changed
+- **UI/UX Improvements:** Upgraded the PWA installation alerts to use sleek, timed toast notifications instead of intrusive default alerts.
+
+### Removed
+- The `bug reports` module and its associated data have been completely removed from the platform.
+
+---
+
 ## [2.2.0] - 2026-09-02
 
 ### Added
