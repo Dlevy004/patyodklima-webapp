@@ -6,6 +6,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ---
 
+## [2.2.0] - 2026-09-02
+
+### Added
+- **Job Management:** Introduced a fully responsive page in the Admin Portal to create, edit, and delete jobs.
+- **Job Statuses:** Users can now mark specific jobs as either *completed* or *pending*.
+- **Reference Image Downloads:** Added a download button for reference images (images are automatically converted to standard PNG format for better compatibility).
+- **Public Website:** Added a new scrolling brand logo section to the homepage to showcase company partners and utilized brands.
+
+### Fixed
+- **Client List:** Resolved a bug where clicking on a client item would incorrectly open both the edit and delete modal windows at the same time.
+
+---
+
 ## [2.1.1] - 2026-08-26
 
 ### Changed
