@@ -85,7 +85,8 @@ const generateAd = async (req, res) => {
                 details: details || null,
                 fullPrice: parsedPrice,
                 showLogo: parsedShowLogo,
-                showPhone: parsedShowPhone
+                showPhone: parsedShowPhone,
+                generatedImageUrl
             });
         } catch (createError) {
             await supabaseService.deleteImage(generatedImageUrl, 'Ads').catch(console.error);
