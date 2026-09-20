@@ -17,20 +17,25 @@ const CARD_DEFINITIONS = [
     { title: 'E havi kiszállások', key: 'monthlyDispatches', format: formatNumber, color: 'stat-lightblue' },
 ];
 
+const renderCards = (data) => CARD_DEFINITIONS.map((card) => (
+    <div key={card.key} className={`stat-card ${card.color}`}>
+        <span className='stat-title'>{card.title}</span>
+        <span className='stat-number'>
+            {data ? card.format(data[card.key]) : '…'}
+        </span>
+    </div>
+));
+
 
 export default function StatCard() {
     const { data } = useFetch(OVERVIEW_URL);
 
     return (
-        <div className="stat-card-grid">
-            {CARD_DEFINITIONS.map((card) => (
-                <div key={card.key} className={`stat-card ${card.color}`}>
-                    <span className='stat-title'>{card.title}</span>
-                    <span className='stat-number'>
-                        {data ? card.format(data[card.key]) : '…'}
-                    </span>
-                </div>
-            ))}
+        <div className="stat-card-wrapper">
+            <div className='stat-card-track'>
+                <div className='stat-card-group'>{renderCards(data)}</div>
+                <div className='stat-card-group' aria-hidden='true'>{renderCards(data)}</div>
+            </div>
         </div>
     )
 };
