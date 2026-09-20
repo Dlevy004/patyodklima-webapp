@@ -154,8 +154,12 @@ const getRecentActivity = async (days = 7) => {
     startDate.setDate(startDate.getDate() - (days - 1));
     startDate.setHours(0, 0, 0, 0);
 
-    const [newClients, completedJobs, newVisualDesigns, newAds] = await Promise.all([
+    const [newClients, newJobs, completedJobs, newVisualDesigns, newAds] = await Promise.all([
         prisma.clients.findMany({
+            where: { created_at: { gte: startDate } },
+            select: { created_at: true }
+        }),
+        prisma.jobs.findMany({
             where: { created_at: { gte: startDate } },
             select: { created_at: true }
         }),
@@ -183,6 +187,7 @@ const getRecentActivity = async (days = 7) => {
         dayBuckets[key] = {
             date: key,
             newClients: 0,
+            newJobs: 0,
             completedJobs: 0,
             newVisualDesigns: 0,
             newAds: 0
@@ -192,6 +197,11 @@ const getRecentActivity = async (days = 7) => {
     newClients.forEach((row) => {
         const key = toDateKey(row.created_at);
         if (dayBuckets[key]) dayBuckets[key].newClients += 1;
+    });
+
+    newJobs.forEach((row) => {
+        const key = toDateKey(row.created_at);
+        if (dayBuckets[key]) dayBuckets[key].newJobs += 1;
     });
 
     completedJobs.forEach((row) => {
