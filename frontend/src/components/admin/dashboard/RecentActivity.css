@@ -1,0 +1,14 @@
+.recent-activity-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: auto;
+    padding: 1rem;
+    overflow: hidden;
+}
+
+.recent-activity-wrapper p {
+    font-size: var(--fs-p);
+    font-family: var(--primary-font-family);
+}
