@@ -1,4 +1,5 @@
 const prisma = require('../database/prisma');
+const { normalizeText } = require('../utils/textNormalize');
 
 
 const createJob = async (newJob) => {
@@ -10,7 +11,7 @@ const createJob = async (newJob) => {
             general_notes: newJob.general_notes,
             labor_fee: newJob.labor_fee,
             total_amount: newJob.total_amount,
-            ac_unit: newJob.ac_unit,
+            ac_unit: normalizeText(newJob.ac_unit),
 
             ...(newJob.client_id && {
                 clients: {
@@ -50,7 +51,7 @@ const updateJob = async (id, updatedJob) => {
             labor_fee: updatedJob.labor_fee,
             total_amount: updatedJob.total_amount,
             is_completed: updatedJob.is_completed,
-            ac_unit: updatedJob.ac_unit,
+            ac_unit: normalizeText(updatedJob.ac_unit),
 
             ...(updatedJob.client_id && {
                 clients: {
