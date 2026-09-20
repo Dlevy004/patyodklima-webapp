@@ -3,6 +3,7 @@ import ScrollUp from '@/components/common/ScrollUp'
 import usePageTitle from '@/hooks/usePageTitle';
 import RecentActivity from '@/components/admin/dashboard/RecentActivity';
 import StatCard from '@/components/admin/dashboard/StatCard';
+import MonthlyRevenueChart from '@/components/admin/dashboard/MonthlyRevenueChart';
 
 
 function Dashboard() {
@@ -12,6 +13,7 @@ function Dashboard() {
         <>
             <RecentActivity/>
             <StatCard/>
+            <MonthlyRevenueChart/>
 
             <ScrollUp/>
         </>
