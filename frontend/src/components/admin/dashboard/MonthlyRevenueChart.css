@@ -1,0 +1,11 @@
+.monthly-revenue-card {
+    background-color: var(--bg-color-admin);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    width: 100%;
+}
+
+.monthly-revenue-card h3 {
+    font-family: var(--primary-font-family);
+    margin-bottom: 1rem;
+}
