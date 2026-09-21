@@ -11,4 +11,11 @@
 .recent-activity-wrapper p {
     font-size: var(--fs-p);
     font-family: var(--primary-font-family);
+    text-align: center;
+    line-height: 1.5;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
 }
