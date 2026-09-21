@@ -72,4 +72,11 @@ describe('RevenueByCategoryChart', () => {
         expect(screen.getByText('Ismeretlen')).toBeInTheDocument();
         expect(container.querySelector('.revenue-category-card')).toBeInTheDocument();
     });
+
+    it('formats the tooltip currency value correctly', () => {
+        useFetch.mockReturnValue({ data: [] });
+        render(<RevenueByCategoryChart />);
+
+        expect(screen.getByTestId('mock-tooltip')).toHaveTextContent(/5.*000.*Ft/);
+    });
 });
