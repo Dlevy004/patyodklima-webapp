@@ -1,4 +1,5 @@
 import { useState } from 'react';
+
 import {
     BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer
 } from 'recharts';
@@ -8,12 +9,10 @@ import useFetch from '@/hooks/useFetch';
 import './MonthlyRevenueChart.css';
 
 const API_URL = import.meta.env.VITE_API_URL;
-
 const MONTH_LABELS = [
     'Január', 'Február', 'Március', 'Április', 'Május', 'Június',
     'Július', 'Augusztus', 'Szeptember', 'Október', 'November', 'December'
 ];
-
 const CATEGORY_COLORS = {
     installation: '#34a853',
     maintenance: '#fbbc05',
@@ -21,7 +20,6 @@ const CATEGORY_COLORS = {
     cleaning: '#e91e8c',
     other: '#9aa0a6'
 };
-
 const CATEGORY_LABELS = {
     installation: 'Telepítés',
     maintenance: 'Karbantartás',
@@ -50,8 +48,11 @@ function MonthlyRevenueChart() {
                 <BarChart data={chartData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
                     <CartesianGrid strokeDasharray='3 3' vertical={false} />
                     <XAxis dataKey='label' />
-                    <YAxis tickFormatter={(value) => `${value / 1000}k`} />
-                    <Tooltip formatter={(value) => formatCurrency(value)} />
+                    <YAxis tickFormatter={(value) => `${value / 1000}E`} />
+                    <Tooltip
+                        formatter={(value, name) => [formatCurrency(value), CATEGORY_LABELS[name] || name]}
+                        labelFormatter={(label) => label}
+                    />
                     <Legend
                         formatter={(key) => CATEGORY_LABELS[key]}
                     />
