@@ -15,6 +15,26 @@
 .notfound-img-wrapper {
     position: relative;
     max-width: clamp(250px, 60vw, 600px);
+    margin-bottom: 1rem;
+    z-index: 1;
+}
+
+.notfound-img-wrapper::after {
+    content: '';
+    position: absolute;
+    bottom: -5%;
+    left: 50%;
+    transform: translateX(-50%);
+
+    width: 70%;
+    height: 30px;
+
+    background-color: rgba(163, 174, 206, 0.4);
+
+    border-radius: 50%;
+    filter: blur(15px);
+
+    z-index: -1;
 }
 
 .notfound-worker {
