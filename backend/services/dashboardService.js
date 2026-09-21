@@ -13,6 +13,13 @@ const CATEGORY_LABELS = {
 const getBucket = (category) => (CATEGORY_LABELS[category] ? category : 'other');
 
 const getOverviewStats = async () => {
+    const startOfMonth = new Date();
+    startOfMonth.setDate(1);
+    startOfMonth.setHours(0, 0, 0, 0);
+
+    const startOfNextMonth = new Date(startOfMonth);
+    startOfNextMonth.setMonth(startOfNextMonth.getMonth() + 1);
+
     const [totalClients, totalInstallations, totalVisualDesigns, allJobs, monthlyDispatches] = await Promise.all([
         prisma.clients.count(),
         prisma.jobs.count({ where: { category: 'installation' } }),
@@ -21,12 +28,8 @@ const getOverviewStats = async () => {
         prisma.jobs.count({
             where: {
                 job_date: {
-                    gte: (() => {
-                        const startOfMonth = new Date();
-                        startOfMonth.setDate(1);
-                        startOfMonth.setHours(0, 0, 0, 0);
-                        return startOfMonth;
-                    })()
+                    gte: startOfMonth,
+                    lte: startOfNextMonth
                 }
             }
         })
