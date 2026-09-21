@@ -6,7 +6,7 @@ import {
 
 import useFetch from '@/hooks/useFetch';
 
-import './MonthlyRevenueChart.css';
+import './ChartStyles.css';
 
 const API_URL = import.meta.env.VITE_API_URL;
 const MONTH_LABELS = [
