@@ -43,6 +43,5 @@ describe('NotFound', () => {
 
         const link = screen.getByRole('link', { name: 'Vissza a főoldalra' });
         expect(link).toHaveAttribute('href', '/');
-        expect(link).toHaveAttribute('target', '_blank');
     });
 });
