@@ -18,7 +18,7 @@ export default function NotFound() {
 
             <div className='notfound-text'>
                 <h2>A keresett oldal nem található.</h2>
-                <p>Sajnos az oldal, amit keres, törölve lett, megváltozott a címe, <br/> vagy ideiglenesen nem elérhető.</p>
+                <p>Sajnos az oldal, amit keres, törölve lett, megváltozott a címe, vagy ideiglenesen nem elérhető.</p>
             </div>
 
             <Link to="/" className='back-to-website-btn' target='_blank'>
