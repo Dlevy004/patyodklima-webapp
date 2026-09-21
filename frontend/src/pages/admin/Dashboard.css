@@ -2,12 +2,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 3rem;
+    gap: clamp(1rem, 4vw, 3rem);
 }
 
 .dashboard-charts-row {
     display: flex;
-    gap: 3rem;
+    gap: clamp(1rem, 4vw, 3rem);
     width: 100%;
 }
 
@@ -15,7 +15,7 @@
     flex: 1;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 720px) {
     .dashboard-charts-row {
         flex-direction: column;
     }

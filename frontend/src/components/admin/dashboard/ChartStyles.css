@@ -27,3 +27,9 @@
 .recharts-default-legend .recharts-legend-item {
     margin-right: 1.5rem !important;
 }
+
+@media screen and (max-width: 720px) {
+    .revenue-category-card, .jobs-status-card {
+        max-width: 100%;
+    }
+}
