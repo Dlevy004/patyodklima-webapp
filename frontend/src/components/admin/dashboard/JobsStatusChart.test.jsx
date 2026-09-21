@@ -66,4 +66,11 @@ describe('JobsStatusChart', () => {
 
         expect(container.querySelector('.jobs-status-card')).toBeInTheDocument();
     });
+
+    it('formats the tooltip value correctly', () => {
+        useFetch.mockReturnValue({ data: [] });
+        render(<JobsStatusChart />);
+
+        expect(screen.getByTestId('mock-tooltip')).toHaveTextContent('5 db');
+    });
 });
