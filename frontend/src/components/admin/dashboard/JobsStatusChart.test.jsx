@@ -26,22 +26,39 @@ vi.mock('recharts', () => ({
     ),
 }));
 
-
 describe('JobsStatusChart', () => {
     beforeEach(() => {
         vi.clearAllMocks();
         import.meta.env.VITE_API_URL = 'http://localhost:3000';
     });
 
-    it('renders the chart title correctly', () => {
-        useFetch.mockReturnValue({ data: null });
+    it('renders loading state correctly when isLoading is true', () => {
+        useFetch.mockReturnValue({ data: null, isLoading: true, error: null });
+        render(<JobsStatusChart />);
+
+        expect(screen.getByText('Betöltés…')).toBeInTheDocument();
+        expect(screen.queryByTestId('mock-pie-chart')).not.toBeInTheDocument();
+    });
+
+    it('renders error state correctly when error exists', () => {
+        useFetch.mockReturnValue({ data: null, isLoading: false, error: 'Hiba ok' });
+        render(<JobsStatusChart />);
+
+        const alertElement = screen.getByRole('alert');
+        expect(alertElement).toBeInTheDocument();
+        expect(alertElement).toHaveTextContent('Hiba történt az adatok betöltése közben.');
+        expect(screen.queryByTestId('mock-pie-chart')).not.toBeInTheDocument();
+    });
+
+    it('renders the chart title correctly when data is loaded', () => {
+        useFetch.mockReturnValue({ data: null, isLoading: false, error: null });
         render(<JobsStatusChart />);
 
         expect(screen.getByText('Munkák állapota')).toBeInTheDocument();
     });
 
     it('calls useFetch with the correct URL', () => {
-        useFetch.mockReturnValue({ data: null });
+        useFetch.mockReturnValue({ data: null, isLoading: false, error: null });
         render(<JobsStatusChart />);
 
         expect(useFetch).toHaveBeenCalledWith('http://localhost:3000/api/dashboard/jobs-status');
@@ -53,7 +70,7 @@ describe('JobsStatusChart', () => {
             { status: 'pending', label: 'Folyamatban', count: 5 }
         ];
 
-        useFetch.mockReturnValue({ data: mockData });
+        useFetch.mockReturnValue({ data: mockData, isLoading: false, error: null });
         render(<JobsStatusChart />);
 
         expect(screen.getByText('Lezárt')).toBeInTheDocument();
@@ -61,14 +78,14 @@ describe('JobsStatusChart', () => {
     });
 
     it('renders without crashing when data is empty array', () => {
-        useFetch.mockReturnValue({ data: [] });
+        useFetch.mockReturnValue({ data: [], isLoading: false, error: null });
         const { container } = render(<JobsStatusChart />);
 
         expect(container.querySelector('.jobs-status-card')).toBeInTheDocument();
     });
 
     it('formats the tooltip value correctly', () => {
-        useFetch.mockReturnValue({ data: [] });
+        useFetch.mockReturnValue({ data: [], isLoading: false, error: null });
         render(<JobsStatusChart />);
 
         expect(screen.getByTestId('mock-tooltip')).toHaveTextContent('5 db');
