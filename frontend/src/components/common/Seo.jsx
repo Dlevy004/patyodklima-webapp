@@ -2,7 +2,7 @@ import PropTypes from "prop-types"
 import { Helmet } from 'react-helmet-async'
 
 
-export default function Seo({ title, description, url = '', image = '' }) {
+export default function Seo({ title, description, url = '', image = '', noindex = false }) {
     const domain = "https://patyodklima.hu";
     const currentUrl = `${domain}${url}`;
     const ogImage = image ? image : `${domain}/assets/images/heroImg.jpg`;
@@ -11,6 +11,12 @@ export default function Seo({ title, description, url = '', image = '' }) {
         <Helmet>
             <title>{title}</title>
             <meta name="description" content={description} />
+
+            {noindex ? (
+                <meta name="robots" content="noindex, nofollow" />
+            ) : (
+                <meta name="robots" content="index, follow" />
+            )}
 
             <link rel="canonical" href={currentUrl} />
 
@@ -27,5 +33,6 @@ Seo.propTypes = {
     title: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     url: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired
+    image: PropTypes.string.isRequired,
+    noindex: PropTypes.bool
 }
