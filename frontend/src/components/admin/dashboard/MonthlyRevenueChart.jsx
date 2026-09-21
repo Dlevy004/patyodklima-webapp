@@ -55,6 +55,8 @@ function MonthlyRevenueChart() {
                     />
                     <Legend
                         formatter={(key) => CATEGORY_LABELS[key]}
+                        wrapperStyle={{ paddingTop: '1.5rem' }}
+                        iconSize={15}
                     />
                     {Object.keys(CATEGORY_COLORS).map((category) => (
                         <Bar
