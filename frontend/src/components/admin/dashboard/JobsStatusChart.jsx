@@ -12,7 +12,26 @@ const STATUS_COLORS = {
 
 
 function JobsStatusChart() {
-    const { data } = useFetch(`${API_URL}/api/dashboard/jobs-status`);
+    const { data, error, isLoading } = useFetch(`${API_URL}/api/dashboard/jobs-status`);
+
+    if (isLoading) {
+        return (
+            <div className='jobs-status-card'>
+                <h3>Munkák állapota</h3>
+                <p>Betöltés…</p>
+            </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div className='jobs-status-card'>
+                <h3>Munkák állapota</h3>
+                <p role='alert'>Hiba történt az adatok betöltése közben.</p>
+            </div>
+        );
+    }
+
     const chartData = data ?? [];
 
     return (
