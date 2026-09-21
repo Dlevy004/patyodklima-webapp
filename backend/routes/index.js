@@ -8,12 +8,14 @@ const jobRoutes = require('./jobRoutes');
 const companyRoutes = require('./companyRoutes');
 const visualDesignRoutes = require('./visualDesignRoutes');
 const adRoutes = require('./adRoutes');
+const dashboardRoutes = require('./dashboardRoutes');
 
 const router = express.Router();
 
 router.use(authRoutes);
 router.use(referenceRoutes);
 router.use(adRoutes);
+router.use(dashboardRoutes);
 
 router.use(authenticate);
 router.use(clientRoutes);

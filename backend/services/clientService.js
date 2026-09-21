@@ -1,4 +1,5 @@
 const prisma = require('../database/prisma');
+const { normalizeText } = require('../utils/textNormalize');
 
 
 const createClient = async (newClient) => {
@@ -8,7 +9,7 @@ const createClient = async (newClient) => {
             phone: newClient.phone,
             email: newClient.email,
             zip_code: newClient.zip_code,
-            city: newClient.city,
+            city: normalizeText(newClient.city),
             street_address: newClient.street_address,
             type: newClient.type || "individual",
             notes: newClient.notes
@@ -34,10 +35,10 @@ const updateClient = async (id, updatedClient) => {
             phone: updatedClient.phone,
             email: updatedClient.email,
             zip_code: updatedClient.zip_code,
-            city: updatedClient.city,
             street_address: updatedClient.street_address,
             type: updatedClient.type,
-            notes: updatedClient.notes
+            notes: updatedClient.notes,
+            ...(updatedClient.city !== undefined && { city: normalizeText(updatedClient.city) })
         }
     })
 }
