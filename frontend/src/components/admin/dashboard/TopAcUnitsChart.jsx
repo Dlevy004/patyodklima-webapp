@@ -33,7 +33,10 @@ function TopAcUnitsChart() {
                         width={90}
                         tick={{ fill: 'var(--text-color1)' }}
                     />
-                    <Tooltip formatter={(value) => [`${value} db`, 'Darabszám']} />
+                    <Tooltip
+                        formatter={(value) => [`${value} db`, 'Darabszám']}
+                        labelStyle={{ fontWeight: 500, color: 'black' }}
+                    />
                     <Bar dataKey='count' fill='#4285f4' radius={[0, 8, 8, 0]} />
                 </BarChart>
             </ResponsiveContainer>

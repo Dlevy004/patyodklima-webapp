@@ -59,6 +59,7 @@ function MonthlyRevenueChart() {
                     <Tooltip
                         formatter={(value, name) => [formatCurrency(value), CATEGORY_LABELS[name] || name]}
                         labelFormatter={(label) => label}
+                        labelStyle={{ fontWeight: 500, color: 'black' }}
                     />
                     <Legend
                         formatter={(key) => CATEGORY_LABELS[key]}
