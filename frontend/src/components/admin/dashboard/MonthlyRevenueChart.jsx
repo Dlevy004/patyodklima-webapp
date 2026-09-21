@@ -27,7 +27,6 @@ const CATEGORY_LABELS = {
     cleaning: 'Takarítás',
     other: 'Egyéb'
 };
-
 const formatCurrency = (value) => `${value.toLocaleString('hu-HU')} Ft`;
 
 
@@ -52,20 +51,24 @@ function MonthlyRevenueChart() {
                         interval={1}
                         tick={{ fill: 'var(--text-color1)' }}
                     />
+
                     <YAxis
                         tickFormatter={(value) => `${value / 1000}E`}
                         tick={{ fill: 'var(--text-color1)' }}
                     />
+
                     <Tooltip
                         formatter={(value, name) => [formatCurrency(value), CATEGORY_LABELS[name] || name]}
                         labelFormatter={(label) => label}
                         labelStyle={{ fontWeight: 500, color: 'black' }}
                     />
+
                     <Legend
                         formatter={(key) => CATEGORY_LABELS[key]}
                         wrapperStyle={{ paddingTop: '1.5rem' }}
                         iconSize={15}
                     />
+
                     {Object.keys(CATEGORY_COLORS).map((category) => (
                         <Bar
                             key={category}

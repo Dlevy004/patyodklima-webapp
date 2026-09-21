@@ -5,7 +5,6 @@ import useFetch from '@/hooks/useFetch';
 import './ChartStyles.css';
 
 const API_URL = import.meta.env.VITE_API_URL;
-
 const STATUS_COLORS = {
     completed: '#34a853',
     pending: '#fbbc05'
@@ -33,7 +32,9 @@ function JobsStatusChart() {
                             <Cell key={entry.status} fill={STATUS_COLORS[entry.status]} />
                         ))}
                     </Pie>
+
                     <Tooltip formatter={(value) => `${value} db`} />
+
                     <Legend />
                 </PieChart>
             </ResponsiveContainer>

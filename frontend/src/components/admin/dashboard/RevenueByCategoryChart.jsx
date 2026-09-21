@@ -5,7 +5,6 @@ import useFetch from '@/hooks/useFetch';
 import './ChartStyles.css';
 
 const API_URL = import.meta.env.VITE_API_URL;
-
 const CATEGORY_COLORS = {
     installation: '#34a853',
     maintenance: '#fbbc05',
@@ -13,7 +12,6 @@ const CATEGORY_COLORS = {
     cleaning: '#e91e8c',
     other: '#9aa0a6'
 };
-
 const formatCurrency = (value) => `${value.toLocaleString('hu-HU')} Ft`;
 
 
@@ -38,7 +36,9 @@ function RevenueByCategoryChart() {
                             <Cell key={entry.category} fill={CATEGORY_COLORS[entry.category] || '#9aa0a6'} />
                         ))}
                     </Pie>
+
                     <Tooltip formatter={(value) => formatCurrency(value)} />
+
                     <Legend />
                 </PieChart>
             </ResponsiveContainer>
