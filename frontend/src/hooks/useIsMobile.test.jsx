@@ -27,7 +27,7 @@ describe('useIsMobile hook', () => {
     });
 
     it('returns true if the initial screen width is mobile (<= 640px)', () => {
-        window.matchMedia.mockImplementation((query) => ({
+        window.matchMedia.mockImplementation(() => ({
             matches: true,
             addEventListener: vi.fn(),
             removeEventListener: vi.fn(),
