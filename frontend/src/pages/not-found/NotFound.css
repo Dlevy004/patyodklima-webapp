@@ -5,22 +5,26 @@
     flex-direction: column;
 
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
+    overflow-x: hidden;
 
     line-height: 1.5;
+    box-sizing: border-box;
 }
 
 .notfound-img-wrapper {
     position: relative;
+    max-width: clamp(250px, 60vw, 600px);
 }
 
 .notfound-worker {
     position: absolute;
-    width: 100%;
+    width: 35%;
     height: auto;
     max-width: 200px;
+
     bottom: 0;
-    right: -20%;
+    right: clamp(-25%, -10vw, -5%);
 }
 
 .notfound-logo {
