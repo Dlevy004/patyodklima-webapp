@@ -5,6 +5,7 @@ import {
 } from 'recharts';
 
 import useFetch from '@/hooks/useFetch';
+import useIsMobile from '@/hooks/useIsMobile';
 
 import './ChartStyles.css';
 
@@ -13,6 +14,11 @@ const MONTH_LABELS = [
     'Január', 'Február', 'Március', 'Április', 'Május', 'Június',
     'Július', 'Augusztus', 'Szeptember', 'Október', 'November', 'December'
 ];
+const MONTH_ABBREVIATIONS = {
+    'Január': 'Jan', 'Február': 'Feb', 'Március': 'Már', 'Április': 'Ápr',
+    'Május': 'Máj', 'Június': 'Jún', 'Július': 'Júl', 'Augusztus': 'Aug',
+    'Szeptember': 'Szept', 'Október': 'Okt', 'November': 'Nov', 'December': 'Dec'
+};
 const CATEGORY_COLORS = {
     installation: '#34a853',
     maintenance: '#fbbc05',
@@ -33,6 +39,7 @@ const formatCurrency = (value) => `${value.toLocaleString('hu-HU')} Ft`;
 function MonthlyRevenueChart() {
     const [year] = useState(new Date().getFullYear());
     const { data } = useFetch(`${API_URL}/api/dashboard/monthly-revenue?year=${year}`);
+    const isMobile = useIsMobile();
 
     const chartData = (data ?? []).map((row) => ({
         ...row,
@@ -49,7 +56,11 @@ function MonthlyRevenueChart() {
                     <XAxis
                         dataKey='label'
                         interval={1}
-                        tick={{ fill: 'var(--text-color1)' }}
+                        angle={isMobile ? -45 : 0}
+                        textAnchor={isMobile ? 'end' : 'middle'}
+                        height={isMobile ? 50 : 30}
+                        tickFormatter={(value) => isMobile ? (MONTH_ABBREVIATIONS[value] || value) : value}
+                        tick={{ fill: 'var(--text-color1)', fontSize: isMobile ? 11 : 12 }}
                     />
 
                     <YAxis
