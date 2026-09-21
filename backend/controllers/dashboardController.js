@@ -65,11 +65,22 @@ const getRecentActivity = async (req, res) => {
     }
 };
 
+const getJobsStatus = async (_req, res) => {
+    try {
+        const data = await dashboardService.getJobsStatus();
+        res.status(200).json(data);
+    } catch (error) {
+        console.error('Error while getting jobs status:', error.message);
+        res.status(500).json({ message: 'Hiba történt a munkák állapotának lekérése közben.' });
+    }
+};
+
 module.exports = {
     getOverview,
     getMonthlyRevenue,
     getRevenueByCategory,
     getTopAcUnits,
     getTopCities,
-    getRecentActivity
+    getRecentActivity,
+    getJobsStatus
 };
