@@ -29,7 +29,7 @@ function TopCitiesChart() {
                     <YAxis
                         type='category'
                         dataKey='name'
-                        width={90}
+                        width={70}
                         tick={{ fill: 'var(--text-color1)' }}
                     />
                     <Tooltip
