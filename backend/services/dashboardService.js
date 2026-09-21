@@ -246,5 +246,6 @@ module.exports = {
     getRevenueByCategory,
     getTopAcUnits,
     getTopCities,
-    getRecentActivity
+    getRecentActivity,
+    getJobsStatus
 };
