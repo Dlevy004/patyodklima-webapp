@@ -28,7 +28,7 @@ export default function NotFound() {
                     <p>Sajnos az oldal, amit keres, törölve lett, megváltozott a címe, vagy ideiglenesen nem elérhető.</p>
                 </div>
 
-                <Link to="/" className='back-to-website-btn' target='_blank'>
+                <Link to="/" className='back-to-website-btn'>
                     Vissza a főoldalra
                 </Link>
             </div>
