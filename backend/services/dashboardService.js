@@ -177,7 +177,13 @@ const getRecentActivity = async (days = 7) => {
         })
     ]);
 
-    const toDateKey = (date) => new Date(date).toISOString().slice(0, 10);
+    const toDateKey = (date) => {
+        const d = new Date(date);
+        const year = d.getFullYear();
+        const month = String(d.getMonth() + 1).padStart(2, '0');
+        const day = String(d.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    }
 
     const dayBuckets = {};
     for (let i = 0; i < days; i += 1) {
