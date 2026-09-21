@@ -57,6 +57,11 @@ const getTopCities = async (req, res) => {
 const getRecentActivity = async (req, res) => {
     try {
         const days = Number.parseInt(req.query.days, 10) || 7;
+
+        if (days < 1 || days > 30) {
+            return res.status(400).json({ message: 'A napok száma 1 és 30 között lehet.' });
+        }
+
         const data = await dashboardService.getRecentActivity(days);
         res.status(200).json(data);
     } catch (error) {
