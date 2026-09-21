@@ -5,13 +5,16 @@ import { HelmetProvider } from 'react-helmet-async'
 import './css/global.css'
 
 import App from './App.jsx'
+import { TitleProvider } from './context/TitleContext.jsx'
 
 const rootElement = document.getElementById('root');
 
 const app = (
   <HelmetProvider>
     <StrictMode>
-      <App />
+      <TitleProvider>
+        <App />
+      </TitleProvider>
     </StrictMode>
   </HelmetProvider>
 );
