@@ -47,7 +47,10 @@ function MonthlyRevenueChart() {
             <ResponsiveContainer width='100%' height={320}>
                 <BarChart data={chartData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
                     <CartesianGrid strokeDasharray='3 3' vertical={false} />
-                    <XAxis dataKey='label' />
+                    <XAxis
+                        dataKey='label'
+                        interval={1}
+                    />
                     <YAxis tickFormatter={(value) => `${value / 1000}E`} />
                     <Tooltip
                         formatter={(value, name) => [formatCurrency(value), CATEGORY_LABELS[name] || name]}
