@@ -19,7 +19,11 @@ vi.mock('recharts', () => ({
     ),
     Cell: () => null,
     Legend: () => null,
-    Tooltip: () => null,
+    Tooltip: ({ formatter }) => (
+        <div data-testid="mock-tooltip">
+            {formatter ? formatter(5) : null}
+        </div>
+    ),
 }));
 
 

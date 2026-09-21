@@ -4,7 +4,6 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import RevenueByCategoryChart from './RevenueByCategoryChart';
 import useFetch from '@/hooks/useFetch';
 
-
 vi.mock('@/hooks/useFetch');
 
 vi.mock('recharts', () => ({
@@ -19,7 +18,11 @@ vi.mock('recharts', () => ({
     ),
     Cell: () => null,
     Legend: () => null,
-    Tooltip: () => null,
+    Tooltip: ({ formatter }) => (
+        <div data-testid="mock-tooltip">
+            {formatter ? formatter(5000) : null}
+        </div>
+    ),
 }));
 
 
