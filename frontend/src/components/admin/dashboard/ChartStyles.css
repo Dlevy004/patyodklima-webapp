@@ -1,0 +1,29 @@
+.monthly-revenue-card,
+.revenue-category-card,
+.top-ac-units-card,
+.top-cities-card,
+.jobs-status-card {
+    background-color: var(--bg-color-admin);
+    box-shadow: 0px 0px 30px 1px rgba(0, 0, 0, 0.1);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    width: 100%;
+}
+
+.revenue-category-card, .jobs-status-card {
+    max-width: 250px;
+}
+
+.monthly-revenue-card h3,
+.revenue-category-card h3,
+.top-ac-units-card h3,
+.top-cities-card h3,
+.jobs-status-card h3 {
+    font-family: var(--primary-font-family);
+    margin-bottom: 1rem;
+}
+
+/*Montly revenue chart's legend items*/
+.recharts-default-legend .recharts-legend-item {
+    margin-right: 1.5rem !important;
+}
