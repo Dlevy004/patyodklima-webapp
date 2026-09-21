@@ -228,6 +228,18 @@ const getRecentActivity = async (days = 7) => {
     return Object.values(dayBuckets).sort((a, b) => (a.date < b.date ? 1 : -1));
 };
 
+const getJobsStatus = async () => {
+    const [completed, pending] = await Promise.all([
+        prisma.jobs.count({ where: { is_completed: true } }),
+        prisma.jobs.count({ where: { is_completed: false } })
+    ]);
+
+    return [
+        { status: 'completed', label: 'Lezárt', count: completed },
+        { status: 'pending', label: 'Folyamatban', count: pending }
+    ];
+};
+
 module.exports = {
     getOverviewStats,
     getMonthlyRevenue,
