@@ -35,10 +35,10 @@ const updateClient = async (id, updatedClient) => {
             phone: updatedClient.phone,
             email: updatedClient.email,
             zip_code: updatedClient.zip_code,
-            city: normalizeText(updatedClient.city),
             street_address: updatedClient.street_address,
             type: updatedClient.type,
-            notes: updatedClient.notes
+            notes: updatedClient.notes,
+            ...(updatedClient.city !== undefined && { city: normalizeText(updatedClient.city) })
         }
     })
 }

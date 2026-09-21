@@ -51,7 +51,7 @@ const updateJob = async (id, updatedJob) => {
             labor_fee: updatedJob.labor_fee,
             total_amount: updatedJob.total_amount,
             is_completed: updatedJob.is_completed,
-            ac_unit: normalizeText(updatedJob.ac_unit),
+            ...(updatedJob.ac_unit !== undefined && { ac_unit: normalizeText(updatedJob.ac_unit) }),
 
             ...(updatedJob.client_id && {
                 clients: {
