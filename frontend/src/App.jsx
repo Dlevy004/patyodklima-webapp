@@ -16,6 +16,7 @@ import Jobs from './pages/admin/Jobs'
 import VisualDesign from './pages/admin/VisualDesign'
 import References from './pages/admin/References'
 import Ads from './pages/admin/Ads'
+import NotFound from './pages/not-found/NotFound'
 
 
 function App() {
@@ -42,6 +43,8 @@ function App() {
               <Route path='references' element={<References />} />
             </Route>
           </Route>
+
+          <Route path='*' element={<NotFound />}/>
         </Routes>
 
         <Toaster position='bottom-right'/>
