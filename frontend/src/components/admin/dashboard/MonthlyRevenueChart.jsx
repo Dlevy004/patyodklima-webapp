@@ -50,8 +50,12 @@ function MonthlyRevenueChart() {
                     <XAxis
                         dataKey='label'
                         interval={1}
+                        tick={{ fill: 'var(--text-color1)' }}
                     />
-                    <YAxis tickFormatter={(value) => `${value / 1000}E`} />
+                    <YAxis
+                        tickFormatter={(value) => `${value / 1000}E`}
+                        tick={{ fill: 'var(--text-color1)' }}
+                    />
                     <Tooltip
                         formatter={(value, name) => [formatCurrency(value), CATEGORY_LABELS[name] || name]}
                         labelFormatter={(label) => label}

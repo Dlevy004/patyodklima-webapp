@@ -22,8 +22,17 @@ function TopCitiesChart() {
                     margin={{ top: 5, right: 20, left: 10, bottom: 5 }}
                 >
                     <CartesianGrid strokeDasharray='3 3' horizontal={false} />
-                    <XAxis type='number' allowDecimals={false} />
-                    <YAxis type='category' dataKey='name' width={90} />
+                    <XAxis
+                        type='number'
+                        allowDecimals={false}
+                        tick={{ fill: 'var(--text-color1)' }}
+                    />
+                    <YAxis
+                        type='category'
+                        dataKey='name'
+                        width={90}
+                        tick={{ fill: 'var(--text-color1)' }}
+                    />
                     <Tooltip formatter={(value) => [`${value} db`, 'Darabszám']} />
                     <Bar dataKey='count' fill='#4285f4' radius={[0, 8, 8, 0]} />
                 </BarChart>
