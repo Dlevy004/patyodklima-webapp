@@ -11,5 +11,6 @@ router.get('/dashboard/revenue-by-category', authenticate, dashboardController.g
 router.get('/dashboard/top-ac-units', authenticate, dashboardController.getTopAcUnits);
 router.get('/dashboard/top-cities', authenticate, dashboardController.getTopCities);
 router.get('/dashboard/recent-activity', authenticate, dashboardController.getRecentActivity);
+router.get('/dashboard/jobs-status', authenticate, dashboardController.getJobsStatus);
 
 module.exports = router;
