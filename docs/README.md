@@ -20,6 +20,29 @@ Developing a dynamic web application to replace the previous static site. The go
 
 My primary goal with this was to reinforce my fundamental knowledge of web development and to master new technologies — covering full-stack development, clean architecture, testing practices, and modern tooling from the ground up.
 
+<p align="center">
+    <img src="./images/views.png" alt="Pátyod Klíma Logó" width="450">
+</p>
+
+---
+
+## ✨ Features
+
+### Client-Side Website
+- Responsive, SEO-optimized public website
+- Reference image gallery
+- Privacy policy and cookie management
+
+### Admin / CMS
+- 📊 Custom dashboard (revenue, client & job statistics, interactive charts)
+- 👤 Client management
+- 🧰 Job & installation tracking
+- 🖼️ Reference gallery CMS
+- 🤖 AI-powered visual design tool — generates photorealistic indoor / outdoor AC units on real customer photos
+- 📢 Ad generator & downloader with pre-made templates and brand-specific device catalogs
+- 🔐 Secure, password-based admin login
+
+---
 
 ## 🛠️ Tech Stack
 
