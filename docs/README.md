@@ -119,9 +119,9 @@ My primary goal with this was to reinforce my fundamental knowledge of web devel
 
 </details>
 
-## 🚧 Planned Features
+## 🚧 Roadmap
 
-- 📊 Custom dashboard ⏳
+- 📊 Custom dashboard ✅
 - 👤 Client management ✅
 - 🧰 Job/installation tracking ✅
 - 🖼️ Reference image management ✅
