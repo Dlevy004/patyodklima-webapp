@@ -85,33 +85,39 @@ My primary goal with this was to reinforce my fundamental knowledge of web devel
 - **UptimeRobot** for monitoring the availability, performance, and status of the website
 - **Cloudflare AI** for the image inpainting to generate realistic indoor and outdoor HVAC unit placement on photos
 
-### Package manager & dependencies
+### Package Manager & Dependencies
 
-- **npm** package manager
+**npm** package manager
 
-    #### Backend dependencies:
+<details>
+<summary><strong>Backend dependencies</strong></summary>
 
-    - **Supabase JS** for managing file storage
-    - **Multer** for handling and processing incoming file uploads
-    - **Sharp** for image processing, resizing, and WebP optimization
-    - **CORS** for enabling secure cross-origin requests between the frontend and the backend
-    - **pg** as the PostgreSQL client for the database connection
-    - **dotenv** for secure environment variable and configuration management
-    - **bcryptjs** for secure password hashing and verification
-    - **express-rate-limit** for prevents brute-force login attacks
+- **Supabase JS** — file storage management
+- **Multer** — handling and processing incoming file uploads
+- **Sharp** — image processing, resizing, and WebP optimization
+- **CORS** — enabling secure cross-origin requests between frontend and backend
+- **pg** — PostgreSQL client for the database connection
+- **dotenv** — secure environment variable and configuration management
+- **bcryptjs** — secure password hashing and verification
+- **express-rate-limit** — prevents brute-force login attacks
 
-    #### Frontend dependencies:
+</details>
 
-    - **React Hot Toast** library for user feedback notifications
-    - **Framer Motion** for website animations
-    - **Lucide React** for customizable SVG icons
-    - **Swiper** for touch-friendly sliders
-    - **React Helmet Async** for managing document head metadata dynamically for better SEO
-    - **React-Snap** for pre-rendering of the app to improve load times and SEO rankings
-    - **ESLint** for maintaining code quality and catching syntax errors
-    - **Prop-types** for runtime type checking of component props
-    - **Lottie React** for animated components
-    - **React-Select** for custom dropdowns
+<details>
+<summary><strong>Frontend dependencies</strong></summary>
+
+- **React Hot Toast** — user feedback notifications
+- **Framer Motion** — website animations
+- **Lucide React** — customizable SVG icons
+- **Swiper** — touch-friendly sliders
+- **React Helmet Async** — managing document head metadata dynamically for better SEO
+- **React-Snap** — pre-rendering of the app to improve load times and SEO rankings
+- **ESLint** — maintaining code quality and catching syntax errors
+- **Prop-types** — runtime type checking of component props
+- **Lottie React** — animated components
+- **React-Select** — custom dropdowns
+
+</details>
 
 ## 🚧 Planned Features
 
