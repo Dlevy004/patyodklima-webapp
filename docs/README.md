@@ -1,8 +1,13 @@
 <p align="center">
-    <img src="./logo.avif" alt="Pátyod Klíma Logó" width="200">
+    <img src="./images/logo.avif" alt="Pátyod Klíma Logó" width="200">
 </p>
-<h1 align="center">Pátyod Klíma Admin Portal</h1>
 
+<h1 align="center">Pátyod Klíma Admin Portal</h1>
+<p align="center">
+    A dynamic, full-stack CMS and business management system for a HVAC installation company.
+</p>
+
+---
 
 ## 📋 About
 
