@@ -38,8 +38,26 @@ const formatCurrency = (value) => `${value.toLocaleString('hu-HU')} Ft`;
 
 function MonthlyRevenueChart() {
     const [year] = useState(new Date().getFullYear());
-    const { data } = useFetch(`${API_URL}/api/dashboard/monthly-revenue?year=${year}`);
+    const { data, error, isLoading } = useFetch(`${API_URL}/api/dashboard/monthly-revenue?year=${year}`);
     const isMobile = useIsMobile();
+
+    if (isLoading) {
+        return (
+            <div className='monthly-revenue-card'>
+                <h3>Havi bevétel - {year}</h3>
+                <p>Betöltés…</p>
+            </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div className='monthly-revenue-card'>
+                <h3>Havi bevétel - {year}</h3>
+                <p role='alert'>Hiba történt az adatok betöltése közben.</p>
+            </div>
+        );
+    }
 
     const chartData = (data ?? []).map((row) => ({
         ...row,

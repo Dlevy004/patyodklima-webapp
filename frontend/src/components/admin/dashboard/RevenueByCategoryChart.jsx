@@ -16,8 +16,26 @@ const formatCurrency = (value) => `${value.toLocaleString('hu-HU')} Ft`;
 
 
 function RevenueByCategoryChart() {
-    const { data } = useFetch(`${API_URL}/api/dashboard/revenue-by-category`);
+    const { data, error, isLoading } = useFetch(`${API_URL}/api/dashboard/revenue-by-category`);
     const chartData = data ?? [];
+
+    if (isLoading) {
+        return (
+            <div className='revenue-category-card'>
+                <h3>Kategóriánkénti bevétel</h3>
+                <p>Betöltés…</p>
+            </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div className='revenue-category-card'>
+                <h3>Kategóriánkénti bevétel</h3>
+                <p role='alert'>Hiba történt az adatok betöltése közben.</p>
+            </div>
+        );
+    }
 
     return (
         <div className='revenue-category-card'>

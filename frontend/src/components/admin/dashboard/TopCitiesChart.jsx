@@ -8,8 +8,26 @@ const API_URL = import.meta.env.VITE_API_URL;
 
 
 function TopCitiesChart() {
-    const { data } = useFetch(`${API_URL}/api/dashboard/top-cities`);
+    const { data, error, isLoading } = useFetch(`${API_URL}/api/dashboard/top-cities`);
     const chartData = data ?? [];
+
+    if (isLoading) {
+        return (
+            <div className='top-cities-card'>
+                <h3>Legnépszerűbb települések</h3>
+                <p>Betöltés…</p>
+            </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div className='top-cities-card'>
+                <h3>Legnépszerűbb települések</h3>
+                <p role='alert'>Hiba történt az adatok betöltése közben.</p>
+            </div>
+        );
+    }
 
     return (
         <div className='top-cities-card'>

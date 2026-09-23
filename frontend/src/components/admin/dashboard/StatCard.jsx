@@ -28,7 +28,23 @@ const renderCards = (data) => CARD_DEFINITIONS.map((card) => (
 
 
 export default function StatCard() {
-    const { data } = useFetch(OVERVIEW_URL);
+    const { data, error, isLoading } = useFetch(OVERVIEW_URL);
+
+    if (isLoading) {
+        return (
+            <div className='stat-card-wrapper'>
+                <p>Betöltés…</p>
+            </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div className='stat-card-wrapper'>
+                <p role='alert'>Hiba történt az adatok betöltése közben.</p>
+            </div>
+        );
+    }
 
     return (
         <div className="stat-card-wrapper">

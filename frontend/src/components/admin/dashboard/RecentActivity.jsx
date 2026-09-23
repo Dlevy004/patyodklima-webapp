@@ -7,8 +7,24 @@ const RECENT_ACTIVITY_URL = `${API_URL}/api/dashboard/recent-activity?days=1`;
 
 
 function RecentActivity () {
-    const { data } = useFetch(RECENT_ACTIVITY_URL);
+    const { data, error, isLoading } = useFetch(RECENT_ACTIVITY_URL);
     const today = data?.[0];
+
+    if (isLoading) {
+        return (
+            <div className='recent-activity-wrapper'>
+                <p>Betöltés…</p>
+            </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div className='recent-activity-wrapper'>
+                <p role='alert'>Hiba történt az adatok betöltése közben.</p>
+            </div>
+        );
+    }
 
     const message = today
         ? `Legutóbbi aktivitás: ${today.newJobs} új munka, ${today.newClients} új ügyfél, `
