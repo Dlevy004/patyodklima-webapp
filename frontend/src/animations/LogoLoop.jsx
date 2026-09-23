@@ -282,7 +282,7 @@ export const LogoLoop = memo(
             className="logoloop__list"
             key={`copy-${copyIndex}`}
             role="list"
-            inert={copyIndex > 0 ? "true" : undefined}
+            aria-hidden={copyIndex > 0 ? true : undefined}
             ref={copyIndex === 0 ? seqRef : undefined}
           >
             {logos.map((item, itemIndex) => renderLogoItem(item, `${copyIndex}-${itemIndex}`))}
