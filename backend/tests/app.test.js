@@ -73,7 +73,7 @@ describe('app.js (Express app)', () => {
         const res = await request(app).get('/api/boom');
 
         expect(res.status).toBe(500);
-        expect(res.body).toEqual({ message: 'Something broke' });
+        expect(res.body).toEqual("Internal server error");
         expect(consoleSpy).toHaveBeenCalled();
 
         consoleSpy.mockRestore();
