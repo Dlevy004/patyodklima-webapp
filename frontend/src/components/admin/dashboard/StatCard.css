@@ -12,6 +12,11 @@
     animation: stat-scrolling 25s linear infinite;
 }
 
+.stat-card-track:hover,
+.stat-card-track:focus-within {
+    animation-play-state: paused;
+}
+
 .stat-card-group {
     display: flex;
     gap: 1rem;
@@ -54,5 +59,11 @@
     }
     100% {
         transform: translateX(-50%);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .stat-card-track {
+        animation: none;
     }
 }
