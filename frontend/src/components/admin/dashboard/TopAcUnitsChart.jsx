@@ -29,7 +29,6 @@ function TopAcUnitsChart() {
                     <YAxis
                         type='category'
                         dataKey='name'
-                        width={70}
                         tick={{ fill: 'var(--text-color1)' }}
                     />
                     <Tooltip
