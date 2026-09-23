@@ -32,7 +32,8 @@ const handleUpload = (req, res, next) => {
             return res.status(400).json({ message: 'Hiba történt a fájl feltöltése során.' });
         }
 
-        return res.status(400).json({ message: err.message || 'Csak képfájl tölthető fel.' });
+        console.error('Unexpected upload error:', err.message);
+        return res.status(400).json({ message: 'Csak képfájl tölthető fel.' });
     });
 };
 
