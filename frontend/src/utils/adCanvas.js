@@ -169,5 +169,5 @@ export async function downloadCanvasAsPng(canvas, filename = 'hirdetes.png') {
     anchor.href = blobUrl;
     anchor.download = filename;
     anchor.click();
-    window.URL.revokeObjectURL(blobUrl);
+    setTimeout(() => window.URL.revokeObjectURL(blobUrl), 0);
 }
