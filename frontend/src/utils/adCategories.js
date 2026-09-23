@@ -33,7 +33,9 @@ export function groupAcUnitsByBrand(units) {
 export function formatAdPrice(value) {
     const num = Number(value);
     if (Number.isNaN(num)) return '';
-    return num.toLocaleString('hu-HU').replace(/\u00A0/g, ' ').replace(/,/g, ' ');
+    return num
+        .toLocaleString('hu-HU', { maximumFractionDigits: 0 })
+        .replace(/[\u00A0\u202F]/g, ' ');
 }
 
 export function parseDetailLines(text) {
