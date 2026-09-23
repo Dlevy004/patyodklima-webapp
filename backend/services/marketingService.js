@@ -2,37 +2,37 @@ const prisma = require('../database/prisma');
 
 
 const getAllTemplates = async () => {
-    return prisma.ad_templates.findMany({
+    return prisma.marketing_templates.findMany({
         orderBy: [{ category: 'asc' }, { name: 'asc' }]
     });
 };
 
-const getAllAdAcUnits = async () => {
+const getAllMarketingAcUnits = async () => {
     return prisma.ac_units.findMany({
         orderBy: [{ brand: 'asc' }, { model_name: 'asc' }]
     });
 };
 
-const getAllAds = async (userId) => {
-    return prisma.generated_ads.findMany({
+const getAllMarketings = async (userId) => {
+    return prisma.generated_marketings.findMany({
         where: { user_id: userId },
         orderBy: { created_at: 'desc' },
         include: {
-            ad_templates: {
+            marketing_templates: {
                 select: { name: true, category: true }
             }
         }
     });
 };
 
-const getAdById = async (adId, userId) => {
-    return prisma.generated_ads.findFirst({
-        where: { id: adId, user_id: userId }
+const getMarketingById = async (marketingId, userId) => {
+    return prisma.generated_marketings.findFirst({
+        where: { id: marketingId, user_id: userId }
     });
 };
 
-const createAd = async (userId, data) => {
-    return prisma.generated_ads.create({
+const createMarketing = async (userId, data) => {
+    return prisma.generated_marketings.create({
         data: {
             user_id: userId,
             template_id: data.templateId || null,
@@ -47,18 +47,18 @@ const createAd = async (userId, data) => {
     });
 };
 
-const deleteAd = async (adId, userId) => {
-    const { count } = await prisma.generated_ads.deleteMany({
-        where: { id: adId, user_id: userId }
+const deleteMarketing = async (marketingId, userId) => {
+    const { count } = await prisma.generated_marketings.deleteMany({
+        where: { id: marketingId, user_id: userId }
     });
     return count > 0;
 };
 
 module.exports = {
     getAllTemplates,
-    getAllAdAcUnits,
-    getAllAds,
-    getAdById,
-    createAd,
-    deleteAd
+    getAllMarketingAcUnits,
+    getAllMarketings,
+    getMarketingById,
+    createMarketing,
+    deleteMarketing
 };

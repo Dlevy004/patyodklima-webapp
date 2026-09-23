@@ -90,7 +90,7 @@ table ad_templates {
   created_at timestamp [default: `now()`]
 }
 
-table generated_ads {
+table generated_marketings {
   id uuid [primary key]
   user_id uuid [ref: > users.id]
   template_id uuid [ref: > ad_templates.id]

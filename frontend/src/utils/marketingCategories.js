@@ -1,4 +1,4 @@
-export const AD_CATEGORY_LABELS = {
+export const MARKETING_CATEGORY_LABELS = {
     summer_offer: 'Nyári ajánlatok',
     winter_offer: 'Téli ajánlatok',
     spring_offer: 'Tavaszi ajánlatok',
@@ -6,7 +6,7 @@ export const AD_CATEGORY_LABELS = {
     on_sale_offer: 'Akciós ajánlatok',
 };
 
-export const AD_STEP_LABELS = {
+export const MARKETING_STEP_LABELS = {
     templates: 'Sablonok',
     devices: 'Készülékek',
     text: 'Szöveg',
@@ -30,7 +30,7 @@ export function groupAcUnitsByBrand(units) {
     }, {});
 }
 
-export function formatAdPrice(value) {
+export function formatMarketingPrice(value) {
     const num = Number(value);
     if (Number.isNaN(num)) return '';
     return num

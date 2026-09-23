@@ -16,13 +16,13 @@ model ac_units {
   created_at            DateTime? @default(now()) @db.Timestamp(6)
 }
 
-model ad_templates {
+model marketing_templates {
   id                   String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   category             ad_template_type
   name                 String           @db.VarChar
   background_image_url String           @db.VarChar
   created_at           DateTime?        @default(now()) @db.Timestamp(6)
-  generated_ads        generated_ads[]
+  generated_marketings        generated_marketings[]
 }
 
 /// This model has constraints using non-default deferring rules and requires additional setup for migrations. Visit https://pris.ly/d/constraint-deferring for more info.
@@ -64,7 +64,7 @@ model company {
 }
 
 /// This model has constraints using non-default deferring rules and requires additional setup for migrations. Visit https://pris.ly/d/constraint-deferring for more info.
-model generated_ads {
+model generated_marketings {
   id                  String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   user_id             String?       @db.Uuid
   template_id         String?       @db.Uuid
@@ -76,7 +76,7 @@ model generated_ads {
   show_phone          Boolean?      @default(true)
   generated_image_url String        @db.VarChar
   created_at          DateTime?     @default(now()) @db.Timestamp(6)
-  ad_templates        ad_templates? @relation(fields: [template_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  marketing_templates        marketing_templates? @relation(fields: [template_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   users               users?        @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
@@ -115,7 +115,7 @@ model users {
   must_change_password Boolean             @default(true)
   created_at           DateTime?           @default(now()) @db.Timestamp(6)
   ai_visual_designs    ai_visual_designs[]
-  generated_ads        generated_ads[]
+  generated_marketings        generated_marketings[]
 }
 
 enum ad_template_type {

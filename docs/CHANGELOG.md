@@ -6,6 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ---
 
+## [2.5.1] - 2026-09-23
+
+### Fixed
+- Fixed the broken PDF link at the bottom of the Privacy Policy page.
+- Fixed the unclickable logos in the "Brands we use" section on the website.
+- Fixed a bug where users with active ad blockers couldn't load or use the advertisement creator.
+
+---
+
 ## [2.5.0] - 2026-09-23
 
 ### Added

@@ -16,7 +16,7 @@ jest.mock('../database/prisma', () => ({
         count: jest.fn(),
         findMany: jest.fn()
     },
-    generated_ads: {
+    generated_marketings: {
         findMany: jest.fn()
     }
 }));
@@ -248,7 +248,7 @@ describe('Dashboard Service', () => {
             prisma.ai_visual_designs.findMany.mockResolvedValue([
                 { created_at: '2026-09-15T10:00:00Z' }
             ]);
-            prisma.generated_ads.findMany.mockResolvedValue([
+            prisma.generated_marketings.findMany.mockResolvedValue([
                 { created_at: '2026-09-09T10:00:00Z' }
             ]);
 
@@ -267,14 +267,14 @@ describe('Dashboard Service', () => {
             expect(sept13.completedJobs).toBe(1);
 
             const sept09 = result.find((day) => day.date === '2026-09-09');
-            expect(sept09.newAds).toBe(1);
+            expect(sept09.newMarketings).toBe(1);
         });
 
         it('should respect a custom "days" window', async () => {
             prisma.clients.findMany.mockResolvedValue([]);
             prisma.jobs.findMany.mockResolvedValueOnce([]).mockResolvedValueOnce([]);
             prisma.ai_visual_designs.findMany.mockResolvedValue([]);
-            prisma.generated_ads.findMany.mockResolvedValue([]);
+            prisma.generated_marketings.findMany.mockResolvedValue([]);
 
             const result = await dashboardService.getRecentActivity(3);
 
@@ -286,7 +286,7 @@ describe('Dashboard Service', () => {
             prisma.clients.findMany.mockResolvedValue([]);
             prisma.jobs.findMany.mockResolvedValueOnce([]).mockResolvedValueOnce([]);
             prisma.ai_visual_designs.findMany.mockResolvedValue([]);
-            prisma.generated_ads.findMany.mockResolvedValue([]);
+            prisma.generated_marketings.findMany.mockResolvedValue([]);
 
             const result = await dashboardService.getRecentActivity(3);
 
@@ -303,7 +303,7 @@ describe('Dashboard Service', () => {
                 .mockResolvedValueOnce([{ created_at: outOfRange }]) // newJobs
                 .mockResolvedValueOnce([{ job_date: outOfRange }]); // completedJobs
             prisma.ai_visual_designs.findMany.mockResolvedValue([{ created_at: outOfRange }]);
-            prisma.generated_ads.findMany.mockResolvedValue([{ created_at: outOfRange }]);
+            prisma.generated_marketings.findMany.mockResolvedValue([{ created_at: outOfRange }]);
 
             const result = await dashboardService.getRecentActivity(3);
 
@@ -313,9 +313,9 @@ describe('Dashboard Service', () => {
                     newJobs: acc.newJobs + day.newJobs,
                     completedJobs: acc.completedJobs + day.completedJobs,
                     newVisualDesigns: acc.newVisualDesigns + day.newVisualDesigns,
-                    newAds: acc.newAds + day.newAds
+                    newMarketings: acc.newMarketings + day.newMarketings
                 }),
-                { newClients: 0, newJobs: 0, completedJobs: 0, newVisualDesigns: 0, newAds: 0 }
+                { newClients: 0, newJobs: 0, completedJobs: 0, newVisualDesigns: 0, newMarketings: 0 }
             );
 
             expect(totals).toEqual({
@@ -323,7 +323,7 @@ describe('Dashboard Service', () => {
                 newJobs: 0,
                 completedJobs: 0,
                 newVisualDesigns: 0,
-                newAds: 0
+                newMarketings: 0
             });
         });
     });

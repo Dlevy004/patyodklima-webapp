@@ -15,7 +15,7 @@ import Clients from './pages/admin/Clients'
 import Jobs from './pages/admin/Jobs'
 import VisualDesign from './pages/admin/VisualDesign'
 import References from './pages/admin/References'
-import Ads from './pages/admin/Ads'
+import Marketing from './pages/admin/Marketing'
 import NotFound from './pages/not-found/NotFound'
 
 
@@ -39,7 +39,7 @@ function App() {
               <Route path='clients' element={<Clients />} />
               <Route path='jobs' element={<Jobs />} />
               <Route path='visual-designs' element={<VisualDesign />} />
-              <Route path='ads' element={<Ads />} />
+              <Route path='marketings' element={<Marketing />} />
               <Route path='references' element={<References />} />
             </Route>
           </Route>

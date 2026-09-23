@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 
-import './AdPreview.css';
+import './MarketingPreview.css';
 
 import ActionBtn from '@/components/admin/common/ActionBtn';
-import { DEFAULT_AD_LAYOUT } from '@/utils/adLayout';
-import { formatAdPrice, parseDetailLines } from '@/utils/adCategories';
+import { DEFAULT_MARKETING_LAYOUT } from '@/utils/marketingLayout';
+import { formatMarketingPrice, parseDetailLines } from '@/utils/marketingCategories';
 
 function layerBox(box) {
     return {
@@ -20,7 +20,7 @@ function layerBox(box) {
     };
 }
 
-function AdPreview({
+function MarketingPreview({
     template, acUnit, headline, acUnitName,
     details, price, showLogo, showPhone,
     logoUrl, phoneImageUrl,
@@ -28,23 +28,23 @@ function AdPreview({
 }) {
     const hasTemplate = Boolean(template?.background_image_url);
     const detailLines = parseDetailLines(details);
-    const layout = DEFAULT_AD_LAYOUT;
+    const layout = DEFAULT_MARKETING_LAYOUT;
 
     return (
-        <div className='ad-preview-wrapper'>
-            <div className={`ad-preview-stage ${hasTemplate ? 'has-template' : 'is-empty'}`}>
+        <div className='marketing-preview-wrapper'>
+            <div className={`marketing-preview-stage ${hasTemplate ? 'has-template' : 'is-empty'}`}>
                 {!hasTemplate ? (
-                    <p className='ad-preview-placeholder'>Kérlek válassz egy sablont!</p>
+                    <p className='marketing-preview-placeholder'>Kérlek válassz egy sablont!</p>
                 ) : (
                     <div
-                        className='ad-preview-canvas'
+                        className='marketing-preview-canvas'
                         style={{ backgroundImage: `url(${template.background_image_url})` }}
                     >
                         {showLogo && logoUrl && (
                             <img
                                 src={logoUrl}
                                 alt='Pátyod Klíma logó'
-                                className='ad-layer ad-layer-logo'
+                                className='marketing-layer marketing-layer-logo'
                                 style={layerBox(layout.logo)}
                             />
                         )}
@@ -53,7 +53,7 @@ function AdPreview({
                             <img
                                 src={phoneImageUrl}
                                 alt='Telefonszám: 06 30 629 0793'
-                                className='ad-layer ad-layer-phone'
+                                className='marketing-layer marketing-layer-phone'
                                 style={layerBox(layout.phone)}
                             />
                         )}
@@ -62,14 +62,14 @@ function AdPreview({
                             <img
                                 src={acUnit.transparent_image_url}
                                 alt={acUnit.model_name || 'Klíma készülék'}
-                                className='ad-layer ad-layer-unit'
+                                className='marketing-layer marketing-layer-unit'
                                 style={layerBox(layout.acUnit)}
                             />
                         )}
 
                         {headline && (
                             <p
-                                className='ad-layer ad-layer-headline'
+                                className='marketing-layer marketing-layer-headline'
                                 style={layerBox(layout.headline)}
                             >
                                 {headline}
@@ -78,7 +78,7 @@ function AdPreview({
 
                         {acUnitName && (
                             <p
-                                className='ad-layer ad-layer-device'
+                                className='marketing-layer marketing-layer-device'
                                 style={layerBox(layout.deviceType)}
                             >
                                 {acUnitName}
@@ -87,7 +87,7 @@ function AdPreview({
 
                         {detailLines.length > 0 && (
                             <ul
-                                className='ad-layer ad-layer-details'
+                                className='marketing-layer marketing-layer-details'
                                 style={layerBox(layout.details)}
                             >
                                 {detailLines.map((line) => (
@@ -98,17 +98,17 @@ function AdPreview({
 
                         {price !== '' && price !== null && price !== undefined && (
                             <p
-                                className='ad-layer ad-layer-price'
+                                className='marketing-layer marketing-layer-price'
                                 style={layerBox(layout.price)}
                             >
-                                {layout.price.prefix}{formatAdPrice(price)}{layout.price.suffix}
+                                {layout.price.prefix}{formatMarketingPrice(price)}{layout.price.suffix}
                             </p>
                         )}
                     </div>
                 )}
 
                 {hasTemplate && (
-                    <div className='ad-preview-actions'>
+                    <div className='marketing-preview-actions'>
                         <ActionBtn type='undo' onClick={onUndo} />
                         <ActionBtn type='download' onClick={onDownload} />
                         <ActionBtn type='delete' onClick={onDelete} />
@@ -116,8 +116,8 @@ function AdPreview({
                 )}
 
                 {isSaving && (
-                    <div className='ad-preview-loading' aria-live='polite'>
-                        <span className='ad-preview-spinner' aria-hidden='true'></span>
+                    <div className='marketing-preview-loading' aria-live='polite'>
+                        <span className='marketing-preview-spinner' aria-hidden='true'></span>
                     </div>
                 )}
             </div>
@@ -125,7 +125,7 @@ function AdPreview({
     );
 }
 
-AdPreview.propTypes = {
+MarketingPreview.propTypes = {
     template: PropTypes.shape({
         background_image_url: PropTypes.string,
     }),
@@ -147,4 +147,4 @@ AdPreview.propTypes = {
     isSaving: PropTypes.bool,
 };
 
-export default AdPreview;
+export default MarketingPreview;

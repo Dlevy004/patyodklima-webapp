@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
-import AdPreview from './AdPreview';
+import AdPreview from './MarketingPreview';
 
 vi.mock('./AdPreview.css', () => ({}));
 
@@ -35,7 +35,7 @@ describe('AdPreview', () => {
         expect(screen.queryByRole('button', { name: 'undo' })).not.toBeInTheDocument();
     });
 
-    it('renders the ad preview with all elements', () => {
+    it('renders the marketing preview with all elements', () => {
         render(<AdPreview {...defaultProps} />);
 
         expect(screen.getByAltText('Pátyod Klíma logó')).toBeInTheDocument();
@@ -129,6 +129,6 @@ describe('AdPreview', () => {
     it('renders the loading overlay while saving', () => {
         const { container } = render(<AdPreview {...defaultProps} isSaving />);
 
-        expect(container.querySelector('.ad-preview-loading')).toBeInTheDocument();
+        expect(container.querySelector('.marketing-preview-loading')).toBeInTheDocument();
     });
 });

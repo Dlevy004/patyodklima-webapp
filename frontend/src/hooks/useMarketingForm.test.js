@@ -1,19 +1,19 @@
 import { renderHook, act } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 
-import useAdForm, { emptyAdFormData } from './useAdForm';
+import useMarketingForm, { emptyMarketingFormData } from './useMarketingForm';
 
 
-describe('useAdForm', () => {
+describe('useMarketingForm', () => {
     it('should initialize with empty data', () => {
-        const { result } = renderHook(() => useAdForm());
+        const { result } = renderHook(() => useMarketingForm());
 
-        expect(result.current.formData).toEqual(emptyAdFormData);
+        expect(result.current.formData).toEqual(emptyMarketingFormData);
         expect(result.current.formErrors).toEqual({});
     });
 
     it('should update a field and clear its error', () => {
-        const { result } = renderHook(() => useAdForm());
+        const { result } = renderHook(() => useMarketingForm());
 
         act(() => {
             result.current.validateForm();
@@ -29,7 +29,7 @@ describe('useAdForm', () => {
     });
 
     it('should validate required fields and numeric price', () => {
-        const { result } = renderHook(() => useAdForm());
+        const { result } = renderHook(() => useMarketingForm());
 
         act(() => {
             expect(result.current.validateForm()).toBe(false);
@@ -64,7 +64,7 @@ describe('useAdForm', () => {
     });
 
     it('should reset the form', () => {
-        const { result } = renderHook(() => useAdForm());
+        const { result } = renderHook(() => useMarketingForm());
 
         act(() => {
             result.current.handleInputChange('headline', 'Teszt');
@@ -72,7 +72,7 @@ describe('useAdForm', () => {
             result.current.resetForm();
         });
 
-        expect(result.current.formData).toEqual(emptyAdFormData);
+        expect(result.current.formData).toEqual(emptyMarketingFormData);
         expect(result.current.formErrors).toEqual({});
     });
 });
