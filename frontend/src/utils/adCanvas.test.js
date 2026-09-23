@@ -494,19 +494,22 @@ describe('adCanvas', () => {
 
     describe('downloadCanvasAsPng', () => {
         it('downloads the canvas as PNG', async () => {
+            vi.useFakeTimers();
+
             const blob = new Blob(['image']);
-
             canvas.toBlob = vi.fn((callback) => { callback(blob);} );
-
             const clickSpy = vi.spyOn(HTMLAnchorElement.prototype, 'click').mockImplementation(() => {});
 
             await downloadCanvasAsPng(canvas, 'teszt-hirdetes.png');
 
             expect(globalThis.URL.createObjectURL).toHaveBeenCalledWith(blob);
-
             expect(clickSpy).toHaveBeenCalled();
 
+            vi.runAllTimers();
+
             expect(globalThis.URL.revokeObjectURL).toHaveBeenCalledWith('blob:mock-url');
+
+            vi.useRealTimers();
         });
 
         it('uses the default filename', async () => {
