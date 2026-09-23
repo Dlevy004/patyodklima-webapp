@@ -39,7 +39,7 @@ My primary goal with this was to reinforce my fundamental knowledge of web devel
 - 🧰 Job & installation tracking
 - 🖼️ Reference gallery CMS
 - 🤖 AI-powered visual design tool — generates photorealistic indoor / outdoor AC units on real customer photos
-- 📢 Ad generator & downloader with pre-made templates and brand-specific device catalogs
+- 📢 Marketing Ad generator & downloader with pre-made templates and brand-specific device catalogs
 - 🔐 Secure, password-based admin login
 
 ---
@@ -126,7 +126,7 @@ My primary goal with this was to reinforce my fundamental knowledge of web devel
 - 🧰 Job/installation tracking ✅
 - 🖼️ Reference image management ✅
 - 🤖 AI visual design tool ✅
-- 📢 Ad creation & downloading ✅
+- 📢 Marketing Ad creation & downloading ✅
 
 ---
 

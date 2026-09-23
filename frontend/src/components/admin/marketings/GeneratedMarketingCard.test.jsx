@@ -15,7 +15,7 @@ vi.mock('@/components/admin/common/ActionBtn', () => ({
 }));
 
 const defaultProps = {
-    ad: { id: '1', generated_image_url: 'image.png', headline: 'Nyári akció', ac_unit_name: 'Daikin' },
+    marketing: { id: '1', generated_image_url: 'image.png', headline: 'Nyári akció', ac_unit_name: 'Daikin' },
     onDelete: vi.fn(),
     onDownload: vi.fn(),
 };
@@ -33,18 +33,18 @@ describe('GeneratedAdCard', () => {
     });
 
     it('uses the AC unit name when headline is missing', () => {
-        render(<GeneratedAdCard {...defaultProps} ad={{ ...defaultProps.ad, headline: '' }} />);
+        render(<GeneratedAdCard {...defaultProps} marketing={{ ...defaultProps.marketing, headline: '' }} />);
 
         expect(screen.getByTestId('history-card')).toHaveAttribute('data-alt', 'Daikin');
     });
 
     it('uses the default title when headline and AC unit name are missing', () => {
-        render(<GeneratedAdCard {...defaultProps} ad={{ ...defaultProps.ad, headline: '', ac_unit_name: '' }} />);
+        render(<GeneratedAdCard {...defaultProps} marketing={{ ...defaultProps.marketing, headline: '', ac_unit_name: '' }} />);
 
         expect(screen.getByTestId('history-card')).toHaveAttribute('data-alt', 'Hirdetés');
     });
 
-    it('calls onDownload with the ad id and title', () => {
+    it('calls onDownload with the marketing id and title', () => {
         render(<GeneratedAdCard {...defaultProps} />);
 
         fireEvent.click(screen.getByRole('button', { name: 'download' }));

@@ -100,7 +100,7 @@ CREATE TABLE "ad_templates" (
   "created_at" timestamp DEFAULT (now())
 );
 
-CREATE TABLE "generated_ads" (
+CREATE TABLE "generated_marketings" (
   "id" uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   "user_id" uuid,
   "template_id" uuid,
@@ -137,9 +137,9 @@ ALTER TABLE "jobs" ADD FOREIGN KEY ("client_id") REFERENCES "clients" ("id") DEF
 
 ALTER TABLE "ac_units" ADD FOREIGN KEY ("job_id") REFERENCES "jobs" ("id") DEFERRABLE INITIALLY IMMEDIATE;
 
-ALTER TABLE "generated_ads" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id") DEFERRABLE INITIALLY IMMEDIATE;
+ALTER TABLE "generated_marketings" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id") DEFERRABLE INITIALLY IMMEDIATE;
 
-ALTER TABLE "generated_ads" ADD FOREIGN KEY ("template_id") REFERENCES "ad_templates" ("id") DEFERRABLE INITIALLY IMMEDIATE;
+ALTER TABLE "generated_marketings" ADD FOREIGN KEY ("template_id") REFERENCES "ad_templates" ("id") DEFERRABLE INITIALLY IMMEDIATE;
 
 ALTER TABLE "reference_image" ADD FOREIGN KEY ("job_id") REFERENCES "jobs" ("id") DEFERRABLE INITIALLY IMMEDIATE;
 

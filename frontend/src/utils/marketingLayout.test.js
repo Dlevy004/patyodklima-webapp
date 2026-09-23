@@ -1,17 +1,17 @@
 import { describe, it, expect } from 'vitest';
-import { AD_CANVAS_WIDTH, AD_CANVAS_HEIGHT, AD_ASPECT_RATIO, AD_FONT_FAMILY, DEFAULT_AD_LAYOUT, layoutToPx } from './adLayout';
+import { MARKETING_CANVAS_WIDTH, MARKETING_CANVAS_HEIGHT, MARKETING_ASPECT_RATIO, MARKETING_FONT_FAMILY, DEFAULT_MARKETING_LAYOUT, layoutToPx } from './adLayout';
 
 
 describe('Layout constants', () => {
     it('contains the correct canvas and font values', () => {
-        expect(AD_CANVAS_WIDTH).toBe(1920);
-        expect(AD_CANVAS_HEIGHT).toBe(Math.round(1920 * 9 / 17));
-        expect(AD_ASPECT_RATIO).toBe('17 / 9');
-        expect(AD_FONT_FAMILY).toBe('Josefin Sans, sans-serif');
+        expect(MARKETING_CANVAS_WIDTH).toBe(1920);
+        expect(MARKETING_CANVAS_HEIGHT).toBe(Math.round(1920 * 9 / 17));
+        expect(MARKETING_ASPECT_RATIO).toBe('17 / 9');
+        expect(MARKETING_FONT_FAMILY).toBe('Josefin Sans, sans-serif');
     });
 
     it('contains the default layout', () => {
-        expect(DEFAULT_AD_LAYOUT).toEqual({
+        expect(DEFAULT_MARKETING_LAYOUT).toEqual({
             logo: { x: 0.18, y: 0.06, width: 0.22, height: 0.12 },
             phone: { x: 0.42, y: 0.06, width: 0.24, height: 0.12 },
             headline: { x: 0.05, y: 0.24, maxWidth: 0.45, fontSize: 0.091, color: '#c41e1e', fontWeight: '800' },
@@ -25,7 +25,7 @@ describe('Layout constants', () => {
 
 describe('layoutToPx', () => {
     it('converts normalized layout values to pixels', () => {
-        const result = layoutToPx(DEFAULT_AD_LAYOUT, 1000, 500);
+        const result = layoutToPx(DEFAULT_MARKETING_LAYOUT, 1000, 500);
 
         expect(result).toEqual({
             logo: { x: 180, y: 30, width: 220, height: 60 },
@@ -40,8 +40,8 @@ describe('layoutToPx', () => {
 
     it('uses scale 1 when scale is missing', () => {
         const layout = {
-            ...DEFAULT_AD_LAYOUT,
-            acUnit: { ...DEFAULT_AD_LAYOUT.acUnit, scale: undefined },
+            ...DEFAULT_MARKETING_LAYOUT,
+            acUnit: { ...DEFAULT_MARKETING_LAYOUT.acUnit, scale: undefined },
         };
 
         expect(layoutToPx(layout, 1000, 500).acUnit.scale).toBe(1);

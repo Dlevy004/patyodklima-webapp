@@ -1,7 +1,7 @@
 const express = require('express');
 const multer = require('multer');
 
-const adController = require('../controllers/adController');
+const marketingController = require('../controllers/marketingController');
 const { authenticate } = require('../middleware/authMiddleware');
 
 const router = express.Router();
@@ -39,11 +39,11 @@ const handleUpload = (req, res, next) => {
     });
 };
 
-router.get('/ad-templates', authenticate, adController.getTemplates);
-router.get('/ad-ac-units', authenticate, adController.getAdAcUnits);
-router.get('/ads', authenticate, adController.getAllAds);
-router.get('/ads/:id/download', authenticate, adController.downloadAd);
-router.post('/ads/generate', authenticate, handleUpload, adController.generateAd);
-router.delete('/ads/:id', authenticate, adController.deleteAd);
+router.get('/marketing-templates', authenticate, marketingController.getTemplates);
+router.get('/marketing-ac-units', authenticate, marketingController.getMarketingAcUnits);
+router.get('/marketings', authenticate, marketingController.getAllMarketings);
+router.get('/marketings/:id/download', authenticate, marketingController.downloadMarketing);
+router.post('/marketings/generate', authenticate, handleUpload, marketingController.generateMarketing);
+router.delete('/marketings/:id', authenticate, marketingController.deleteMarketing);
 
 module.exports = router;

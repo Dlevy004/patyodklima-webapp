@@ -33,7 +33,7 @@ describe('RecentActivity', () => {
             newClients: 2,
             completedJobs: 1,
             newVisualDesigns: 4,
-            newAds: 0
+            newMarketings: 0
         }];
 
         useFetch.mockReturnValue({ data: mockData });

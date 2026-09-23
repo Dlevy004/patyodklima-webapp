@@ -1,4 +1,4 @@
-.ad-sidebar {
+.marketing-sidebar {
     position: fixed;
     right: 0;
     top: 0;
@@ -14,13 +14,13 @@
     transition: width 0.3s ease-in-out;
 }
 
-.ad-sidebar-collapsed {
+.marketing-sidebar-collapsed {
     width: 85px;
     align-items: center;
     justify-content: flex-start;
 }
 
-.ad-sidebar-body {
+.marketing-sidebar-body {
     display: flex;
     flex-direction: column;
     flex: 1;
@@ -29,7 +29,7 @@
     width: 100%;
 }
 
-.ad-sidebar-collapsed .ad-sidebar-body {
+.marketing-sidebar-collapsed .marketing-sidebar-body {
     overflow: hidden;
     opacity: 0;
     visibility: hidden;
@@ -41,7 +41,7 @@
 }
 
 /*Toggle button settings*/
-.ad-sidebar-toggle {
+.marketing-sidebar-toggle {
     position: absolute;
     left: 0;
     top: 1.6rem;
@@ -56,25 +56,25 @@
     z-index: 2;
 }
 
-.ad-sidebar-toggle svg {
+.marketing-sidebar-toggle svg {
     transform: rotate(90deg);
     transition: transform 0.3s ease;
     color: var(--text-color1);
 }
 
-.ad-sidebar-collapsed .ad-sidebar-toggle svg {
+.marketing-sidebar-collapsed .marketing-sidebar-toggle svg {
     transform: rotate(-90deg);
 }
 
 /*Title and label when collapsed*/
-.ad-sidebar-title {
+.marketing-sidebar-title {
     font-size: var(--fs-h3);
     font-family: var(--primary-font-family);
     text-align: center;
     margin-bottom: 0.25rem;
 }
 
-.ad-sidebar-collapsed-label {
+.marketing-sidebar-collapsed-label {
     display: none;
     writing-mode: vertical-rl;
     transform: rotate(0deg);
@@ -84,12 +84,12 @@
     margin-top: 1rem;
 }
 
-.ad-sidebar-collapsed .ad-sidebar-collapsed-label {
+.marketing-sidebar-collapsed .marketing-sidebar-collapsed-label {
     display: block;
 }
 
-/*Content in the ads page sidebar*/
-.ad-sidebar-content {
+/*Content in the marketings page sidebar*/
+.marketing-sidebar-content {
     flex: 1;
     overflow-y: auto;
     display: flex;
@@ -99,23 +99,23 @@
 }
 
 /*Scrollbar settings*/
-.ad-sidebar-content::-webkit-scrollbar { display: none; }
+.marketing-sidebar-content::-webkit-scrollbar { display: none; }
 
 /*Open sidebar content*/
-.ad-sidebar-group h3 {
+.marketing-sidebar-group h3 {
     font-size: 0.9rem;
     margin-bottom: 0.5rem;
 }
 
-.ad-template-list,
-.ad-device-list {
+.marketing-template-list,
+.marketing-device-list {
     display: flex;
     flex-direction: column;
     gap: 0.65rem;
 }
 
-.ad-template-card,
-.ad-device-card {
+.marketing-template-card,
+.marketing-device-card {
     width: 100%;
     border: 2px solid transparent;
     border-radius: 0.5rem;
@@ -124,63 +124,63 @@
     padding: 0;
 }
 
-.ad-template-card img {
+.marketing-template-card img {
     width: 100%;
     display: block;
     aspect-ratio: 17 / 9;
     object-fit: cover;
 }
 
-.ad-device-card {
+.marketing-device-card {
     aspect-ratio: 1 / 1;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.ad-device-card img {
+.marketing-device-card img {
     width: 90%;
     height: auto;
     object-fit: contain;
 }
 
-.ad-device-placeholder {
+.marketing-device-placeholder {
     font-size: 0.85rem;
     color: var(--grey-text);
     padding: 0.5rem;
     text-align: center;
 }
 
-.ad-template-card.is-selected,
-.ad-device-card.is-selected {
+.marketing-template-card.is-selected,
+.marketing-device-card.is-selected {
     border-color: var(--bg-color-ternary);
     transform: translateY(-2px);
 }
 
-.ad-sidebar-empty {
+.marketing-sidebar-empty {
     color: var(--text-color1);
     font-size: 0.9rem;
     text-align: center;
     padding: 1rem 0.5rem;
 }
 
-.ad-sidebar-form {
+.marketing-sidebar-form {
     display: flex;
     flex-direction: column;
     gap: 0.85rem;
 }
 
-.ad-form-col {
+.marketing-form-col {
     display: flex;
     flex-direction: column;
     gap: 0.85rem;
 }
 
-.ad-sidebar-form .input-field textarea {
+.marketing-sidebar-form .input-field textarea {
     min-height: 110px;
 }
 
-.ad-sidebar-footer {
+.marketing-sidebar-footer {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
@@ -188,7 +188,7 @@
     width: 100%;
 }
 
-.ad-sidebar-btn {
+.marketing-sidebar-btn {
     flex: 1;
     border-radius: 5px;
     padding: 0.75rem 1rem;
@@ -198,30 +198,30 @@
     transition: transform 0.15s ease, opacity 0.15s ease;
 }
 
-.ad-sidebar-btn:disabled {
+.marketing-sidebar-btn:disabled {
     opacity: 0.55;
     cursor: not-allowed;
 }
 
-.ad-sidebar-btn-primary {
+.marketing-sidebar-btn-primary {
     border: 2px solid var(--primary-bg-color);
     background-color: var(--bg-color-ternary);
     color: #f2f2f2;
 }
 
-.ad-sidebar-btn-secondary {
+.marketing-sidebar-btn-secondary {
     border: 2px solid var(--bg-color-ternary);
     background-color: var(--bg-color-primary);
     color: var(--text-color1);
 }
 
-.ad-sidebar-btn:not(:disabled):hover {
+.marketing-sidebar-btn:not(:disabled):hover {
     transform: translateY(-2px);
 }
 
 @media screen and (max-width: 1024px) {
-    .ad-sidebar,
-    .ad-sidebar-collapsed {
+    .marketing-sidebar,
+    .marketing-sidebar-collapsed {
         top: auto;
         bottom: 0;
         left: 0;
@@ -234,11 +234,11 @@
         transition: height 0.4s ease, max-height 0.4s ease;
     }
 
-    .ad-sidebar-body {
+    .marketing-sidebar-body {
         overflow: hidden;
     }
 
-    .ad-sidebar::after {
+    .marketing-sidebar::after {
         content: '';
         position: absolute;
         left: 0;
@@ -249,12 +249,12 @@
         pointer-events: none;
     }
 
-    .ad-sidebar {
+    .marketing-sidebar {
         height: 46vh;
         max-height: 46vh;
     }
 
-    .ad-sidebar-collapsed {
+    .marketing-sidebar-collapsed {
         height: 72px;
         max-height: 72px;
         align-items: center;
@@ -262,11 +262,11 @@
         padding-top: 1rem;
     }
 
-    .ad-sidebar-collapsed .ad-sidebar-body {
+    .marketing-sidebar-collapsed .marketing-sidebar-body {
         transition: opacity 0.25s ease, visibility 0.25s ease;
     }
 
-    .ad-sidebar-toggle {
+    .marketing-sidebar-toggle {
         top: 0;
         left: 50%;
         transform: translate(-50%, -50%);
@@ -274,20 +274,20 @@
         overflow: visible;
     }
 
-    .ad-sidebar-toggle svg {
+    .marketing-sidebar-toggle svg {
         transform: rotate(180deg);
     }
 
-    .ad-sidebar-collapsed .ad-sidebar-toggle svg {
+    .marketing-sidebar-collapsed .marketing-sidebar-toggle svg {
         transform: rotate(0deg);
     }
 
-    .ad-sidebar-collapsed-label {
+    .marketing-sidebar-collapsed-label {
         writing-mode: horizontal-tb;
         margin-top: 0.5rem;
     }
 
-    .ad-sidebar-content {
+    .marketing-sidebar-content {
         flex-direction: row;
         flex-wrap: nowrap;
         overflow-x: auto;
@@ -295,49 +295,49 @@
         align-items: flex-start;
     }
 
-    .ad-sidebar-group {
+    .marketing-sidebar-group {
         flex: 0 0 auto;
     }
 
-    .ad-template-list,
-    .ad-device-list {
+    .marketing-template-list,
+    .marketing-device-list {
         flex-direction: row;
         overflow-x: visible;
         padding-bottom: 0.25rem;
     }
 
-    .ad-sidebar-content::-webkit-scrollbar,
-    .ad-template-list::-webkit-scrollbar,
-    .ad-device-list::-webkit-scrollbar {
+    .marketing-sidebar-content::-webkit-scrollbar,
+    .marketing-template-list::-webkit-scrollbar,
+    .marketing-device-list::-webkit-scrollbar {
         display: none;
     }
 
-    .ad-template-list li,
-    .ad-device-list li {
+    .marketing-template-list li,
+    .marketing-device-list li {
         flex: 0 0 auto;
     }
 
-    .ad-template-card {
+    .marketing-template-card {
         width: 180px;
     }
 
-    .ad-device-card {
+    .marketing-device-card {
         width: 110px;
         height: 110px;
         aspect-ratio: 1 / 1;
     }
 
-    .ad-sidebar-form {
+    .marketing-sidebar-form {
         display: grid;
         grid-template-columns: 1fr 1fr;
         align-items: start;
     }
 
-    .ad-sidebar-form .input-field textarea {
+    .marketing-sidebar-form .input-field textarea {
         min-height: 80px;
     }
 
-    .ad-sidebar-footer {
+    .marketing-sidebar-footer {
         flex-direction: row;
         margin: 0 auto;
         max-width: 400px;
@@ -345,43 +345,43 @@
 }
 
 @media screen and (max-width: 425px) {
-    .ad-sidebar:not(.ad-sidebar-collapsed) {
+    .marketing-sidebar:not(.marketing-sidebar-collapsed) {
         height: 78vh;
         max-height: 78vh;
     }
 
-    .ad-sidebar-content {
+    .marketing-sidebar-content {
         flex-direction: column;
         overflow-x: hidden;
         overflow-y: auto;
     }
 
-    .ad-template-list,
-    .ad-device-list {
+    .marketing-template-list,
+    .marketing-device-list {
         flex-direction: column;
         overflow-x: hidden;
     }
 
-    .ad-template-list li,
-    .ad-device-list li,
-    .ad-template-card,
-    .ad-device-card {
+    .marketing-template-list li,
+    .marketing-device-list li,
+    .marketing-template-card,
+    .marketing-device-card {
         width: 100%;
     }
 
-    .ad-device-card {
+    .marketing-device-card {
         height: auto;
     }
 
-    .ad-sidebar-form,
-    .ad-form-col {
+    .marketing-sidebar-form,
+    .marketing-form-col {
         display: flex;
         flex-direction: column;
         width: 100%;
     }
 
-    .ad-form-col .input-field,
-    .ad-form-col .slider {
+    .marketing-form-col .input-field,
+    .marketing-form-col .slider {
         width: 100%;
     }
 }

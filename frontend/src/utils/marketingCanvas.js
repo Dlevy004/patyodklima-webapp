@@ -1,11 +1,11 @@
 import {
-    AD_CANVAS_WIDTH,
-    AD_CANVAS_HEIGHT,
-    AD_FONT_FAMILY,
-    DEFAULT_AD_LAYOUT,
+    MARKETING_CANVAS_WIDTH,
+    MARKETING_CANVAS_HEIGHT,
+    MARKETING_FONT_FAMILY,
+    DEFAULT_MARKETING_LAYOUT,
     layoutToPx,
-} from './adLayout';
-import { formatAdPrice, parseDetailLines } from './adCategories';
+} from './marketingLayout';
+import { formatMarketingPrice, parseDetailLines } from './marketingCategories';
 
 function loadImage(src) {
     return new Promise((resolve, reject) => {
@@ -51,7 +51,7 @@ function drawContainedImage(ctx, img, box) {
     ctx.drawImage(img, drawX, drawY, drawWidth, drawHeight);
 }
 
-export async function renderAdToCanvas({
+export async function renderMarketingToCanvas({
     templateUrl,
     acUnitUrl,
     logoUrl,
@@ -62,21 +62,21 @@ export async function renderAdToCanvas({
     price,
     showLogo,
     showPhone,
-    layout = DEFAULT_AD_LAYOUT,
+    layout = DEFAULT_MARKETING_LAYOUT,
 }) {
     const canvas = document.createElement('canvas');
-    canvas.width = AD_CANVAS_WIDTH;
-    canvas.height = AD_CANVAS_HEIGHT;
+    canvas.width = MARKETING_CANVAS_WIDTH;
+    canvas.height = MARKETING_CANVAS_HEIGHT;
 
     if (typeof document !== 'undefined' && document.fonts?.ready) {
         await document.fonts.ready;
     }
 
     const ctx = canvas.getContext('2d');
-    const px = layoutToPx(layout, AD_CANVAS_WIDTH, AD_CANVAS_HEIGHT);
+    const px = layoutToPx(layout, MARKETING_CANVAS_WIDTH, MARKETING_CANVAS_HEIGHT);
 
     const background = await loadImage(templateUrl);
-    ctx.drawImage(background, 0, 0, AD_CANVAS_WIDTH, AD_CANVAS_HEIGHT);
+    ctx.drawImage(background, 0, 0, MARKETING_CANVAS_WIDTH, MARKETING_CANVAS_HEIGHT);
 
     if (showLogo && logoUrl) {
         const logo = await loadImage(logoUrl);
@@ -96,7 +96,7 @@ export async function renderAdToCanvas({
     if (headline) {
         ctx.save();
         ctx.fillStyle = px.headline.color;
-        ctx.font = `${px.headline.fontWeight} ${px.headline.fontSize}px ${AD_FONT_FAMILY}`;
+        ctx.font = `${px.headline.fontWeight} ${px.headline.fontSize}px ${MARKETING_FONT_FAMILY}`;
         ctx.textAlign = 'left';
         ctx.textBaseline = 'top';
 
@@ -109,7 +109,7 @@ export async function renderAdToCanvas({
     if (acUnitName) {
         ctx.save();
         ctx.fillStyle = px.deviceType.color;
-        ctx.font = `${px.deviceType.fontWeight} ${px.deviceType.fontSize}px ${AD_FONT_FAMILY}`;
+        ctx.font = `${px.deviceType.fontWeight} ${px.deviceType.fontSize}px ${MARKETING_FONT_FAMILY}`;
         ctx.textAlign = 'left';
         ctx.textBaseline = 'top';
 
@@ -123,7 +123,7 @@ export async function renderAdToCanvas({
     if (detailLines.length > 0) {
         ctx.save();
         ctx.fillStyle = px.details.color;
-        ctx.font = `400 ${px.details.fontSize}px ${AD_FONT_FAMILY}`;
+        ctx.font = `400 ${px.details.fontSize}px ${MARKETING_FONT_FAMILY}`;
         ctx.textAlign = 'left';
         ctx.textBaseline = 'top';
 
@@ -143,10 +143,10 @@ export async function renderAdToCanvas({
     if (price !== '' && price !== null && price !== undefined) {
         ctx.save();
         ctx.fillStyle = px.price.color;
-        ctx.font = `${px.price.fontWeight} ${px.price.fontSize}px ${AD_FONT_FAMILY}`;
+        ctx.font = `${px.price.fontWeight} ${px.price.fontSize}px ${MARKETING_FONT_FAMILY}`;
         ctx.textAlign = 'left';
         ctx.textBaseline = 'top';
-        ctx.fillText(`${px.price.prefix}${formatAdPrice(price)}${px.price.suffix}`, px.price.x, px.price.y);
+        ctx.fillText(`${px.price.prefix}${formatMarketingPrice(price)}${px.price.suffix}`, px.price.x, px.price.y);
         ctx.restore();
     }
 
