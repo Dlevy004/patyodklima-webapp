@@ -3,7 +3,7 @@ const prisma = require('../database/prisma');
 const {
     getAllTemplates,
     getAllMarketingAcUnits,
-    getAllMarketing,
+    getAllMarketings,
     getMarketingById,
     createMarketing,
     deleteMarketing
