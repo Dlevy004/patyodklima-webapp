@@ -150,13 +150,14 @@ const deleteAd = async (req, res) => {
             return res.status(404).json({ message: 'A hirdetés nem található.' });
         }
 
-        if (existingAd.generated_image_url) {
-            await supabaseService.deleteImage(existingAd.generated_image_url, 'Ads');
-        }
-
         const deleted = await adService.deleteAd(adId, req.user.id);
         if (!deleted) {
             return res.status(404).json({ message: 'A hirdetés nem található.' });
+        }
+
+        if (existingAd.generated_image_url) {
+            await supabaseService.deleteImage(existingAd.generated_image_url, 'Ads')
+            .catch((err) => console.error(`Orphaned ad image cleanup failed for ${adId}:`, err.message));
         }
 
         res.status(200).json({ id: adId });
