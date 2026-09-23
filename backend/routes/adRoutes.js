@@ -10,8 +10,8 @@ const upload = multer({
     limits: {
         fileSize: 10 * 1024 * 1024,
         files: 1,
-        fields: 7,
-        parts: 8
+        fields: 20,
+        parts: 25
     },
     fileFilter: (req, file, cb) => {
         if (!file.mimetype.startsWith('image/')) {
@@ -29,6 +29,8 @@ const handleUpload = (req, res, next) => {
             if (err.code === 'LIMIT_FILE_SIZE') {
                 return res.status(400).json({ message: 'A feltöltött fájl mérete túl nagy (max. 10 MB).' });
             }
+
+            console.error('Multer validation error:', err.code, err.message);
             return res.status(400).json({ message: 'Hiba történt a fájl feltöltése során.' });
         }
 
