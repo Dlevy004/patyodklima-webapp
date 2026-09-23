@@ -1,14 +1,14 @@
 import { renderHook, act } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 
-import useMarketingForm, { emptyAdFormData } from './useMarketingForm';
+import useMarketingForm, { emptyMarketingFormData } from './useMarketingForm';
 
 
 describe('useMarketingForm', () => {
     it('should initialize with empty data', () => {
         const { result } = renderHook(() => useMarketingForm());
 
-        expect(result.current.formData).toEqual(emptyAdFormData);
+        expect(result.current.formData).toEqual(emptyMarketingFormData);
         expect(result.current.formErrors).toEqual({});
     });
 
@@ -72,7 +72,7 @@ describe('useMarketingForm', () => {
             result.current.resetForm();
         });
 
-        expect(result.current.formData).toEqual(emptyAdFormData);
+        expect(result.current.formData).toEqual(emptyMarketingFormData);
         expect(result.current.formErrors).toEqual({});
     });
 });

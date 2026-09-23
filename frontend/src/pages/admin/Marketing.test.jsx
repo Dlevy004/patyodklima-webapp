@@ -8,7 +8,7 @@ const {
     mockValidateForm,
     mockResetForm,
     mockHandleInputChange,
-    mockRenderToMarketingCanvas,
+    mockRenderMarketingToCanvas,
     mockDownloadCanvasAsPng,
     mockCanvasToBlob,
     mockToastSuccess,
@@ -51,7 +51,7 @@ vi.mock('@/utils/api', () => ({
 }));
 
 vi.mock('@/utils/marketingCanvas', () => ({
-    renderAdToCanvas: mockRenderMarketingToCanvas,
+    renderMarketingToCanvas: mockRenderMarketingToCanvas,
     downloadCanvasAsPng: mockDownloadCanvasAsPng,
     canvasToBlob: mockCanvasToBlob,
 }));

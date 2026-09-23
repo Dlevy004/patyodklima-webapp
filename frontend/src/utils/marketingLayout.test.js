@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { MARKETING_CANVAS_WIDTH, MARKETING_CANVAS_HEIGHT, MARKETING_ASPECT_RATIO, MARKETING_FONT_FAMILY, DEFAULT_MARKETING_LAYOUT, layoutToPx } from './adLayout';
+import { MARKETING_CANVAS_WIDTH, MARKETING_CANVAS_HEIGHT, MARKETING_ASPECT_RATIO, MARKETING_FONT_FAMILY, DEFAULT_MARKETING_LAYOUT, layoutToPx } from './marketingLayout';
 
 
 describe('Layout constants', () => {
