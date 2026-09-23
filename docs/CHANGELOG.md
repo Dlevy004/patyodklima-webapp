@@ -6,6 +6,23 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ---
 
+## [2.5.0] - 2026-09-23
+
+### Added
+- Added an interactive advertisement creator with template and AC unit selection, customizable text, pricing, logo and phone options.
+- Added a comprehensive changelog covering releases from v1.0.0 through v2.4.2: documented major features, improvements, bug fixes, removals, and security updates for each release.
+- Added an admin dashboard with overview statistics, revenue charts, activity summaries, popular equipment and cities, and job-status visualisations.
+- Added a responsive custom 404 page for unmatched URLs, including navigation back to the homepage.
+
+### Changed
+- Deleted the *HVAC Unit name* from the single job item to create a better layout.
+
+### Fixed
+- Fixed the colour of the admin portal's loading page text to match dark mode colours.
+- Fixed a broken link preventing users from accessing the privacy policy PDF.
+
+---
+
 ## [2.4.2] - 2026-09-16
 
 ### Fixed
