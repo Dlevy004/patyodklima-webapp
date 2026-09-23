@@ -1,35 +1,35 @@
 const sharp = require('sharp');
 
-const adService = require('../services/adService');
+const marketingService = require('../services/marketingService');
 const supabaseService = require('../services/supabaseService');
 
 
 const getTemplates = async (_req, res) => {
     try {
-        const templates = await adService.getAllTemplates();
+        const templates = await marketingService.getAllTemplates();
         res.status(200).json(templates);
     } catch (error) {
-        console.error('Error while getting ad templates:', error.message);
+        console.error('Error while getting marketing templates:', error.message);
         res.status(500).json({ message: 'Hiba történt a sablonok lekérése közben.' });
     }
 };
 
-const getAdAcUnits = async (_req, res) => {
+const getMarketingAcUnits = async (_req, res) => {
     try {
-        const units = await adService.getAllAdAcUnits();
+        const units = await marketingService.getAllMarketingAcUnits();
         res.status(200).json(units);
     } catch (error) {
-        console.error('Error while getting ad AC units:', error.message);
+        console.error('Error while getting marketing AC units:', error.message);
         res.status(500).json({ message: 'Hiba történt a hirdetés készülékek lekérése közben.' });
     }
 };
 
-const getAllAds = async (req, res) => {
+const getAllMarketings = async (req, res) => {
     try {
-        const ads = await adService.getAllAds(req.user.id);
-        res.status(200).json(ads);
+        const marketings = await marketingService.getAllMarketings(req.user.id);
+        res.status(200).json(marketings);
     } catch (error) {
-        console.error('Error while getting generated ads:', error.message);
+        console.error('Error while getting generated marketings:', error.message);
         res.status(500).json({ message: 'Hiba történt a hirdetések lekérése közben.' });
     }
 };
@@ -41,7 +41,7 @@ const parseFlag = (value) => {
     return null;
 };
 
-const generateAd = async (req, res) => {
+const generateMarketing = async (req, res) => {
     try {
         const file = req.file;
         const {
@@ -74,11 +74,11 @@ const generateAd = async (req, res) => {
             return res.status(400).json({ message: 'A showLogo és showPhone mező csak true/false lehet.' });
         }
 
-        const generatedImageUrl = await supabaseService.uploadImage(file, 'Ads');
+        const generatedImageUrl = await supabaseService.uploadImage(file, 'Marketing');
 
-        let ad;
+        let marketing;
         try {
-            ad = await adService.createAd(req.user.id, {
+            marketing = await marketingService.createMarketing(req.user.id, {
                 templateId: templateId || null,
                 headline: headline || null,
                 acUnitName,
@@ -89,36 +89,36 @@ const generateAd = async (req, res) => {
                 generatedImageUrl
             });
         } catch (createError) {
-            await supabaseService.deleteImage(generatedImageUrl, 'Ads').catch(console.error);
+            await supabaseService.deleteImage(generatedImageUrl, 'Marketing').catch(console.error);
             throw createError;
         }
 
-        res.status(200).json(ad);
+        res.status(200).json(marketing);
     } catch (error) {
-        console.error('Error while generating ad:', error.message);
+        console.error('Error while generating marketing:', error.message);
         res.status(500).json({ message: 'Hiba történt a hirdetés mentése során.' });
     }
 };
 
-const downloadAd = async (req, res) => {
+const downloadMarketing = async (req, res) => {
     try {
-        const adId = req.params.id;
-        const ad = await adService.getAdById(adId, req.user.id);
+        const marketingId = req.params.id;
+        const marketing = await marketingService.getMarketingById(marketingId, req.user.id);
 
-        if (!ad) {
+        if (!marketing) {
             return res.status(404).json({ message: 'A hirdetés nem található.' });
         }
 
-        if (!ad.generated_image_url) {
+        if (!marketing.generated_image_url) {
             return res.status(404).json({ message: 'Nincs letölthető kép ehhez a hirdetéshez.' });
         }
 
-        const urlObj = new URL(ad.generated_image_url);
+        const urlObj = new URL(marketing.generated_image_url);
         if (!urlObj.hostname.includes('supabase.co')) {
             return res.status(403).json({ message: 'Biztonsági okokból a letöltés megtagadva: érvénytelen forrás.' });
         }
 
-        const imageResponse = await fetch(ad.generated_image_url, {
+        const imageResponse = await fetch(marketing.generated_image_url, {
             redirect: 'error',
             signal: AbortSignal.timeout(15000)
         });
@@ -128,7 +128,7 @@ const downloadAd = async (req, res) => {
 
         const imageBuffer = Buffer.from(await imageResponse.arrayBuffer());
         const pngBuffer = await sharp(imageBuffer).png().toBuffer();
-        const fileName = `hirdetes-${adId}.png`;
+        const fileName = `hirdetes-${marketingId}.png`;
 
         res.set({
             'Content-Type': 'image/png',
@@ -136,42 +136,42 @@ const downloadAd = async (req, res) => {
         });
         res.send(pngBuffer);
     } catch (error) {
-        console.error('Error while downloading ad:', error.message);
+        console.error('Error while downloading marketing:', error.message);
         res.status(500).json({ message: 'Hiba történt a kép letöltése során.' });
     }
 };
 
-const deleteAd = async (req, res) => {
+const deleteMarketing = async (req, res) => {
     try {
-        const adId = req.params.id;
-        const existingAd = await adService.getAdById(adId, req.user.id);
+        const marketingId = req.params.id;
+        const existingMarketing = await marketingService.getMarketingById(marketingId, req.user.id);
 
-        if (!existingAd) {
+        if (!existingMarketing) {
             return res.status(404).json({ message: 'A hirdetés nem található.' });
         }
 
-        const deleted = await adService.deleteAd(adId, req.user.id);
+        const deleted = await marketingService.deleteMarketing(marketingId, req.user.id);
         if (!deleted) {
             return res.status(404).json({ message: 'A hirdetés nem található.' });
         }
 
-        if (existingAd.generated_image_url) {
-            await supabaseService.deleteImage(existingAd.generated_image_url, 'Ads')
-            .catch((err) => console.error(`Orphaned ad image cleanup failed for ${adId}:`, err.message));
+        if (existingMarketing.generated_image_url) {
+            await supabaseService.deleteImage(existingMarketing.generated_image_url, 'Marketing')
+            .catch((err) => console.error(`Orphaned marketing image cleanup failed for ${marketingId}:`, err.message));
         }
 
-        res.status(200).json({ id: adId });
+        res.status(200).json({ id: marketingId });
     } catch (error) {
-        console.error('Error while deleting ad:', error.message);
+        console.error('Error while deleting marketing:', error.message);
         res.status(400).json({ message: 'Hiba történt a hirdetés törlése közben.' });
     }
 };
 
 module.exports = {
     getTemplates,
-    getAdAcUnits,
-    getAllAds,
-    generateAd,
-    downloadAd,
-    deleteAd
+    getMarketingAcUnits,
+    getAllMarketings,
+    generateMarketing,
+    downloadMarketing,
+    deleteMarketing
 };

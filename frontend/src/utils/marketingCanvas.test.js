@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 
-import { renderAdToCanvas, canvasToBlob, downloadCanvasAsPng } from './adCanvas';
+import { renderMarketingToCanvas, canvasToBlob, downloadCanvasAsPng } from './marketingCanvas';
 
 const { mockLayoutToPx, mockFormatAdPrice, mockParseDetailLines } = vi.hoisted(() => ({
     mockLayoutToPx: vi.fn(),
@@ -8,20 +8,20 @@ const { mockLayoutToPx, mockFormatAdPrice, mockParseDetailLines } = vi.hoisted((
     mockParseDetailLines: vi.fn()
 }));
 
-vi.mock('./adLayout', () => ({
-    AD_CANVAS_WIDTH: 1000,
-    AD_CANVAS_HEIGHT: 600,
-    AD_FONT_FAMILY: 'TestFont',
-    DEFAULT_AD_LAYOUT: {},
+vi.mock('./marketingLayout', () => ({
+    MARKETING_CANVAS_WIDTH: 1000,
+    MARKETING_CANVAS_HEIGHT: 600,
+    MARKETING_FONT_FAMILY: 'TestFont',
+    DEFAULT_MARKETING_LAYOUT: {},
     layoutToPx: mockLayoutToPx
 }));
 
-vi.mock('./adCategories', () => ({
-    formatAdPrice: mockFormatAdPrice,
+vi.mock('./marketingCategories', () => ({
+    formatMarketingPrice: mockFormatAdPrice,
     parseDetailLines: mockParseDetailLines
 }));
 
-describe('adCanvas', () => {
+describe('marketingCanvas', () => {
     let ctx;
     let canvas;
     let originalImage;
@@ -112,9 +112,9 @@ describe('adCanvas', () => {
         vi.restoreAllMocks();
     });
 
-    describe('renderAdToCanvas', () => {
+    describe('renderMarketingToCanvas', () => {
         it('creates a canvas and draws the background image', async () => {
-            const result = await renderAdToCanvas({
+            const result = await renderMarketingToCanvas({
                 templateUrl: 'template.jpg',
                 acUnitUrl: null,
                 logoUrl: null,
@@ -145,7 +145,7 @@ describe('adCanvas', () => {
                 value: { ready }
             });
 
-            await renderAdToCanvas({
+            await renderMarketingToCanvas({
                 templateUrl: 'template.jpg',
                 showLogo: false,
                 showPhone: false
@@ -161,7 +161,7 @@ describe('adCanvas', () => {
             });
 
             await expect(
-                renderAdToCanvas({
+                renderMarketingToCanvas({
                     templateUrl: 'template.jpg',
                     showLogo: false,
                     showPhone: false
@@ -171,7 +171,7 @@ describe('adCanvas', () => {
 
         it('throws when the template image source is missing', async () => {
             await expect(
-                renderAdToCanvas({
+                renderMarketingToCanvas({
                     templateUrl: '',
                     showLogo: false,
                     showPhone: false
@@ -181,7 +181,7 @@ describe('adCanvas', () => {
 
         it('throws when an image fails to load', async () => {
             await expect(
-                renderAdToCanvas({
+                renderMarketingToCanvas({
                     templateUrl: 'bad-image',
                     showLogo: false,
                     showPhone: false
@@ -190,7 +190,7 @@ describe('adCanvas', () => {
         });
 
         it('draws the logo when showLogo is true and logoUrl exists', async () => {
-            await renderAdToCanvas({
+            await renderMarketingToCanvas({
                 templateUrl: 'template.jpg',
                 logoUrl: 'logo.png',
                 showLogo: true,
@@ -205,7 +205,7 @@ describe('adCanvas', () => {
         });
 
         it('does not draw the logo when showLogo is false', async () => {
-            await renderAdToCanvas({
+            await renderMarketingToCanvas({
                 templateUrl: 'template.jpg',
                 logoUrl: 'logo.png',
                 showLogo: false,
@@ -216,7 +216,7 @@ describe('adCanvas', () => {
         });
 
         it('does not draw the logo when logoUrl is missing', async () => {
-            await renderAdToCanvas({
+            await renderMarketingToCanvas({
                 templateUrl: 'template.jpg',
                 logoUrl: null,
                 showLogo: true,
@@ -227,7 +227,7 @@ describe('adCanvas', () => {
         });
 
         it('draws the phone image when showPhone is true and phoneImageUrl exists', async () => {
-            await renderAdToCanvas({
+            await renderMarketingToCanvas({
                 templateUrl: 'template.jpg',
                 phoneImageUrl: 'phone.png',
                 showLogo: false,
@@ -238,7 +238,7 @@ describe('adCanvas', () => {
         });
 
         it('does not draw the phone image when showPhone is false', async () => {
-            await renderAdToCanvas({
+            await renderMarketingToCanvas({
                 templateUrl: 'template.jpg',
                 phoneImageUrl: 'phone.png',
                 showLogo: false,
@@ -249,7 +249,7 @@ describe('adCanvas', () => {
         });
 
         it('does not draw the phone image when phoneImageUrl is missing', async () => {
-            await renderAdToCanvas({
+            await renderMarketingToCanvas({
                 templateUrl: 'template.jpg',
                 phoneImageUrl: null,
                 showLogo: false,
@@ -260,7 +260,7 @@ describe('adCanvas', () => {
         });
 
         it('draws and wraps the headline', async () => {
-            await renderAdToCanvas({
+            await renderMarketingToCanvas({
                 templateUrl: 'template.jpg',
                 headline: 'Első szöveg második',
                 showLogo: false,
@@ -284,12 +284,12 @@ describe('adCanvas', () => {
         });
 
         it('does not add an empty line when the text contains only whitespace', async () => {
-            await renderAdToCanvas({ templateUrl: 'template.jpg', headline: '   ', showLogo: false, showPhone: false });
+            await renderMarketingToCanvas({ templateUrl: 'template.jpg', headline: '   ', showLogo: false, showPhone: false });
             expect(ctx.fillText).not.toHaveBeenCalled();
         });
 
         it('does not draw the headline when it is empty', async () => {
-            await renderAdToCanvas({
+            await renderMarketingToCanvas({
                 templateUrl: 'template.jpg',
                 headline: '',
                 showLogo: false,
@@ -300,7 +300,7 @@ describe('adCanvas', () => {
         });
 
         it('draws and wraps the AC unit name', async () => {
-            await renderAdToCanvas({
+            await renderMarketingToCanvas({
                 templateUrl: 'template.jpg',
                 acUnitName: 'Daikin Sensira',
                 showLogo: false,
@@ -314,7 +314,7 @@ describe('adCanvas', () => {
         });
 
         it('does not draw the AC unit name when it is empty', async () => {
-            await renderAdToCanvas({
+            await renderMarketingToCanvas({
                 templateUrl: 'template.jpg',
                 acUnitName: '',
                 showLogo: false,
@@ -330,7 +330,7 @@ describe('adCanvas', () => {
                 'Gyors telepítés'
             ]);
 
-            await renderAdToCanvas({
+            await renderMarketingToCanvas({
                 templateUrl: 'template.jpg',
                 details: 'details',
                 showLogo: false,
@@ -356,7 +356,7 @@ describe('adCanvas', () => {
         it('does not draw details when no detail lines exist', async () => {
             mockParseDetailLines.mockReturnValue([]);
 
-            await renderAdToCanvas({
+            await renderMarketingToCanvas({
                 templateUrl: 'template.jpg',
                 details: '',
                 showLogo: false,
@@ -369,7 +369,7 @@ describe('adCanvas', () => {
         it('draws the price when price is provided', async () => {
             mockFormatAdPrice.mockReturnValue('299 990');
 
-            await renderAdToCanvas({
+            await renderMarketingToCanvas({
                 templateUrl: 'template.jpg',
                 price: 299990,
                 showLogo: false,
@@ -387,7 +387,7 @@ describe('adCanvas', () => {
         it('draws the price when price is zero', async () => {
             mockFormatAdPrice.mockReturnValue('0');
 
-            await renderAdToCanvas({
+            await renderMarketingToCanvas({
                 templateUrl: 'template.jpg',
                 price: 0,
                 showLogo: false,
@@ -399,7 +399,7 @@ describe('adCanvas', () => {
         });
 
         it.each([ null, undefined, '' ])('does not draw the price when price is %s', async (price) => {
-            await renderAdToCanvas({
+            await renderMarketingToCanvas({
                 templateUrl: 'template.jpg',
                 price,
                 showLogo: false,
@@ -411,7 +411,7 @@ describe('adCanvas', () => {
         });
 
         it('draws the AC unit image when acUnitUrl exists', async () => {
-            await renderAdToCanvas({
+            await renderMarketingToCanvas({
                 templateUrl: 'template.jpg',
                 acUnitUrl: 'ac-unit.png',
                 showLogo: false,
@@ -422,7 +422,7 @@ describe('adCanvas', () => {
         });
 
         it('does not draw the AC unit image when acUnitUrl is missing', async () => {
-            await renderAdToCanvas({
+            await renderMarketingToCanvas({
                 templateUrl: 'template.jpg',
                 acUnitUrl: null,
                 showLogo: false,
@@ -437,7 +437,7 @@ describe('adCanvas', () => {
 
             mockFormatAdPrice.mockReturnValue('299 990');
 
-            await renderAdToCanvas({
+            await renderMarketingToCanvas({
                 templateUrl: 'template.jpg',
                 logoUrl: 'logo.png',
                 phoneImageUrl: 'phone.png',
@@ -494,19 +494,22 @@ describe('adCanvas', () => {
 
     describe('downloadCanvasAsPng', () => {
         it('downloads the canvas as PNG', async () => {
+            vi.useFakeTimers();
+
             const blob = new Blob(['image']);
-
             canvas.toBlob = vi.fn((callback) => { callback(blob);} );
-
             const clickSpy = vi.spyOn(HTMLAnchorElement.prototype, 'click').mockImplementation(() => {});
 
             await downloadCanvasAsPng(canvas, 'teszt-hirdetes.png');
 
             expect(globalThis.URL.createObjectURL).toHaveBeenCalledWith(blob);
-
             expect(clickSpy).toHaveBeenCalled();
 
+            vi.runAllTimers();
+
             expect(globalThis.URL.revokeObjectURL).toHaveBeenCalledWith('blob:mock-url');
+
+            vi.useRealTimers();
         });
 
         it('uses the default filename', async () => {

@@ -79,4 +79,22 @@ describe('RevenueByCategoryChart', () => {
 
         expect(screen.getByTestId('mock-tooltip')).toHaveTextContent(/5.*000.*Ft/);
     });
+
+    it('renders the loading state when isLoading is true', () => {
+        useFetch.mockReturnValue({ data: null, error: null, isLoading: true });
+        render(<RevenueByCategoryChart />);
+
+        expect(screen.getByText('Betöltés…')).toBeInTheDocument();
+        expect(screen.getByText('Kategóriánkénti bevétel')).toBeInTheDocument();
+    });
+
+    it('renders the error state with role="alert" when an error occurs', () => {
+        useFetch.mockReturnValue({ data: null, error: new Error('Network error'), isLoading: false });
+        render(<RevenueByCategoryChart />);
+
+        const alertMessage = screen.getByRole('alert');
+        expect(alertMessage).toBeInTheDocument();
+        expect(alertMessage).toHaveTextContent('Hiba történt az adatok betöltése közben.');
+        expect(screen.getByText('Kategóriánkénti bevétel')).toBeInTheDocument();
+    });
 });

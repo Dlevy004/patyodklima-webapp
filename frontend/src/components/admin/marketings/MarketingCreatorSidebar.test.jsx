@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
-import AdCreatorSidebar from './AdCreatorSidebar';
+import AdCreatorSidebar from './MarketingCreatorSidebar';
 
 const { mockToastError } = vi.hoisted(() => ({
     mockToastError: vi.fn(),
@@ -290,11 +290,11 @@ describe('AdCreatorSidebar', () => {
         render(<AdCreatorSidebar {...defaultProps} />);
 
         expect(screen.getByRole('button', { name: 'Panel kinyitása' })).toBeInTheDocument();
-        expect(localStorage.getItem('isAdSidebarCollapsed')).toBe('true');
+        expect(localStorage.getItem('isMarketingSidebarCollapsed')).toBe('true');
     });
 
     it('restores collapsed state from localStorage', () => {
-        localStorage.setItem('isAdSidebarCollapsed', 'true');
+        localStorage.setItem('isMarketingSidebarCollapsed', 'true');
 
         render(<AdCreatorSidebar {...defaultProps} />);
 
@@ -306,7 +306,7 @@ describe('AdCreatorSidebar', () => {
 
         fireEvent.click(screen.getByRole('button', { name: 'Panel összecsukása' }));
 
-        expect(localStorage.getItem('isAdSidebarCollapsed')).toBe('true');
+        expect(localStorage.getItem('isMarketingSidebarCollapsed')).toBe('true');
     });
 
     it('moves to text when continuing from devices', () => {

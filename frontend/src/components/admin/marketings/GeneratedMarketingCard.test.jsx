@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
-import GeneratedAdCard from './GeneratedAdCard';
+import GeneratedMarketingCard from './GeneratedMarketingCard';
 
 vi.mock('@/components/admin/common/HistoryCard', () => ({
     default: ({ imageUrl, alt, modifierClassName, children }) => (
@@ -15,16 +15,16 @@ vi.mock('@/components/admin/common/ActionBtn', () => ({
 }));
 
 const defaultProps = {
-    ad: { id: '1', generated_image_url: 'image.png', headline: 'Nyári akció', ac_unit_name: 'Daikin' },
+    marketing: { id: '1', generated_image_url: 'image.png', headline: 'Nyári akció', ac_unit_name: 'Daikin' },
     onDelete: vi.fn(),
     onDownload: vi.fn(),
 };
 
-describe('GeneratedAdCard', () => {
+describe('GeneratedMarketingCard', () => {
     beforeEach(() => vi.clearAllMocks());
 
     it('renders the card with the headline as title', () => {
-        render(<GeneratedAdCard {...defaultProps} />);
+        render(<GeneratedMarketingCard {...defaultProps} />);
 
         const card = screen.getByTestId('history-card');
         expect(card).toHaveAttribute('data-image', 'image.png');
@@ -33,19 +33,19 @@ describe('GeneratedAdCard', () => {
     });
 
     it('uses the AC unit name when headline is missing', () => {
-        render(<GeneratedAdCard {...defaultProps} ad={{ ...defaultProps.ad, headline: '' }} />);
+        render(<GeneratedMarketingCard {...defaultProps} marketing={{ ...defaultProps.marketing, headline: '' }} />);
 
         expect(screen.getByTestId('history-card')).toHaveAttribute('data-alt', 'Daikin');
     });
 
     it('uses the default title when headline and AC unit name are missing', () => {
-        render(<GeneratedAdCard {...defaultProps} ad={{ ...defaultProps.ad, headline: '', ac_unit_name: '' }} />);
+        render(<GeneratedMarketingCard {...defaultProps} marketing={{ ...defaultProps.marketing, headline: '', ac_unit_name: '' }} />);
 
         expect(screen.getByTestId('history-card')).toHaveAttribute('data-alt', 'Hirdetés');
     });
 
-    it('calls onDownload with the ad id and title', () => {
-        render(<GeneratedAdCard {...defaultProps} />);
+    it('calls onDownload with the marketing id and title', () => {
+        render(<GeneratedMarketingCard {...defaultProps} />);
 
         fireEvent.click(screen.getByRole('button', { name: 'download' }));
 
@@ -53,7 +53,7 @@ describe('GeneratedAdCard', () => {
     });
 
     it('calls onDelete when delete is clicked', () => {
-        render(<GeneratedAdCard {...defaultProps} />);
+        render(<GeneratedMarketingCard {...defaultProps} />);
 
         fireEvent.click(screen.getByRole('button', { name: 'delete' }));
 

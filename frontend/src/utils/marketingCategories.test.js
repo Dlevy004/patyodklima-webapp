@@ -1,9 +1,9 @@
 import { describe, it, expect } from 'vitest';
-import { AD_CATEGORY_LABELS, AD_STEP_LABELS, groupByCategory, groupAcUnitsByBrand, formatAdPrice, parseDetailLines } from './adCategories';
+import { MARKETING_CATEGORY_LABELS, MARKETING_STEP_LABELS, groupByCategory, groupAcUnitsByBrand, formatMarketingPrice, parseDetailLines } from './marketingCategories';
 
 describe('AD_CATEGORY_LABELS', () => {
     it('contains the correct labels', () => {
-        expect(AD_CATEGORY_LABELS).toEqual({
+        expect(MARKETING_CATEGORY_LABELS).toEqual({
             summer_offer: 'Nyári ajánlatok',
             winter_offer: 'Téli ajánlatok',
             spring_offer: 'Tavaszi ajánlatok',
@@ -13,9 +13,9 @@ describe('AD_CATEGORY_LABELS', () => {
     });
 });
 
-describe('AD_STEP_LABELS', () => {
+describe('MARKETING_STEP_LABELS', () => {
     it('contains the correct labels', () => {
-        expect(AD_STEP_LABELS).toEqual({ templates: 'Sablonok', devices: 'Készülékek', text: 'Szöveg' });
+        expect(MARKETING_STEP_LABELS).toEqual({ templates: 'Sablonok', devices: 'Készülékek', text: 'Szöveg' });
     });
 });
 
@@ -71,12 +71,12 @@ describe('groupAcUnitsByBrand', () => {
     });
 });
 
-describe('formatAdPrice', () => {
-    it('formats a number correctly', () => expect(formatAdPrice(1234567)).toBe('1 234 567'));
-    it('formats a numeric string correctly', () => expect(formatAdPrice('1234567')).toBe('1 234 567'));
-    it('returns an empty string for NaN', () => expect(formatAdPrice(NaN)).toBe(''));
-    it('returns an empty string for an invalid value', () => expect(formatAdPrice('abc')).toBe(''));
-    it('formats null as zero', () => expect(formatAdPrice(null)).toBe('0'));
+describe('formatMarketingPrice', () => {
+    it('formats a number correctly', () => expect(formatMarketingPrice(1234567)).toBe('1 234 567'));
+    it('formats a numeric string correctly', () => expect(formatMarketingPrice('1234567')).toBe('1 234 567'));
+    it('returns an empty string for NaN', () => expect(formatMarketingPrice(NaN)).toBe(''));
+    it('returns an empty string for an invalid value', () => expect(formatMarketingPrice('abc')).toBe(''));
+    it('formats null as zero', () => expect(formatMarketingPrice(null)).toBe('0'));
 });
 
 describe('parseDetailLines', () => {

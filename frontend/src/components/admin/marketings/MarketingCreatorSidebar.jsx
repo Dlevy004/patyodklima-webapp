@@ -4,18 +4,18 @@ import PropTypes from 'prop-types';
 import toast from 'react-hot-toast';
 import { ChevronUp } from 'lucide-react';
 
-import './AdCreatorSidebar.css';
+import './MarketingCreatorSidebar.css';
 
 import InputField from '@/components/admin/common/InputField';
 import Slider from '@/components/admin/common/Slider';
 import {
-    AD_CATEGORY_LABELS,
-    AD_STEP_LABELS,
+    MARKETING_CATEGORY_LABELS,
+    MARKETING_STEP_LABELS,
     groupByCategory,
     groupAcUnitsByBrand,
-} from '@/utils/adCategories';
+} from '@/utils/marketingCategories';
 
-const SIDEBAR_STORAGE_KEY = 'isAdSidebarCollapsed';
+const SIDEBAR_STORAGE_KEY = 'isMarketingSidebarCollapsed';
 const MOBILE_BREAKPOINT = 1024;
 
 
@@ -76,16 +76,16 @@ function AdCreatorSidebar({
     };
 
     const renderTemplates = () => (
-        <div className='ad-sidebar-content'>
+        <div className='marketing-sidebar-content'>
             {Object.entries(templatesByCategory).map(([category, items]) => (
-                <section key={category} className='ad-sidebar-group'>
-                    <h3>{AD_CATEGORY_LABELS[category] || category}</h3>
-                    <ul className='ad-template-list'>
+                <section key={category} className='marketing-sidebar-group'>
+                    <h3>{MARKETING_CATEGORY_LABELS[category] || category}</h3>
+                    <ul className='marketing-template-list'>
                         {items.map((template) => (
                             <li key={template.id}>
                                 <button
                                     type='button'
-                                    className={`ad-template-card ${selectedTemplateId === template.id ? 'is-selected' : ''}`.trim()}
+                                    className={`marketing-template-card ${selectedTemplateId === template.id ? 'is-selected' : ''}`.trim()}
                                     onClick={() => onSelectTemplate(template.id)}
                                     aria-pressed={selectedTemplateId === template.id}
                                 >
@@ -98,29 +98,29 @@ function AdCreatorSidebar({
             ))}
 
             {templates.length === 0 && (
-                <p className='ad-sidebar-empty'>Még nincsenek feltöltött sablonok.</p>
+                <p className='marketing-sidebar-empty'>Még nincsenek feltöltött sablonok.</p>
             )}
         </div>
     );
 
     const renderDevices = () => (
-        <div className='ad-sidebar-content'>
+        <div className='marketing-sidebar-content'>
             {Object.entries(unitsByBrand).map(([brand, items]) => (
-                <section key={brand} className='ad-sidebar-group'>
+                <section key={brand} className='marketing-sidebar-group'>
                     <h3>{brand}</h3>
-                    <ul className='ad-device-list'>
+                    <ul className='marketing-device-list'>
                         {items.map((unit) => (
                             <li key={unit.id}>
                                 <button
                                     type='button'
-                                    className={`ad-device-card ${selectedAcUnitId === unit.id ? 'is-selected' : ''}`.trim()}
+                                    className={`marketing-device-card ${selectedAcUnitId === unit.id ? 'is-selected' : ''}`.trim()}
                                     onClick={() => onSelectAcUnit(unit.id)}
                                     aria-pressed={selectedAcUnitId === unit.id}
                                 >
                                     {unit.transparent_image_url ? (
                                         <img src={unit.transparent_image_url} alt={unit.model_name || brand} />
                                     ) : (
-                                        <span className='ad-device-placeholder'>{unit.model_name || brand}</span>
+                                        <span className='marketing-device-placeholder'>{unit.model_name || brand}</span>
                                     )}
                                 </button>
                             </li>
@@ -130,14 +130,14 @@ function AdCreatorSidebar({
             ))}
 
             {acUnits.length === 0 && (
-                <p className='ad-sidebar-empty'>Még nincsenek feltöltött készülékek.</p>
+                <p className='marketing-sidebar-empty'>Még nincsenek feltöltött készülékek.</p>
             )}
         </div>
     );
 
     const renderTextForm = () => (
-        <div className='ad-sidebar-content ad-sidebar-form'>
-            <div className='ad-form-col'>
+        <div className='marketing-sidebar-content marketing-sidebar-form'>
+            <div className='marketing-form-col'>
                 <InputField
                     label='Főcím'
                     type='text'
@@ -166,7 +166,7 @@ function AdCreatorSidebar({
                     error={formErrors.details}
                 />
             </div>
-            <div className='ad-form-col'>
+            <div className='marketing-form-col'>
                 <InputField
                     label='Ár'
                     type='number'
@@ -179,10 +179,10 @@ function AdCreatorSidebar({
                 <Slider
                     title='Logó'
                     condition={formData.showLogo ? '' : 'slide-right'}
-                    button1ClassName={`ad-toggle-btn ${formData.showLogo ? 'active' : ''}`.trim()}
+                    button1ClassName={`marketing-toggle-btn ${formData.showLogo ? 'active' : ''}`.trim()}
                     button1Title='Igen'
                     onButton1Click={() => onFormChange('showLogo', true)}
-                    button2ClassName={`ad-toggle-btn ${!formData.showLogo ? 'active' : ''}`.trim()}
+                    button2ClassName={`marketing-toggle-btn ${!formData.showLogo ? 'active' : ''}`.trim()}
                     button2Title='Nem'
                     onButton2Click={() => onFormChange('showLogo', false)}
                 />
@@ -190,10 +190,10 @@ function AdCreatorSidebar({
                 <Slider
                     title='Telefonszám'
                     condition={formData.showPhone ? '' : 'slide-right'}
-                    button1ClassName={`ad-toggle-btn ${formData.showPhone ? 'active' : ''}`.trim()}
+                    button1ClassName={`marketing-toggle-btn ${formData.showPhone ? 'active' : ''}`.trim()}
                     button1Title='Igen'
                     onButton1Click={() => onFormChange('showPhone', true)}
-                    button2ClassName={`ad-toggle-btn ${!formData.showPhone ? 'active' : ''}`.trim()}
+                    button2ClassName={`marketing-toggle-btn ${!formData.showPhone ? 'active' : ''}`.trim()}
                     button2Title='Nem'
                     onButton2Click={() => onFormChange('showPhone', false)}
                 />
@@ -203,12 +203,12 @@ function AdCreatorSidebar({
 
     return (
         <aside
-            className={isCollapsed ? 'ad-sidebar ad-sidebar-collapsed' : 'ad-sidebar'}
+            className={isCollapsed ? 'marketing-sidebar marketing-sidebar-collapsed' : 'marketing-sidebar'}
             aria-label='Hirdetés szerkesztő panel'
         >
             <button
                 type='button'
-                className='ad-sidebar-toggle'
+                className='marketing-sidebar-toggle'
                 onClick={() => setIsCollapsed((prev) => !prev)}
                 aria-label={isCollapsed ? 'Panel kinyitása' : 'Panel összecsukása'}
                 aria-expanded={!isCollapsed}
@@ -216,18 +216,18 @@ function AdCreatorSidebar({
                 <ChevronUp aria-hidden='true' />
             </button>
 
-            <p className='ad-sidebar-collapsed-label'>{AD_STEP_LABELS[step]}</p>
+            <p className='marketing-sidebar-collapsed-label'>{MARKETING_STEP_LABELS[step]}</p>
 
-            <div className='ad-sidebar-body'>
-                <h2 className='ad-sidebar-title'>{AD_STEP_LABELS[step]}</h2>
+            <div className='marketing-sidebar-body'>
+                <h2 className='marketing-sidebar-title'>{MARKETING_STEP_LABELS[step]}</h2>
 
                 {step === 'templates' && renderTemplates()}
                 {step === 'devices' && renderDevices()}
                 {step === 'text' && renderTextForm()}
 
-                <div className='ad-sidebar-footer'>
+                <div className='marketing-sidebar-footer'>
                     {step !== 'templates' && (
-                        <button type='button' className='ad-sidebar-btn ad-sidebar-btn-secondary' onClick={goBack}>
+                        <button type='button' className='marketing-sidebar-btn marketing-sidebar-btn-secondary' onClick={goBack}>
                             Vissza
                         </button>
                     )}
@@ -235,7 +235,7 @@ function AdCreatorSidebar({
                     {step === 'templates' && (
                         <button
                             type='button'
-                            className='ad-sidebar-btn ad-sidebar-btn-primary'
+                            className='marketing-sidebar-btn marketing-sidebar-btn-primary'
                             onClick={goNext}
                         >
                             Tovább
@@ -245,7 +245,7 @@ function AdCreatorSidebar({
                     {step === 'devices' && (
                         <button
                             type='button'
-                            className='ad-sidebar-btn ad-sidebar-btn-primary'
+                            className='marketing-sidebar-btn marketing-sidebar-btn-primary'
                             onClick={goNext}
                         >
                             Tovább
@@ -255,7 +255,7 @@ function AdCreatorSidebar({
                     {step === 'text' && (
                         <button
                             type='button'
-                            className='ad-sidebar-btn ad-sidebar-btn-primary'
+                            className='marketing-sidebar-btn marketing-sidebar-btn-primary'
                             onClick={onFinish}
                             disabled={isSaving}
                         >

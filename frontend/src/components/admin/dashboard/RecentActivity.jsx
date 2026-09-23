@@ -29,7 +29,7 @@ function RecentActivity () {
     const message = today
         ? `Legutóbbi aktivitás: ${today.newJobs} új munka, ${today.newClients} új ügyfél, `
           + `${today.completedJobs} lezárt munka, ${today.newVisualDesigns} új látványterv, `
-          + `${today.newAds} új hirdetés`
+          + `${today.newMarketings} új hirdetés`
         : 'Legutóbbi aktivitás betöltése…';
 
     return (

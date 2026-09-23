@@ -117,4 +117,22 @@ describe('MonthlyRevenueChart', () => {
 
         expect(screen.getByTestId('xaxis-tick-2')).toHaveTextContent('Ismeretlen');
     });
+
+    it('renders the loading state when isLoading is true', () => {
+        useFetch.mockReturnValue({ data: null, error: null, isLoading: true });
+        render(<MonthlyRevenueChart />);
+
+        expect(screen.getByText('Betöltés…')).toBeInTheDocument();
+        expect(screen.getByText(`Havi bevétel - ${currentYear}`)).toBeInTheDocument();
+    });
+
+    it('renders the error state with role="alert" when an error occurs', () => {
+        useFetch.mockReturnValue({ data: null, error: new Error('Network error'), isLoading: false });
+        render(<MonthlyRevenueChart />);
+
+        const alertMessage = screen.getByRole('alert');
+        expect(alertMessage).toBeInTheDocument();
+        expect(alertMessage).toHaveTextContent('Hiba történt az adatok betöltése közben.');
+        expect(screen.getByText(`Havi bevétel - ${currentYear}`)).toBeInTheDocument();
+    });
 });

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export const emptyAdFormData = {
+export const emptyMarketingFormData = {
     headline: '',
     acUnitName: '',
     details: '',
@@ -9,8 +9,8 @@ export const emptyAdFormData = {
     showPhone: true,
 };
 
-function useAdForm() {
-    const [formData, setFormData] = useState(emptyAdFormData);
+function useMarketingForm() {
+    const [formData, setFormData] = useState(emptyMarketingFormData);
     const [formErrors, setFormErrors] = useState({});
 
     const handleInputChange = (field, value) => {
@@ -22,7 +22,7 @@ function useAdForm() {
     };
 
     const resetForm = () => {
-        setFormData(emptyAdFormData);
+        setFormData(emptyMarketingFormData);
         setFormErrors({});
     };
 
@@ -60,4 +60,4 @@ function useAdForm() {
     };
 }
 
-export default useAdForm;
+export default useMarketingForm;

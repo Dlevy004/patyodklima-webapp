@@ -2,29 +2,29 @@ import { useCallback, useMemo, useState } from 'react';
 
 import toast from 'react-hot-toast';
 
-import './Ads.css';
+import './Marketing.css';
 
 import usePageTitle from '@/hooks/usePageTitle';
 import useFetch from '@/hooks/useFetch';
-import useAdForm from '@/hooks/useAdForm';
+import useMarketingForm from '@/hooks/useMarketingForm';
 import { getAuthHeaders } from '@/utils/api';
-import { renderAdToCanvas, downloadCanvasAsPng, canvasToBlob } from '@/utils/adCanvas';
-import AdPreview from '@/components/admin/ads/AdPreview';
-import AdCreatorSidebar from '@/components/admin/ads/AdCreatorSidebar';
-import AdHistory from '@/components/admin/ads/AdHistory';
+import { renderMarketingToCanvas, downloadCanvasAsPng, canvasToBlob } from '@/utils/marketingCanvas';
+import MarketingPreview from '@/components/admin/marketings/MarketingPreview';
+import MarketingCreatorSidebar from '@/components/admin/marketings/MarketingCreatorSidebar';
+import MarketingHistory from '@/components/admin/marketings/MarketingHistory';
 import horizontalLogo from '@/assets/images/logo.avif';
 import phoneNumberImage from '@/assets/images/phoneNumber.png';
 
 const API_URL = import.meta.env.VITE_API_URL;
-const TEMPLATES_URL = `${API_URL}/api/ad-templates`;
-const AD_AC_UNITS_URL = `${API_URL}/api/ad-ac-units`;
-const ADS_URL = `${API_URL}/api/ads`;
+const TEMPLATES_URL = `${API_URL}/api/marketing-templates`;
+const MARKETING_AC_UNITS_URL = `${API_URL}/api/marketing-ac-units`;
+const MARKETINGS_URL = `${API_URL}/api/marketings`;
 
-function Ads() {
+function Marketing() {
     usePageTitle('Hirdetések');
 
     const { data: templatesData } = useFetch(TEMPLATES_URL);
-    const { data: acUnitsData } = useFetch(AD_AC_UNITS_URL);
+    const { data: acUnitsData } = useFetch(MARKETING_AC_UNITS_URL);
 
     const templates = templatesData ?? [];
     const acUnits = acUnitsData ?? [];
@@ -32,7 +32,7 @@ function Ads() {
     const {
         formData, formErrors,
         handleInputChange, resetForm, validateForm,
-    } = useAdForm();
+    } = useMarketingForm();
 
     const [step, setStep] = useState('templates');
     const [selectedTemplateId, setSelectedTemplateId] = useState(null);
@@ -55,7 +55,7 @@ function Ads() {
             throw new Error('Válassz sablont a hirdetés elkészítéséhez.');
         }
 
-        return renderAdToCanvas({
+        return renderMarketingToCanvas({
             templateUrl: selectedTemplate.background_image_url,
             acUnitUrl: selectedAcUnit?.transparent_image_url,
             logoUrl: horizontalLogo,
@@ -146,7 +146,7 @@ function Ads() {
             payload.append('showLogo', String(formData.showLogo));
             payload.append('showPhone', String(formData.showPhone));
 
-            const response = await fetch(`${ADS_URL}/generate`, {
+            const response = await fetch(`${MARKETINGS_URL}/generate`, {
                 method: 'POST',
                 headers: getAuthHeaders(),
                 body: payload,
@@ -168,9 +168,9 @@ function Ads() {
     };
 
     return (
-        <div className='ads-page'>
-            <section className='ads-creator'>
-                <AdPreview
+        <div className='marketing-page'>
+            <section className='marketing-creator'>
+                <MarketingPreview
                     template={selectedTemplate}
                     acUnit={selectedAcUnit}
                     headline={formData.headline}
@@ -188,7 +188,7 @@ function Ads() {
                 />
             </section>
 
-            <AdCreatorSidebar
+            <MarketingCreatorSidebar
                 step={step}
                 onStepChange={setStep}
                 templates={templates}
@@ -204,9 +204,9 @@ function Ads() {
                 isSaving={isSaving}
             />
 
-            <AdHistory refreshKey={refreshKey} />
+            <MarketingHistory refreshKey={refreshKey} />
         </div>
     );
 }
 
-export default Ads;
+export default Marketing;

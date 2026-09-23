@@ -33,7 +33,7 @@ describe('RecentActivity', () => {
             newClients: 2,
             completedJobs: 1,
             newVisualDesigns: 4,
-            newAds: 0
+            newMarketings: 0
         }];
 
         useFetch.mockReturnValue({ data: mockData });
@@ -41,5 +41,21 @@ describe('RecentActivity', () => {
 
         const expectedMessage = 'Legutóbbi aktivitás: 3 új munka, 2 új ügyfél, 1 lezárt munka, 4 új látványterv, 0 új hirdetés';
         expect(screen.getByText(expectedMessage)).toBeInTheDocument();
+    });
+
+    it('renders the loading state when isLoading is true', () => {
+        useFetch.mockReturnValue({ data: null, error: null, isLoading: true });
+        render(<RecentActivity />);
+
+        expect(screen.getByText('Betöltés…')).toBeInTheDocument();
+    });
+
+    it('renders the error state with role="alert" when an error occurs', () => {
+        useFetch.mockReturnValue({ data: null, error: new Error('Network error'), isLoading: false });
+        render(<RecentActivity />);
+
+        const alertMessage = screen.getByRole('alert');
+        expect(alertMessage).toBeInTheDocument();
+        expect(alertMessage).toHaveTextContent('Hiba történt az adatok betöltése közben.');
     });
 });

@@ -1,9 +1,9 @@
-export const AD_CANVAS_WIDTH = 1920;
-export const AD_CANVAS_HEIGHT = Math.round(1920 * 9 / 17);
-export const AD_ASPECT_RATIO = '17 / 9';
-export const AD_FONT_FAMILY = 'Josefin Sans, sans-serif';
+export const MARKETING_CANVAS_WIDTH = 1920;
+export const MARKETING_CANVAS_HEIGHT = Math.round(1920 * 9 / 17);
+export const MARKETING_ASPECT_RATIO = '17 / 9';
+export const MARKETING_FONT_FAMILY = 'Josefin Sans, sans-serif';
 
-export const DEFAULT_AD_LAYOUT = {
+export const DEFAULT_MARKETING_LAYOUT = {
     logo: { x: 0.18, y: 0.06, width: 0.22, height: 0.12 },
     phone: { x: 0.42, y: 0.06, width: 0.24, height: 0.12 },
     headline: { x: 0.05, y: 0.24, maxWidth: 0.45, fontSize: 0.091, color: '#c41e1e', fontWeight: '800' },

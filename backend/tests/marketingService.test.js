@@ -2,21 +2,21 @@ const prisma = require('../database/prisma');
 
 const {
     getAllTemplates,
-    getAllAdAcUnits,
-    getAllAds,
-    getAdById,
-    createAd,
-    deleteAd
-} = require('../services/adService');
+    getAllMarketingAcUnits,
+    getAllMarketings,
+    getMarketingById,
+    createMarketing,
+    deleteMarketing
+} = require('../services/marketingService');
 
 jest.mock('../database/prisma', () => ({
-    ad_templates: {
+    marketing_templates: {
         findMany: jest.fn()
     },
     ac_units: {
         findMany: jest.fn()
     },
-    generated_ads: {
+    generated_marketings: {
         findMany: jest.fn(),
         findFirst: jest.fn(),
         create: jest.fn(),
@@ -24,7 +24,7 @@ jest.mock('../database/prisma', () => ({
     }
 }));
 
-describe('adService', () => {
+describe('marketingService', () => {
     beforeEach(() => {
         jest.clearAllMocks();
     });
@@ -44,14 +44,14 @@ describe('adService', () => {
                 }
             ];
 
-            prisma.ad_templates.findMany.mockResolvedValue(mockTemplates);
+            prisma.marketing_templates.findMany.mockResolvedValue(mockTemplates);
 
             const result = await getAllTemplates();
 
             expect(result).toEqual(mockTemplates);
 
-            expect(prisma.ad_templates.findMany).toHaveBeenCalledTimes(1);
-            expect(prisma.ad_templates.findMany).toHaveBeenCalledWith({
+            expect(prisma.marketing_templates.findMany).toHaveBeenCalledTimes(1);
+            expect(prisma.marketing_templates.findMany).toHaveBeenCalledWith({
                 orderBy: [
                     { category: 'asc' },
                     { name: 'asc' }
@@ -60,7 +60,7 @@ describe('adService', () => {
         });
     });
 
-    describe('getAllAdAcUnits', () => {
+    describe('getAllMarketingAcUnits', () => {
         test('returns all AC units ordered by brand and model name', async () => {
             const mockUnits = [
                 {
@@ -77,7 +77,7 @@ describe('adService', () => {
 
             prisma.ac_units.findMany.mockResolvedValue(mockUnits);
 
-            const result = await getAllAdAcUnits();
+            const result = await getAllMarketingAcUnits();
 
             expect(result).toEqual(mockUnits);
 
@@ -91,30 +91,30 @@ describe('adService', () => {
         });
     });
 
-    describe('getAllAds', () => {
-        test('returns ads for the specified user with template information', async () => {
+    describe('getAllMarketings', () => {
+        test('returns marketings for the specified user with template information', async () => {
             const userId = 'user-123';
 
-            const mockAds = [
+            const mockMarketings = [
                 {
-                    id: 'ad-1',
+                    id: 'marketing-1',
                     user_id: userId,
                     headline: 'Akció',
-                    ad_templates: {
+                    marketing_templates: {
                         name: 'Modern',
                         category: 'Beltéri'
                     }
                 }
             ];
 
-            prisma.generated_ads.findMany.mockResolvedValue(mockAds);
+            prisma.generated_marketings.findMany.mockResolvedValue(mockMarketings);
 
-            const result = await getAllAds(userId);
+            const result = await getAllMarketings(userId);
 
-            expect(result).toEqual(mockAds);
+            expect(result).toEqual(mockMarketings);
 
-            expect(prisma.generated_ads.findMany).toHaveBeenCalledTimes(1);
-            expect(prisma.generated_ads.findMany).toHaveBeenCalledWith({
+            expect(prisma.generated_marketings.findMany).toHaveBeenCalledTimes(1);
+            expect(prisma.generated_marketings.findMany).toHaveBeenCalledWith({
                 where: {
                     user_id: userId
                 },
@@ -122,7 +122,7 @@ describe('adService', () => {
                     created_at: 'desc'
                 },
                 include: {
-                    ad_templates: {
+                    marketing_templates: {
                         select: {
                             name: true,
                             category: true
@@ -133,35 +133,35 @@ describe('adService', () => {
         });
     });
 
-    describe('getAdById', () => {
-        test('returns the ad matching both ad id and user id', async () => {
-            const adId = 'ad-123';
+    describe('getMarketingById', () => {
+        test('returns the marketing matching both marketing id and user id', async () => {
+            const marketingId = 'marketing-123';
             const userId = 'user-456';
 
-            const mockAd = {
-                id: adId,
+            const mockMarketing = {
+                id: marketingId,
                 user_id: userId,
                 headline: 'Teszt hirdetés'
             };
 
-            prisma.generated_ads.findFirst.mockResolvedValue(mockAd);
+            prisma.generated_marketings.findFirst.mockResolvedValue(mockMarketing);
 
-            const result = await getAdById(adId, userId);
+            const result = await getMarketingById(marketingId, userId);
 
-            expect(result).toEqual(mockAd);
+            expect(result).toEqual(mockMarketing);
 
-            expect(prisma.generated_ads.findFirst).toHaveBeenCalledTimes(1);
-            expect(prisma.generated_ads.findFirst).toHaveBeenCalledWith({
+            expect(prisma.generated_marketings.findFirst).toHaveBeenCalledTimes(1);
+            expect(prisma.generated_marketings.findFirst).toHaveBeenCalledWith({
                 where: {
-                    id: adId,
+                    id: marketingId,
                     user_id: userId
                 }
             });
         });
     });
 
-    describe('createAd', () => {
-        test('creates an ad with all provided values', async () => {
+    describe('createMarketing', () => {
+        test('creates an marketing with all provided values', async () => {
             const userId = 'user-123';
 
             const data = {
@@ -172,11 +172,11 @@ describe('adService', () => {
                 fullPrice: '299990',
                 showLogo: true,
                 showPhone: false,
-                generatedImageUrl: 'https://example.com/ad.png'
+                generatedImageUrl: 'https://example.com/marketing.png'
             };
 
-            const mockCreatedAd = {
-                id: 'ad-1',
+            const mockCreatedMarketing = {
+                id: 'marketing-1',
                 user_id: userId,
                 template_id: 'template-1',
                 headline: 'Prémium klíma akció',
@@ -185,17 +185,17 @@ describe('adService', () => {
                 full_price: '299990',
                 show_logo: true,
                 show_phone: false,
-                generated_image_url: 'https://example.com/ad.png'
+                generated_image_url: 'https://example.com/marketing.png'
             };
 
-            prisma.generated_ads.create.mockResolvedValue(mockCreatedAd);
+            prisma.generated_marketings.create.mockResolvedValue(mockCreatedMarketing);
 
-            const result = await createAd(userId, data);
+            const result = await createMarketing(userId, data);
 
-            expect(result).toEqual(mockCreatedAd);
+            expect(result).toEqual(mockCreatedMarketing);
 
-            expect(prisma.generated_ads.create).toHaveBeenCalledTimes(1);
-            expect(prisma.generated_ads.create).toHaveBeenCalledWith({
+            expect(prisma.generated_marketings.create).toHaveBeenCalledTimes(1);
+            expect(prisma.generated_marketings.create).toHaveBeenCalledWith({
                 data: {
                     user_id: userId,
                     template_id: 'template-1',
@@ -205,7 +205,7 @@ describe('adService', () => {
                     full_price: '299990',
                     show_logo: true,
                     show_phone: false,
-                    generated_image_url: 'https://example.com/ad.png'
+                    generated_image_url: 'https://example.com/marketing.png'
                 }
             });
         });
@@ -221,16 +221,16 @@ describe('adService', () => {
                 fullPrice: '299990',
                 showLogo: true,
                 showPhone: true,
-                generatedImageUrl: 'https://example.com/ad.png'
+                generatedImageUrl: 'https://example.com/marketing.png'
             };
 
-            prisma.generated_ads.create.mockResolvedValue({
-                id: 'ad-2'
+            prisma.generated_marketings.create.mockResolvedValue({
+                id: 'marketing-2'
             });
 
-            await createAd(userId, data);
+            await createMarketing(userId, data);
 
-            expect(prisma.generated_ads.create).toHaveBeenCalledWith({
+            expect(prisma.generated_marketings.create).toHaveBeenCalledWith({
                 data: {
                     user_id: userId,
                     template_id: null,
@@ -240,7 +240,7 @@ describe('adService', () => {
                     full_price: '299990',
                     show_logo: true,
                     show_phone: true,
-                    generated_image_url: 'https://example.com/ad.png'
+                    generated_image_url: 'https://example.com/marketing.png'
                 }
             });
         });
@@ -256,16 +256,16 @@ describe('adService', () => {
                 fullPrice: '199990',
                 showLogo: null,
                 showPhone: null,
-                generatedImageUrl: 'https://example.com/ad.png'
+                generatedImageUrl: 'https://example.com/marketing.png'
             };
 
-            prisma.generated_ads.create.mockResolvedValue({
-                id: 'ad-3'
+            prisma.generated_marketings.create.mockResolvedValue({
+                id: 'marketing-3'
             });
 
-            await createAd(userId, data);
+            await createMarketing(userId, data);
 
-            expect(prisma.generated_ads.create).toHaveBeenCalledWith({
+            expect(prisma.generated_marketings.create).toHaveBeenCalledWith({
                 data: {
                     user_id: userId,
                     template_id: 'template-1',
@@ -275,7 +275,7 @@ describe('adService', () => {
                     full_price: '199990',
                     show_logo: true,
                     show_phone: true,
-                    generated_image_url: 'https://example.com/ad.png'
+                    generated_image_url: 'https://example.com/marketing.png'
                 }
             });
         });
@@ -291,16 +291,16 @@ describe('adService', () => {
                 fullPrice: '199990',
                 showLogo: false,
                 showPhone: false,
-                generatedImageUrl: 'https://example.com/ad.png'
+                generatedImageUrl: 'https://example.com/marketing.png'
             };
 
-            prisma.generated_ads.create.mockResolvedValue({
-                id: 'ad-4'
+            prisma.generated_marketings.create.mockResolvedValue({
+                id: 'marketing-4'
             });
 
-            await createAd(userId, data);
+            await createMarketing(userId, data);
 
-            expect(prisma.generated_ads.create).toHaveBeenCalledWith({
+            expect(prisma.generated_marketings.create).toHaveBeenCalledWith({
                 data: {
                     user_id: userId,
                     template_id: 'template-1',
@@ -310,50 +310,50 @@ describe('adService', () => {
                     full_price: '199990',
                     show_logo: false,
                     show_phone: false,
-                    generated_image_url: 'https://example.com/ad.png'
+                    generated_image_url: 'https://example.com/marketing.png'
                 }
             });
         });
     });
 
-    describe('deleteAd', () => {
-        test('returns true when an ad was deleted', async () => {
-            const adId = 'ad-123';
+    describe('deleteMarketing', () => {
+        test('returns true when an marketing was deleted', async () => {
+            const marketingId = 'marketing-123';
             const userId = 'user-456';
 
-            prisma.generated_ads.deleteMany.mockResolvedValue({
+            prisma.generated_marketings.deleteMany.mockResolvedValue({
                 count: 1
             });
 
-            const result = await deleteAd(adId, userId);
+            const result = await deleteMarketing(marketingId, userId);
 
             expect(result).toBe(true);
 
-            expect(prisma.generated_ads.deleteMany).toHaveBeenCalledTimes(1);
-            expect(prisma.generated_ads.deleteMany).toHaveBeenCalledWith({
+            expect(prisma.generated_marketings.deleteMany).toHaveBeenCalledTimes(1);
+            expect(prisma.generated_marketings.deleteMany).toHaveBeenCalledWith({
                 where: {
-                    id: adId,
+                    id: marketingId,
                     user_id: userId
                 }
             });
         });
 
-        test('returns false when no ad was deleted', async () => {
-            const adId = 'ad-123';
+        test('returns false when no marketing was deleted', async () => {
+            const marketingId = 'marketing-123';
             const userId = 'user-456';
 
-            prisma.generated_ads.deleteMany.mockResolvedValue({
+            prisma.generated_marketings.deleteMany.mockResolvedValue({
                 count: 0
             });
 
-            const result = await deleteAd(adId, userId);
+            const result = await deleteMarketing(marketingId, userId);
 
             expect(result).toBe(false);
 
-            expect(prisma.generated_ads.deleteMany).toHaveBeenCalledTimes(1);
-            expect(prisma.generated_ads.deleteMany).toHaveBeenCalledWith({
+            expect(prisma.generated_marketings.deleteMany).toHaveBeenCalledTimes(1);
+            expect(prisma.generated_marketings.deleteMany).toHaveBeenCalledWith({
                 where: {
-                    id: adId,
+                    id: marketingId,
                     user_id: userId
                 }
             });

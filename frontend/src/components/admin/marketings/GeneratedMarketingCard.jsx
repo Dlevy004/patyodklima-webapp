@@ -4,26 +4,26 @@ import HistoryCard from '@/components/admin/common/HistoryCard';
 import ActionBtn from '@/components/admin/common/ActionBtn';
 
 
-function GeneratedAdCard({ ad, onDelete, onDownload }) {
-    const title = ad.headline || ad.ac_unit_name || 'Hirdetés';
+function GeneratedMarketingCard({ marketing, onDelete, onDownload }) {
+    const title = marketing.headline || marketing.ac_unit_name || 'Hirdetés';
 
     return (
         <HistoryCard
-            imageUrl={ad.generated_image_url}
+            imageUrl={marketing.generated_image_url}
             alt={title}
             modifierClassName='is-landscape'
         >
             <ActionBtn
                 type='download'
-                onClick={() => onDownload(ad.id, title)}
+                onClick={() => onDownload(marketing.id, title)}
             />
             <ActionBtn type='delete' onClick={onDelete} />
         </HistoryCard>
     );
 }
 
-GeneratedAdCard.propTypes = {
-    ad: PropTypes.shape({
+GeneratedMarketingCard.propTypes = {
+    marketing: PropTypes.shape({
         id: PropTypes.string.isRequired,
         generated_image_url: PropTypes.string,
         headline: PropTypes.string,
@@ -33,4 +33,4 @@ GeneratedAdCard.propTypes = {
     onDownload: PropTypes.func.isRequired,
 };
 
-export default GeneratedAdCard;
+export default GeneratedMarketingCard;

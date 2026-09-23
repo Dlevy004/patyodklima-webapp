@@ -38,7 +38,7 @@ function SideNavbar({ isMobileMenuOpen, closeMobileMenu }) {
             ]} />
             <NavSection title='Marketing' ButtonComponents={[
                 <NavButton key='reference-page' IconComponent={Images} title='Referencia' url='/admin/references' onClick={closeMobileMenu} />,
-                <NavButton key='ads-page' IconComponent={AirVent} title='Hirdetések' url='/admin/ads' onClick={closeMobileMenu} />
+                <NavButton key='marketing-page' IconComponent={AirVent} title='Hirdetések' url='/admin/marketings' onClick={closeMobileMenu} />
             ]} />
         </>
     )

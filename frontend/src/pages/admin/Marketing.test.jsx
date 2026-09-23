@@ -1,14 +1,14 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 
-import Ads from './Ads';
+import Marketing from './Marketing';
 import useFetch from '@/hooks/useFetch';
 
 const {
     mockValidateForm,
     mockResetForm,
     mockHandleInputChange,
-    mockRenderAdToCanvas,
+    mockRenderMarketingToCanvas,
     mockDownloadCanvasAsPng,
     mockCanvasToBlob,
     mockToastSuccess,
@@ -17,7 +17,7 @@ const {
     mockValidateForm: vi.fn(),
     mockResetForm: vi.fn(),
     mockHandleInputChange: vi.fn(),
-    mockRenderAdToCanvas: vi.fn(),
+    mockRenderMarketingToCanvas: vi.fn(),
     mockDownloadCanvasAsPng: vi.fn(),
     mockCanvasToBlob: vi.fn(),
     mockToastSuccess: vi.fn(),
@@ -30,13 +30,13 @@ vi.mock('@/hooks/usePageTitle', () => ({ default: vi.fn() }));
 
 vi.mock('@/hooks/useFetch', () => ({
     default: vi.fn((url) => ({
-        data: url.includes('ad-templates')
+        data: url.includes('marketing-templates')
             ? [{ id: 1, background_image_url: 'template.jpg' }]
             : [{ id: 2, transparent_image_url: 'unit.png' }],
     })),
 }));
 
-vi.mock('@/hooks/useAdForm', () => ({
+vi.mock('@/hooks/useMarketingForm', () => ({
     default: () => ({
         formData: mockFormData,
         formErrors: {},
@@ -50,8 +50,8 @@ vi.mock('@/utils/api', () => ({
     getAuthHeaders: vi.fn(() => ({ Authorization: 'Bearer token' })),
 }));
 
-vi.mock('@/utils/adCanvas', () => ({
-    renderAdToCanvas: mockRenderAdToCanvas,
+vi.mock('@/utils/marketingCanvas', () => ({
+    renderMarketingToCanvas: mockRenderMarketingToCanvas,
     downloadCanvasAsPng: mockDownloadCanvasAsPng,
     canvasToBlob: mockCanvasToBlob,
 }));
@@ -60,11 +60,11 @@ vi.mock('react-hot-toast', () => ({
     default: { success: mockToastSuccess, error: mockToastError },
 }));
 
-vi.mock('./Ads.css', () => ({}));
+vi.mock('./Marketing.css', () => ({}));
 vi.mock('@/assets/images/logo.avif', () => ({ default: 'logo.avif' }));
 vi.mock('@/assets/images/phoneNumber.png', () => ({ default: 'phone.png' }));
 
-vi.mock('@/components/admin/ads/AdPreview', () => ({
+vi.mock('@/components/admin/marketings/MarketingPreview', () => ({
     default: ({ template, onUndo, onDownload, onDelete }) => (
         <div>
             <span data-testid='selected-template'>{template?.id ?? 'none'}</span>
@@ -75,7 +75,7 @@ vi.mock('@/components/admin/ads/AdPreview', () => ({
     ),
 }));
 
-vi.mock('@/components/admin/ads/AdCreatorSidebar', () => ({
+vi.mock('@/components/admin/marketings/MarketingCreatorSidebar', () => ({
     default: ({ step, onStepChange, onSelectTemplate, onSelectAcUnit, onFinish }) => (
         <div>
             <span data-testid='current-step'>{step}</span>
@@ -88,11 +88,11 @@ vi.mock('@/components/admin/ads/AdCreatorSidebar', () => ({
     ),
 }));
 
-vi.mock('@/components/admin/ads/AdHistory', () => ({
+vi.mock('@/components/admin/marketings/MarketingHistory', () => ({
     default: ({ refreshKey }) => <span data-testid='refresh-key'>{refreshKey}</span>,
 }));
 
-describe('Ads', () => {
+describe('Marketing', () => {
     beforeEach(() => {
         vi.clearAllMocks();
 
@@ -106,40 +106,40 @@ describe('Ads', () => {
         };
 
         mockValidateForm.mockReturnValue(true);
-        mockRenderAdToCanvas.mockResolvedValue('canvas');
+        mockRenderMarketingToCanvas.mockResolvedValue('canvas');
         mockDownloadCanvasAsPng.mockResolvedValue();
         mockCanvasToBlob.mockResolvedValue(new Blob(['image'], { type: 'image/png' }));
         globalThis.fetch = vi.fn().mockResolvedValue({ ok: true });
     });
 
     it('renders the initial state', () => {
-        render(<Ads />);
+        render(<Marketing />);
         expect(screen.getByText('templates')).toBeInTheDocument();
         expect(screen.getByTestId('refresh-key')).toHaveTextContent('0');
     });
 
     it('changes the step', () => {
-        render(<Ads />);
+        render(<Marketing />);
         fireEvent.click(screen.getByRole('button', { name: 'text' }));
         expect(screen.getByTestId('current-step')).toHaveTextContent('text');
     });
 
     it('undoes from text to devices', () => {
-        render(<Ads />);
+        render(<Marketing />);
         fireEvent.click(screen.getByRole('button', { name: 'text' }));
         fireEvent.click(screen.getByRole('button', { name: 'undo' }));
         expect(screen.getByTestId('current-step')).toHaveTextContent('devices');
     });
 
     it('undoes from devices to templates when no unit is selected', () => {
-        render(<Ads />);
+        render(<Marketing />);
         fireEvent.click(screen.getByText('devices'));
         fireEvent.click(screen.getByText('undo'));
         expect(screen.getByText('templates')).toBeInTheDocument();
     });
 
     it('clears the selected unit when undoing from devices', () => {
-        render(<Ads />);
+        render(<Marketing />);
         fireEvent.click(screen.getByText('select-unit'));
         fireEvent.click(screen.getByText('devices'));
         fireEvent.click(screen.getByText('undo'));
@@ -148,7 +148,7 @@ describe('Ads', () => {
     });
 
     it('clears the selected template when undoing from templates', () => {
-        render(<Ads />);
+        render(<Marketing />);
 
         expect(screen.getByTestId('selected-template')).toHaveTextContent('none');
 
@@ -160,7 +160,7 @@ describe('Ads', () => {
     });
 
     it('does nothing when undoing from templates without a selected template', () => {
-        render(<Ads />);
+        render(<Marketing />);
 
         fireEvent.click(screen.getByRole('button', { name: 'undo' }));
 
@@ -168,7 +168,7 @@ describe('Ads', () => {
     });
 
     it('resets the form and selections when deleting', () => {
-        render(<Ads />);
+        render(<Marketing />);
         fireEvent.click(screen.getByText('select-template'));
         fireEvent.click(screen.getByText('select-unit'));
         fireEvent.click(screen.getByText('delete'));
@@ -176,8 +176,8 @@ describe('Ads', () => {
         expect(mockToastSuccess).toHaveBeenCalledWith('A hirdetés alaphelyzetbe állítva.');
     });
 
-    it('downloads the generated ad successfully', async () => {
-        render(<Ads />);
+    it('downloads the generated marketing successfully', async () => {
+        render(<Marketing />);
         fireEvent.click(screen.getByText('select-template'));
         fireEvent.click(screen.getByText('download'));
         await waitFor(() => expect(mockDownloadCanvasAsPng).toHaveBeenCalledWith('canvas', 'nyári-akció.png'));
@@ -186,28 +186,28 @@ describe('Ads', () => {
 
     it('uses the default filename when headline is empty', async () => {
         mockFormData.headline = '';
-        render(<Ads />);
+        render(<Marketing />);
         fireEvent.click(screen.getByText('select-template'));
         fireEvent.click(screen.getByText('download'));
         await waitFor(() => expect(mockDownloadCanvasAsPng).toHaveBeenCalledWith('canvas', 'hirdetes.png'));
     });
 
     it('shows an error when downloading fails', async () => {
-        mockRenderAdToCanvas.mockRejectedValue(new Error('Canvas error'));
-        render(<Ads />);
+        mockRenderMarketingToCanvas.mockRejectedValue(new Error('Canvas error'));
+        render(<Marketing />);
         fireEvent.click(screen.getByText('select-template'));
         fireEvent.click(screen.getByText('download'));
         await waitFor(() => expect(mockToastError).toHaveBeenCalledWith('Hiba történt a letöltés során.'));
     });
 
     it('shows an error when no template is selected', () => {
-        render(<Ads />);
+        render(<Marketing />);
         fireEvent.click(screen.getByText('finish'));
         expect(mockToastError).toHaveBeenCalledWith('Előbb válassz egy sablont!');
     });
 
     it('shows an error when no unit is selected', () => {
-        render(<Ads />);
+        render(<Marketing />);
         fireEvent.click(screen.getByText('select-template'));
         fireEvent.click(screen.getByText('finish'));
         expect(mockToastError).toHaveBeenCalledWith('Előbb válassz egy készüléket!');
@@ -215,21 +215,21 @@ describe('Ads', () => {
 
     it('shows an error when the form is invalid', () => {
         mockValidateForm.mockReturnValue(false);
-        render(<Ads />);
+        render(<Marketing />);
         fireEvent.click(screen.getByText('select-template'));
         fireEvent.click(screen.getByText('select-unit'));
         fireEvent.click(screen.getByText('finish'));
         expect(mockToastError).toHaveBeenCalledWith('Kérlek töltsd ki a hiányzó mezőket!');
     });
 
-    it('saves the ad successfully', async () => {
-        render(<Ads />);
+    it('saves the marketing successfully', async () => {
+        render(<Marketing />);
         fireEvent.click(screen.getByText('select-template'));
         fireEvent.click(screen.getByText('select-unit'));
         fireEvent.click(screen.getByText('finish'));
 
         await waitFor(() => expect(globalThis.fetch).toHaveBeenCalledWith(
-            expect.stringContaining('/api/ads/generate'),
+            expect.stringContaining('/api/marketings/generate'),
             expect.objectContaining({ method: 'POST' })
         ));
 
@@ -251,7 +251,7 @@ describe('Ads', () => {
             json: () => Promise.resolve({ message: 'Mentési hiba' }),
         });
 
-        render(<Ads />);
+        render(<Marketing />);
         fireEvent.click(screen.getByText('select-template'));
         fireEvent.click(screen.getByText('select-unit'));
         fireEvent.click(screen.getByText('finish'));
@@ -265,7 +265,7 @@ describe('Ads', () => {
             json: () => Promise.reject(new Error('invalid json')),
         });
 
-        render(<Ads />);
+        render(<Marketing />);
         fireEvent.click(screen.getByText('select-template'));
         fireEvent.click(screen.getByText('select-unit'));
         fireEvent.click(screen.getByText('finish'));
@@ -274,8 +274,8 @@ describe('Ads', () => {
     });
 
     it('shows the error when canvas generation fails during saving', async () => {
-        mockRenderAdToCanvas.mockRejectedValue(new Error('Canvas error'));
-        render(<Ads />);
+        mockRenderMarketingToCanvas.mockRejectedValue(new Error('Canvas error'));
+        render(<Marketing />);
         fireEvent.click(screen.getByText('select-template'));
         fireEvent.click(screen.getByText('select-unit'));
         fireEvent.click(screen.getByText('finish'));
@@ -287,26 +287,26 @@ describe('Ads', () => {
             .mockReturnValueOnce({ data: null })
             .mockReturnValueOnce({ data: null });
 
-        render(<Ads />);
+        render(<Marketing />);
 
         expect(screen.getByTestId('current-step')).toHaveTextContent('templates');
     });
 
     it('clears the selected template when undoing from templates', () => {
-        render(<Ads />);
+        render(<Marketing />);
 
         fireEvent.click(screen.getByRole('button', { name: 'select-template' }));
         fireEvent.click(screen.getByRole('button', { name: 'undo' }));
 
         fireEvent.click(screen.getByRole('button', { name: 'download' }));
 
-        expect(mockRenderAdToCanvas).not.toHaveBeenCalled();
+        expect(mockRenderMarketingToCanvas).not.toHaveBeenCalled();
     });
 
     it('uses the fallback error message when saving fails without an error message', async () => {
         globalThis.fetch.mockRejectedValue(new Error(''));
 
-        render(<Ads />);
+        render(<Marketing />);
 
         fireEvent.click(screen.getByRole('button', { name: 'select-template' }));
         fireEvent.click(screen.getByRole('button', { name: 'select-unit' }));
