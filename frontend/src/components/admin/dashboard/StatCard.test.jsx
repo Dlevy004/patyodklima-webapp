@@ -65,4 +65,20 @@ describe('StatCard', () => {
         const zeroCurrencyElements = screen.getAllByText(/0.*Ft/);
         expect(zeroCurrencyElements.length).toBe(4);
     });
+
+    it('renders the loading state when isLoading is true', () => {
+        useFetch.mockReturnValue({ data: null, error: null, isLoading: true });
+        render(<StatCard />);
+
+        expect(screen.getByText('Betöltés…')).toBeInTheDocument();
+    });
+
+    it('renders the error state with role="alert" when an error occurs', () => {
+        useFetch.mockReturnValue({ data: null, error: new Error('Network error'), isLoading: false });
+        render(<StatCard />);
+
+        const alertMessage = screen.getByRole('alert');
+        expect(alertMessage).toBeInTheDocument();
+        expect(alertMessage).toHaveTextContent('Hiba történt az adatok betöltése közben.');
+    });
 });

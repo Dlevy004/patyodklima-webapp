@@ -74,4 +74,22 @@ describe('TopCitiesChart', () => {
 
         expect(screen.getByTestId('mock-tooltip')).toHaveTextContent('15 db | Darabszám');
     });
+
+    it('renders the loading state when isLoading is true', () => {
+        useFetch.mockReturnValue({ data: null, error: null, isLoading: true });
+        render(<TopCitiesChart />);
+
+        expect(screen.getByText('Betöltés…')).toBeInTheDocument();
+        expect(screen.getByText('Legnépszerűbb települések')).toBeInTheDocument();
+    });
+
+    it('renders the error state with role="alert" when an error occurs', () => {
+        useFetch.mockReturnValue({ data: null, error: new Error('Network error'), isLoading: false });
+        render(<TopCitiesChart />);
+
+        const alertMessage = screen.getByRole('alert');
+        expect(alertMessage).toBeInTheDocument();
+        expect(alertMessage).toHaveTextContent('Hiba történt az adatok betöltése közben.');
+        expect(screen.getByText('Legnépszerűbb települések')).toBeInTheDocument();
+    });
 });

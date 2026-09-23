@@ -74,4 +74,22 @@ describe('TopAcUnitsChart', () => {
 
         expect(screen.getByTestId('mock-tooltip')).toHaveTextContent('25 db | Darabszám');
     });
+
+    it('renders the loading state when isLoading is true', () => {
+        useFetch.mockReturnValue({ data: null, error: null, isLoading: true });
+        render(<TopAcUnitsChart />);
+
+        expect(screen.getByText('Betöltés…')).toBeInTheDocument();
+        expect(screen.getByText('Legnépszerűbb készülékek')).toBeInTheDocument();
+    });
+
+    it('renders the error state with role="alert" when an error occurs', () => {
+        useFetch.mockReturnValue({ data: null, error: new Error('Network error'), isLoading: false });
+        render(<TopAcUnitsChart />);
+
+        const alertMessage = screen.getByRole('alert');
+        expect(alertMessage).toBeInTheDocument();
+        expect(alertMessage).toHaveTextContent('Hiba történt az adatok betöltése közben.');
+        expect(screen.getByText('Legnépszerűbb készülékek')).toBeInTheDocument();
+    });
 });
