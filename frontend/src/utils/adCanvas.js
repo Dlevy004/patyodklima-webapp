@@ -88,6 +88,11 @@ export async function renderAdToCanvas({
         drawContainedImage(ctx, phoneImage, px.phone);
     }
 
+    if (acUnitUrl) {
+        const acUnit = await loadImage(acUnitUrl);
+        drawContainedImage(ctx, acUnit, px.acUnit);
+    }
+
     if (headline) {
         ctx.save();
         ctx.fillStyle = px.headline.color;
@@ -143,11 +148,6 @@ export async function renderAdToCanvas({
         ctx.textBaseline = 'top';
         ctx.fillText(`${px.price.prefix}${formatAdPrice(price)}${px.price.suffix}`, px.price.x, px.price.y);
         ctx.restore();
-    }
-
-    if (acUnitUrl) {
-        const acUnit = await loadImage(acUnitUrl);
-        drawContainedImage(ctx, acUnit, px.acUnit);
     }
 
     return canvas;
