@@ -7,6 +7,20 @@ jest.mock('../routes/index', () => {
     router.get('/boom', (req, res, next) => {
         next(new Error('Something broke'));
     });
+
+    router.get('/client-error', (req, res, next) => {
+        const err = new Error('Invalid input parameters');
+        err.status = 400;
+        next(err);
+    });
+
+    router.get('/empty-client-error', (req, res, next) => {
+        const err = new Error();
+        err.message = '';
+        err.status = 403;
+        next(err);
+    });
+
     return router;
 });
 
@@ -75,6 +89,28 @@ describe('app.js (Express app)', () => {
         expect(res.status).toBe(500);
         expect(res.body).toEqual("Internal server error");
         expect(consoleSpy).toHaveBeenCalled();
+
+        consoleSpy.mockRestore();
+    });
+
+    it('should return the custom error message for client errors (status < 500)', async () => {
+        const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+
+        const res = await request(app).get('/api/client-error');
+
+        expect(res.status).toBe(400);
+        expect(res.body).toEqual('Invalid input parameters');
+
+        consoleSpy.mockRestore();
+    });
+
+    it('should return "Bad request" for client errors without a specific message', async () => {
+        const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+
+        const res = await request(app).get('/api/empty-client-error');
+
+        expect(res.status).toBe(403);
+        expect(res.body).toEqual('Bad request');
 
         consoleSpy.mockRestore();
     });
