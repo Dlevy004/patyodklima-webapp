@@ -134,7 +134,7 @@ function ProfilePanel({ onClose, isInstallable, installPWA }) {
                         Kijelentkezés
                     </button>
 
-                    <p className="profile-panel-version">Verzió:&nbsp; v2.4.0</p>
+                    <p className="profile-panel-version">Verzió:&nbsp; v2.5.0</p>
                 </div>
             </div>
 
