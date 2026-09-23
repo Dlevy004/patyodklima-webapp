@@ -113,7 +113,7 @@ My primary goal with this was to reinforce my fundamental knowledge of web devel
 - **React Helmet Async** — managing document head metadata dynamically for better SEO
 - **React-Snap** — pre-rendering of the app to improve load times and SEO rankings
 - **ESLint** — maintaining code quality and catching syntax errors
-- **Prop-types** — runtime type checking of component props
+- **Recharts** — custom statistics and charts for the dashboard
 - **Lottie React** — animated components
 - **React-Select** — custom dropdowns
 
