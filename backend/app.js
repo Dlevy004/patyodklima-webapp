@@ -45,7 +45,11 @@ app.use((req, res) => {
 // global error handling
 app.use((err, req, res, next) => {
     console.error(err);
-    res.status(err.status || 500).json({ message: err.message || 'Internal server error' });
+    const status = err.status || 500;
+    const message = status >= 500
+        ? 'Internal server error'
+        : (err.message || 'Bad request');
+    res.status(status).json(message);
 });
 
 module.exports = app;
