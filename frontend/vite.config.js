@@ -38,7 +38,7 @@ export default defineConfig({
         ]
       },
       workbox: {
-        navigateFallbackDenylist: [/.*\.pdf$/]
+        navigateFallbackDenylist: [/.*\.pdf(?:$|\?)/i]
       }
     })
   ],
