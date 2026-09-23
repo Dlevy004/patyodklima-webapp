@@ -16,7 +16,7 @@ function Dashboard() {
     usePageTitle('Főoldal');
 
     return (
-        <>
+        <main>
             <RecentActivity/>
 
             <div className='dashboard-wrapper'>
@@ -35,7 +35,7 @@ function Dashboard() {
             </div>
 
             <ScrollUp/>
-        </>
+        </main>
     )
 }
 
