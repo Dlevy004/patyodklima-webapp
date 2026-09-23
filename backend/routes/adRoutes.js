@@ -7,7 +7,12 @@ const { authenticate } = require('../middleware/authMiddleware');
 const router = express.Router();
 const upload = multer({
     storage: multer.memoryStorage(),
-    limits: { fileSize: 10 * 1024 * 1024, files: 1 },
+    limits: {
+        fileSize: 10 * 1024 * 1024,
+        files: 1,
+        fields: 7,
+        parts: 8
+    },
     fileFilter: (req, file, cb) => {
         if (!file.mimetype.startsWith('image/')) {
             return cb(new Error('Csak képfájl tölthető fel.'));
