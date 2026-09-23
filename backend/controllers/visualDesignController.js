@@ -33,7 +33,10 @@ const downloadDesign = async (req, res) => {
             return res.status(403).json({ message: 'Biztonsági okokból a letöltés megtagadva: érvénytelen forrás.' });
         }
 
-        const imageResponse = await fetch(imageUrl, { redirect: 'error' });
+        const imageResponse = await fetch(imageUrl, {
+            redirect: 'error',
+            signal: AbortSignal.timeout(15000)
+        });
         if (!imageResponse.ok) {
             throw new Error(`Sikertelen letöltés a tárhelyről: ${imageResponse.statusText}`);
         }

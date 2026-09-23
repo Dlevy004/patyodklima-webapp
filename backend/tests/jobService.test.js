@@ -95,7 +95,7 @@ describe('jobService', () => {
                 is_completed: true,
                 labor_fee: 10000,
                 total_amount: 10000,
-                ac_unit: 'AUX'
+                ac_unit: 'Aux'
             };
             prisma.jobs.update.mockResolvedValue({ id: 'job-1' });
 

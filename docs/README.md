@@ -1,8 +1,13 @@
 <p align="center">
-    <img src="./logo.avif" alt="Pátyod Klíma Logó" width="200">
+    <img src="./images/logo.avif" alt="Pátyod Klíma Logó" width="200">
 </p>
-<h1 align="center">Pátyod Klíma Admin Portal</h1>
 
+<h1 align="center">Pátyod Klíma Admin Portal</h1>
+<p align="center">
+    A dynamic, full-stack CMS and business management system for a HVAC installation company.
+</p>
+
+---
 
 ## 📋 About
 
@@ -15,6 +20,29 @@ Developing a dynamic web application to replace the previous static site. The go
 
 My primary goal with this was to reinforce my fundamental knowledge of web development and to master new technologies — covering full-stack development, clean architecture, testing practices, and modern tooling from the ground up.
 
+<p align="center">
+    <img src="./images/views.png" alt="Pátyod Klíma applikáció különböző felhasználói felületeken" width="450">
+</p>
+
+---
+
+## ✨ Features
+
+### Client-Side Website
+- Responsive, SEO-optimized public website
+- Reference image gallery
+- Privacy policy and cookie management
+
+### Admin / CMS
+- 📊 Custom dashboard (revenue, client & job statistics, interactive charts)
+- 👤 Client management
+- 🧰 Job & installation tracking
+- 🖼️ Reference gallery CMS
+- 🤖 AI-powered visual design tool — generates photorealistic indoor / outdoor AC units on real customer photos
+- 📢 Ad generator & downloader with pre-made templates and brand-specific device catalogs
+- 🔐 Secure, password-based admin login
+
+---
 
 ## 🛠️ Tech Stack
 
@@ -57,41 +85,48 @@ My primary goal with this was to reinforce my fundamental knowledge of web devel
 - **UptimeRobot** for monitoring the availability, performance, and status of the website
 - **Cloudflare AI** for the image inpainting to generate realistic indoor and outdoor HVAC unit placement on photos
 
-### Package manager & dependencies
+### Package Manager & Dependencies
 
-- **npm** package manager
+**npm** package manager
 
-    #### Backend dependencies:
+<details>
+<summary><strong>Backend dependencies</strong></summary>
 
-    - **Supabase JS** for managing file storage
-    - **Multer** for handling and processing incoming file uploads
-    - **Sharp** for image processing, resizing, and WebP optimization
-    - **CORS** for enabling secure cross-origin requests between the frontend and the backend
-    - **pg** as the PostgreSQL client for the database connection
-    - **dotenv** for secure environment variable and configuration management
-    - **bcryptjs** for secure password hashing and verification
-    - **express-rate-limit** for prevents brute-force login attacks
+- **Supabase JS** — file storage management
+- **Multer** — handling and processing incoming file uploads
+- **Sharp** — image processing, resizing, and WebP optimization
+- **CORS** — enabling secure cross-origin requests between frontend and backend
+- **pg** — PostgreSQL client for the database connection
+- **dotenv** — secure environment variable and configuration management
+- **bcryptjs** — secure password hashing and verification
+- **express-rate-limit** — prevents brute-force login attacks
 
-    #### Frontend dependencies:
+</details>
 
-    - **React Hot Toast** library for user feedback notifications
-    - **Framer Motion** for website animations
-    - **Lucide React** for customizable SVG icons
-    - **Swiper** for touch-friendly sliders
-    - **React Helmet Async** for managing document head metadata dynamically for better SEO
-    - **React-Snap** for pre-rendering of the app to improve load times and SEO rankings
-    - **ESLint** for maintaining code quality and catching syntax errors
-    - **Prop-types** for runtime type checking of component props
-    - **Lottie React** for animated components
-    - **React-Select** for custom dropdowns
+<details>
+<summary><strong>Frontend dependencies</strong></summary>
 
-## 🚧 Planned Features
+- **React Hot Toast** — user feedback notifications
+- **Framer Motion** — website animations
+- **Lucide React** — customizable SVG icons
+- **Swiper** — touch-friendly sliders
+- **React Helmet Async** — managing document head metadata dynamically for better SEO
+- **React-Snap** — pre-rendering of the app to improve load times and SEO rankings
+- **ESLint** — maintaining code quality and catching syntax errors
+- **Recharts** — custom statistics and charts for the dashboard
+- **Lottie React** — animated components
+- **React-Select** — custom dropdowns
 
+</details>
+
+## 🚧 Roadmap
+
+- 📊 Custom dashboard ✅
 - 👤 Client management ✅
 - 🧰 Job/installation tracking ✅
 - 🖼️ Reference image management ✅
 - 🤖 AI visual design tool ✅
-- 📢 Ad creation & publishing ⏳
+- 📢 Ad creation & downloading ✅
 
 ---
 

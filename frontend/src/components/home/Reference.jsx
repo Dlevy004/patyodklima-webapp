@@ -75,7 +75,7 @@ function Reference() {
     const { data: references = [], isLoading, error } = useFetch(API_URL);
     const visibleReferences = references?.filter(ref => ref.is_visible);
 
-    const hasAdminData = !isLoading && !error && visibleReferences.length >= 3;
+    const hasAdminData = !isLoading && !error && visibleReferences?.length >= 3;
     const swiperData = hasAdminData
         ? visibleReferences?.map(ref => ({
             id: ref.id,

@@ -1,10 +1,11 @@
 const express = require('express');
-const rateLimit = require('express-rate-limit');
+const { rateLimit, ipKeyGenerator } = require('express-rate-limit');
 const multer = require('multer');
 
 const loginLimiter = rateLimit({
     windowMs: 15 * 60 * 1000,
     max: 5,
+    keyGenerator: (req) => `${ipKeyGenerator(req.ip)}:${req.body?.email || ''}`,
     message: { message: 'Túl sok bejelentkezési kísérlet. Próbáld újra később.' },
     standardHeaders: true,
     legacyHeaders: false,
