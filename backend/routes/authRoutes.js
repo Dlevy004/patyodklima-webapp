@@ -5,6 +5,7 @@ const multer = require('multer');
 const loginLimiter = rateLimit({
     windowMs: 15 * 60 * 1000,
     max: 5,
+    keyGenerator: (req) => `${req.ip}:${req.body?.email || ''}`,
     message: { message: 'Túl sok bejelentkezési kísérlet. Próbáld újra később.' },
     standardHeaders: true,
     legacyHeaders: false,
