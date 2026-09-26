@@ -41,7 +41,16 @@ function ProfilePanel({ onClose, isInstallable, installPWA }) {
                 const data = await response.json();
 
                 setToken(data.token, isRememberMeEnabled());
-                await refreshUser();
+                const refreshedUser = await refreshUser();
+
+                if (!refreshedUser) {
+                    toast.error('A munkamenet lejárt, kérjük jelentkezz be újra.');
+                    userModal.close();
+
+                    if (onClose) onClose();
+
+                    return;
+                }
 
                 userModal.close();
                 toast.success('Adatok sikeresen mentve.');
