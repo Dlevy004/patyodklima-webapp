@@ -71,11 +71,6 @@ describe('ProfilePanel', () => {
         useSaveData.mockReturnValue({ saveData: mockSaveData });
 
         import.meta.env.VITE_API_URL = 'http://localhost:3000';
-
-        Object.defineProperty(window, 'location', {
-            configurable: true,
-            value: { reload: vi.fn() },
-        });
     });
 
     it('should render user details correctly if user data is provided', () => {
@@ -135,7 +130,7 @@ describe('ProfilePanel', () => {
         expect(mockOpenModal).toHaveBeenCalledWith(mockUser);
     });
 
-    it('should call API, close modal, and reload page on successful save', async () => {
+    it('should call API, refresh the user, and close the modal on successful save', async () => {
         useModal.mockReturnValue({
             isOpen: true,
             open: mockOpenModal,
@@ -147,8 +142,6 @@ describe('ProfilePanel', () => {
             ok: true,
             json: async () => ({ token: 'new-jwt-token' })
         });
-
-        localStorage.clear();
 
         render(<ProfilePanel />);
 
@@ -164,14 +157,13 @@ describe('ProfilePanel', () => {
                 })
             );
 
-            expect(localStorage.getItem('token')).toBe('new-jwt-token');
-
+            expect(mockRefreshUser).toHaveBeenCalledTimes(1);
             expect(mockCloseModal).toHaveBeenCalledTimes(1);
-            expect(window.location.reload).toHaveBeenCalledTimes(1);
+            expect(toast.success).toHaveBeenCalledWith('Adatok sikeresen mentve.');
         });
     });
 
-    it('should NOT close modal or reload page if save fails', async () => {
+    it('should NOT close modal if save fails', async () => {
         useModal.mockReturnValue({
             isOpen: true,
             open: mockOpenModal,
@@ -194,7 +186,6 @@ describe('ProfilePanel', () => {
         });
 
         expect(mockCloseModal).not.toHaveBeenCalled();
-        expect(window.location.reload).not.toHaveBeenCalled();
     });
 
     it('should call logout and not crash if onClose is NOT provided when Logout button is clicked', () => {
@@ -332,7 +323,6 @@ describe('ProfilePanel', () => {
         });
 
         expect(mockCloseModal).not.toHaveBeenCalled();
-        expect(window.location.reload).not.toHaveBeenCalled();
 
         consoleSpy.mockRestore();
     });
