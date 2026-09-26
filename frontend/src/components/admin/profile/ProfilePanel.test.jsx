@@ -7,11 +7,13 @@ import ProfilePanel from './ProfilePanel';
 import { useAuth } from '../../../context/AuthContext';
 import useModal from '../../../hooks/useModal';
 import useSaveData from '../../../hooks/useSaveData';
+import { setToken } from '../../../utils/authStorage';
 
 vi.mock('../../../context/AuthContext');
 vi.mock('../../../hooks/useModal');
 vi.mock('../../../hooks/useSaveData');
 vi.mock('react-hot-toast');
+vi.mock('../../../utils/authStorage');
 
 vi.mock('../common/ModalBackdrop', () => ({
     default: ({ children, isOpen }) => (isOpen ? <div data-testid="mock-backdrop">{children}</div> : null),
@@ -40,6 +42,7 @@ describe('ProfilePanel', () => {
     const mockLogout = vi.fn();
     const mockOnClose = vi.fn();
     const mockInstallPWA = vi.fn();
+    const mockRefreshUser = vi.fn();
 
     const mockOpenModal = vi.fn();
     const mockCloseModal = vi.fn();
@@ -54,7 +57,9 @@ describe('ProfilePanel', () => {
     beforeEach(() => {
         vi.clearAllMocks();
 
-        useAuth.mockReturnValue({ logout: mockLogout, user: mockUser });
+        mockRefreshUser.mockResolvedValue(mockUser);
+
+        useAuth.mockReturnValue({ logout: mockLogout, user: mockUser, refreshUser: mockRefreshUser });
 
         useModal.mockReturnValue({
             isOpen: false,
