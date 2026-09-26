@@ -7,11 +7,13 @@ import ProfilePanel from './ProfilePanel';
 import { useAuth } from '../../../context/AuthContext';
 import useModal from '../../../hooks/useModal';
 import useSaveData from '../../../hooks/useSaveData';
+import { setToken } from '../../../utils/authStorage';
 
 vi.mock('../../../context/AuthContext');
 vi.mock('../../../hooks/useModal');
 vi.mock('../../../hooks/useSaveData');
 vi.mock('react-hot-toast');
+vi.mock('../../../utils/authStorage');
 
 vi.mock('../common/ModalBackdrop', () => ({
     default: ({ children, isOpen }) => (isOpen ? <div data-testid="mock-backdrop">{children}</div> : null),
@@ -40,6 +42,7 @@ describe('ProfilePanel', () => {
     const mockLogout = vi.fn();
     const mockOnClose = vi.fn();
     const mockInstallPWA = vi.fn();
+    const mockRefreshUser = vi.fn();
 
     const mockOpenModal = vi.fn();
     const mockCloseModal = vi.fn();
@@ -54,7 +57,9 @@ describe('ProfilePanel', () => {
     beforeEach(() => {
         vi.clearAllMocks();
 
-        useAuth.mockReturnValue({ logout: mockLogout, user: mockUser });
+        mockRefreshUser.mockResolvedValue(mockUser);
+
+        useAuth.mockReturnValue({ logout: mockLogout, user: mockUser, refreshUser: mockRefreshUser });
 
         useModal.mockReturnValue({
             isOpen: false,
@@ -66,11 +71,6 @@ describe('ProfilePanel', () => {
         useSaveData.mockReturnValue({ saveData: mockSaveData });
 
         import.meta.env.VITE_API_URL = 'http://localhost:3000';
-
-        Object.defineProperty(window, 'location', {
-            configurable: true,
-            value: { reload: vi.fn() },
-        });
     });
 
     it('should render user details correctly if user data is provided', () => {
@@ -130,7 +130,7 @@ describe('ProfilePanel', () => {
         expect(mockOpenModal).toHaveBeenCalledWith(mockUser);
     });
 
-    it('should call API, close modal, and reload page on successful save', async () => {
+    it('should call API, refresh the user, and close the modal on successful save', async () => {
         useModal.mockReturnValue({
             isOpen: true,
             open: mockOpenModal,
@@ -142,8 +142,6 @@ describe('ProfilePanel', () => {
             ok: true,
             json: async () => ({ token: 'new-jwt-token' })
         });
-
-        localStorage.clear();
 
         render(<ProfilePanel />);
 
@@ -159,14 +157,13 @@ describe('ProfilePanel', () => {
                 })
             );
 
-            expect(localStorage.getItem('token')).toBe('new-jwt-token');
-
+            expect(mockRefreshUser).toHaveBeenCalledTimes(1);
             expect(mockCloseModal).toHaveBeenCalledTimes(1);
-            expect(window.location.reload).toHaveBeenCalledTimes(1);
+            expect(toast.success).toHaveBeenCalledWith('Adatok sikeresen mentve.');
         });
     });
 
-    it('should NOT close modal or reload page if save fails', async () => {
+    it('should NOT close modal if save fails', async () => {
         useModal.mockReturnValue({
             isOpen: true,
             open: mockOpenModal,
@@ -189,7 +186,6 @@ describe('ProfilePanel', () => {
         });
 
         expect(mockCloseModal).not.toHaveBeenCalled();
-        expect(window.location.reload).not.toHaveBeenCalled();
     });
 
     it('should call logout and not crash if onClose is NOT provided when Logout button is clicked', () => {
@@ -327,8 +323,66 @@ describe('ProfilePanel', () => {
         });
 
         expect(mockCloseModal).not.toHaveBeenCalled();
-        expect(window.location.reload).not.toHaveBeenCalled();
 
         consoleSpy.mockRestore();
+    });
+
+    it('should log the user out gracefully if refreshUser fails after a successful save', async () => {
+        useModal.mockReturnValue({
+            isOpen: true,
+            open: mockOpenModal,
+            close: mockCloseModal,
+            selectedItem: mockUser,
+        });
+
+        mockRefreshUser.mockResolvedValue(null);
+
+        window.fetch = vi.fn().mockResolvedValue({
+            ok: true,
+            json: async () => ({ token: 'new-jwt-token' })
+        });
+
+        render(<ProfilePanel onClose={mockOnClose} />);
+
+        const saveBtn = screen.getByText('Mock Mentés');
+        fireEvent.click(saveBtn);
+
+        await waitFor(() => {
+            expect(mockRefreshUser).toHaveBeenCalledTimes(1);
+            expect(toast.error).toHaveBeenCalledWith('A munkamenet lejárt, kérjük jelentkezz be újra.');
+        });
+
+        expect(mockCloseModal).toHaveBeenCalledTimes(1);
+        expect(mockOnClose).toHaveBeenCalledTimes(1);
+        expect(toast.success).not.toHaveBeenCalled();
+    });
+
+    it('should not throw and should still close the edit modal if refreshUser fails and onClose is not provided', async () => {
+        useModal.mockReturnValue({
+            isOpen: true,
+            open: mockOpenModal,
+            close: mockCloseModal,
+            selectedItem: mockUser,
+        });
+
+        mockRefreshUser.mockResolvedValue(null);
+
+        window.fetch = vi.fn().mockResolvedValue({
+            ok: true,
+            json: async () => ({ token: 'new-jwt-token' })
+        });
+
+        render(<ProfilePanel />);
+
+        const saveBtn = screen.getByText('Mock Mentés');
+        fireEvent.click(saveBtn);
+
+        await waitFor(() => {
+            expect(mockRefreshUser).toHaveBeenCalledTimes(1);
+            expect(toast.error).toHaveBeenCalledWith('A munkamenet lejárt, kérjük jelentkezz be újra.');
+        });
+
+        expect(mockCloseModal).toHaveBeenCalledTimes(1);
+        expect(toast.success).not.toHaveBeenCalled();
     });
 });
