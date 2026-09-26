@@ -11,10 +11,11 @@ import useModal from '../../../hooks/useModal'
 import useSaveData from '../../../hooks/useSaveData'
 import ModalBackdrop from '../common/ModalBackdrop'
 import ThemeSwitcher from '../../common/ThemeSwitcher';
+import { setToken } from '../../../utils/authStorage';
 
 
 function ProfilePanel({ onClose, isInstallable, installPWA }) {
-    const { logout, user } = useAuth();
+    const { logout, user, refreshUser } = useAuth();
     const { saveData } = useSaveData();
 
     const userModal = useModal();
@@ -39,10 +40,11 @@ function ProfilePanel({ onClose, isInstallable, installPWA }) {
             if (response.ok) {
                 const data = await response.json();
 
-                localStorage.setItem('token', data.token);
+                setToken(data.token);
+                await refreshUser();
 
                 userModal.close();
-                window.location.reload();
+                toast.success('Adatok sikeresen mentve.');
             } else {
                 toast.error('Hiba az adatok mentése során.');
             }
