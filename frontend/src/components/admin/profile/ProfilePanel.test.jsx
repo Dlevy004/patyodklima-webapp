@@ -326,4 +326,63 @@ describe('ProfilePanel', () => {
 
         consoleSpy.mockRestore();
     });
+
+    it('should log the user out gracefully if refreshUser fails after a successful save', async () => {
+        useModal.mockReturnValue({
+            isOpen: true,
+            open: mockOpenModal,
+            close: mockCloseModal,
+            selectedItem: mockUser,
+        });
+
+        mockRefreshUser.mockResolvedValue(null);
+
+        window.fetch = vi.fn().mockResolvedValue({
+            ok: true,
+            json: async () => ({ token: 'new-jwt-token' })
+        });
+
+        render(<ProfilePanel onClose={mockOnClose} />);
+
+        const saveBtn = screen.getByText('Mock Mentés');
+        fireEvent.click(saveBtn);
+
+        await waitFor(() => {
+            expect(mockRefreshUser).toHaveBeenCalledTimes(1);
+            expect(toast.error).toHaveBeenCalledWith('A munkamenet lejárt, kérjük jelentkezz be újra.');
+        });
+
+        expect(mockCloseModal).toHaveBeenCalledTimes(1);
+        expect(mockOnClose).toHaveBeenCalledTimes(1);
+        expect(toast.success).not.toHaveBeenCalled();
+    });
+
+    it('should not throw and should still close the edit modal if refreshUser fails and onClose is not provided', async () => {
+        useModal.mockReturnValue({
+            isOpen: true,
+            open: mockOpenModal,
+            close: mockCloseModal,
+            selectedItem: mockUser,
+        });
+
+        mockRefreshUser.mockResolvedValue(null);
+
+        window.fetch = vi.fn().mockResolvedValue({
+            ok: true,
+            json: async () => ({ token: 'new-jwt-token' })
+        });
+
+        render(<ProfilePanel />);
+
+        const saveBtn = screen.getByText('Mock Mentés');
+        fireEvent.click(saveBtn);
+
+        await waitFor(() => {
+            expect(mockRefreshUser).toHaveBeenCalledTimes(1);
+            expect(toast.error).toHaveBeenCalledWith('A munkamenet lejárt, kérjük jelentkezz be újra.');
+        });
+
+        expect(mockCloseModal).toHaveBeenCalledTimes(1);
+        expect(toast.success).not.toHaveBeenCalled();
+    });
 });
