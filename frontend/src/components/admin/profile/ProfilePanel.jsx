@@ -11,7 +11,7 @@ import useModal from '../../../hooks/useModal'
 import useSaveData from '../../../hooks/useSaveData'
 import ModalBackdrop from '../common/ModalBackdrop'
 import ThemeSwitcher from '../../common/ThemeSwitcher';
-import { setToken } from '../../../utils/authStorage';
+import { setToken, isRememberMeEnabled } from '../../../utils/authStorage';
 
 
 function ProfilePanel({ onClose, isInstallable, installPWA }) {
@@ -40,7 +40,7 @@ function ProfilePanel({ onClose, isInstallable, installPWA }) {
             if (response.ok) {
                 const data = await response.json();
 
-                setToken(data.token);
+                setToken(data.token, isRememberMeEnabled());
                 await refreshUser();
 
                 userModal.close();
