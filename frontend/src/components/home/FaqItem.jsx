@@ -11,12 +11,15 @@ function FAQItem({ question, answer, isOpen, onToggle }) {
     const contentRef = useRef(null);
     const [maxHeight, setMaxHeight] = useState('0px');
 
-    const handleToggle = () => {
-        if (!isOpen && contentRef.current) {
+    useEffect(() => {
+        if (isOpen && contentRef.current) {
             setMaxHeight(`${contentRef.current.scrollHeight}px`);
         } else {
             setMaxHeight('0px');
         }
+    }, [isOpen]);
+
+    const handleToggle = () => {
         onToggle();
     };
 
