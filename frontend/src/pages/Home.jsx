@@ -29,6 +29,7 @@ function Home() {
                 <Logos />
                 <Services />
                 <Reference />
+                <FAQSection />
                 <Contact />
                 <Footer />
                 <ScrollUp />
