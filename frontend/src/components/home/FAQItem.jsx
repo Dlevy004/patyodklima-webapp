@@ -40,6 +40,7 @@ function FAQItem({ question, answer, isOpen, onToggle }) {
                 id={panelId}
                 ref={contentRef}
                 className='faq-answer-wrapper'
+                aria-hidden={!isOpen}
                 style={{ maxHeight }}
             >
                 <p className='faq-answer'>{answer}</p>
