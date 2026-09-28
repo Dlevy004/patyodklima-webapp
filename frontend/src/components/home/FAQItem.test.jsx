@@ -6,8 +6,8 @@ import FAQItem from './FaqItem';
 
 describe('FAQItem Component', () => {
     const mockProps = {
-        question: 'Mennyibe kerül a helyszíni felmérés?',
-        answer: 'A helyszíni felmérés és a személyre szabott árajánlat elkészítése minden esetben díjmentes.',
+        question: 'Mit tartalmaz az ajánlat, és mi számít alapszerelésnek?',
+        answer: 'Alapszerelés esetén az ajánlat tartalmazza a készülék árát, a teljes munkadíjat és az anyagköltséget is, 3 méter rézcső hosszig. Ha a telepítés ennél hosszabb csővezetéket igényel, ezt már a felmérés során jelezzük.',
         isOpen: false,
         onToggle: vi.fn(),
     };
@@ -22,19 +22,17 @@ describe('FAQItem Component', () => {
     });
 
     it('renders the question and answer correctly', () => {
-        render(<FAQItem question={mockProps.question} answer={mockProps.answer} isOpen={mockProps.isOpen}
-        onToggle={mockProps.onToggle} />);
+        render(<FAQItem question={mockProps.question} answer={mockProps.answer} isOpen={mockProps.isOpen} onToggle={mockProps.onToggle}/>);
 
-        expect(screen.getByText('Mennyibe kerül a helyszíni felmérés?')).toBeInTheDocument();
-        expect(screen.getByText('A helyszíni felmérés és a személyre szabott árajánlat elkészítése minden esetben díjmentes.')).toBeInTheDocument();
+        expect(screen.getByText('Mit tartalmaz az ajánlat, és mi számít alapszerelésnek?')).toBeInTheDocument();
+        expect(screen.getByText('Alapszerelés esetén az ajánlat tartalmazza a készülék árát, a teljes munkadíjat és az anyagköltséget is, 3 méter rézcső hosszig. Ha a telepítés ennél hosszabb csővezetéket igényel, ezt már a felmérés során jelezzük.')).toBeInTheDocument();
     });
 
     it('applies the correct attributes and styles when closed', () => {
-        render(<FAQItem question={mockProps.question} answer={mockProps.answer} isOpen={mockProps.isOpen}
-        onToggle={mockProps.onToggle} />);
+        render(<FAQItem question={mockProps.question} answer={mockProps.answer} isOpen={mockProps.isOpen} onToggle={mockProps.onToggle}/>);
 
-        const button = screen.getByRole('button', { name: /mennyibe kerül/i });
-        const answerWrapper = screen.getByText('A helyszíni felmérés és a személyre szabott árajánlat elkészítése minden esetben díjmentes.').parentElement;
+        const button = screen.getByRole('button', { name: /mit tartalmaz/i });
+        const answerWrapper = screen.getByText('Alapszerelés esetén az ajánlat tartalmazza a készülék árát, a teljes munkadíjat és az anyagköltséget is, 3 méter rézcső hosszig. Ha a telepítés ennél hosszabb csővezetéket igényel, ezt már a felmérés során jelezzük.').parentElement;
         const mainContainer = answerWrapper.parentElement;
 
         expect(button).toHaveAttribute('aria-expanded', 'false');
@@ -43,40 +41,23 @@ describe('FAQItem Component', () => {
     });
 
     it('applies the correct attributes and styles when open', () => {
-        render(<FAQItem question={mockProps.question} answer={mockProps.answer} isOpen={true}
-        onToggle={mockProps.onToggle} />);
+        render(<FAQItem question={mockProps.question} answer={mockProps.answer} isOpen={true} onToggle={mockProps.onToggle}/>);
 
-        const button = screen.getByRole('button', { name: /mennyibe kerül/i });
-        const answerWrapper = screen.getByText('A helyszíni felmérés és a személyre szabott árajánlat elkészítése minden esetben díjmentes.').parentElement;
+        const button = screen.getByRole('button', { name: /mit tartalmaz/i });
+        const answerWrapper = screen.getByText('Alapszerelés esetén az ajánlat tartalmazza a készülék árát, a teljes munkadíjat és az anyagköltséget is, 3 méter rézcső hosszig. Ha a telepítés ennél hosszabb csővezetéket igényel, ezt már a felmérés során jelezzük.').parentElement;
         const mainContainer = answerWrapper.parentElement;
 
         expect(button).toHaveAttribute('aria-expanded', 'true');
         expect(mainContainer).toHaveClass('is-open');
-    });
-
-    it('calls onToggle and sets maxHeight on click (opening)', () => {
-        render(<FAQItem question={mockProps.question} answer={mockProps.answer} isOpen={mockProps.isOpen}
-        onToggle={mockProps.onToggle} />);
-
-        const button = screen.getByRole('button', { name: /mennyibe kerül/i });
-        const answerWrapper = screen.getByText('A helyszíni felmérés és a személyre szabott árajánlat elkészítése minden esetben díjmentes.').parentElement;
-
-        fireEvent.click(button);
-
-        expect(mockProps.onToggle).toHaveBeenCalledTimes(1);
         expect(answerWrapper).toHaveStyle({ maxHeight: '150px' });
     });
 
-    it('calls onToggle and resets maxHeight to 0px on click (closing)', () => {
-        render(<FAQItem question={mockProps.question} answer={mockProps.answer} isOpen={true}
-        onToggle={mockProps.onToggle} />);
+    it('calls onToggle when clicked', () => {
+        render(<FAQItem question={mockProps.question} answer={mockProps.answer} isOpen={mockProps.isOpen} onToggle={mockProps.onToggle}/>);
 
-        const button = screen.getByRole('button', { name: /mennyibe kerül/i });
-        const answerWrapper = screen.getByText('A helyszíni felmérés és a személyre szabott árajánlat elkészítése minden esetben díjmentes.').parentElement;
-
+        const button = screen.getByRole('button', { name: /mit tartalmaz/i });
         fireEvent.click(button);
 
         expect(mockProps.onToggle).toHaveBeenCalledTimes(1);
-        expect(answerWrapper).toHaveStyle({ maxHeight: '0px' });
     });
 });
