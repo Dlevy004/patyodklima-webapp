@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet-async';
 
 import './FAQSection.css';
 
-import FAQItem from './FaqItem';
+import FAQItem from './FAQItem';
 import supportPhoto from '@/assets/images/faq-support.avif';
 
 const FAQ_ITEMS = [
