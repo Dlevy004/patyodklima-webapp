@@ -6,6 +6,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ---
 
+## [2.6.0] - 2026-09-30
+
+### Added
+- Added a FAQ section to the home page with answers about pricing, scheduling, warranties, and other service details.
+
+### Fixed
+- When the *User data* modal is open on the admin portal, the blurred background now hides both open sidebars: the default navigation bar on the left and the edit sidebar on the right on the Ad creation page.
+- When the user saves the *User data* modal, the page now refreshes instead of reloading.
+- There was a typo in the services section of the website: there is an “&mdash“ text instead of the "—" symbol in the “Maintenance“ card’s text.
+
+---
+
 ## [2.5.1] - 2026-09-23
 
 ### Fixed
