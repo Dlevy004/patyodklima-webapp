@@ -11,5 +11,13 @@ const createStorageMock = () => {
     };
 };
 
+if (!globalThis.ResizeObserver) {
+    globalThis.ResizeObserver = class ResizeObserver {
+        observe() {}
+        unobserve() {}
+        disconnect() {}
+    };
+}
+
 Object.defineProperty(window, 'localStorage', { value: createStorageMock() });
 Object.defineProperty(window, 'sessionStorage', { value: createStorageMock() });
