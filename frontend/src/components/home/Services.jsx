@@ -28,7 +28,7 @@ const serviceCards = [
         imgSrc: maintenanceImg,
         title: "Karbantartás",
         IconComponent: SprayCan,
-        desc: "Szakemberünk gondoskodik klímája rendszeres karbantartásáról és tisztításáról &mdash; így nemcsak hatékonyabban működik, hanem a levegő is tisztább marad.",
+        desc: "Szakemberünk gondoskodik klímája rendszeres karbantartásáról és tisztításáról \u2014 így nemcsak hatékonyabban működik, hanem a levegő is tisztább marad.",
         altText: "Karbantartás"
     }
 ];
