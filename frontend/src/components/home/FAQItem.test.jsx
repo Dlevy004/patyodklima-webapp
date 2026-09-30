@@ -1,7 +1,31 @@
-import { render, screen, fireEvent } from '@testing-library/react';
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { render, screen, fireEvent, act } from '@testing-library/react';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 
 import FAQItem from './FAQItem';
+
+
+class ResizeObserverMock {
+    constructor(callback) {
+        this.callback = callback;
+        ResizeObserverMock.instances.push(this);
+    }
+    observe(target) {
+        this.target = target;
+    }
+    unobserve() {}
+    disconnect() {
+        const idx = ResizeObserverMock.instances.indexOf(this);
+        if (idx !== -1) ResizeObserverMock.instances.splice(idx, 1);
+    }
+}
+ResizeObserverMock.instances = [];
+
+const triggerResize = () => {
+    act(() => {
+        const observer = ResizeObserverMock.instances[ResizeObserverMock.instances.length - 1];
+        observer.callback();
+    });
+};
 
 
 describe('FAQItem Component', () => {
@@ -12,13 +36,23 @@ describe('FAQItem Component', () => {
         onToggle: vi.fn(),
     };
 
+    let originalResizeObserver;
+
     beforeEach(() => {
         vi.clearAllMocks();
+        ResizeObserverMock.instances = [];
+
+        originalResizeObserver = globalThis.ResizeObserver;
+        globalThis.ResizeObserver = ResizeObserverMock;
 
         Object.defineProperty(HTMLElement.prototype, 'scrollHeight', {
             configurable: true,
             value: 150,
         });
+    });
+
+    afterEach(() => {
+        globalThis.ResizeObserver = originalResizeObserver;
     });
 
     it('renders the question and answer correctly', () => {
@@ -59,5 +93,41 @@ describe('FAQItem Component', () => {
         fireEvent.click(button);
 
         expect(mockProps.onToggle).toHaveBeenCalledTimes(1);
+    });
+
+    it('recalculates the panel height when the open answer text is resized', () => {
+        render(<FAQItem question={mockProps.question} answer={mockProps.answer} isOpen={true} onToggle={mockProps.onToggle}/>);
+
+        const answerWrapper = screen.getByText(mockProps.answer).parentElement;
+        expect(answerWrapper).toHaveStyle({ maxHeight: '150px' });
+
+        Object.defineProperty(HTMLElement.prototype, 'scrollHeight', {
+            configurable: true,
+            value: 220,
+        });
+
+        triggerResize();
+
+        expect(answerWrapper).toHaveStyle({ maxHeight: '220px' });
+    });
+
+    it('does not observe the answer when closed', () => {
+        render(<FAQItem question={mockProps.question} answer={mockProps.answer} isOpen={false} onToggle={mockProps.onToggle}/>);
+
+        expect(ResizeObserverMock.instances).toHaveLength(0);
+    });
+
+    it('disconnects the observer when the item closes', () => {
+        const { rerender } = render(
+            <FAQItem question={mockProps.question} answer={mockProps.answer} isOpen={true} onToggle={mockProps.onToggle}/>
+        );
+
+        expect(ResizeObserverMock.instances).toHaveLength(1);
+
+        rerender(
+            <FAQItem question={mockProps.question} answer={mockProps.answer} isOpen={false} onToggle={mockProps.onToggle}/>
+        );
+
+        expect(ResizeObserverMock.instances).toHaveLength(0);
     });
 });

@@ -18,20 +18,13 @@ function FAQItem({ question, answer, isOpen, onToggle }) {
             return undefined;
         }
 
-        if (!contentRef.current) return undefined;
-
         setMaxHeight(`${contentRef.current.scrollHeight}px`);
 
-        const target = answerRef.current;
-        if (!target) return undefined;
-
         const observer = new ResizeObserver(() => {
-            if (contentRef.current) {
-                setMaxHeight(`${contentRef.current.scrollHeight}px`);
-            }
+            setMaxHeight(`${contentRef.current.scrollHeight}px`);
         });
 
-        observer.observe(target);
+        observer.observe(answerRef.current);
 
         return () => observer.disconnect();
     }, [isOpen]);
