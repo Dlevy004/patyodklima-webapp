@@ -9,14 +9,31 @@ import './FAQItem.css';
 function FAQItem({ question, answer, isOpen, onToggle }) {
     const panelId = useId();
     const contentRef = useRef(null);
+    const answerRef = useRef(null);
     const [maxHeight, setMaxHeight] = useState('0px');
 
     useEffect(() => {
-        if (isOpen && contentRef.current) {
-            setMaxHeight(`${contentRef.current.scrollHeight}px`);
-        } else {
+        if (!isOpen) {
             setMaxHeight('0px');
+            return undefined;
         }
+
+        if (!contentRef.current) return undefined;
+
+        setMaxHeight(`${contentRef.current.scrollHeight}px`);
+
+        const target = answerRef.current;
+        if (!target) return undefined;
+
+        const observer = new ResizeObserver(() => {
+            if (contentRef.current) {
+                setMaxHeight(`${contentRef.current.scrollHeight}px`);
+            }
+        });
+
+        observer.observe(target);
+
+        return () => observer.disconnect();
     }, [isOpen]);
 
     const handleToggle = () => {
@@ -43,7 +60,7 @@ function FAQItem({ question, answer, isOpen, onToggle }) {
                 aria-hidden={!isOpen}
                 style={{ maxHeight }}
             >
-                <p className='faq-answer'>{answer}</p>
+                <p ref={answerRef} className='faq-answer'>{answer}</p>
             </div>
         </div>
     );
