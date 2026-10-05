@@ -126,12 +126,6 @@
     padding: clamp(40px, 3vw, 60px);
 }
 
-.swiper-button-next::after,
-.swiper-button-prev::after {
-    font-size: clamp(1.5rem, 3vw, 2.5rem);
-    font-weight: bold;
-}
-
 .swiper-button-next:hover,
 .swiper-button-prev:hover {
     transform: scale(1.1);
