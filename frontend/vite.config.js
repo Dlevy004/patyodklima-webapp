@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import { imagetools } from 'vite-imagetools'
 import { VitePWA } from 'vite-plugin-pwa';
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -11,6 +12,7 @@ const __dirname = path.dirname(__filename)
 export default defineConfig({
   plugins: [
     react(),
+    imagetools(),
     VitePWA({
       registerType: 'autoUpdate',
       injectRegister: false,
