@@ -26,7 +26,7 @@ function Hero() {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 1.5 }}
             >
-                <img className="hero-image" src={heroImg} alt="Klíma szerelés és karbantartás" loading='eager'/>
+                <img className="hero-image" src={heroImg} alt="Klíma szerelés és karbantartás" loading='eager' fetchPriority='high'/>
                 <div className="hero-overlay"></div>
             </motion.div>
             <motion.div
