@@ -21,6 +21,7 @@ const uploadImage = async (file, bucketName = 'References') => {
         .from(bucketName)
         .upload(fileName, optimizedBuffer, {
             contentType: 'image/webp',
+            cacheControl: '31536000'
         });
 
     if (error) {
