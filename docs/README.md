@@ -116,6 +116,7 @@ My primary goal with this was to reinforce my fundamental knowledge of web devel
 - **Recharts** — custom statistics and charts for the dashboard
 - **Lottie React** — animated components
 - **React-Select** — custom dropdowns
+- **Vite-Imagetools** — compile-time image optimization
 
 </details>
 
