@@ -19,16 +19,13 @@ const itemVariants = fadeInUp();
 function Hero() {
     return (
         <section id="hero" aria-labelledby='hero-title'>
-            <motion.div
+            <div
                 className="hero-bg-container"
                 aria-hidden='true'
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 1.5 }}
             >
                 <img className="hero-image" src={heroImg} alt="Klíma szerelés és karbantartás" loading='eager' fetchPriority='high'/>
                 <div className="hero-overlay"></div>
-            </motion.div>
+            </div>
             <motion.div
                 className="hero-main"
                 variants={containerVariants}
