@@ -2,7 +2,7 @@ import { motion } from 'motion/react'
 
 import './Hero.css'
 
-import heroImg from '@/assets/images/heroImg.avif'
+import heroImgSrcSet from '@/assets/images/heroImg.avif?w=800;1200;1920&format=avif&as=srcset'
 import Milestone from './Milestone';
 import { fadeInContainer, fadeInUp } from '@/animations/variants';
 
@@ -23,7 +23,7 @@ function Hero() {
                 className="hero-bg-container"
                 aria-hidden='true'
             >
-                <img className="hero-image" src={heroImg} alt="Klíma szerelés és karbantartás" loading='eager' fetchPriority='high'/>
+                <img className="hero-image" srcSet={heroImgSrcSet} sizes='100vw' alt="Klíma szerelés és karbantartás" loading='eager' fetchPriority='high'/>
                 <div className="hero-overlay"></div>
             </div>
             <motion.div
