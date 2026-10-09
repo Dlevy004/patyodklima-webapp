@@ -14,7 +14,7 @@ The main purpose of the website is to present the company's services, provide co
 
 ## References
 
-- [Previous Projects](https://patyodklima.hu/#references): A selection of previous air conditioning installation and related projects.
+- [Previous Projects](https://patyodklima.hu/#reference): A selection of previous air conditioning installation and related projects.
 
 ## Frequently Asked Questions
 
