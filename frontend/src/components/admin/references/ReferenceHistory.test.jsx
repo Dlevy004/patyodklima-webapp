@@ -257,7 +257,7 @@ describe('ReferenceHistory', () => {
 
         await waitFor(() => {
             expect(window.fetch).toHaveBeenCalledWith(
-                'http://localhost:3000/api/references/1/download',
+                'http://localhost:3000/api/references/admin/1/download',
                 { headers: { Authorization: 'Bearer test-token' } }
             );
         });

@@ -8,7 +8,7 @@ import ModalBackdrop from '@/components/admin/common/ModalBackdrop';
 import EditReferenceModal from './EditReferenceModal';
 import useFileDownload from '../../../hooks/useFileDownload';
 
-const API_URL = `${import.meta.env.VITE_API_URL}/api/references`
+const API_URL = `${import.meta.env.VITE_API_URL}/api/references/admin`
 
 
 function ReferenceHistory() {
