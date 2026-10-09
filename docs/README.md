@@ -124,7 +124,9 @@ My primary goal with this was to reinforce my fundamental knowledge of web devel
 
 ---
 
-## ⚙️ Backend environment variables
+## ⚙️ Environment variables
+
+### Backend
 
 | Variable name | Description | Required | Secret | Environment |
 | :--- | :--- | :---: | :---: | :---: |
@@ -144,6 +146,15 @@ My primary goal with this was to reinforce my fundamental knowledge of web devel
 | `TURNSTILE_SECRET_KEY` | Cloudflare Turnstile CAPTCHA server-side secret key | **Yes** | **Yes** | dev, prod |
 | `CLOUDFLARE_ACCOUNT_ID` | Cloudflare account identifier | **Yes** | **Yes** | dev, prod |
 | `CLOUDFLARE_API_TOKEN` | Cloudflare API token for Visual Design integration | **Yes** | **Yes** | dev, prod |
+
+### Frontend
+
+> **Note**: the frontend environment variables must be prefixed with `VITE_` to be accessible in the Vite build process. These variables will visible in the client-side code, so do not include any sensitive information.
+
+| Variable name | Description | Required | Secret | Environment |
+| :--- | :--- | :---: | :---: | :---: |
+| `VITE_API_URL` | The URL of the backend API which the frontend will communicate with | **Yes** | No | dev, prod |
+| `VITE_TURNSTILE_SITE_KEY` | Cloudflare Turnstile public site key for reCAPTCHA integration | **Yes** | No | dev, prod |
 
 ---
 
