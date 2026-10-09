@@ -30,16 +30,25 @@ const createReference = async (req, res) => {
     }
 }
 
-const getAllReferences = async (req, res) => {
+const getPublicReferences = async (_req, res) => {
+    try {
+        const references = await referenceService.getVisibleReferences();
+        return res.status(200).json(references);
+    } catch (error) {
+        console.error('Error while getting public references:', error.message);
+        return res.status(500).json({ message: 'Hiba történt a referenciaképek lekérése közben.' });
+    }
+};
+
+const getAllReferences = async (_req, res) => {
     try {
         const references = await referenceService.getAllReferences();
-        res.status(200).json(references);
+        return res.status(200).json(references);
+    } catch (error) {
+        console.error('Error while getting all references:', error.message);
+        return res.status(500).json({ message: 'Hiba történt a referenciaképek lekérése közben.' });
     }
-    catch (error) {
-        console.error('Error while getting all reference images:', error.message);
-        res.status(500).json({ message: 'Hiba történt a referenciaképek lekérése közben.' });
-    }
-}
+};
 
 const getReferenceById = async (req, res) => {
     try {
@@ -150,5 +159,6 @@ module.exports = {
     getReferenceById,
     updateReference,
     deleteReference,
-    downloadReference
+    downloadReference,
+    getPublicReferences
 };
