@@ -1,13 +1,14 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { lazy, Suspense, useLayoutEffect } from 'react'
+import { LazyMotion, domAnimation } from 'motion/react'
 
 import Home from './pages/Home'
-import PrivacyPolicy from './pages/PrivacyPolicy'
+const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'))
 import { Toaster } from 'react-hot-toast'
 
 import { AuthProvider } from './context/AuthContext'
 import { getStoredDarkMode } from './utils/theme';
-import ProtectedRoute from './components/admin/auth/ProtectedRoute'
+const ProtectedRoute = lazy(() => import('./components/admin/auth/ProtectedRoute'))
 
 const Login = lazy(() => import('./pages/admin/Login'))
 const AdminLayout = lazy(() => import('./pages/admin/AdminLayout'))
@@ -26,16 +27,16 @@ function App() {
   }, []);
 
   return (
-    <AuthProvider>
+    <LazyMotion features={domAnimation} strict>
       <BrowserRouter>
         <Suspense fallback={null}>
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path='/privacypolicy' element={<PrivacyPolicy />} />
 
-            <Route path='/admin/login' element={<Login />} />
+            <Route path='/admin/login' element={<AuthProvider> <Login /> </AuthProvider>} />
 
-            <Route path='/admin' element={<ProtectedRoute />}>
+            <Route path='/admin' element={<AuthProvider> <ProtectedRoute /> </AuthProvider>}>
               <Route element={<AdminLayout/>}>
                 <Route index element={<Dashboard />} />
                 <Route path='clients' element={<Clients />} />
@@ -52,7 +53,7 @@ function App() {
 
         <Toaster position='bottom-right'/>
       </BrowserRouter>
-    </AuthProvider>
+    </LazyMotion>
   )
 }
 

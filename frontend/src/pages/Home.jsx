@@ -5,11 +5,11 @@ import Hero from '../components/home/Hero'
 import Logos from '../components/home/Logos'
 import Services from '../components/home/Services'
 const Reference = lazy(() => import('../components/home/Reference'));
-import Contact from '../components/home/Contact'
+const Contact = lazy(() => import('../components/home/Contact'));
 const FAQSection = lazy(() => import('../components/home/FAQSection'));
-import Footer from '../components/common/Footer'
-import ScrollUp from '../components/common/ScrollUp'
-import CookiePanel from '../components/common/CookiePanel'
+const CookiePanel = lazy(() => import('../components/common/CookiePanel'));
+const Footer = lazy(() => import('../components/common/Footer'));
+const ScrollUp = lazy(() => import('../components/common/ScrollUp'));
 import Seo from '../components/common/Seo'
 import BusinessSchema from '../components/common/BusinessSchema'
 
@@ -27,20 +27,16 @@ function Home() {
             <Navbar />
             <main>
                 <Hero />
-                <Logos />
-                <Services />
-
                 <Suspense fallback={null}>
+                    <Logos />
+                    <Services />
                     <Reference />
-                </Suspense>
-                <Suspense fallback={null}>
                     <FAQSection />
+                    <Contact />
+                    <Footer />
+                    <ScrollUp />
+                    <CookiePanel />
                 </Suspense>
-
-                <Contact />
-                <Footer />
-                <ScrollUp />
-                <CookiePanel />
             </main>
         </>
     )
