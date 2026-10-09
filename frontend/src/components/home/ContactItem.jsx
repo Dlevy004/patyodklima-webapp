@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types'
-import { motion } from 'motion/react'
+import { m } from 'motion/react'
 
 
 function ContactItem ({ IconComponent, contactText, contactHref, variants }) {
     return (
-        <motion.li className="contact" variants={variants}>
+        <m.li className="contact" variants={variants}>
             <IconComponent className="contact-icon"  aria-hidden='true'/>
             <a href={contactHref} target="_blank" rel="noopener noreferrer">{contactText}</a>
-        </motion.li>
+        </m.li>
     )
 }
 

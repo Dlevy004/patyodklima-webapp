@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { motion, useScroll, useTransform } from 'motion/react'
+import { m, useScroll, useTransform } from 'motion/react'
 
 import './Navbar.css'
 
@@ -33,7 +33,7 @@ function Navbar() {
     return (
         <header>
             <div className="nav-container">
-                <motion.nav
+                <m.nav
                     id="navbar"
                     aria-label='Fő navigáció'
                     style={{
@@ -48,13 +48,14 @@ function Navbar() {
                         <li><button className="nav-link" onClick={() => scrollToSection("hero")}>Rólunk</button></li>
                         <li><button className="nav-link" onClick={() => scrollToSection("services")}>Szolgáltatásaink</button></li>
                         <li><button className="nav-link" onClick={() => scrollToSection("reference")}>Referencia</button></li>
+                        <li><button className="nav-link" onClick={() => scrollToSection("faq")}>GYIK</button></li>
                     </ul>
                     <div className="navbar-right">
                         <button className="btn-contact" onClick={() => scrollToSection("contact")}>Kapcsolat</button>
                         <ThemeSwitcher />
                     </div>
                     <HamburgerMenu onClick={() => setIsMobileMenuOpen(prev => !prev)}/>
-                </motion.nav>
+                </m.nav>
             </div>
 
             <MobileMenu
@@ -65,6 +66,7 @@ function Navbar() {
                     <li><button className="mobile-nav-link" onClick={() => scrollToSection("hero")}>Rólunk</button></li>
                     <li><button className="mobile-nav-link" onClick={() => scrollToSection("services")}>Szolgáltatásaink</button></li>
                     <li><button className="mobile-nav-link" onClick={() => scrollToSection("reference")}>Referencia</button></li>
+                    <li><button className="mobile-nav-link" onClick={() => scrollToSection("faq")}>GYIK</button></li>
                 </ul>
                 <div className="mobile-navbar-right">
                     <button className="mobile-btn-contact" onClick={() => scrollToSection("contact")}>Kapcsolat</button>

@@ -1,0 +1,29 @@
+# Pátyod Klíma
+
+> Pátyod Klíma provides air conditioning services in Pátyod and within a 30 km radius, including free on-site assessments, air conditioning installation, maintenance, and cleaning.
+
+The main purpose of the website is to present the company's services, provide contact options, and showcase previous projects.
+
+## Homepage
+
+- [Pátyod Klíma](https://patyodklima.hu/): Company introduction, services, previous projects, frequently asked questions, and contact information.
+
+## Services
+
+- [Services](https://patyodklima.hu/#services): Free on-site assessments, professional air conditioning installation, maintenance, and cleaning.
+
+## References
+
+- [Previous Projects](https://patyodklima.hu/#reference): A selection of previous air conditioning installation and related projects.
+
+## Frequently Asked Questions
+
+- [FAQ](https://patyodklima.hu/#faq): Important information about air conditioner warranties, installation, maintenance, and usage.
+
+## Contact
+
+- [Contact](https://patyodklima.hu/#contact): Phone, email, and Facebook contact options.
+
+## Privacy
+
+- [Privacy Policy](https://patyodklima.hu/privacypolicy): Information about data processing related to the use of the website and contacting the company.

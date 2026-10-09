@@ -58,7 +58,10 @@ describe('Supabase Service', () => {
             expect(supabase.storage.upload).toHaveBeenCalledWith(
                 expectedFileName,
                 Buffer.from('optimized fake image data'),
-                { contentType: 'image/webp' }
+                {
+                    contentType: 'image/webp',
+                    cacheControl: '31536000'
+                }
             );
         });
 

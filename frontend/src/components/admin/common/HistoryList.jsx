@@ -13,7 +13,7 @@ import useHistoryData from '@/hooks/useHistoryData';
 
 
 function HistoryList({
-    title, apiUrl,
+    title, apiUrl, itemApiUrl = apiUrl,
     emptyMessage, deleteLabels,
     getItemKey = (item) => item.id,
     onRefetchReady,
@@ -28,7 +28,7 @@ function HistoryList({
     }, [onRefetchReady, refetch]);
 
     const handleDeleteClick = async () => {
-        const success = await deleteData(`${apiUrl}/${deleteModal.selectedItem.id}`);
+        const success = await deleteData(`${itemApiUrl}/${deleteModal.selectedItem.id}`);
 
         if (success) {
             deleteModal.close();
@@ -78,7 +78,8 @@ HistoryList.propTypes = {
     }).isRequired,
     getItemKey: PropTypes.func,
     onRefetchReady: PropTypes.func,
-    children: PropTypes.func.isRequired
+    children: PropTypes.func.isRequired,
+    itemApiUrl: PropTypes.string
 };
 
 export default HistoryList;

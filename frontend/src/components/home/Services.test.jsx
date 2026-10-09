@@ -5,7 +5,7 @@ import Services from './Services'
 
 
 vi.mock('motion/react', () => ({
-    motion: {
+    m: {
         ul: ({ children, ...props }) => (
             <ul {...props}>{children}</ul>
         )
