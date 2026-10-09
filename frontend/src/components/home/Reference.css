@@ -116,14 +116,26 @@
 
 .swiper-button-next,
 .swiper-button-prev {
-    color: #e77525;
+    --swiper-navigation-color: #e77525;
+    --swiper-navigation-size: clamp(1rem, 1.5vw, 1.3rem);
+
     background-color: #f2f2f2;
     width: clamp(2.5rem, 4vw, 3.5rem);
     height: clamp(2.5rem, 4vw, 3.5rem);
     border-radius: 50%;
-    transition: all 0.3s ease;
-    scale: 0.5;
-    padding: clamp(40px, 3vw, 60px);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.swiper-button-next svg,
+.swiper-button-prev svg {
+    width: clamp(1rem, 1.5vw, 1.3rem);
+    height: clamp(1rem, 1.5vw, 1.3rem);
+    fill: #e77525;
 }
 
 .swiper-button-next:hover,
