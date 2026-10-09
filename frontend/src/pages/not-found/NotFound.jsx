@@ -13,7 +13,7 @@ export default function NotFound() {
         <>
             <Seo
                 title="Pátyod Klíma | Az oldal nem található"
-                description="A keresett oldal nem található a Pátyod Klíma weboldalán."
+                description="404: A keresett oldal nem található a Pátyod Klíma weboldalán."
                 noindex={true}
             />
 
@@ -24,7 +24,7 @@ export default function NotFound() {
                 </div>
 
                 <div className='notfound-text'>
-                    <h2>A keresett oldal nem található.</h2>
+                    <h2>404: A keresett oldal nem található.</h2>
                     <p>Sajnos az oldal, amit keres, törölve lett, megváltozott a címe, vagy ideiglenesen nem elérhető.</p>
                 </div>
 
