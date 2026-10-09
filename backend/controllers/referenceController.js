@@ -3,6 +3,14 @@ const sharp = require('sharp');
 const referenceService = require('../services/referenceService');
 const supabaseService = require('../services/supabaseService');
 
+const isAllowedImage = (metadata) => {
+    if (!metadata.width || !metadata.height) return false;
+
+    if (['jpeg', 'png', 'webp'].includes(metadata.format)) return true;
+
+    return metadata.format === 'heif' && metadata.compression === 'av1';
+};
+
 
 const createReference = async (req, res) => {
     try {
@@ -21,9 +29,7 @@ const createReference = async (req, res) => {
             return res.status(415).json({ message: 'A feltöltött fájl nem érvényes képfájl.' });
         }
 
-        const allowedFormats = new Set(['jpeg', 'png', 'webp', 'avif']);
-
-        if (!allowedFormats.has(metadata.format) || !metadata.width || !metadata.height) {
+        if (!isAllowedImage(metadata)) {
             return res.status(415).json({ message: 'Nem támogatott képformátum.' });
         }
 
