@@ -13,6 +13,20 @@ const createReference = async (req, res) => {
             return res.status(400).json({ message: 'A kéréshez nincs fájl csatolva.' });
         }
 
+        let metadata;
+
+        try {
+            metadata = await sharp(file.buffer).metadata();
+        } catch {
+            return res.status(415).json({ message: 'A feltöltött fájl nem érvényes képfájl.' });
+        }
+
+        const allowedFormats = new Set(['jpeg', 'png', 'webp', 'avif']);
+
+        if (!allowedFormats.has(metadata.format) || !metadata.width || !metadata.height) {
+            return res.status(415).json({ message: 'Nem támogatott képformátum.' });
+        }
+
         const imageUrl = await supabaseService.uploadImage(file);
 
         const newReference = {
