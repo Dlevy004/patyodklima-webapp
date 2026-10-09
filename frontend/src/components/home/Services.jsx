@@ -1,5 +1,5 @@
 import { ClipboardList, Wrench, SprayCan } from 'lucide-react'
-import { motion } from "motion/react"
+import { m } from "motion/react"
 
 import './Services.css'
 
@@ -41,7 +41,7 @@ function Services() {
     return (
         <section id="services" aria-labelledby='services-section'>
             <h2 className="sub-title" id='services-section'>Szolgáltatásaink</h2>
-            <motion.ul
+            <m.ul
                 className="cards"
                 variants={containerVariants}
                 initial="hidden"
@@ -61,7 +61,7 @@ function Services() {
                         />
                     ))
                 }
-            </motion.ul>
+            </m.ul>
         </section>
     )
 }

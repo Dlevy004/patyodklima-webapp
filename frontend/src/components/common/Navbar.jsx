@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { motion, useScroll, useTransform } from 'motion/react'
+import { m, useScroll, useTransform } from 'motion/react'
 
 import './Navbar.css'
 
@@ -33,7 +33,7 @@ function Navbar() {
     return (
         <header>
             <div className="nav-container">
-                <motion.nav
+                <m.nav
                     id="navbar"
                     aria-label='Fő navigáció'
                     style={{
@@ -55,7 +55,7 @@ function Navbar() {
                         <ThemeSwitcher />
                     </div>
                     <HamburgerMenu onClick={() => setIsMobileMenuOpen(prev => !prev)}/>
-                </motion.nav>
+                </m.nav>
             </div>
 
             <MobileMenu
