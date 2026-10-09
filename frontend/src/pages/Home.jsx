@@ -27,17 +27,19 @@ function Home() {
             <Navbar />
             <main>
                 <Hero />
-                <Suspense fallback={null}>
-                    <Logos />
-                    <Services />
-                    <Reference />
-                    <FAQSection />
-                    <Contact />
-                    <Footer />
-                    <ScrollUp />
-                    <CookiePanel />
-                </Suspense>
+                <Logos />
+                <Services />
+
+                <Suspense fallback={null}><Reference /></Suspense>
+                <Suspense fallback={null}><FAQSection /></Suspense>
+                <Suspense fallback={null}><Contact /></Suspense>
             </main>
+
+            <Suspense fallback={null}>
+                <Footer />
+                <ScrollUp />
+            </Suspense>
+            <Suspense fallback={null}><CookiePanel /></Suspense>
         </>
     )
 }
