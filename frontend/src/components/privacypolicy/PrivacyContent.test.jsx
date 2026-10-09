@@ -3,16 +3,18 @@ import { render, screen } from '@testing-library/react';
 
 import PrivacyContent from './PrivacyContent';
 
-vi.mock('motion/react', () => ({
-    motion: {
-        div: ({ children, variants, initial, whileInView, viewport, transition, ...domProps }) => (
+vi.mock('motion/react', () => {
+    const motion = {
+        div: ({ children, variants, initial, animate, whileInView, viewport, transition, ...domProps }) => (
             <div {...domProps}>{children}</div>
         ),
-        a: ({ children, variants, initial, whileInView, viewport, transition, ...domProps }) => (
+        a: ({ children, variants, initial, animate, whileInView, viewport, transition, ...domProps }) => (
             <a {...domProps}>{children}</a>
         ),
-    },
-}));
+    };
+
+    return { motion, m: motion };
+});
 
 vi.mock('@/components/common/Wave', () => ({
     default: () => <div data-testid="wave" />,

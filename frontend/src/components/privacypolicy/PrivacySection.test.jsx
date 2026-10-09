@@ -4,15 +4,17 @@ import { render, screen } from '@testing-library/react';
 import PrivacySection from './PrivacySection';
 
 
-vi.mock('motion/react', () => ({
-    motion: {
+vi.mock('motion/react', () => {
+    const motion = {
         section: ({ children, variants, ...domProps }) => (
             <section data-variants={variants ? JSON.stringify(variants) : undefined} {...domProps}>
                 {children}
             </section>
         ),
-    },
-}));
+    };
+
+    return { motion, m: motion };
+});
 
 describe('PrivacySection', () => {
     it('renders the number and title inside the heading, and the description', () => {
@@ -54,7 +56,6 @@ describe('PrivacySection', () => {
         expect(listItems[0]).toHaveTextContent('Első pont');
         expect(listItems[1]).toHaveTextContent('Második pont');
 
-        // Minden listaelemben ott az ikon, mint dekoratív (aria-hidden) elem
         listItems.forEach((li) => {
             const icon = li.querySelector('svg[aria-hidden="true"]');
             expect(icon).toBeInTheDocument();
@@ -75,7 +76,6 @@ describe('PrivacySection', () => {
 
         const link = screen.getByRole('link', { name: 'klima.patyod@gmail.com' });
         expect(link).toHaveAttribute('href', 'mailto:klima.patyod@gmail.com');
-        // a linknek is meg kell kapnia az ikont, mert a <li> wrapper mindenkire ráteszi
         expect(link.closest('li').querySelector('svg[aria-hidden="true"]')).toBeInTheDocument();
     });
 
