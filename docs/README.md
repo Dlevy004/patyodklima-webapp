@@ -85,7 +85,9 @@ My primary goal with this was to reinforce my fundamental knowledge of web devel
 - **UptimeRobot** for monitoring the availability, performance, and status of the website
 - **Cloudflare AI** for the image inpainting to generate realistic indoor and outdoor HVAC unit placement on photos
 
-### Package Manager & Dependencies
+---
+
+### 📂 Package Manager & Dependencies
 
 **npm** package manager
 
@@ -120,7 +122,28 @@ My primary goal with this was to reinforce my fundamental knowledge of web devel
 
 </details>
 
+---
 
+## ⚙️ Backend environment variables
+
+| Variable name | Description | Required | Secret | Environment |
+| :--- | :--- | :---: | :---: | :---: |
+| `PORT` | The port on which the backend server will listen for incoming requests (default: `3000`) | **No** | No | dev, prod |
+| `FRONTEND_URL` | Allowed CORS origin for the frontend application | **Yes** | No | prod |
+| `DATABASE_URL` | PostgreSQL database connection | **Yes** | **Yes** | dev, prod |
+| `DIRECT_URL` | Direct database connection (for Prisma migrations) | **Yes** | **Yes** | dev, prod |
+| `SUPABASE_URL` | Supabase project endpoint for image uploads | **Yes** | No | dev, prod |
+| `SUPABASE_KEY` | Supabase API key | **Yes** | **Yes** | dev, prod |
+| `JWT_SECRET` | Secret key for signing and verifying JWT tokens | **Yes** | **Yes** | dev, prod |
+| `JWT_EXPIRES_IN` | Basic login token expiration time (e.g., `15m`) | **Yes** | No | dev, prod |
+| `JWT_REMEMBER_EXPIRES_IN` | "Remember Me" login token expiration time (e.g., `3d`) | **Yes** | No | dev, prod |
+| `ADMIN_EMAIL` | The primary administrator account email address | **Yes** | **Yes** | dev, prod |
+| `ADMIN_PASSWORD` | The primary administrator account password (changed after first login) | **Yes** | **Yes** | dev, prod |
+| `DEV_EMAIL` | The developer test account email address | No | **Yes** | dev, prod |
+| `DEV_PASSWORD` | The developer test account password | No | **Yes** | dev, prod |
+| `TURNSTILE_SECRET_KEY` | Cloudflare Turnstile CAPTCHA server-side secret key | **Yes** | **Yes** | dev, prod |
+| `CLOUDFLARE_ACCOUNT_ID` | Cloudflare account identifier | **Yes** | **Yes** | dev, prod |
+| `CLOUDFLARE_API_TOKEN` | Cloudflare API token for Visual Design integration | **Yes** | **Yes** | dev, prod |
 
 ---
 
