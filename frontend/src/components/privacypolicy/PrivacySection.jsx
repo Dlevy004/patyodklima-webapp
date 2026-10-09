@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types'
-import { motion } from 'motion/react'
+import { m } from 'motion/react'
 import { CircleCheck } from 'lucide-react'
 
 
 function PrivacySection({number, title, desc, items = [], variants }) {
     return (
-        <motion.section className='information' variants={variants}>
+        <m.section className='information' variants={variants}>
             <h2 className='subtitle'>
                 <span>{number} </span>
                 {title}{' '}
@@ -20,7 +20,7 @@ function PrivacySection({number, title, desc, items = [], variants }) {
                 ))}
             </ul>
             <hr />
-        </motion.section>
+        </m.section>
     )
 }
 

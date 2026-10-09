@@ -3,6 +3,7 @@ import { createRoot, hydrateRoot } from 'react-dom/client'
 import { HelmetProvider } from 'react-helmet-async'
 
 import './css/global.css'
+import '@fontsource/josefin-sans'
 
 import App from './App.jsx'
 import { TitleProvider } from './context/TitleContext.jsx'

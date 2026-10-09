@@ -1,5 +1,5 @@
 import { ThumbsUp, PhoneCall, Mail } from 'lucide-react'
-import { motion } from 'motion/react'
+import { m } from 'motion/react'
 
 import './Contact.css'
 
@@ -35,7 +35,7 @@ function Contact() {
             <div className="content">
 
                 <h2 id='contact-heading' className="sub-title">Elérhetőségeink</h2>
-                <motion.ul
+                <m.ul
                     className="contacts"
                     variants={containerVariants}
                     initial='hidden'
@@ -53,7 +53,7 @@ function Contact() {
                             />
                         ))
                     }
-                </motion.ul>
+                </m.ul>
                 <Wave />
             </div>
         </section>

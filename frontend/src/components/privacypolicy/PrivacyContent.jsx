@@ -1,4 +1,4 @@
-import { motion } from 'motion/react'
+import { m } from 'motion/react'
 
 import './PrivacyContent.css'
 
@@ -71,7 +71,7 @@ const privacySections = [
 function PrivacyContent() {
    return(
         <section id='content'>
-            <img src={PrivacyImg} alt="Kültéri egység karbantartása" loading='eager'/>
+            <img src={PrivacyImg} alt="Kültéri egység karbantartása" loading='eager' fetchPriority='high'/>
             <div className='background' aria-hidden='true'/>
 
             <article className='text'>
@@ -81,7 +81,7 @@ function PrivacyContent() {
                     milyen adatokat gyűjtünk, miért és hogyan kezeljük azokat.
                 </p>
                 <hr />
-                <motion.div
+                <m.div
                     className='informations'
                     variants={containerVariants}
                     initial="hidden"
@@ -99,8 +99,8 @@ function PrivacyContent() {
                             />
                         ))
                     }
-                </motion.div>
-                <motion.a
+                </m.div>
+                <m.a
                     target='_blank'
                     rel='noopener noreferrer'
                     href='/patyodklima-adatkezelesi-tajekoztato.pdf'
@@ -113,7 +113,7 @@ function PrivacyContent() {
                     viewport={{ once: true }}
                 >
                     Teljes adatkezelési tájékoztató letöltése (PDF)
-                </motion.a>
+                </m.a>
             </article>
 
             <Wave />

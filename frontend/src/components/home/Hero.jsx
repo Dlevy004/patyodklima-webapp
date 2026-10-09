@@ -1,8 +1,7 @@
-import { motion } from 'motion/react'
+import { m } from 'motion/react'
 
 import './Hero.css'
 
-import heroImg from '@/assets/images/heroImg.avif'
 import Milestone from './Milestone';
 import { fadeInContainer, fadeInUp } from '@/animations/variants';
 
@@ -12,42 +11,39 @@ const milestones = [
     { toNumber: 36, title: 'Hónap garancia', decimals: 0, suffix: '' }
 ];
 
-const containerVariants = fadeInContainer();
-const itemVariants = fadeInUp();
+const containerVariants = fadeInContainer(0.12, 0);
+const itemVariants = fadeInUp(0.5);
 
 
 function Hero() {
     return (
         <section id="hero" aria-labelledby='hero-title'>
-            <motion.div
+            <div
                 className="hero-bg-container"
                 aria-hidden='true'
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 1.5 }}
             >
-                <img className="hero-image" src={heroImg} alt="Klíma szerelés és karbantartás" loading='eager'/>
+                <img className="hero-image" src="/images/heroImg.avif" alt="Klíma szerelés és karbantartás" fetchPriority='high' decoding="async"/>
                 <div className="hero-overlay"></div>
-            </motion.div>
-            <motion.div
+            </div>
+            <m.div
                 className="hero-main"
                 variants={containerVariants}
                 initial="hidden"
                 animate="visible"
             >
                 <div className='hero-up'>
-                    <motion.h1 id='hero-title' className="hero-title" variants={itemVariants}>Téli melegség, nyári frissesség!</motion.h1>
+                    <m.h1 id='hero-title' className="hero-title" variants={itemVariants}>Téli melegség, nyári frissesség!</m.h1>
                     <div className="hero-text">
-                        <motion.p className="hero-description" variants={itemVariants}>
+                        <m.p className="hero-description" variants={itemVariants}>
                             Teljeskörű klímaszolgáltatás Pátyodon és 30 km-es körzetében.{' '}
                             <span>Telepítés</span>, <span>karbantartás</span>, <span>tisztítás</span> &mdash;
-                            rövid határidővel, megbízhatóan, garanciával. <br/> Többféle típusú készüléket kínálunk különböző 
+                            rövid határidővel, megbízhatóan, garanciával. <br/> Többféle típusú készüléket kínálunk különböző
                             igényekhez és árkategóriákhoz.
-                        </motion.p>
-                        <motion.a className="hero-btn" href="#contact" variants={itemVariants}>Foglalj időpontot most!</motion.a>
+                        </m.p>
+                        <m.a className="hero-btn" href="#contact" variants={itemVariants}>Foglalj időpontot most!</m.a>
                     </div>
                 </div>
-                <motion.div className='hero-achievements' variants={itemVariants}>
+                <m.div className='hero-achievements' variants={itemVariants}>
                     {
                         milestones.map((item) => (
                             <Milestone
@@ -59,8 +55,8 @@ function Hero() {
                             />
                         ))
                     }
-                </motion.div>
-            </motion.div>
+                </m.div>
+            </m.div>
         </section>
     )
 }
