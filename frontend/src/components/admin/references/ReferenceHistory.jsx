@@ -8,7 +8,8 @@ import ModalBackdrop from '@/components/admin/common/ModalBackdrop';
 import EditReferenceModal from './EditReferenceModal';
 import useFileDownload from '../../../hooks/useFileDownload';
 
-const API_URL = `${import.meta.env.VITE_API_URL}/api/references/admin`
+const BASE_URL = `${import.meta.env.VITE_API_URL}/api/references`;
+const LIST_URL = `${BASE_URL}/admin`;
 
 
 function ReferenceHistory() {
@@ -18,7 +19,7 @@ function ReferenceHistory() {
     const refetchRef = useRef(() => {});
 
     const handleToggleVisibility = async (reference, refetch) => {
-        const success = await saveData(`${API_URL}/${reference.id}`, 'PUT', {
+        const success = await saveData(`${BASE_URL}/${reference.id}`, 'PUT', {
             image_url: reference.image_url,
             description: reference.description,
             is_visible: !reference.is_visible
@@ -27,7 +28,7 @@ function ReferenceHistory() {
     };
 
     const handleSaveClick = async (reference) => {
-        const success = await saveData(`${API_URL}/${editModal.selectedItem.id}`, 'PUT', reference);
+        const success = await saveData(`${BASE_URL}/${editModal.selectedItem.id}`, 'PUT', reference);
         if (success) {
             editModal.close();
             refetchRef.current();
@@ -35,13 +36,14 @@ function ReferenceHistory() {
     };
 
     const handleDownload = (referenceId, title) =>
-        downloadFile(`${API_URL}/${referenceId}/download`, `${title}.png`);
+        downloadFile(`${BASE_URL}/${referenceId}/download`, `${title}.png`);
 
     return (
         <>
             <HistoryList
                 title="Jelenlegi referenciák"
-                apiUrl={API_URL}
+                apiUrl={LIST_URL}
+                itemApiUrl={BASE_URL}
                 emptyMessage="Nincsenek feltöltött referenciák."
                 deleteLabels={{ titleData: 'Referenciakép', descriptionData: 'referenciát' }}
                 onRefetchReady={(fn) => { refetchRef.current = fn; }}
