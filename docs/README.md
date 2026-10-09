@@ -120,14 +120,7 @@ My primary goal with this was to reinforce my fundamental knowledge of web devel
 
 </details>
 
-## 🚧 Roadmap
 
-- 📊 Custom dashboard ✅
-- 👤 Client management ✅
-- 🧰 Job/installation tracking ✅
-- 🖼️ Reference image management ✅
-- 🤖 AI visual design tool ✅
-- 📢 Marketing Ad creation & downloading ✅
 
 ---
 
