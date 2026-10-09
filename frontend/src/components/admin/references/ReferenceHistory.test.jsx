@@ -102,7 +102,7 @@ describe('ReferenceHistory', () => {
 
         await waitFor(() => {
             expect(mockSaveData).toHaveBeenCalledWith(
-                'http://localhost:3000/api/references/1',
+                'http://localhost:3000/api/references/admin/1',
                 'PUT',
                 {
                     image_url: mockReference.image_url,
@@ -150,7 +150,7 @@ describe('ReferenceHistory', () => {
         fireEvent.click(confirmDeleteBtn);
 
         await waitFor(() => {
-            expect(mockDeleteData).toHaveBeenCalledWith('http://localhost:3000/api/references/1');
+            expect(mockDeleteData).toHaveBeenCalledWith('http://localhost:3000/api/references/admin/1');
             expect(mockRefetch).toHaveBeenCalledTimes(1);
         });
     });
@@ -195,7 +195,7 @@ describe('ReferenceHistory', () => {
         fireEvent.click(saveBtn);
 
         await waitFor(() => {
-            expect(mockSaveData).toHaveBeenCalledWith('http://localhost:3000/api/references/1', 'PUT', mockReference);
+            expect(mockSaveData).toHaveBeenCalledWith('http://localhost:3000/api/references/admin/1', 'PUT', mockReference);
         });
     });
 
