@@ -3,6 +3,14 @@ const sharp = require('sharp');
 const referenceService = require('../services/referenceService');
 const supabaseService = require('../services/supabaseService');
 
+const isAllowedImage = (metadata) => {
+    if (!metadata.width || !metadata.height) return false;
+
+    if (['jpeg', 'png', 'webp'].includes(metadata.format)) return true;
+
+    return metadata.format === 'heif' && metadata.compression === 'av1';
+};
+
 
 const createReference = async (req, res) => {
     try {
@@ -11,6 +19,18 @@ const createReference = async (req, res) => {
 
         if (!file) {
             return res.status(400).json({ message: 'A kéréshez nincs fájl csatolva.' });
+        }
+
+        let metadata;
+
+        try {
+            metadata = await sharp(file.buffer).metadata();
+        } catch {
+            return res.status(415).json({ message: 'A feltöltött fájl nem érvényes képfájl.' });
+        }
+
+        if (!isAllowedImage(metadata)) {
+            return res.status(415).json({ message: 'Nem támogatott képformátum.' });
         }
 
         const imageUrl = await supabaseService.uploadImage(file);
@@ -30,16 +50,25 @@ const createReference = async (req, res) => {
     }
 }
 
-const getAllReferences = async (req, res) => {
+const getPublicReferences = async (_req, res) => {
+    try {
+        const references = await referenceService.getVisibleReferences();
+        return res.status(200).json(references);
+    } catch (error) {
+        console.error('Error while getting public references:', error.message);
+        return res.status(500).json({ message: 'Hiba történt a referenciaképek lekérése közben.' });
+    }
+};
+
+const getAllReferences = async (_req, res) => {
     try {
         const references = await referenceService.getAllReferences();
-        res.status(200).json(references);
+        return res.status(200).json(references);
+    } catch (error) {
+        console.error('Error while getting all references:', error.message);
+        return res.status(500).json({ message: 'Hiba történt a referenciaképek lekérése közben.' });
     }
-    catch (error) {
-        console.error('Error while getting all reference images:', error.message);
-        res.status(500).json({ message: 'Hiba történt a referenciaképek lekérése közben.' });
-    }
-}
+};
 
 const getReferenceById = async (req, res) => {
     try {
@@ -150,5 +179,6 @@ module.exports = {
     getReferenceById,
     updateReference,
     deleteReference,
-    downloadReference
+    downloadReference,
+    getPublicReferences
 };

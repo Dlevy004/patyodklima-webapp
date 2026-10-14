@@ -32,13 +32,13 @@ describe('NotFound', () => {
         expect(mockUsePageTitle).toHaveBeenCalledWith('Az oldal nem található');
 
         expect(screen.getByTestId('seo')).toHaveAttribute('title', 'Pátyod Klíma | Az oldal nem található');
-        expect(screen.getByTestId('seo')).toHaveAttribute('description', 'A keresett oldal nem található a Pátyod Klíma weboldalán.');
+        expect(screen.getByTestId('seo')).toHaveAttribute('description', '404: A keresett oldal nem található a Pátyod Klíma weboldalán.');
         expect(screen.getByTestId('seo')).toHaveAttribute('data-noindex', 'true');
 
         expect(screen.getByAltText('404 logó')).toHaveAttribute('src', '/images/404.png');
         expect(screen.getByAltText('404 ember logó')).toHaveAttribute('src', '/images/404worker.png');
 
-        expect(screen.getByText('A keresett oldal nem található.')).toBeInTheDocument();
+        expect(screen.getByText('404: A keresett oldal nem található.')).toBeInTheDocument();
         expect(screen.getByText('Sajnos az oldal, amit keres, törölve lett, megváltozott a címe, vagy ideiglenesen nem elérhető.')).toBeInTheDocument();
 
         const link = screen.getByRole('link', { name: 'Vissza a főoldalra' });

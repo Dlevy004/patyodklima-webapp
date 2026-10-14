@@ -5,7 +5,7 @@ const sharp = require('sharp');
 const uploadImage = async (file, bucketName = 'References') => {
     const optimizedBuffer = await sharp(file.buffer)
         .rotate()
-        .resize({ width: 1920, withoutEnlargement: true })
+        .resize({ width: 800, withoutEnlargement: true })
         .webp({ quality: 80 })
         .toBuffer();
 
@@ -21,6 +21,7 @@ const uploadImage = async (file, bucketName = 'References') => {
         .from(bucketName)
         .upload(fileName, optimizedBuffer, {
             contentType: 'image/webp',
+            cacheControl: '31536000'
         });
 
     if (error) {

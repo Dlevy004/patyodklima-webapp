@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import { Outlet } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
 
@@ -33,6 +33,16 @@ function AdminLayoutInner() {
 }
 
 function AdminLayout() {
+    useEffect(() => {
+        void import('virtual:pwa-register')
+            .then(({ registerSW }) => {
+                registerSW({ immediate: true });
+            })
+            .catch((error) => {
+                console.error('Failed to register PWA service worker:', error);
+            });
+    }, []);
+
     return (
         <TitleProvider>
             <AdminLayoutInner />

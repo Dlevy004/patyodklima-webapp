@@ -134,3 +134,48 @@ describe('deleteReference', () => {
         expect(prisma.reference_image.delete).toHaveBeenCalledWith({ where: { id: '1' } });
     });
 });
+
+describe('getVisibleReferences', () => {
+    beforeEach(() => {
+        jest.clearAllMocks();
+    });
+
+    it('should return only visible references with the selected fields, newest first', async () => {
+        // Arrange
+        const mockReferences = [
+            {
+                id: '2',
+                image_url: 'kep2.jpg',
+                description: 'Második kép',
+                is_visible: true,
+                created_at: '2026-09-14T12:00:00Z'
+            },
+            {
+                id: '1',
+                image_url: 'kep1.jpg',
+                description: 'Első kép',
+                is_visible: true,
+                created_at: '2026-09-13T12:00:00Z'
+            }
+        ];
+        prisma.reference_image.findMany.mockResolvedValue(mockReferences);
+
+        // Act
+        const result = await referenceService.getVisibleReferences();
+
+        // Assert
+        expect(result).toEqual(mockReferences);
+        expect(prisma.reference_image.findMany).toHaveBeenCalledTimes(1);
+        expect(prisma.reference_image.findMany).toHaveBeenCalledWith({
+            where: { is_visible: true },
+            select: {
+                id: true,
+                image_url: true,
+                description: true,
+                is_visible: true,
+                created_at: true
+            },
+            orderBy: { created_at: 'desc' }
+        });
+    });
+});

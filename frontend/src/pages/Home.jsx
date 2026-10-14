@@ -1,14 +1,15 @@
+import { lazy, Suspense } from 'react';
+
 import Navbar from '../components/common/Navbar'
 import Hero from '../components/home/Hero'
 import Logos from '../components/home/Logos'
 import Services from '../components/home/Services'
-import Reference from '../components/home/Reference'
-import Contact from '../components/home/Contact'
-import FAQSection from '../components/home/FAQSection'
-import Footer from '../components/common/Footer'
-import ScrollUp from '../components/common/ScrollUp'
-import CookiePanel from '../components/common/CookiePanel'
-
+const Reference = lazy(() => import('../components/home/Reference'));
+const Contact = lazy(() => import('../components/home/Contact'));
+const FAQSection = lazy(() => import('../components/home/FAQSection'));
+const CookiePanel = lazy(() => import('../components/common/CookiePanel'));
+const Footer = lazy(() => import('../components/common/Footer'));
+const ScrollUp = lazy(() => import('../components/common/ScrollUp'));
 import Seo from '../components/common/Seo'
 import BusinessSchema from '../components/common/BusinessSchema'
 
@@ -28,13 +29,17 @@ function Home() {
                 <Hero />
                 <Logos />
                 <Services />
-                <Reference />
-                <FAQSection />
-                <Contact />
+
+                <Suspense fallback={null}><Reference /></Suspense>
+                <Suspense fallback={null}><FAQSection /></Suspense>
+                <Suspense fallback={null}><Contact /></Suspense>
+            </main>
+
+            <Suspense fallback={null}>
                 <Footer />
                 <ScrollUp />
-                <CookiePanel />
-            </main>
+            </Suspense>
+            <Suspense fallback={null}><CookiePanel /></Suspense>
         </>
     )
 }

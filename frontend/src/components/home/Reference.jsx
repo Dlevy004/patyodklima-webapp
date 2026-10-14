@@ -1,7 +1,7 @@
 import 'swiper/css/bundle'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
-import { motion } from 'motion/react'
+import { m } from 'motion/react'
 
 import './Reference.css'
 
@@ -88,7 +88,7 @@ function Reference() {
     return (
         <section id="reference" aria-labelledby='reference-section'>
             <h2 id='reference-section' className="sub-title">Referencia</h2>
-            <motion.div
+            <m.div
                 className="reference-container"
                 variants={sliderVariants}
                 initial='hidden'
@@ -125,7 +125,7 @@ function Reference() {
                         ))}
                     </Swiper>
                 </div>
-            </motion.div>
+            </m.div>
         </section>
     )
 }

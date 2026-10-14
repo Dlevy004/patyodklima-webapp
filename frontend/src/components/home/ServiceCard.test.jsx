@@ -4,13 +4,15 @@ import { describe, expect, it, vi } from 'vitest'
 import ServiceCard from './ServiceCard'
 
 
-vi.mock('motion/react', () => ({
-    motion: {
-        li: ({ children, ...props }) => (
-            <li {...props}>{children}</li>
-        )
-    }
-}))
+vi.mock('motion/react', () => {
+    const MotionLi = ({ children, variants, ...props }) => (
+        <li {...props}>{children}</li>
+    )
+
+    const motion = { li: MotionLi }
+
+    return { motion, m: motion }
+})
 
 
 describe('ServiceCard', () => {

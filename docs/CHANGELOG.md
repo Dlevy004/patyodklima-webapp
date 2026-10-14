@@ -6,6 +6,23 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ---
 
+## [2.6.1] - 2026-10-14
+
+### Added
+- Added `llms.txt` to optimise the site for LLM search agents and AI crawlers.
+- Added lazy loading for `Reference` and `FAQ` sections and all admin portal pages.
+- Added a link to `Navbar.jsx` to navigate easily to the FAQ section.
+
+### Changed
+- Deleted the animation from the hero image and corrected its responsiveness.
+- Replaced the *3000x3000* pixel size PNG favicon with a *128x128* SVG version.
+- Replaced the *5000x5000* pixel size hero img with a *1920x1920* version.
+
+### Fixed
+- Enhanced reference image upload logic by adding allowed image formats.
+
+---
+
 ## [2.6.0] - 2026-09-30
 
 ### Added

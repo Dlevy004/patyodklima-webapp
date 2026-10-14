@@ -22,6 +22,20 @@ const getReferenceById = async (id) => {
     return await prisma.reference_image.findUnique({ where: { id: id } });
 }
 
+const getVisibleReferences = async () => {
+    return await prisma.reference_image.findMany({
+        where: { is_visible: true },
+        select: {
+            id: true,
+            image_url: true,
+            description: true,
+            is_visible: true,
+            created_at: true
+        },
+        orderBy: { created_at: 'desc' }
+    });
+};
+
 const updateReference = async (id, updatedReference) => {
     return await prisma.reference_image.update({
         where: {
@@ -44,5 +58,6 @@ module.exports = {
     getAllReferences,
     getReferenceById,
     updateReference,
-    deleteReference
+    deleteReference,
+    getVisibleReferences
 };

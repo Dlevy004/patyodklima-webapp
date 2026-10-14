@@ -23,7 +23,7 @@
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.logo {
+.nav-container .logo {
     height: auto;
     width: clamp(5rem, 8vw, 10rem);
     margin-left: clamp(0.7rem, 2vw, 1.25rem);
