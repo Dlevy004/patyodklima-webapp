@@ -6,6 +6,24 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ---
 
+## [2.6.2] - 2026-10-14
+
+### Added
+- Faster page loading and improved search engine (SEO) visibility for public pages.
+
+### Changed
+- Upgraded social media preview images and page title settings for better sharing results.
+- Improved cookie banner behavior so the website loads smoothly without hidden background errors.
+
+### Removed
+- Removed outdated tools that were causing reliability issues during updates.
+
+### Fixed
+- Fixed automated website crashes during new release deployments.
+- Resolved background test issues to ensure system stability.
+
+---
+
 ## [2.6.1] - 2026-10-14
 
 ### Added
