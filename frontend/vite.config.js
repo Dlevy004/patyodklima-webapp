@@ -15,6 +15,7 @@ export default defineConfig({
     imagetools(),
     VitePWA({
       registerType: 'autoUpdate',
+      cleanupOutdatedCaches: true,
       injectRegister: false,
       includeAssets: ['favicon.png'],
       manifest: {
