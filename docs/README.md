@@ -111,7 +111,7 @@ My primary goal with this was to reinforce my fundamental knowledge of web devel
 - **Lucide React** — customizable SVG icons
 - **Swiper** — touch-friendly sliders
 - **React Helmet Async** — managing document head metadata dynamically for better SEO
-- **React-Snap** — pre-rendering of the app to improve load times and SEO rankings
+- **ViteReactSSG** — pre-rendering of the app to improve load times and SEO rankings
 - **ESLint** — maintaining code quality and catching syntax errors
 - **Recharts** — custom statistics and charts for the dashboard
 - **Lottie React** — animated components
