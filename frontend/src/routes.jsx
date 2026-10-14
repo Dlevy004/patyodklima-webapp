@@ -1,4 +1,5 @@
 import { lazy } from 'react';
+import App from './App';
 import Home from './pages/Home';
 import { AuthProvider } from './context/AuthContext';
 
@@ -15,36 +16,43 @@ const Marketing = lazy(() => import('./pages/admin/Marketing'));
 const NotFound = lazy(() => import('./pages/not-found/NotFound'));
 
 export const routes = [
-  { path: '/', element: <Home /> },
-  { path: '/privacypolicy', element: <PrivacyPolicy /> },
   {
-    path: '/admin/login',
-    element: (
-      <AuthProvider>
-        <Login />
-      </AuthProvider>
-    ),
-  },
-  {
-    path: '/admin',
-    element: (
-      <AuthProvider>
-        <ProtectedRoute />
-      </AuthProvider>
-    ),
+    path: '/',
+    element: <App />,
     children: [
+      { index: true, element: <Home /> },
+      { path: 'privacypolicy', element: <PrivacyPolicy /> },
       {
-        element: <AdminLayout />,
+        path: 'admin/login',
+        element: (
+          <AuthProvider>
+            <Login />
+          </AuthProvider>
+        ),
+      },
+      {
+        path: 'admin',
+        element: (
+          <AuthProvider>
+            <ProtectedRoute />
+          </AuthProvider>
+        ),
         children: [
-          { index: true, element: <Dashboard /> },
-          { path: 'clients', element: <Clients /> },
-          { path: 'jobs', element: <Jobs /> },
-          { path: 'visual-designs', element: <VisualDesign /> },
-          { path: 'marketings', element: <Marketing /> },
-          { path: 'references', element: <References /> },
+          {
+            path: '',
+            element: <AdminLayout />,
+            children: [
+              { index: true, path: '', element: <Dashboard /> },
+              { path: 'clients', element: <Clients /> },
+              { path: 'jobs', element: <Jobs /> },
+              { path: 'visual-designs', element: <VisualDesign /> },
+              { path: 'marketings', element: <Marketing /> },
+              { path: 'references', element: <References /> },
+            ],
+          },
         ],
       },
+      { path: '*', element: <NotFound /> },
     ],
   },
-  { path: '*', element: <NotFound /> },
 ];
