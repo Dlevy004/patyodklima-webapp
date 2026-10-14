@@ -1,27 +1,11 @@
-import { StrictMode } from 'react'
-import { createRoot, hydrateRoot } from 'react-dom/client'
-import { HelmetProvider } from 'react-helmet-async'
+import { ViteReactSSG } from 'vite-react-ssg';
+import './css/global.css';
+import '@fontsource/josefin-sans';
 
-import './css/global.css'
-import '@fontsource/josefin-sans'
+import App from './App.jsx';
+import { routes } from './routes.jsx';
 
-import App from './App.jsx'
-import { TitleProvider } from './context/TitleContext.jsx'
-
-const rootElement = document.getElementById('root');
-
-const app = (
-  <HelmetProvider>
-    <StrictMode>
-      <TitleProvider>
-        <App />
-      </TitleProvider>
-    </StrictMode>
-  </HelmetProvider>
+export const createApp = ViteReactSSG(
+  App,
+  { routes }
 );
-
-if (rootElement.hasChildNodes()) {
-  hydrateRoot(rootElement, app);
-} else {
-  createRoot(rootElement).render(app);
-}

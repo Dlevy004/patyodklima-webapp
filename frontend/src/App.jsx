@@ -1,59 +1,30 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { lazy, Suspense, useLayoutEffect } from 'react'
+import { useEffect, Suspense } from 'react'
+import { Outlet } from 'react-router-dom'
 import { LazyMotion, domAnimation } from 'motion/react'
-
-import Home from './pages/Home'
-const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'))
 import { Toaster } from 'react-hot-toast'
+import { HelmetProvider } from 'react-helmet-async'
 
-import { AuthProvider } from './context/AuthContext'
-import { getStoredDarkMode } from './utils/theme';
-const ProtectedRoute = lazy(() => import('./components/admin/auth/ProtectedRoute'))
-
-const Login = lazy(() => import('./pages/admin/Login'))
-const AdminLayout = lazy(() => import('./pages/admin/AdminLayout'))
-const Dashboard = lazy(() => import('./pages/admin/Dashboard'))
-const Clients = lazy(() => import('./pages/admin/Clients'))
-const Jobs = lazy(() => import('./pages/admin/Jobs'))
-const VisualDesign = lazy(() => import('./pages/admin/VisualDesign'))
-const References = lazy(() => import('./pages/admin/References'))
-const Marketing = lazy(() => import('./pages/admin/Marketing'))
-const NotFound = lazy(() => import('./pages/not-found/NotFound'))
-
+import { TitleProvider } from './context/TitleContext.jsx'
+import { getStoredDarkMode } from './utils/theme'
 
 function App() {
-  useLayoutEffect(() => {
-    document.body.classList.toggle('darkmode', getStoredDarkMode());
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      document.body.classList.toggle('darkmode', getStoredDarkMode());
+    }
   }, []);
 
   return (
-    <LazyMotion features={domAnimation} strict>
-      <BrowserRouter>
-        <Suspense fallback={null}>
-          <Routes>
-            <Route path='/' element={<Home />} />
-            <Route path='/privacypolicy' element={<PrivacyPolicy />} />
-
-            <Route path='/admin/login' element={<AuthProvider> <Login /> </AuthProvider>} />
-
-            <Route path='/admin' element={<AuthProvider> <ProtectedRoute /> </AuthProvider>}>
-              <Route element={<AdminLayout/>}>
-                <Route index element={<Dashboard />} />
-                <Route path='clients' element={<Clients />} />
-                <Route path='jobs' element={<Jobs />} />
-                <Route path='visual-designs' element={<VisualDesign />} />
-                <Route path='marketings' element={<Marketing />} />
-                <Route path='references' element={<References />} />
-              </Route>
-            </Route>
-
-            <Route path='*' element={<NotFound />}/>
-          </Routes>
-        </Suspense>
-
-        <Toaster position='bottom-right'/>
-      </BrowserRouter>
-    </LazyMotion>
+    <HelmetProvider>
+      <TitleProvider>
+        <LazyMotion features={domAnimation} strict>
+          <Suspense fallback={null}>
+            <Outlet />
+          </Suspense>
+          <Toaster position="bottom-right" />
+        </LazyMotion>
+      </TitleProvider>
+    </HelmetProvider>
   )
 }
 
