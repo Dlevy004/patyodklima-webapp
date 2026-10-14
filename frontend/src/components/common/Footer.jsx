@@ -1,4 +1,5 @@
 import { ThumbsUp, PhoneCall, Shield, Mail } from 'lucide-react'
+import { Link } from 'react-router-dom';
 
 import './Footer.css'
 
@@ -20,13 +21,13 @@ function Footer() {
                     <FooterItem
                         IconComponent={Shield}
                         itemText="Adatkezelési tájékoztató"
-                        linkHref={'/privacypolicy'}
+                        linkHref="/privacypolicy"
                     />
                 </div>
                 <div className="footer-mid">
-                    <a href="/#hero" aria-label='Ugrás az oldal tetejére'>
+                    <Link to="/#hero" aria-label='Ugrás az oldal tetejére'>
                         <img src={footerLogo} alt="Pátyod klíma logo" loading="lazy"/>
-                    </a>
+                    </Link>
                 </div>
                 <div className="footer-right">
                     <FooterItem

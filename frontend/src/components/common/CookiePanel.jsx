@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import { Cookie } from 'lucide-react'
+import { Link } from 'react-router-dom';
 import './CookiePanel.css'
 
 function CookiePanel() {
@@ -44,9 +45,7 @@ function CookiePanel() {
                 <p>
                     Az oldal a jobb felhasználói élmény érdekében sütiket használ.
                     További tudnivalók:&nbsp;{' '}
-                    <a rel="noopener noreferrer"
-                        href={'/privacypolicy'}
-                        target="_blank">Adatkezelési tájékoztató</a>
+                    <Link to="/privacypolicy">Adatkezelési tájékoztató</Link>
                 </p>
             </div>
 
