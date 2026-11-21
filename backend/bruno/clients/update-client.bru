@@ -1,0 +1,49 @@
+meta {
+  name: Update Client
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{baseUrl}}/api/clients/:id
+  body: json
+  auth: bearer
+}
+
+params:path {
+  id: {{clientId}}
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "name": "Kovács János",
+    "email": "kovacs.janos@example.com",
+    "phone": "+36309876543",
+    "address": "4765 Csenger, Fő utca 14.",
+    "notes": "Éves karbantartás esedékes"
+  }
+}
+
+docs {
+  # Update Client
+  Verifies that the client exists and updates their record with the provided fields.
+
+  ### Authentication
+  - **Bearer Token** required (`Authorization: Bearer <token>`).
+
+  ### Path Parameters
+  - `id` (string | number, required): Unique identifier of the client to update.
+
+  ### Request Body (`application/json`)
+  - Updated client fields forwarded to `clientService.updateClient`.
+
+  ### Responses
+  - `200 OK`: Returns the updated client object.
+  - `400 Bad Request`: Validation or database update error (`{ "message": "Hiba történt az ügyfél módosítása során." }`).
+  - `401 Unauthorized`: Missing or invalid JWT token.
+  - `404 Not Found`: No client exists with the given `id` (`{ "message": "Az ügyfél nem található." }`).
+}
