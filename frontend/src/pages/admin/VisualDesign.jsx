@@ -174,7 +174,7 @@ function VisualDesign() {
 
                     <CircleAlert size={22} aria-hidden='true' />
                         <div>
-                            <strong>A latványterv-generálás átmenetileg nem elérhető</strong>
+                            <strong>A látványterv-generálás átmenetileg nem elérhető</strong>
                             <p>
                                 A képszerkesztéshez használt AI modell kivezetésre került a szolgáltatónál,
                                 ezért a generálás jelenleg hibát adhat. A funkció hamarosan új modellel frissítve tér vissza.
