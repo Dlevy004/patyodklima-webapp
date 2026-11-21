@@ -1,0 +1,36 @@
+meta {
+  name: Delete Client
+  type: http
+  seq: 5
+}
+
+delete {
+  url: {{baseUrl}}/api/clients/:id
+  body: none
+  auth: bearer
+}
+
+params:path {
+  id: {{clientId}}
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+docs {
+  # Delete Client
+  Verifies that the client exists and deletes the record from the database.
+
+  ### Authentication
+  - **Bearer Token** required (`Authorization: Bearer <token>`).
+
+  ### Path Parameters
+  - `id` (string | number, required): Unique identifier of the client to delete.
+
+  ### Responses
+  - `200 OK`: Returns the deleted client object.
+  - `401 Unauthorized`: Missing or invalid JWT token.
+  - `404 Not Found`: No client exists with the given `id` (`{ "message": "Az ügyfél nem található." }`).
+  - `400 Bad Request`: Error while deleting the client (`{ "message": "Hiba történt az ügyfél törlése során." }`).
+}
