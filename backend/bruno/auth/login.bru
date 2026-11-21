@@ -1,0 +1,47 @@
+meta {
+  name: Login
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/api/auth/login
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "email": "admin@patyodklima.hu",
+    "password": "password123",
+    "rememberMe": false,
+    "turnstileToken": "XXXX.DUMMY.TOKEN.XXXX"
+  }
+}
+
+script:post-response {
+  if (res.status === 200 && res.body?.token) {
+    bru.setVar("token", res.body.token);
+  }
+}
+
+docs {
+  # Admin Login
+  Authenticates an admin user after verifying the Cloudflare Turnstile captcha token and returns a JWT token along with user details.
+
+  ### Request Body (`application/json`)
+  - `email` (string, required): Admin email address.
+  - `password` (string, required): Admin password.
+  - `rememberMe` (boolean, optional): Extends session/token expiration if set to `true`.
+  - `turnstileToken` (string, required): Cloudflare Turnstile verification token (use Cloudflare's dummy testing secret/token in local development).
+
+  ### Rate Limiting
+  - Maximum **5 attempts per 15 minutes** per IP + email combination.
+
+  ### Responses
+  - `200 OK`: `{ token, user }`
+  - `400 Bad Request`: Missing email/password or failed Turnstile bot verification.
+  - `401 Unauthorized`: Invalid email or password.
+  - `429 Too Many Requests`: Rate limit exceeded (not in the controller, handled by routes/loginLimiter - or express-rate-limit).
+  - `500 Internal Server Error`: Unexpected server error during login.
+}
