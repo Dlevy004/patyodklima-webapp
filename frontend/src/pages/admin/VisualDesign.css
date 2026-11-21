@@ -118,3 +118,35 @@
         width: 100%;
     }
 }
+
+/*Temporary error message styles*/
+.vd-deprecation-banner {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    width: 100%;
+    max-width: 600px;
+    padding: 1rem 1.25rem;
+    background-color: #fee2e2;
+    border: 1px solid #fca5a5;
+    border-radius: 0.85rem;
+    color: #991b1b;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.vd-deprecation-banner svg {
+    flex-shrink: 0;
+    margin-top: 2px;
+    color: #dc2626;
+}
+
+.vd-deprecation-banner strong {
+    display: block;
+    margin-bottom: 0.2rem;
+    font-weight: 600;
+}
+
+.vd-deprecation-banner p {
+    margin: 0;
+}
