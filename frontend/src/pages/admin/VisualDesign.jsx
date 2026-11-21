@@ -176,7 +176,7 @@ function VisualDesign() {
                         <div>
                             <strong>A látványterv-generálás átmenetileg nem elérhető</strong>
                             <p>
-                                A képszerkesztéshez használt AI modell kivezetésre került a szolgáltatónál,
+                                A képszerkesztéshez használt AI modell kivezetésre került a Cloudflare szolgáltatónál,
                                 ezért a generálás jelenleg hibát adhat. A funkció hamarosan új modellel frissítve tér vissza.
                             </p>
                         </div>
