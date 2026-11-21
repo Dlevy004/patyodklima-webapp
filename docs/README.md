@@ -71,6 +71,7 @@ My primary goal with this was to reinforce my fundamental knowledge of web devel
 - **Jest** for backend unit testing
 - **Chrome DevTools** for responsive testing and debugging
 - **Postman** for API endpoint testing
+- **Bruno** for API endpoint documentation
 
 ### Tools
 
