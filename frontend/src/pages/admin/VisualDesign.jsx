@@ -1,5 +1,6 @@
 import { useRef, useState, useEffect } from 'react';
 
+import { CircleAlert } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 import './VisualDesign.css'
