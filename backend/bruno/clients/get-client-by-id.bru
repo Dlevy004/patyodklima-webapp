@@ -1,0 +1,36 @@
+meta {
+  name: Get Client By ID
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{baseUrl}}/api/clients/:id
+  body: none
+  auth: bearer
+}
+
+params:path {
+  id: {{clientId}}
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+docs {
+  # Get Client By ID
+  Retrieves a single client record matching the provided path parameter `id`.
+
+  ### Authentication
+  - **Bearer Token** required (`Authorization: Bearer <token>`).
+
+  ### Path Parameters
+  - `id` (string | number, required): Unique identifier of the client.
+
+  ### Responses
+  - `200 OK`: Returns the matching client object.
+  - `401 Unauthorized`: Missing or invalid JWT token.
+  - `404 Not Found`: No client exists with the given `id` (`{ "message": "Az ügyfél nem található." }`).
+  - `500 Internal Server Error`: Unexpected error while fetching the client (`{ "message": "Hiba történt az ügyfél lekérése közben." }`).
+}
