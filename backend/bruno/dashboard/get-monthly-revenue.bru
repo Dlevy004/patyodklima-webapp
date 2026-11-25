@@ -1,0 +1,35 @@
+meta {
+  name: Get Monthly Revenue
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/api/dashboard/monthly-revenue?year=2026
+  body: none
+  auth: bearer
+}
+
+params:query {
+  year: 2026
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+docs {
+  # Get Monthly Revenue
+  Retrieves monthly revenue breakdown for a specified calendar year.
+
+  ### Authentication
+  - **Bearer Token** required (`Authorization: Bearer <token>`).
+
+  ### Query Parameters
+  - `year` (integer, optional): Target calendar year (defaults to the current year if omitted).
+
+  ### Responses
+  - `200 OK`: Returns monthly revenue dataset for the given year.
+  - `401 Unauthorized`: Missing or invalid JWT token.
+  - `500 Internal Server Error`: Unexpected error while fetching monthly revenue (`{ "message": "Hiba történt a havi bevétel lekérése közben." }`).
+}
