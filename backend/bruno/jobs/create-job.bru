@@ -1,0 +1,50 @@
+meta {
+  name: Create Job
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/api/jobs
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "clientId": "{{clientId}}",
+    "category": "Telepítés",
+    "acUnit": "Gree Comfort Pro 3.5 kW",
+    "status": "scheduled",
+    "price": 285000,
+    "scheduledDate": "2026-12-05",
+    "notes": "Nappali oldalfali split klíma szerelése"
+  }
+}
+
+script:post-response {
+  const createdId = res.body?.id ?? res.body?.[0]?.id;
+  if (res.status === 201 && createdId) {
+    bru.setVar("jobId", createdId);
+  }
+}
+
+docs {
+  # Create Job
+  Creates a new job/work order record by forwarding the request payload to `jobService.createJob`.
+
+  ### Authentication
+  - **Bearer Token** required (`Authorization: Bearer <token>`).
+
+  ### Request Body (`application/json`)
+  - Job fields expected by the database schema (e.g., `clientId`, `category`, `acUnit`, `status`, `price`, `scheduledDate`, `notes`).
+
+  ### Responses
+  - `201 Created`: Returns the newly created job object.
+  - `400 Bad Request`: Validation or database insertion error (`{ "message": "Hiba történt a munka létrehozása során." }`).
+  - `401 Unauthorized`: Missing or invalid JWT token.
+}
