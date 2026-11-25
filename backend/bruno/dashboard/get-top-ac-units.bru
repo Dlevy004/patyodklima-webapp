@@ -1,0 +1,35 @@
+meta {
+  name: Get Top AC Units
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{baseUrl}}/api/dashboard/top-ac-units?limit=5
+  body: none
+  auth: bearer
+}
+
+params:query {
+  limit: 5
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+docs {
+  # Get Top AC Units
+  Retrieves the most frequently installed or sold air conditioning unit models.
+
+  ### Authentication
+  - **Bearer Token** required (`Authorization: Bearer <token>`).
+
+  ### Query Parameters
+  - `limit` (integer, optional): Maximum number of top AC models to return (defaults to `5`).
+
+  ### Responses
+  - `200 OK`: Returns ranked list of top AC unit models.
+  - `401 Unauthorized`: Missing or invalid JWT token.
+  - `500 Internal Server Error`: Unexpected error while fetching top AC units (`{ "message": "Hiba történt a legnépszerűbb modellek lekérése közben." }`).
+}
