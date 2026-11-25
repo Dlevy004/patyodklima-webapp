@@ -1,0 +1,36 @@
+meta {
+  name: Delete Job
+  type: http
+  seq: 5
+}
+
+delete {
+  url: {{baseUrl}}/api/jobs/:id
+  body: none
+  auth: bearer
+}
+
+params:path {
+  id: {{jobId}}
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+docs {
+  # Delete Job
+  Verifies that the job exists and deletes the record from the database.
+
+  ### Authentication
+  - **Bearer Token** required (`Authorization: Bearer <token>`).
+
+  ### Path Parameters
+  - `id` (string | number, required): Unique identifier of the job to delete.
+
+  ### Responses
+  - `200 OK`: Returns the deleted job object.
+  - `400 Bad Request`: Error while deleting the job (`{ "message": "Hiba történt a munka törlése során." }`).
+  - `401 Unauthorized`: Missing or invalid JWT token.
+  - `404 Not Found`: No job exists with the given `id` (`{ "message": "A munka nem található." }`).
+}
