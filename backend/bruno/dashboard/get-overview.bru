@@ -1,0 +1,28 @@
+meta {
+  name: Get Dashboard Overview
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/api/dashboard/overview
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+docs {
+  # Get Dashboard Overview
+  Retrieves high-level summary statistics for the admin dashboard.
+
+  ### Authentication
+  - **Bearer Token** required (`Authorization: Bearer <token>`).
+
+  ### Responses
+  - `200 OK`: Returns aggregated overview statistics object.
+  - `401 Unauthorized`: Missing or invalid JWT token.
+  - `500 Internal Server Error`: Unexpected error while fetching overview stats (`{ "message": "Hiba történt az áttekintő statisztikák lekérése közben." }`).
+}
