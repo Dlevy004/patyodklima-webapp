@@ -1,0 +1,28 @@
+meta {
+  name: Get All Marketings
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{baseUrl}}/api/marketings
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+docs {
+  # Get All Marketings
+  Retrieves all generated marketing creatives belonging to the currently authenticated user (`req.user.id`).
+
+  ### Authentication
+  - **Bearer Token** required (`Authorization: Bearer <token>`).
+
+  ### Responses
+  - `200 OK`: JSON array of marketing records owned by the user.
+  - `401 Unauthorized`: Missing or invalid JWT token.
+  - `500 Internal Server Error`: Unexpected error while fetching marketing records (`{ "message": "Hiba történt a hirdetések lekérése közben." }`).
+}
