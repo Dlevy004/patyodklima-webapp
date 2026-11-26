@@ -1,0 +1,48 @@
+meta {
+  name: Create Reference
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/api/references
+  body: multipartForm
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:multipart-form {
+  image: @file()
+  description: Gree Comfort Pro 3.5 kW oldalfali klíma telepítés
+  is_visible: true
+}
+
+script:post-response {
+  const createdId = res.body?.id ?? res.body?.[0]?.id;
+  if (res.status === 201 && createdId) {
+    bru.setVar("referenceId", createdId);
+  }
+}
+
+docs {
+  # Create Reference
+  Validates and uploads a reference image to Supabase Storage and creates a new reference record. Performs both MIME type filtering and `sharp` binary header inspection (`jpeg`, `png`, `webp`, and `avif` / `heif` with `av1` compression).
+
+  ### Authentication
+  - **Bearer Token** required (`Authorization: Bearer <token>`).
+
+  ### Request Body (`multipart/form-data`)
+  - `image` (file, required): Image file (`image/jpeg`, `image/png`, `image/webp`, or `image/avif`; maximum **10 MB**).
+  - `description` (string, optional): Caption or description of the installation.
+  - `is_visible` (string, optional): Set to `"true"` to publish immediately on the public site (parsed via `is_visible === 'true'`).
+
+  ### Responses
+  - `201 Created`: Returns the newly created reference object.
+  - `400 Bad Request`: Missing image file, Multer upload error, or database insertion error.
+  - `401 Unauthorized`: Missing or invalid JWT token.
+  - `413 Payload Too Large`: File exceeds the 10 MB limit (`{ "message": "A kép mérete legfeljebb 10 MB lehet." }`).
+  - `415 Unsupported Media Type`: Invalid image binary or unsupported format (`{ "message": "Nem támogatott képformátum." }`).
+}
