@@ -1,0 +1,37 @@
+meta {
+  name: Download Reference Image
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{baseUrl}}/api/references/:id/download
+  body: none
+  auth: bearer
+}
+
+params:path {
+  id: {{referenceId}}
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+docs {
+  # Download Reference Image
+  Fetches the reference image from Supabase Storage (validating that the hostname belongs to `supabase.co`, disabling redirects, and applying a 15-second timeout), converts it to PNG via `sharp`, and returns it as a downloadable file (`referencia-<id>.png`).
+
+  ### Authentication
+  - **Bearer Token** required (`Authorization: Bearer <token>`).
+
+  ### Path Parameters
+  - `id` (string | number, required): Unique identifier of the reference image.
+
+  ### Responses
+  - `200 OK`: Binary PNG file (`Content-Type: image/png`, `Content-Disposition: attachment`).
+  - `401 Unauthorized`: Missing or invalid JWT token.
+  - `403 Forbidden`: Image URL hostname is outside `supabase.co` (`{ "message": "Biztonsági okokból a letöltés megtagadva: érvénytelen forrás." }`).
+  - `404 Not Found`: Reference image not found (`{ "message": "A referenciakép nem található." }`).
+  - `500 Internal Server Error`: Failed to fetch or convert the image (`{ "message": "Hiba történt a kép letöltése során." }`).
+}
