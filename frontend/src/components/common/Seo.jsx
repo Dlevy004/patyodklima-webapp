@@ -1,14 +1,13 @@
 import PropTypes from "prop-types"
-import { Helmet } from 'react-helmet-async'
-
+import { Head } from 'vite-react-ssg';
 
 export default function Seo({ title, description, url = '', image = '', noindex = false }) {
     const domain = "https://patyodklima.hu";
     const currentUrl = `${domain}${url}`;
     const ogImage = image ? image : `${domain}/assets/images/heroImg.jpg`;
 
-    return(
-        <Helmet>
+    return (
+        <Head>
             <title>{title}</title>
             <meta name="description" content={description} />
 
@@ -25,14 +24,14 @@ export default function Seo({ title, description, url = '', image = '', noindex 
             <meta property="og:title" content={title} />
             <meta property="og:description" content={description} />
             <meta property="og:image" content={ogImage} />
-        </Helmet>
+        </Head>
     );
 }
 
 Seo.propTypes = {
     title: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
-    url: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
+    url: PropTypes.string,
+    image: PropTypes.string,
     noindex: PropTypes.bool
-}
+};

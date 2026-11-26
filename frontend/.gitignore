@@ -25,3 +25,6 @@ dist-ssr
 .env
 
 coverage/
+
+# SSG temporary build files
+.vite-react-ssg-temp

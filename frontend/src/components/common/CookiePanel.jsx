@@ -1,19 +1,20 @@
-import { useState } from "react"
-
+import { useState, useEffect } from "react"
 import { Cookie } from 'lucide-react'
-
+import { Link } from 'react-router-dom';
 import './CookiePanel.css'
 
-
 function CookiePanel() {
-    const [isVisible, setIsVisible] = useState(() => {
-        const hasConsent = document.cookie.split(';').some(cookie => cookie.trim().startsWith('cookie_consent'));
+    const [isVisible, setIsVisible] = useState(false);
 
-        return !hasConsent;
-    });
+    useEffect(() => {
+        const hasConsent = document.cookie.split(';').some(cookie => cookie.trim().startsWith('cookie_consent'));
+        if (!hasConsent) {
+            setIsVisible(true);
+        }
+    }, []);
 
     const handleAccept = () => {
-        document.cookie = "cookie_consent=Patyod-Klima; max-age=" + 60 * 60 * 24 * 30;
+        document.cookie = "cookie_consent=Patyod-Klima; max-age=" + (60 * 60 * 24 * 30);
 
         setIsVisible(false);
 
@@ -44,9 +45,7 @@ function CookiePanel() {
                 <p>
                     Az oldal a jobb felhasználói élmény érdekében sütiket használ.
                     További tudnivalók:&nbsp;{' '}
-                        <a rel="noopener noreferrer"
-                            href={'/privacypolicy'}
-                            target="_blank">Adatkezelési tájékoztató</a>
+                    <Link to="/privacypolicy">Adatkezelési tájékoztató</Link>
                 </p>
             </div>
 

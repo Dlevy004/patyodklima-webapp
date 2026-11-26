@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { imagetools } from 'vite-imagetools'
-import { VitePWA } from 'vite-plugin-pwa';
+import { VitePWA } from 'vite-plugin-pwa'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -15,6 +15,7 @@ export default defineConfig({
     imagetools(),
     VitePWA({
       registerType: 'autoUpdate',
+      cleanupOutdatedCaches: true,
       injectRegister: false,
       includeAssets: ['favicon.png'],
       manifest: {
@@ -45,6 +46,13 @@ export default defineConfig({
       }
     })
   ],
+  ssgOptions: {
+    script: 'async',
+    formatting: 'minify',
+    includedRoutes(paths, routes) {
+      return ['/', '/privacypolicy'];
+    },
+  },
   build: {
     emptyOutDir: true
   },
