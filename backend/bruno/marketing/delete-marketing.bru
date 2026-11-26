@@ -1,0 +1,36 @@
+meta {
+  name: Delete Marketing
+  type: http
+  seq: 6
+}
+
+delete {
+  url: {{baseUrl}}/api/marketings/:id
+  body: none
+  auth: bearer
+}
+
+params:path {
+  id: {{marketingId}}
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+docs {
+  # Delete Marketing
+  Deletes a marketing record owned by the authenticated user and removes its associated image from the Supabase `Marketing` bucket.
+
+  ### Authentication
+  - **Bearer Token** required (`Authorization: Bearer <token>`).
+
+  ### Path Parameters
+  - `id` (string | number, required): Unique identifier of the marketing record to delete.
+
+  ### Responses
+  - `200 OK`: `{ "id": "<marketingId>" }`
+  - `400 Bad Request`: Unexpected error during deletion (`{ "message": "Hiba történt a hirdetés törlése közben." }`).
+  - `401 Unauthorized`: Missing or invalid JWT token.
+  - `404 Not Found`: Marketing record does not exist or does not belong to the user (`{ "message": "A hirdetés nem található." }`).
+}
