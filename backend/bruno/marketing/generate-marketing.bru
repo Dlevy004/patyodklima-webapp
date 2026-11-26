@@ -1,0 +1,57 @@
+meta {
+  name: Generate Marketing
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{baseUrl}}/api/marketings/generate
+  body: multipartForm
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:multipart-form {
+  image: @file()
+  templateId: 1
+  headline: Nyári klíma akció szereléssel!
+  acUnitName: Gree Comfort Pro 3.5 kW
+  details: Telepítéssel, 10 év garanciával
+  fullPrice: 289000
+  showLogo: true
+  showPhone: true
+}
+
+script:post-response {
+  const createdId = res.body?.id ?? res.body?.[0]?.id;
+  if (res.status === 200 && createdId) {
+    bru.setVar("marketingId", createdId);
+  }
+}
+
+docs {
+  # Generate Marketing
+  Uploads a generated marketing creative image to the Supabase `Marketing` storage bucket and persists its metadata for the authenticated user. Automatically rolls back the uploaded file if database insertion fails.
+
+  ### Authentication
+  - **Bearer Token** required (`Authorization: Bearer <token>`).
+
+  ### Request Body (`multipart/form-data`)
+  - `image` (file, required): Image file (`image/*` MIME type only, maximum **10 MB**).
+  - `acUnitName` (string, required): Air conditioner model name.
+  - `fullPrice` (integer/string, required): Positive integer price (`0` to `2147483647`, digits only).
+  - `templateId` (string | number, optional): Reference ID of the selected template.
+  - `headline` (string, optional): Main promotional headline text.
+  - `details` (string, optional): Secondary promotional details.
+  - `showLogo` (boolean/string, optional): Must be `true` or `false` if provided.
+  - `showPhone` (boolean/string, optional): Must be `true` or `false` if provided.
+
+  ### Responses
+  - `200 OK`: Returns the created marketing record object.
+  - `400 Bad Request`: Missing image, non-image MIME type, file larger than 10 MB, missing `acUnitName`/`fullPrice`, invalid integer price, or invalid `showLogo`/`showPhone` flag.
+  - `401 Unauthorized`: Missing or invalid JWT token.
+  - `500 Internal Server Error`: Unexpected error while uploading or saving the marketing record (`{ "message": "Hiba történt a hirdetés mentése során." }`).
+}
