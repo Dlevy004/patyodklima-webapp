@@ -1,0 +1,23 @@
+meta {
+  name: Get Public References
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/api/references
+  body: none
+  auth: none
+}
+
+docs {
+  # Get Public References
+  Retrieves all publicly visible reference images (`is_visible = true`) for the public portfolio website.
+
+  ### Authentication
+  - **Public endpoint** (no token required).
+
+  ### Responses
+  - `200 OK`: JSON array of visible reference objects.
+  - `500 Internal Server Error`: Unexpected error while fetching public references (`{ "message": "Hiba történt a referenciaképek lekérése közben." }`).
+}
