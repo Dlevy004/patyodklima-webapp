@@ -31,7 +31,7 @@ This document outlines the external third-party services integrated into the app
 
 - **Purpose:** Tracks visitor traffic, page views, and user interactions across the public-facing website.
 - **How It Works:**
-  - Loaded on the React frontend using the GA4 Measurement ID.
+  - Loaded on the React frontend using the hardcoded GA4 Measurement ID (`G-8ME9DQ3SZK`) in `frontend/index.html` and `frontend/src/components/common/CookiePanel.jsx`.
   - Analytics initialization respects the user's cookie consent choices configured in `CookiePanel`.
 - **Configuration:**
-  - Frontend: `VITE_GA_MEASUREMENT_ID` (format: `G-XXXXXXXXXX`)
+  - No environment variable is currently read for GA4; changing the analytics property requires updating the hardcoded Measurement ID (`G-8ME9DQ3SZK`) in both frontend files.
