@@ -20,7 +20,7 @@ auth:bearer {
 
 docs {
   # Download Visual Design Image
-  Fetches the visual design image (`generated_image_url`, falling back to `original_image_url`) from Supabase Storage—enforcing `supabase.co` hostname validation, disabling redirects, and applying a 15-second timeout—converts it to PNG via `sharp`, and returns it as a downloadable attachment (`latvanyterv-<id>.png`).
+  Fetches the visual design image (`generated_image_url`, falling back to `original_image_url`) from Supabase Storage—checking that the URL hostname contains the `"supabase.co"` substring, disabling redirects, and applying a 15-second timeout—converts it to PNG via `sharp`, and returns it as a downloadable attachment (`latvanyterv-<id>.png`).
 
   ### Authentication
   - **Bearer Token** required (`Authorization: Bearer <token>`).
@@ -31,7 +31,6 @@ docs {
   ### Responses
   - `200 OK`: Binary PNG file (`Content-Type: image/png`, `Content-Disposition: attachment`).
   - `401 Unauthorized`: Missing or invalid JWT token.
-  - `403 Forbidden`: Image URL hostname is outside `supabase.co` (`{ "message": "Biztonsági okokból a letöltés megtagadva: érvénytelen forrás." }`).
-  - `404 Not Found`: Visual design not found (`{ "message": "A látványterv nem található." }`) or no downloadable image URL exists (`{ "message": "Nincs letölthető kép ehhez a látványtervhez." }`).
+  - `403 Forbidden`: Image URL hostname does not contain `"supabase.co"` (`{ "message": "Biztonsági okokból a letöltés megtagadva: érvénytelen forrás." }`).  - `404 Not Found`: Visual design not found (`{ "message": "A látványterv nem található." }`) or no downloadable image URL exists (`{ "message": "Nincs letölthető kép ehhez a látványtervhez." }`).
   - `500 Internal Server Error`: Failed to fetch or convert the image (`{ "message": "Hiba történt a kép letöltése során." }`).
 }
