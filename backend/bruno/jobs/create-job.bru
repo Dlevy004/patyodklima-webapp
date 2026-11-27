@@ -16,13 +16,15 @@ auth:bearer {
 
 body:json {
   {
-    "clientId": "{{clientId}}",
+    "client_id": "{{clientId}}",
     "category": "installation",
-    "acUnit": "Gree Comfort Pro 3.5 kW",
-    "status": "scheduled",
-    "price": 285000,
-    "scheduledDate": "2026-12-05",
-    "notes": "Nappali oldalfali split klíma szerelése"
+    "ac_unit": "Gree Comfort Pro 3.5 kW",
+    "job_date": "2026-12-05",
+    "labor_fee": 45000,
+    "total_amount": 285000,
+    "general_notes": "Nappali oldalfali split klíma szerelése",
+    "internal_notes": "Faláttörés szükséges",
+    "is_completed": false
   }
 }
 
@@ -41,7 +43,7 @@ docs {
   - **Bearer Token** required (`Authorization: Bearer <token>`).
 
   ### Request Body (`application/json`)
-  - Job fields expected by the database schema (e.g., `clientId`, `category`, `acUnit`, `status`, `price`, `scheduledDate`, `notes`).
+  - Job fields expected by `jobService.createJob`: `client_id`, `category` (`"survey"` | `"installation"` | `"maintenance"` | `"cleaning"`), `ac_unit`, `job_date` (required, `YYYY-MM-DD`), `labor_fee`, `total_amount` (required, integer), `general_notes`, `internal_notes`, and `is_completed` (boolean).
 
   ### Responses
   - `201 Created`: Returns the newly created job object.
