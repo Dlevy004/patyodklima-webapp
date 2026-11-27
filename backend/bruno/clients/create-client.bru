@@ -16,10 +16,13 @@ auth:bearer {
 
 body:json {
   {
-    "name": "Kovács János",
-    "email": "kovacs.janos@example.com",
+    "full_name": "Kovács János",
     "phone": "+36301234567",
-    "address": "4765 Csenger, Fő utca 12.",
+    "email": "kovacs.janos@example.com",
+    "zip_code": "4765",
+    "city": "Csenger",
+    "street_address": "Fő utca 12.",
+    "type": "individual",
     "notes": "3.5 kW-os split klíma telepítés"
   }
 }
@@ -39,7 +42,7 @@ docs {
   - **Bearer Token** required (`Authorization: Bearer <token>`).
 
   ### Request Body (`application/json`)
-  - Client fields expected by the database schema (e.g., `name`, `email`, `phone`, `address`, `notes`).
+  - Client fields expected by `clientService.createClient`: `full_name` (required), `phone`, `email`, `zip_code`, `city`, `street_address`, `type` (`"individual"` | `"company"`), and `notes`.
 
   ### Responses
   - `201 Created`: Returns the newly created client object.
