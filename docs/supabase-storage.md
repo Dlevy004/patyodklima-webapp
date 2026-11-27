@@ -18,7 +18,8 @@ All file uploads and deletions are handled server-side through `supabaseService`
 - **Public Read Access:** All buckets require public read (`SELECT`) permissions so that stored `supabase.co` URLs can be rendered directly on the public website and in the admin dashboard without signed URL expiration issues.
 - **Restricted Write Access:** Direct client-side uploads to Supabase Storage are disabled. Every upload passes through Express `multer` memory storage middleware first for size and MIME-type validation.
 - **Automatic Cleanup & Rollback:**
-  - When a record is deleted (e.g., `DELETE /api/references/:id`, `DELETE /api/marketings/:id`, `DELETE /api/visual-designs/:id`), the backend removes the associated image file(s) from Supabase Storage.
+  - When a visual design or marketing record is deleted (`DELETE /api/visual-designs/:id`, `DELETE /api/marketings/:id`), the backend attempts to remove its image file(s) from Supabase Storage. If the storage deletion fails, the error is logged, the record is still deleted, and the image file can remain in storage without a record. Orphaned files are not retried or removed automatically.
+  - When a reference image record is deleted (`DELETE /api/references/:id`), the backend removes the image file from Supabase Storage before it deletes the record. If the storage deletion fails, the record is not deleted.
   - When an admin updates their avatar, the previous avatar file is automatically deleted once the database update succeeds.
   - If a database insert or update fails after a file has already been uploaded, the controller triggers a rollback deletion to prevent orphaned files in storage.
 
