@@ -1,0 +1,49 @@
+meta {
+  name: Update Profile
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{baseUrl}}/api/auth/profile
+  body: multipartForm
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:multipart-form {
+  fullName: Daróczi Levente
+  profileImage: @file()
+  currentPassword:
+  newPassword:
+}
+
+script:post-response {
+  if (res.status === 200 && res.body?.token) {
+    bru.setVar("token", res.body.token);
+  }
+}
+
+docs {
+  # Update Profile
+  Updates the authenticated user's full name, avatar image (stored in Supabase `Avatars` bucket), and optionally their password. Automatically cleans up the previous avatar on successful replacement or rolls back the newly uploaded file if validation fails.
+
+  ### Authentication
+  - **Bearer Token** required (`Authorization: Bearer <token>`).
+
+  ### Request Body (`multipart/form-data`)
+  - `fullName` (string, optional): Updated display name.
+  - `profileImage` (file, optional): New avatar image file (maximum **5 MB**).
+  - `currentPassword` (string, optional): Required if `newPassword` is provided.
+  - `newPassword` (string, optional): New password (minimum **8 characters**, must differ from `currentPassword`).
+
+  ### Responses
+  - `200 OK`: `{ message, token, user }`
+  - `400 Bad Request`: Incomplete password fields, new password too short, or same as current password.
+  - `401 Unauthorized`: Invalid token or incorrect `currentPassword`.
+  - `404 Not Found`: User not found.
+  - `500 Internal Server Error`: Multer upload error (e.g., file size exceeds 5 MB) or unexpected error while updating profile.
+}

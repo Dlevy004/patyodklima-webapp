@@ -1,0 +1,28 @@
+meta {
+  name: Get Current User
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/api/auth/me
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+docs {
+  # Get Current User
+  Retrieves the profile data of the currently authenticated admin user based on the provided JWT token.
+
+  ### Authentication
+  - **Bearer Token** required (`Authorization: Bearer <token>`).
+
+  ### Responses
+  - `200 OK`: `{ user }`
+  - `401 Unauthorized`: Missing/invalid token or user not found.
+  - `500 Internal Server Error`: Unexpected error while fetching user data.
+}

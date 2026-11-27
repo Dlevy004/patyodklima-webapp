@@ -1,0 +1,36 @@
+meta {
+  name: Get Job By ID
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{baseUrl}}/api/jobs/:id
+  body: none
+  auth: bearer
+}
+
+params:path {
+  id: {{jobId}}
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+docs {
+  # Get Job By ID
+  Retrieves a single job record matching the provided path parameter `id`.
+
+  ### Authentication
+  - **Bearer Token** required (`Authorization: Bearer <token>`).
+
+  ### Path Parameters
+  - `id` (string | number, required): Unique identifier of the job.
+
+  ### Responses
+  - `200 OK`: Returns the matching job object.
+  - `401 Unauthorized`: Missing or invalid JWT token.
+  - `404 Not Found`: No job exists with the given `id` (`{ "message": "A munka nem található." }`).
+  - `500 Internal Server Error`: Unexpected error while fetching the job (`{ "message": "Hiba történt a munka lekérése közben." }`).
+}

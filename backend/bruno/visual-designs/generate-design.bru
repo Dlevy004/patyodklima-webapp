@@ -1,0 +1,47 @@
+meta {
+  name: Generate Visual Design
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/api/visual-designs/generate
+  body: multipartForm
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:multipart-form {
+  image: @file()
+  mask: @file()
+  placementType: indoor
+}
+
+script:post-response {
+  const createdId = res.body?.id ?? res.body?.[0]?.id;
+  if (res.status === 200 && createdId) {
+    bru.setVar("designId", createdId);
+  }
+}
+
+docs {
+  # Generate Visual Design
+  Accepts an original room/building photo and a binary inpainting mask, builds a placement-specific architectural prompt (`indoor` split unit or `outdoor` compressor unit), creates a pending record, and runs the AI image generation pipeline via `visualDesignService.processAndSaveDesign`.
+
+  ### Authentication
+  - **Bearer Token** required (`Authorization: Bearer <token>`).
+
+  ### Request Body (`multipart/form-data`)
+  - `image` (file, required): Original background photo (maximum **10 MB**, max 1 file).
+  - `mask` (file, required): Inpainting mask image defining the AC placement area (maximum **10 MB**, max 1 file).
+  - `placementType` (string, required): Placement target — must be either `"indoor"` or `"outdoor"`.
+
+  ### Responses
+  - `200 OK`: Returns the completed visual design record object.
+  - `400 Bad Request`: Missing `image` or `mask` file (`{ "message": "The original image and mask are required!" }`) or invalid `placementType` (`{ "message": "Invalid placement type. (indoor/outdoor)" }`).
+  - `401 Unauthorized`: Missing or invalid JWT token.
+  - `500 Internal Server Error`: Multer upload limit exceeded (e.g., file size over 10 MB) or error occurred during AI generation or storage (`{ "message": "Error occurred while generating the visual design." }`).
+}

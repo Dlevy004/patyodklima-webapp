@@ -1,0 +1,50 @@
+meta {
+  name: Update Company Data
+  type: http
+  seq: 2
+}
+
+put {
+  url: {{baseUrl}}/api/company
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "name": "Pátyod Klíma Kft.",
+    "headquarters": "4765 Csenger, Fő utca 1.",
+    "registrationNumber": "15-09-123456",
+    "taxNumber": "12345678-2-15",
+    "fGasNumber": "NKVH-FG-12345",
+    "phoneNumber": "+36301234567",
+    "email": "info@patyodklima.hu"
+  }
+}
+
+docs {
+  # Update Company Data
+  Updates the company profile and compliance details. All fields in the request payload are mandatory.
+
+  ### Authentication
+  - **Bearer Token** required (`Authorization: Bearer <token>`).
+
+  ### Request Body (`application/json`)
+  - `name` (string, required): Official company name.
+  - `headquarters` (string, required): Registered company headquarters address.
+  - `registrationNumber` (string, required): Company registration number (*cégjegyzékszám*).
+  - `taxNumber` (string, required): Tax identification number (*adószám*).
+  - `fGasNumber` (string, required): F-Gas certification/registration number (*NKVH / F-gáz azonosító*).
+  - `phoneNumber` (string, required): Primary contact phone number.
+  - `email` (string, required): Primary contact email address.
+
+  ### Responses
+  - `200 OK`: `{ message, company }`
+  - `400 Bad Request`: One or more required fields are missing (`{ "message": "Minden mező kitöltése kötelező!" }`).
+  - `401 Unauthorized`: Missing or invalid JWT token.
+  - `500 Internal Server Error`: Unexpected error while updating company data (`{ "message": "Hiba történt a cégadatok frissítése közben." }`).
+}

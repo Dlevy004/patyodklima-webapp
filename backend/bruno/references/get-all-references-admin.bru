@@ -1,0 +1,28 @@
+meta {
+  name: Get All References (Admin)
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/api/references/admin
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+docs {
+  # Get All References (Admin)
+  Retrieves all reference images regardless of visibility status for the admin dashboard.
+
+  ### Authentication
+  - **Bearer Token** required (`Authorization: Bearer <token>`).
+
+  ### Responses
+  - `200 OK`: JSON array of all reference objects.
+  - `401 Unauthorized`: Missing or invalid JWT token.
+  - `500 Internal Server Error`: Unexpected error while fetching references (`{ "message": "Hiba történt a referenciaképek lekérése közben." }`).
+}

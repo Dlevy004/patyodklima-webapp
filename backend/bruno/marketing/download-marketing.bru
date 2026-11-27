@@ -1,0 +1,37 @@
+meta {
+  name: Download Marketing Image
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{baseUrl}}/api/marketings/:id/download
+  body: none
+  auth: bearer
+}
+
+params:path {
+  id: {{marketingId}}
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+docs {
+  # Download Marketing Image
+  Fetches the stored marketing image from Supabase Storage (enforcing `supabase.co` hostname validation and a 15-second timeout without redirects), converts it to PNG via `sharp`, and returns it as a downloadable attachment (`hirdetes-<id>.png`).
+
+  ### Authentication
+  - **Bearer Token** required (`Authorization: Bearer <token>`).
+
+  ### Path Parameters
+  - `id` (string | number, required): Unique identifier of the marketing record owned by the authenticated user.
+
+  ### Responses
+  - `200 OK`: Binary PNG file (`Content-Type: image/png`, `Content-Disposition: attachment`).
+  - `401 Unauthorized`: Missing or invalid JWT token.
+  - `403 Forbidden`: Image URL points outside `supabase.co` (`{ "message": "Biztonsági okokból a letöltés megtagadva: érvénytelen forrás." }`).
+  - `404 Not Found`: Marketing record not found (`{ "message": "A hirdetés nem található." }`) or record has no `generated_image_url` (`{ "message": "Nincs letölthető kép ehhez a hirdetéshez." }`).
+  - `500 Internal Server Error`: Failed to fetch or convert the image (`{ "message": "Hiba történt a kép letöltése során." }`).
+}

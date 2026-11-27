@@ -1,0 +1,50 @@
+meta {
+  name: Update Job
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{baseUrl}}/api/jobs/:id
+  body: json
+  auth: bearer
+}
+
+params:path {
+  id: {{jobId}}
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "client_id": "{{clientId}}",
+    "category": "installation",
+    "ac_unit": "Gree Comfort Pro 3.5 kW",
+    "is_completed": true,
+    "total_amount": 295000,
+    "job_date": "2026-12-05",
+  }
+}
+
+docs {
+  # Update Job
+  Verifies that the job exists and updates its record with the provided fields.
+
+  ### Authentication
+  - **Bearer Token** required (`Authorization: Bearer <token>`).
+
+  ### Path Parameters
+  - `id` (string | number, required): Unique identifier of the job to update.
+
+  ### Request Body (`application/json`)
+  - Updated job fields forwarded to `jobService.updateJob`.
+
+  ### Responses
+  - `200 OK`: Returns the updated job object.
+  - `400 Bad Request`: Validation or database update error (`{ "message": "Hiba történt a munka módosítása során." }`).
+  - `401 Unauthorized`: Missing or invalid JWT token.
+  - `404 Not Found`: No job exists with the given `id` (`{ "message": "A munka nem található." }`).
+}

@@ -1,0 +1,35 @@
+meta {
+  name: Get Top Cities
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{baseUrl}}/api/dashboard/top-cities?limit=5
+  body: none
+  auth: bearer
+}
+
+params:query {
+  limit: 5
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+docs {
+  # Get Top Cities
+  Retrieves the top municipalities/cities ranked by client count.
+
+  ### Authentication
+  - **Bearer Token** required (`Authorization: Bearer <token>`).
+
+  ### Query Parameters
+  - `limit` (integer, optional): Maximum number of cities to return (defaults to `5`).
+
+  ### Responses
+  - `200 OK`: Returns ranked list of top cities.
+  - `401 Unauthorized`: Missing or invalid JWT token.
+  - `500 Internal Server Error`: Unexpected error while fetching top cities (`{ "message": "Hiba történt a legnépszerűbb települések lekérése közben." }`).
+}

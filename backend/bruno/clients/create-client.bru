@@ -1,0 +1,51 @@
+meta {
+  name: Create Client
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/api/clients
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "full_name": "Kovács János",
+    "phone": "+36301234567",
+    "email": "kovacs.janos@example.com",
+    "zip_code": "4765",
+    "city": "Csenger",
+    "street_address": "Fő utca 12.",
+    "type": "individual",
+    "notes": "3.5 kW-os split klíma telepítés"
+  }
+}
+
+script:post-response {
+  const createdId = res.body?.id ?? res.body?.[0]?.id;
+  if (res.status === 201 && createdId) {
+    bru.setVar("clientId", createdId);
+  }
+}
+
+docs {
+  # Create Client
+  Creates a new client record by forwarding the request payload to `clientService.createClient`.
+
+  ### Authentication
+  - **Bearer Token** required (`Authorization: Bearer <token>`).
+
+  ### Request Body (`application/json`)
+  - Client fields expected by `clientService.createClient`: `full_name` (required), `phone`, `email`, `zip_code`, `city`, `street_address`, `type` (`"individual"` | `"company"`), and `notes`.
+
+  ### Responses
+  - `201 Created`: Returns the newly created client object.
+  - `400 Bad Request`: Validation or database insertion error (`{ "message": "Hiba történt az ügyfél létrehozása során." }`).
+  - `401 Unauthorized`: Missing or invalid JWT token.
+}

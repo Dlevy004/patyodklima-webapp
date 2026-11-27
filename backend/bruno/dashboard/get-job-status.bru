@@ -1,0 +1,28 @@
+meta {
+  name: Get Jobs Status
+  type: http
+  seq: 7
+}
+
+get {
+  url: {{baseUrl}}/api/dashboard/jobs-status
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+docs {
+  # Get Jobs Status
+  Retrieves the current distribution of jobs grouped by their workflow status.
+
+  ### Authentication
+  - **Bearer Token** required (`Authorization: Bearer <token>`).
+
+  ### Responses
+  - `200 OK`: Returns job counts grouped by status.
+  - `401 Unauthorized`: Missing or invalid JWT token.
+  - `500 Internal Server Error`: Unexpected error while fetching jobs status (`{ "message": "Hiba történt a munkák állapotának lekérése közben." }`).
+}

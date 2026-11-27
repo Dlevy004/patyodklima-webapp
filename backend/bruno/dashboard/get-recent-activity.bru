@@ -1,0 +1,36 @@
+meta {
+  name: Get Recent Activity
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{baseUrl}}/api/dashboard/recent-activity?days=7
+  body: none
+  auth: bearer
+}
+
+params:query {
+  days: 7
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+docs {
+  # Get Recent Activity
+  Retrieves recent system/business activity within a rolling window of days.
+
+  ### Authentication
+  - **Bearer Token** required (`Authorization: Bearer <token>`).
+
+  ### Query Parameters
+  - `days` (integer, optional): Number of days to look back. Must be between **1 and 30** (defaults to `7`; `days=0` or non-numeric values also fall back to `7` and return `200 OK`).
+
+  ### Responses
+  - `200 OK`: Returns recent activity items.
+  - `400 Bad Request`: `days` parameter is negative or greater than `30` (`{ "message": "A napok száma 1 és 30 között lehet." }`).
+  - `401 Unauthorized`: Missing or invalid JWT token.
+  - `500 Internal Server Error`: Unexpected error while fetching recent activity (`{ "message": "Hiba történt a legutóbbi aktivitás lekérése közben." }`).
+}

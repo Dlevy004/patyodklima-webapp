@@ -1,0 +1,35 @@
+meta {
+  name: Get Revenue By Category
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{baseUrl}}/api/dashboard/revenue-by-category
+  body: none
+  auth: bearer
+}
+
+params:query {
+  ~year: 2026
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+docs {
+  # Get Revenue By Category
+  Retrieves revenue aggregated by job/service category, optionally filtered by year.
+
+  ### Authentication
+  - **Bearer Token** required (`Authorization: Bearer <token>`).
+
+  ### Query Parameters
+  - `year` (integer, optional): Filter results to a specific calendar year. If omitted (`null`), aggregates across all available records.
+
+  ### Responses
+  - `200 OK`: Returns category-level revenue breakdown.
+  - `401 Unauthorized`: Missing or invalid JWT token.
+  - `500 Internal Server Error`: Unexpected error while fetching revenue by category (`{ "message": "Hiba történt a kategóriánkénti bevétel lekérése közben." }`).
+}

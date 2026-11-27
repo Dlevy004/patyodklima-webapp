@@ -1,0 +1,28 @@
+meta {
+  name: Get Marketing AC Units
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/api/marketing-ac-units
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+docs {
+  # Get Marketing AC Units
+  Retrieves the list of air conditioning units available for marketing creatives.
+
+  ### Authentication
+  - **Bearer Token** required (`Authorization: Bearer <token>`).
+
+  ### Responses
+  - `200 OK`: JSON array of AC unit objects.
+  - `401 Unauthorized`: Missing or invalid JWT token.
+  - `500 Internal Server Error`: Unexpected error while fetching AC units (`{ "message": "Hiba történt a hirdetés készülékek lekérése közben." }`).
+}

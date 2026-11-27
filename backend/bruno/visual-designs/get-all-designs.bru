@@ -1,0 +1,28 @@
+meta {
+  name: Get All Visual Designs
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/api/visual-designs
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+docs {
+  # Get All Visual Designs
+  Retrieves all AI-generated visual design records belonging to the currently authenticated user (`req.user.id`).
+
+  ### Authentication
+  - **Bearer Token** required (`Authorization: Bearer <token>`).
+
+  ### Responses
+  - `200 OK`: JSON array of visual design objects.
+  - `401 Unauthorized`: Missing or invalid JWT token.
+  - `500 Internal Server Error`: Unexpected error while fetching visual designs (`{ "message": "Hiba történt a látványtervek lekérése közben." }`).
+}

@@ -1,0 +1,47 @@
+meta {
+  name: Update Reference
+  type: http
+  seq: 5
+}
+
+put {
+  url: {{baseUrl}}/api/references/:id
+  body: json
+  auth: bearer
+}
+
+params:path {
+  id: {{referenceId}}
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "description": "Gree Comfort Pro 3.5 kW telepítés – frissített leírás",
+    "is_visible": false
+  }
+}
+
+docs {
+  # Update Reference
+  Verifies that the reference record exists and updates its `description` and `is_visible` fields.
+
+  ### Authentication
+  - **Bearer Token** required (`Authorization: Bearer <token>`).
+
+  ### Path Parameters
+  - `id` (string | number, required): Unique identifier of the reference to update.
+
+  ### Request Body (`application/json`)
+  - `description` (string, optional): Updated description text.
+  - `is_visible` (boolean, optional): Updated public visibility flag.
+
+  ### Responses
+  - `200 OK`: Returns the updated reference object.
+  - `400 Bad Request`: Error while updating the reference (`{ "message": "Hiba történt a referenciakép frissítése közben." }`).
+  - `401 Unauthorized`: Missing or invalid JWT token.
+  - `404 Not Found`: Reference image not found (`{ "message": "A referenciakép nem található." }`).
+}

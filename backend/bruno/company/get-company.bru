@@ -1,0 +1,28 @@
+meta {
+  name: Get Company Data
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/api/company
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+docs {
+  # Get Company Data
+  Retrieves the stored company profile and regulatory registration details. Returns an empty object under `company` if no record has been initialized yet.
+
+  ### Authentication
+  - **Bearer Token** required (`Authorization: Bearer <token>`).
+
+  ### Responses
+  - `200 OK`: `{ company }` (or `{ company: {} }` if not yet configured).
+  - `401 Unauthorized`: Missing or invalid JWT token.
+  - `500 Internal Server Error`: Unexpected error while fetching company data (`{ "message": "Hiba történt a cégadatok lekérése közben." }`).
+}

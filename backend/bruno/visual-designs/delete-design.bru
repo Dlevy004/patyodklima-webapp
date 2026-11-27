@@ -1,0 +1,35 @@
+meta {
+  name: Delete Visual Design
+  type: http
+  seq: 4
+}
+
+delete {
+  url: {{baseUrl}}/api/visual-designs/:id
+  body: none
+  auth: bearer
+}
+
+params:path {
+  id: {{designId}}
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+docs {
+  # Delete Visual Design
+  Performs best-effort removal of `original_image_url` and `generated_image_url` (if present) from the Supabase `VisualDesign` storage bucket (logging any storage deletion errors without blocking) and deletes the visual design record from the database.
+
+  ### Authentication
+  - **Bearer Token** required (`Authorization: Bearer <token>`).
+
+  ### Path Parameters
+  - `id` (string | number, required): Unique identifier of the visual design to delete.
+
+  ### Responses
+  - `200 OK`: Returns the deleted visual design object (confirms database record deletion; storage cleanup is best-effort).  - `400 Bad Request`: Error while deleting the visual design (`{ "message": "Hiba történt a látványterv törlése közben." }`).
+  - `401 Unauthorized`: Missing or invalid JWT token.
+  - `404 Not Found`: Visual design not found or not owned by the authenticated user (`{ "message": "A látványterv nem található." }`).
+}

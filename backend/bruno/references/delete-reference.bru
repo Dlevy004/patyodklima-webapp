@@ -1,0 +1,36 @@
+meta {
+  name: Delete Reference
+  type: http
+  seq: 7
+}
+
+delete {
+  url: {{baseUrl}}/api/references/:id
+  body: none
+  auth: bearer
+}
+
+params:path {
+  id: {{referenceId}}
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+docs {
+  # Delete Reference
+  Removes the associated image file from Supabase Storage and deletes the reference record from the database.
+
+  ### Authentication
+  - **Bearer Token** required (`Authorization: Bearer <token>`).
+
+  ### Path Parameters
+  - `id` (string | number, required): Unique identifier of the reference to delete.
+
+  ### Responses
+  - `200 OK`: Returns the deleted reference object.
+  - `400 Bad Request`: Error while deleting the reference (`{ "message": "Hiba történt a referenciakép törlése közben." }`).
+  - `401 Unauthorized`: Missing or invalid JWT token.
+  - `404 Not Found`: Reference image not found (`{ "message": "A referenciakép nem található." }`).
+}

@@ -1,0 +1,28 @@
+meta {
+  name: Get All Clients
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/api/clients
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+docs {
+  # Get All Clients
+  Retrieves the full list of stored clients.
+
+  ### Authentication
+  - **Bearer Token** required (`Authorization: Bearer <token>`).
+
+  ### Responses
+  - `200 OK`: JSON array of client objects.
+  - `401 Unauthorized`: Missing or invalid JWT token.
+  - `500 Internal Server Error`: Unexpected error while fetching clients (`{ "message": "Hiba történt az ügyfelek lekérése során." }`).
+}
