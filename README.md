@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="./images/logo.avif" alt="Pátyod Klíma Logó" width="200">
+    <img src="docs/images/logo.avif" alt="Pátyod Klíma Logó" width="200">
 </p>
 
 <h1 align="center">Pátyod Klíma Admin Portal</h1>
@@ -21,7 +21,7 @@ Developing a dynamic web application to replace the previous static site. The go
 My primary goal with this was to reinforce my fundamental knowledge of web development and to master new technologies — covering full-stack development, clean architecture, testing practices, and modern tooling from the ground up.
 
 <p align="center">
-    <img src="./images/views.png" alt="Pátyod Klíma applikáció különböző felhasználói felületeken" width="450">
+    <img src="docs/images/views.png" alt="Pátyod Klíma applikáció különböző felhasználói felületeken" width="450">
 </p>
 
 ---
