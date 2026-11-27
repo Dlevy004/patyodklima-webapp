@@ -41,7 +41,7 @@ docs {
 
   ### Responses
   - `200 OK`: Returns the completed visual design record object.
-  - `400 Bad Request`: Missing `image` or `mask` file (`{ "message": "The original image and mask are required!" }`), invalid `placementType` (`{ "message": "Invalid placement type. (indoor/outdoor)" }`), or Multer upload limit exceeded.
+  - `400 Bad Request`: Missing `image` or `mask` file (`{ "message": "The original image and mask are required!" }`) or invalid `placementType` (`{ "message": "Invalid placement type. (indoor/outdoor)" }`).
   - `401 Unauthorized`: Missing or invalid JWT token.
-  - `500 Internal Server Error`: Error occurred during AI generation or storage (`{ "message": "Error occurred while generating the visual design." }`).
+  - `500 Internal Server Error`: Multer upload limit exceeded (e.g., file size over 10 MB) or error occurred during AI generation or storage (`{ "message": "Error occurred while generating the visual design." }`).
 }
